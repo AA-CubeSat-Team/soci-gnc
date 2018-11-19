@@ -23,6 +23,7 @@ z = 1; %Critically Damped
 % A couple different choices for wn are dependant on what kinda stuff we
 % think we need ot react to
 wn = .017; %this corresponds to attenuating signals above 1 degree per second
+wn = .017*2 %this corresponds to doubling ^^
 % wn = .007 %assuming 60 degrees in 5 minutes
 
 kd = 2*z*wn
