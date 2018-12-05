@@ -34,4 +34,7 @@ y = floor(serialDays/365)
 %seconds from years (accounting for leap years to find an acurate number of
 %days that will translate to current months;
 
+daysFromYears = years_to_days(y,y_epoch)
+
+
 
