@@ -36,5 +36,25 @@ y = floor(serialDays/365)
 
 daysFromYears = years_to_days(y,y_epoch)
 
+d_y = daysFromYears-serialDays
+
+[m,d] = daystoMonth(d_y,y,y_epoch)
+
+
+
+
+y = y_epoch + y;
+
+YMD = [y m d]
+
+remaining_seconds = daysFromYears*86400 - utc_in - d*86400/2;
+
+min = remaining_seconds/60;
+h = min/60;
+s = remaining_seconds - h*60*60 - min*60;
+
+YMDHMS = [y m d h min s]
+
+
 
 
