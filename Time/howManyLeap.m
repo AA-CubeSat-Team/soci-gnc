@@ -9,7 +9,7 @@ function [howManyLeap,leapYears] = howManyLeap(y_epoch,y)
             leapYears(leapIndex) = currentYear;
             leapIndex = leapIndex + 1;
         end
-        currentYear = y_epoch + index
+        currentYear = y_epoch + index;
     end
 end
 

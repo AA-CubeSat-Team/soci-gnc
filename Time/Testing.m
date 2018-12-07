@@ -19,33 +19,36 @@ clear; clc; close all;
 %second for that day is,
 
 utc_in = 599572800 %seconds
+TAI_offset = 37;
+DTT_TAI = 32.184;
+DUT1 = -0.017795;
 y_epoch = 2000; %This is J2000 Epoch
-serialDays = Seconds_to_Days(utc_in)
+serialDays = Seconds_to_Days(utc_in);
 
 %since the epoch is January 1, 2000 we should expect roughly 19 years out
 %of this
 
-y = floor(serialDays/365)
+y = floor(serialDays/365);
 
 % hey look at that turns out y_ruff is fine. Let's find Leap years
-[howManyLeap,leapYears] = howManyLeap(y_epoch,y)
+[howManyLeap,leapYears] = howManyLeap(y_epoch,y);
 
 %cool so I found Leap years and how many occured. Next is to remove all the
 %seconds from years (accounting for leap years to find an acurate number of
 %days that will translate to current months;
 
-daysFromYears = years_to_days(y,y_epoch)
+daysFromYears = years_to_days(y,y_epoch);
 
-d_y = daysFromYears-serialDays
+d_y = daysFromYears-serialDays;
 
-[m,d] = daystoMonth(d_y,y,y_epoch)
+[m,d] = daystoMonth(d_y,y,y_epoch);
 
 
 
 
 y = y_epoch + y;
 
-YMD = [y m d]
+YMD = [y m d];
 
 remaining_seconds = daysFromYears*86400 - utc_in - d*86400/2;
 
@@ -53,7 +56,39 @@ min = remaining_seconds/60;
 h = min/60;
 s = remaining_seconds - h*60*60 - min*60;
 
-YMDHMS = [y m d h min s]
+YMDHMS_utc = [y m d h min s]
+
+TAI = utc_in + TAI_offset
+TT = TAI + DTT_TAI
+UT1 = utc_in + DUT1
+
+
+
+%~~~~~~~ TO DO ~~~~~~~~~~~~`
+% /////////////////////////
+% s = s + TAI_offset;
+% if s > 60
+%     s = s - 60;
+%     min = min + 1;
+%     if min > 60
+%         min = min - 60;
+%         h = h + 1;
+%         if h > 24
+%             d = d + 1; 
+%             h = h - 24;
+%             %bump the date up shit 
+%             %TO DO
+%         end
+%         
+%     end
+% end
+
+
+JDutc = julianDate(YMDHMS_utc)
+
+
+
+
 
 
 
