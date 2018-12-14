@@ -22,6 +22,11 @@ utc_in = 599572800 %seconds
 TAI_offset = 37;
 DTT_TAI = 32.184;
 DUT1 = -0.017795;
+
+TAI = utc_in + TAI_offset
+TT = TAI + DTT_TAI
+UT1 = utc_in + DUT1
+
 y_epoch = 2000; %This is J2000 Epoch
 serialDays = Seconds_to_Days(utc_in);
 
@@ -58,9 +63,7 @@ s = remaining_seconds - h*60*60 - min*60;
 
 YMDHMS_utc = [y m d h min s]
 
-TAI = utc_in + TAI_offset
-TT = TAI + DTT_TAI
-UT1 = utc_in + DUT1
+
 
 
 
