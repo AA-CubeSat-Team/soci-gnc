@@ -88,7 +88,7 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %TO DO //////////////////////
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~
-        JC(i) = 0;
+        JC(i) = (JD(i)-2451545.0)/36525 %julian date to julian century, equ 3-42 Vallado
 
 
     end
