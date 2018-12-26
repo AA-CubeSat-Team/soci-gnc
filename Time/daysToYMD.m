@@ -1,3 +1,5 @@
+% AUTHOR: IVAN
+
 function [YMD] = daysToYMD(serial_days)
 %Takes the input of serial_days from a specific timeframe and converts
 %those days into years,months,days.

@@ -39,40 +39,28 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
     for i = 1:4
         serialDays = Seconds_to_Days(INPUTs(i));
 
-
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %     CALCULATE YMD
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        % ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        %TO DO //////////////////////
-        % ~~~~~~~~~~~~~~~~~~~~~~~~~~
-        %TURN THIS INTO A FUNCTION THAT PROPOGATE THROUGH YEARS
-        %TO ACCURATELY FIND Y
+       
+        YMD = daysToYMD(serialDays);
         
-        y = floor(serialDays/365);
-        
-        %Calculate Leap Days
-        [numberLeap,leapYears] = howManyLeap(y_epoch,y);
-
-        %Find the days remaining after years
-        daysFromYears = years_to_days(y,y_epoch);
-        %Current Days in the current year
-        d_y = daysFromYears-serialDays;
-
-        %Grab the Month and current Days from day of year  
-        [m,d] = daystoMonth(d_y,y,y_epoch);
-        %bump up the year by epoch
-        y = y_epoch + y;
+        y = YMD(1);
+        m = YMD(2);
+        d = YMD(3);
 
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %     CALCULATE HMS
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %remaining seconds after ymd subtractions
-        remaining_seconds = daysFromYears*86400 - INPUTs(i) - d*86400/2;
+        remaining_seconds = INPUTs(i) - serialDays*86400
+        
         %actuall hms conversion
+        h = floor(remaining_seconds/60*60);
+        remaining_seconds = remaining_seconds - h*60*60;
         min = remaining_seconds/60;
-        h = min/60;
-        s = remaining_seconds - h*60*60 - min*60;
+        remaining_seconds = remaining_seconds - min*60;
+        s = remaining_seconds
         
         
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +76,7 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %TO DO //////////////////////
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~
-        JC(i) = (JD(i)-2451545.0)/36525 %julian date to julian century, equ 3-42 Vallado
+        JC(i) = (JD(i)-2451545.0)/36525; %julian date to julian century, equ 3-42 Vallado
 
 
     end
