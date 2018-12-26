@@ -1,3 +1,5 @@
+% AUTHOR: Devan Tormey
+% DATE: 12/26/18
 function [howManyLeap,leapYears] = howManyLeap(y_epoch,y)
     currentYear = y_epoch;
     howManyLeap = 0;

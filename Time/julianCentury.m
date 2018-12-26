@@ -1,3 +1,5 @@
+% AUTHOR: Kate
+% DATE: ??
 function [JC]=julianCentury(JD, y)
 %function converts julian date into julian year (aka century, noted at T_tt in textbook)
 %input will be JD of three different time frames, output will be julian

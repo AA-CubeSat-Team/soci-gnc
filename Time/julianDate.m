@@ -1,3 +1,5 @@
+% AUTHOR: Devan Tormey
+% DATE: 12/26/18
 function [JD] = julianDate(YMDHMS)
 %JULIANDATE Converts from YMDHMS to Julian Date
 %   Algorithm detailed on page 183 of Fundamentals of Astrodynamics and

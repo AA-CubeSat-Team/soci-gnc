@@ -1,5 +1,6 @@
 %Testing The Algorithms for Time Conversion
-%Author: Devan Tormey
+% AUTHOR: Devan Tormey
+% DATE: 12/26/18
 
 utc_in = 599572800 %seconds
 

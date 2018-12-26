@@ -1,3 +1,5 @@
+% AUTHOR: Devan
+% DATE: 12/26/18
 function [YMDHMS,JD,JC] = TimeConversion(utc_in)
 %TIMCONVERSION Summary of this function goes here
 %   Detailed explanation goes here

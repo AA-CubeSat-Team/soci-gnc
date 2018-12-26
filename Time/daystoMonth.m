@@ -1,4 +1,8 @@
+% AUTHOR: Devan Tormey
+% DATE: 12/26/18
 function [m,d] = daystoMonth(d_y,y,y_epoch)
+% THIS Function converts the number of days in the current
+% year into a month day
 
     monthDays = [0,31,... %january
         (31 + 28),... %february
