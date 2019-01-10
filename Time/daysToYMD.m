@@ -1,7 +1,7 @@
-% AUTHOR: ??
-% DATE: ??
+%Author - Ivan Machuca
+%Date- 12/28/18
 
-function [YMD] = daysToYMD(serial_days)
+function [YMD check] = daysToYMD(serial_days)
 %Takes the input of serial_days from a specific timeframe and converts
 %those days into years,months,days.
 
@@ -42,6 +42,7 @@ if rem(current_year,4)==0
 else
     serial_days = serial_days+365;
 end
+
 
 %This function will calculated the months and days into the current month. 
 [m,d]=daystoMonth(serial_days,current_year,J2000); %checking-days-months
