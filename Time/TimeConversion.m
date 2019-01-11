@@ -39,7 +39,7 @@ YMDHMStai = [];
 YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
 
     for i = 1:4
-        serialDays = Seconds_to_Days(INPUTs(i));
+        serialDays = Seconds_to_Days(INPUTs(i))
 
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %     CALCULATE YMD
@@ -58,10 +58,10 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
         remaining_seconds = INPUTs(i) - serialDays*86400
         
         %actuall hms conversion
-        h = floor(remaining_seconds/60*60);
-        remaining_seconds = remaining_seconds - h*60*60;
+        h = floor(remaining_seconds/(60*60));
+        remaining_seconds = remaining_seconds - (h*60*60);
         min = remaining_seconds/60;
-        remaining_seconds = remaining_seconds - min*60;
+        remaining_seconds = remaining_seconds - (min*60);
         s = remaining_seconds
         
         
