@@ -32,14 +32,14 @@ TT = TAI + DTT_TAI;
 UT1 = utc_in + DUT1;
 
 INPUTs = [utc_in, UT1, TT, TAI];
-YMDHMSutc = [];
-YMDHMSut1 = [] ;
-YMDHMStt = [];
-YMDHMStai = [];
+YMDHMSutc = zeros(6,1);
+YMDHMSut1 = zeros(6,1);
+YMDHMStt = zeros(6,1);
+YMDHMStai = zeros(6,1);
 YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
 
     for i = 1:4
-        serialDays = Seconds_to_Days(INPUTs(i))
+        serialDays = Seconds_to_Days(INPUTs(i));
 
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %     CALCULATE YMD
@@ -55,14 +55,15 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
         %     CALCULATE HMS
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         %remaining seconds after ymd subtractions
-        remaining_seconds = INPUTs(i) - serialDays*86400
+        remaining_seconds = INPUTs(i) - serialDays*86400;
         
         %actuall hms conversion
         h = floor(remaining_seconds/(60*60));
         remaining_seconds = remaining_seconds - (h*60*60);
-        min = remaining_seconds/60;
+        min = floor(remaining_seconds/60);
+        left = remaining_seconds/60 - floor(remaining_seconds/60);
         remaining_seconds = remaining_seconds - (min*60);
-        s = remaining_seconds
+        s = remaining_seconds + left;
         
         
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

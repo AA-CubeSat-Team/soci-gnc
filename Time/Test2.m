@@ -4,6 +4,7 @@
 
 
 clear all; close all; clc; 
+
 UTC = 137803367; %Time in seconds since J2000. (Actual date of May 14,2004 10:42)
 %UTC2 = 599572800;%Time in seconds since J2000 .(Actual date of Jan 1,2019 00:00)
 
@@ -24,10 +25,15 @@ D=floor(Days_into_month);
 H=floor(Hours);
 Min=floor(Minutes);
 
-[YMDHMins] = [YMD(:,1:2) D H Min s]%[Years Months Days Hours Minutes Seconds]
+[YMDHMins] = [YMD(:,1:2) D H Min s];%[Years Months Days Hours Minutes Seconds]
 %This timestamp reads as years since 2000, Month in the current year, calendar day
 %in the current month, hours of the current day, minutes of the current
 %hour, seconds of the current minute. 
+YMDHMins
+
+[YMDHMins] = TimeConversion(UTC);
+
+YMDHMins{1}
 
 
 
@@ -37,19 +43,3 @@ Min=floor(Minutes);
 
 
 
-
-
-
-<<<<<<< HEAD
-utc_in1 = 599572800 %seconds
-=======
->>>>>>> 869c3eb397479b28222a9121d4e6b1fe3a4a30e9
-
-utc_in2 = 137803367 %seconds
-
-<<<<<<< HEAD
-[YMDHMS,JD,JC] = TimeConversion(utc_in1);
-
-[YMDHMS,JD,JC] = TimeConversion(utc_in2)
-=======
->>>>>>> 869c3eb397479b28222a9121d4e6b1fe3a4a30e9
