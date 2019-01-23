@@ -1,8 +1,9 @@
 %Author - Ivan Machuca
-%Date- 1/10/18
+%Date- 1/16/18
 function [YMD] = daysToYMD(serial_days)
 %Takes the input of serial_days from a specific timeframe and converts
-%those days into years,months,days.
+%those days into years,months,days. Serial days input must be in days (Amount of Time) since
+%J200.
 
 J2000=2000; %J2000 epoch
 
@@ -46,7 +47,7 @@ end
 %the right day in the calendar month. 
 serial_days = serial_days+1;
 
-%This function will calculated the months and days into the current month. 
+%This function will calculate the months and days into the current month. 
 [m,d]=daystoMonth(serial_days,current_year,J2000); %checking-days-months
 YMD = [y m d]; %years-months-days
 
