@@ -2,7 +2,7 @@
 %Date 1/24/2019
 
 
-function [deltapsi, trueeps, meaneps,nut] = nutation(ttt, ddpsi, ddeps);
+function [deltapsi, trueeps, meaneps,nut] = nutation(ttt, ddpsi, ddeps)
 
         deg2rad = pi/180.0; %deg to rad
         [iar80,rar80] = iau80in;  % coeff in deg, for equ. 3-83 of Vallado
@@ -55,4 +55,6 @@ function [deltapsi, trueeps, meaneps,nut] = nutation(ttt, ddpsi, ddeps);
       %   n2 = rot3mat( deltapsi );
       %   n3 = rot1mat( -meaneps );
       %   nut = n3*n2*n1
+      
+      end
 
