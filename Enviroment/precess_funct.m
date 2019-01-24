@@ -4,7 +4,7 @@
 %This function inputs ttt and outputs the precession angles and precession
 %transformation matrix. 
 
-function [prec,zeta,theta,z] = precess_funct(ttt)
+function [prec,psia,wa,ea,xa] = precess_funct(ttt)
 %ttt is the julian century in teresterial time 
 ttt2=ttt^2; 
 ttt3=ttt^3;
