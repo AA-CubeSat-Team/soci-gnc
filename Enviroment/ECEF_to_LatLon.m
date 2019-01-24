@@ -3,7 +3,7 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     %Transforms from a given ECEF radial vector to the latitude and
     %longitude vectors. This uses Algorithm 12 (pg 173)
 
-    tol = .0001;
+    tol = .0001; %Tolerance of the iterations
     
     
     % Defind the IJK radial components  
@@ -49,6 +49,7 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
         end_flag = 0;
     end
     
+    count = 0;
     
     while (end_flag == 0)
         C = re/sqrt(1 - (e^2)*(sin(phi_old)^2) );
@@ -59,6 +60,11 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
         else
             phi_old = phi_gd;
             end_flag = 0;
+        end
+        count = count + 1;
+        
+        if count >= 100
+            end_flag = 0; 
         end
     end
     

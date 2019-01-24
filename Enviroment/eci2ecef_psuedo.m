@@ -60,9 +60,6 @@ sinz     = sin(z);
 %Sidereal Time
 
 
-%*********************** Part 4 Polar Motion ***************************
-%Calculate the transformation matrix that calculates the effect of
-%Polar Motion
 
 %*********************** Part 5 Earth Fixed Parameters ***************************
 %Earth fixed parameters of ECI converted to ECEF using transformation
