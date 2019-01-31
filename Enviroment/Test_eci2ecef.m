@@ -1,5 +1,5 @@
 %Author Ivan Machuca
-%Date 1/23/18
+%Date 1/31/18
 
 clear all;close all; clc; 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,9 +26,10 @@ Jd_tt = julianDate(YMDHMins);%Julian Date of TT
 
 
 [ttt] = julianCentury(Jd_tt); %Julian Centuries of TT
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Testing precession function
-[prec,psai,wa,ea,xa]=precess_funct(ttt);
+[prec,psai,wa,ea,xa,zeta,theta,z]=precess_funct(ttt);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
