@@ -4,7 +4,7 @@
 clc; clear all;
 %This script will test the ECI2ECEF function and compare it against the example 3-15 on pg.230. 
 
-function [recef,vecef,aecef]=eci2ecef_psuedo(ttt,reci,veci,aeci)
+function [recef,vecef,aecef]=ECI2ECEF_TEST(ttt,reci,veci,aeci)
 %*********************** Part 1 Precession *************************
 %Calculate the transformation matrix that calculates the effect of
 %precession %output from these are psia,wa,ea,xa
