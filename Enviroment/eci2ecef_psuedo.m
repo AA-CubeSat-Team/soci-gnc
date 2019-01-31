@@ -14,7 +14,7 @@ function [recef,vecef,aecef]=eci2ecef_psuedo(ttt,reci,veci,aeci)
 %Calculate the transformation matrix that calculates the effect of
 %nutation
 
-
+[deltapsi, trueeps, meaneps,nut] = nutation(ttt)
 
 %*********************** Part 3 Sidereal Time ***************************
 %Calculate the transformation matrix that calculates the effect of
