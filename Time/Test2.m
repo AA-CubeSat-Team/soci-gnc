@@ -1,6 +1,6 @@
 %Author- Ivan Machuca
 %Date Revised - 1/17/18
-%This tests the daysToMonths function
+%This tests the daysToYMD function
 
 
 clear all; close all; clc; 
