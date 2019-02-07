@@ -7,5 +7,7 @@ Orginal Author: Devin Tormey
 Revision for Sidereal function 
 Equeterms is not needed since added terms help account for the right ast
 post 1997. Reference 3-79 for more details. 
-Line 58 in if statement
+Line 58 (if statement edited to not include equeterms)
+
+Line 64 Removed LOD input from function as this will be a constant and will be embedded in the function. 
 %```````````````````````````````````````````````````````````````````````````````````````````````````````````
