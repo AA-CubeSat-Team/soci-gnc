@@ -9,16 +9,18 @@ clear all; close all; clc;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Inputs
-reci = [-1033.479383 7901.2954 6380.3565958]; %km 
+reci = [-1033.479383;7901.2954;6380.3565958]; %km 
 ttt = 0.0426236319; %Taken from example 3-15 Julian Centuries in TT
-jdut1 =0.0426236114109;%Calculated from example 3-15 Julian Centuries in UT1
-lod = 0.0015563; %length of day, Taken from example 3-15 
+jdut1= 0.0426236114109;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Transforming from ECI2ECEF
-[recef]=eci2ecef(ttt,jdut1,lod,reci);
+[recef]=eci2ecef(ttt,jdut1,reci);
+
+%recef should be 5102.508,6123.001,6378.136928
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Transforming from ECEF_to_LatLon
-[phi,lamda,he] = ECEF_to_LatLon(r_ecef);
+[phi,lamda,he] = ECEF_to_LatLon(recef);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Going backwards : Transforming from Latlon_to_ECEF

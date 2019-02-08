@@ -12,7 +12,7 @@
 
 
 
-function [recef] = eci2ecef(ttt,jdut1,lod,reci)
+function [recef] = eci2ecef(ttt,jdut1,reci)
 %*********************** Part 1 Precession *************************
 %Calculate the transformation matrix that calculates the effect of
 %precession %output from these are psia,wa,ea,xa,zeta,theta,z
@@ -29,14 +29,7 @@ function [recef] = eci2ecef(ttt,jdut1,lod,reci)
 %Calculate the transformation matrix that calculates the effect of
 %Sidereal Time
 
-%Need to determine what the following values are so that they can be used
-%to calculate the terms for ast calcs. eqeterms
-eps1980 = 1;
-dpsi19180 =1;
-
-eqeterms = dpsi1980*cos(eps1980)+ 0.00264*sin(omega) +0.00063*sin(2*omega);
-
-[st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega,lod,eqeterms);
+[st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega);
 
 %*********************** Part 4 Earth Fixed Parameters ***************************
 %Earth fixed parameters of ECI converted to ECEF using transformation
