@@ -39,6 +39,8 @@ function [recef] = eci2ecef(ttt,jdut1,reci)
 %omegaearth = [0; 0; thetasa;];
 
 rpef  = st'*nut'*prec'*reci; %This is the final transformation 
+rmod = prec'*reci;
+
 recef = rpef;
 %vpef  = st'*nut'*prec'*veci - cross( omegaearth,rpef );
 %vecef = vpef;

@@ -1,11 +1,10 @@
 %Author Kate Williams
 %Date 1/24/2019
-
-
 function [deltapsi, trueeps, meaneps,nut,mC,mO,umc,dO,omega] = nutation(ttt)
         %OUTPUT ANGLES IN RADIANTS
         deg2rad = pi/180.0; %deg to rad
-
+        rad2deg = 1/deg2rad;
+        asec2rad = 1/3600*deg2rad;
         ttt2= ttt*ttt; %ttt is julian century in tt time frame
         ttt3= ttt2*ttt;
         
@@ -14,9 +13,10 @@ function [deltapsi, trueeps, meaneps,nut,mC,mO,umc,dO,omega] = nutation(ttt)
         meaneps = mod( meaneps/3600.0, 360.0 )* deg2rad; %remainder after division converted to rad
        
         % ---- iau 1980 theory
-        load('nut80.dat')
+        nut80=load('nut80.dat');
         iar80 = nut80(:,1:5); %api from equ 3-83 of vallado
         rar80 = nut80(:,6:9); %Ai,Bi,Ci,Di
+        
         
         mC = ((((0.064) * ttt + 31.310) * ttt + 1717915922.6330) * ttt) / 3600.0 + 134.96298139;
         mO = ((((-0.012) * ttt - 0.577) * ttt + 129596581.2240) * ttt) / 3600.0 + 357.52772333;
@@ -24,12 +24,12 @@ function [deltapsi, trueeps, meaneps,nut,mC,mO,umc,dO,omega] = nutation(ttt)
         dO = ((((0.019) * ttt - 6.891) * ttt + 1602961601.3280) * ttt) / 3600.0 + 297.85036306;
         omega = ((((0.008) * ttt + 7.455) * ttt - 6962890.5390) * ttt) / 3600.0 + 125.04452222;
             
-        % ---- ANGLES of nutation from equ 3-82 of vallado
-        mC    = rem( mC,360.0  )     * deg2rad; % rad
-        mO   = rem( mO,360.0  )    * deg2rad;
-        umc    = rem( umc,360.0  )     * deg2rad;
-        dO    = rem( dO,360.0  )     * deg2rad;
-        omega= rem( omega,360.0  ) * deg2rad;
+        % ---- ANGLES of nutation from equ 3-82 of vallado 
+        mC    = rem( mC,360.0  )     * deg2rad; % rad %moon
+        mO   = rem( mO,360.0  )    * deg2rad;%sun
+        umc    = rem( umc,360.0  )     * deg2rad;%moon
+        dO    = rem( dO,360.0  )     * deg2rad;%sun
+        omega= rem( omega,360.0  ) * deg2rad;%moon
         
         %find nutation in longitude and nutation in obliquity
         deltapsi= 0.0; %nutation angle in rad set initially to zero
@@ -37,12 +37,14 @@ function [deltapsi, trueeps, meaneps,nut,mC,mO,umc,dO,omega] = nutation(ttt)
         for i= 106:-1: 1 %see page 226 equ. 3-83 of Vallado
             tempval= iar80(i,1)*mC + iar80(i,2)*mO + iar80(i,3)*umc + ...
                      iar80(i,4)*dO + iar80(i,5)*omega;
-            deltapsi= deltapsi + (rar80(i,1)+rar80(i,2)*ttt) * sin( tempval);
-            deltaeps= deltaeps + (rar80(i,3)+rar80(i,4)*ttt) * cos( tempval);
+            deltapsi= deltapsi + ((rar80(i,1)+rar80(i,2)*ttt))*0.0001 * sin(tempval);
+            deltaeps= deltaeps + ((rar80(i,3)+rar80(i,4)*ttt))*0.0001 * cos(tempval);
         end
-
+        deltapsi*asec2rad*rad2deg;
+        deltaeps*asec2rad*rad2deg;
+        
         %final nutation parameters, see page 226 equ. 3-85of Vallado
-        trueeps  = meaneps + deltaeps; %true obliquity of ecliptic
+        trueeps  = meaneps + deltaeps*1/3600*deg2rad; %true obliquity of ecliptic
 
         %cos and sines of angles to be used in transfer matrix
         cospsi  = cos(deltapsi);
@@ -53,6 +55,7 @@ function [deltapsi, trueeps, meaneps,nut,mC,mO,umc,dO,omega] = nutation(ttt)
         sintrueeps = sin(trueeps);
 
         %complete rotation matrix
+        nut=zeros(3);
         nut(1,1) =  cospsi;
         nut(1,2) =  costrueeps * sinpsi;
         nut(1,3) =  sintrueeps * sinpsi;
@@ -71,4 +74,3 @@ end
       %   n2 = rot3mat( deltapsi );
       %   n3 = rot1mat( -meaneps );
       %   nut = n3*n2*n1
-
