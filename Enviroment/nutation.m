@@ -2,9 +2,7 @@
 %Date 1/24/2019
 
 %Last edit by Kate Williams 2/14/2019, changed method of final matrix to use rot1,rot3
-
-
-%Note final matrix error within 100 m, will fine tune if side real multiplied by transpose of Rtod doesnt give correct Rtod
+%terms
 %conversions
 function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nutation(ttt)
         %OUTPUT ANGLES IN RADIANTS
@@ -87,10 +85,6 @@ function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nut
         end
 
         
-        %testing
-        deltapsi*asec2rad*rad2deg;
-        deltaeps*asec2rad*rad2deg;
-        
         %final nutation parameters, see page 226 equ. 3-85of Vallado
         trueeps  = meaneps + deltaeps*asec2rad; %true obliquity of eclipti
 
@@ -101,5 +95,9 @@ function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nut
         rot3_deltapsi=[cos(asec2rad * deltapsi) sin(asec2rad * deltapsi) 0;-sin(asec2rad * deltapsi) cos(asec2rad * deltapsi) 0;0 0 1];
         rot1_trueeps=[1 0 0;0 cos(trueeps) sin(trueeps);0 -sin(trueeps) cos(trueeps)];
         
-        nut = rot1_meaneps* rot3_deltapsi* rot1_trueeps;     
+        nut = rot1_meaneps* rot3_deltapsi* rot1_trueeps;   
+        
+         %testing THis must be kept. 
+        deltapsi = deltapsi*asec2rad; 
+        deltaeps = deltaeps*asec2rad;
 end
