@@ -1,7 +1,7 @@
 %Author Kate Williams
 %Date 1/24/2019
 
-%Last edit by Kate Williams 2/14/2019, extended table an additional 10
+%Last edit by Kate Williams 2/14/2019, changed method of final matrix to use rot1,rot3
 %terms
 %conversions
 function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nutation(ttt)
@@ -90,33 +90,14 @@ function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nut
         deltaeps*asec2rad*rad2deg;
         
         %final nutation parameters, see page 226 equ. 3-85of Vallado
-        trueeps  = meaneps + deltaeps*asec2rad; %true obliquity of ecliptic
+        trueeps  = meaneps + deltaeps*asec2rad; %true obliquity of eclipti
 
-        %cos and sines of angles to be used in transfer matrix
-        cospsi  = cos(deltapsi);
-        sinpsi  = sin(deltapsi);
-        coseps  = cos(meaneps);
-        sineps  = sin(meaneps);
-        costrueeps = cos(trueeps);
-        sintrueeps = sin(trueeps);
-
-        %complete rotation matrix
+        %complete nutation rotation matrix
         nut=zeros(3);
-        nut(1,1) =  cospsi;
-        nut(1,2) =  costrueeps * sinpsi;
-        nut(1,3) =  sintrueeps * sinpsi;
-        nut(2,1) = -coseps * sinpsi;
-        nut(2,2) =  costrueeps * coseps * cospsi + sintrueeps * sineps;
-        nut(2,3) =  sintrueeps * coseps * cospsi - sineps * costrueeps;
-        nut(3,1) = -sineps * sinpsi;
-        nut(3,2) =  costrueeps * sineps * cospsi - sintrueeps * coseps;
-        nut(3,3) =  sintrueeps * sineps * cospsi + costrueeps * coseps;
+        
+        rot1_meaneps=[1 0 0;0 cos(-meaneps) sin(-meaneps);0 -sin(-meaneps) cos(-meaneps)];
+        rot3_deltapsi=[cos(asec2rad * deltapsi) sin(asec2rad * deltapsi) 0;-sin(asec2rad * deltapsi) cos(asec2rad * deltapsi) 0;0 0 1];
+        rot1_trueeps=[1 0 0;0 cos(trueeps) sin(trueeps);0 -sin(trueeps) cos(trueeps)];
+        
+        nut = rot1_meaneps* rot3_deltapsi* rot1_trueeps;     
 end
-
-      %Method 2:three individual rotation matrices that would be multplied together
-      %to get the complete rotation matrix, equ 3-86 pg. 226 of Vallado,
-      %rot1mat and rot3mat are functions of Vallado's
-      %   n1 = rot1mat( trueeps );
-      %   n2 = rot3mat( deltapsi );
-      %   n3 = rot1mat( -meaneps );
-      %   nut = n3*n2*n1
