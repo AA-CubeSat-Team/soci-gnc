@@ -1,12 +1,11 @@
 %Author Kate Williams
 %Date 1/24/2019
 
-%Last edit by Kate Williams and Ivan Machuca 2/13/2019
-%Entered table in directly, changed angle equations, double checked unit
+%Last edit by Kate Williams 2/14/2019, extended table an additional 10
+%terms
 %conversions
 function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nutation(ttt)
-
-        %Constants
+        %OUTPUT ANGLES IN RADIANTS
         deg2rad = pi/180.0; %deg to rad
         rad2deg = 1/deg2rad;
         asec2rad = 1/3600*deg2rad;
@@ -48,7 +47,18 @@ function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nut
         47  -1  0   2   0   1   21      0.0     -10     0.0
         16  0   2   0   0   0   17      -0.1    0       0.0
         18  0   2   2   -2  2   -16     0.1     7       0.0
-        48  -1  0   0   2   1   16      0.0     -8      0.0 ...
+        48  -1  0   0   2   1   16      0.0     -8      0.0
+        17  0   1   0   0   1   -15     0       9       0.0
+        49  1   0   0   -2  1   -13     0       7       0.0
+        19  0   -1  0   0   1   -12     0       6       0.0
+        4   2   0   -2  0   0   11      0       0       0.0
+        50  -1  0   2   2   1   -10     0       5       0.0
+        54  1   0   2   2   2   -8      0       3       0.0
+        53  0   -1  2   0   2   -7      0       3       0.0
+        58  0   0   2   2   1   -7      0       3       0.0
+        51  1   1   0   -2  0   -7      0       0       0.0
+        52  0   1   2   0   2   7       0       -3      0.0
+        ...
         ];
     
         iar80 = nut80(:,2:6); %api from equ 3-83 of vallado
