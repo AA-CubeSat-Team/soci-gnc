@@ -7,7 +7,15 @@
 
 %This function will test the Environment Functions and output coordinates
 %in SEZ frame. This function will also go backwards. This test function
-%will evaluate Example 3-15
+%will evaluate 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%Example 3-15 Constants
+%dUTI = -0.4399619
+%xp = -0.140682;
+%yp = 0.333309; 
+%Ddeltapsi_1980 = -0.052195;
+%Ddeltaeps_1980 = -0.003875;
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clear all; close all; clc; 
 
@@ -21,7 +29,7 @@ reci = [5102.508958;6123.011401;6378.136928]; %km
 
 ttt = 0.0426236319; %Taken from example 3-15 Julian Centuries in TT
 tut1= 0.0426236114109;
-jdut1 = 2453101.82740678; 
+jdut1 =   2453101.82740678; % Julian date in ut1
 
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
@@ -30,7 +38,7 @@ jdut1 = 2453101.82740678;
 
 [recef]=eci2ecef(ttt,jdut1,reci);
 recef_actual = [-1033.479383,7901.2952754,6380.3565958]';
-pos = [recef recef_actual];
+pos = [recef recef_actual]
 
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
