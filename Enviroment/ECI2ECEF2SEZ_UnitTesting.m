@@ -21,6 +21,8 @@ reci = [5102.508958;6123.011401;6378.136928]; %km
 
 ttt = 0.0426236319; %Taken from example 3-15 Julian Centuries in TT
 tut1= 0.0426236114109;
+jdut1 =   2453101.82740678; 
+
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 % Transforming from ECI2ECEF
@@ -46,6 +48,4 @@ pos = [recef recef_actual];
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~`
 %Transforming from ECEF2ECI
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~`
-
-
 
