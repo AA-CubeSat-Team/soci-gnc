@@ -2,7 +2,9 @@
 %Date 1/24/2019
 
 %Last edit by Kate Williams 2/14/2019, changed method of final matrix to use rot1,rot3
-%terms
+
+
+%Note final matrix error within 100 m, will fine tune if side real multiplied by transpose of Rtod doesnt give correct Rtod
 %conversions
 function [deltapsi, trueeps, meaneps,nut,M_moon,M_sun,U_moon,D_sun,O_moon] = nutation(ttt)
         %OUTPUT ANGLES IN RADIANTS
