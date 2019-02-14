@@ -1,4 +1,4 @@
-function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega,lod)
+function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega)
 
 %SUMMARY: Tthis function calulates the transformation matrix that accounts for the
 %    effects of sidereal time.
@@ -25,8 +25,9 @@ function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega,lod)
 % Constants
 twopi      = 2.0*pi;
 deg2rad    = pi/180.0;
+lod = .0015563;
 
-% ------------------------  Find GST   ------------------
+% ------------------------  Find GMST   ------------------
 % ////////////////////////////////////////////////////////
 
 tut1= ( jdut1 - 2451545.0 ) / 36525.0;
@@ -52,7 +53,7 @@ gmst = temp;
 % ------------------------ Find Mean AST ------------------
 % ////////////////////////////////////////////////////////
 
-if (jdut1 > 2450449.5 ) && (eqeterms > 0)
+if (jdut1 > 2450449.5 )
     ast= gmst + deltapsi* cos(meaneps) ...
         + 0.00264*pi /(3600*180)*sin(omega) ...
         + 0.000063*pi /(3600*180)*sin(2.0 *omega);
@@ -69,7 +70,7 @@ omegaearth = thetasa;
 
 % -------------- Calculate the Rotation Matrices -------------
 % /////////////////////////////////////////////////////////////
-%fprintf(1,'st gmst %11.8f ast %11.8f ome  %11.8f \n', gmst*180/pi, ast*180/pi, omegaearth*180/pi );
+fprintf(1,'st gmst %11.8f ast %11.8f ome  %11.8f \n', gmst*180/pi, ast*180/pi, omegaearth*180/pi );
 
         st(1,1) =  cos(ast);
         st(1,2) = -sin(ast);

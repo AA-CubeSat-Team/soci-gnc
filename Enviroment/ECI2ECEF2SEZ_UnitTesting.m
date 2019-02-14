@@ -9,13 +9,7 @@
 %in SEZ frame. This function will also go backwards. This test function
 %will evaluate 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%Example 3-15 Constants
-%dUTI = -0.4399619
-%xp = -0.140682;
-%yp = 0.333309; 
-%Ddeltapsi_1980 = -0.052195;
-%Ddeltaeps_1980 = -0.003875;
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 clear all; close all; clc; 
 
@@ -25,11 +19,24 @@ clear all; close all; clc;
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 
 reci = [5102.508958;6123.011401;6378.136928]; %km 
-
+%Example 3-15 Constants
+dUTI = -0.4399619
+xp = -0.140682;
+yp = 0.333309; 
+Ddeltapsi_1980 = -0.052195;
+Ddeltaeps_1980 = -0.003875;
+meaneps = -.003875;
+jdut1 =   2453101.82740678; % Julian date in ut1
 
 ttt = 0.0426236319; %Taken from example 3-15 Julian Centuries in TT
 tut1= 0.0426236114109;
-jdut1 =   2453101.82740678; % Julian date in ut1
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+% Sidreal Time
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+
+% [s,sdot] = sidereal(jdut1,deltapsi,meaneps,omega);
 
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
