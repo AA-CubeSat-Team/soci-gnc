@@ -17,8 +17,10 @@ clear all; close all; clc;
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 
 reci = [5102.508958;6123.011401;6378.136928]; %km 
+
+
 ttt = 0.0426236319; %Taken from example 3-15 Julian Centuries in TT
-jdut1= 0.0426236114109;
+tut1= 0.0426236114109;
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 % Transforming from ECI2ECEF
