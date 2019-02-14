@@ -1,4 +1,4 @@
-function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega,lod,eqeterms )
+function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega,lod)
 
 %SUMMARY: Tthis function calulates the transformation matrix that accounts for the
 %    effects of sidereal time.
