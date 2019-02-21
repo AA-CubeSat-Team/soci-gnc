@@ -7,13 +7,13 @@ if x >=0 && y>0
     angle = acos(x);
 elseif x <=0 && y>0
 %     disp('Quadrant II') 
-    angle = 0;
+    angle = acos(x) + pi/2;
 elseif x <=0 && y<0
 %     disp('Quadrant III') 
-    angle = 0;
+    angle = acos(x) + pi;
 elseif x >=0 && y<0
 %     disp('Quadrant IV') 
-    angle = 0;
+    angle = acos(x) + 3*pi/2;
 else 
 %     disp('Origin') 
     angle = 0;
