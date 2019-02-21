@@ -12,7 +12,7 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     rK = r_ecef(3);
     
     %Define radius and eccentricity of earth (note: not e of earths orbit)
-    re =  6378.137;
+    re =  6378.1363;
     e = 0.081819221456;
 
     %This is the magditude of the satellites distance   
@@ -23,7 +23,8 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     cosa = rI/r_dsat;
     
     %Correct for quadrant error 
-    a = quadCheck(cosa,sina);
+    %a = quadCheck(cosa,sina);
+    a=atan2(sina,cosa); %This is better and you don't need to learn angles. 
     
     %once corrected lambda is simply the angle alpha (a)
     lamda = a*180/pi;
@@ -31,13 +32,13 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     end_flag = 0;
     
     %Now solve iteratively for phi    
-    phi_old = atan(rK/r_dsat);
+    phi_old = atan2(rK,r_dsat);
     
     %Calculate C for first iteration
     C = re/sqrt(1 - (e^2)*(sin(phi_old)^2) );
     
-    tanphid = (rK + C*(e^2)*sin(phi_old))/r_dsat;
-    phi_gd = atan(tanphid);
+    %tanphid = (rK + C*(e^2)*sin(phi_old))/r_dsat;
+    phi_gd = atan2(rK + C*(e^2)*sin(phi_old),r_dsat);
     %print = phi_gd*180/pi  %in case you want to check
     
     %this will break us out of the loop  
@@ -53,8 +54,10 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     
     while (end_flag == 0)
         C = re/sqrt(1 - (e^2)*(sin(phi_old)^2) );
-        tanphid = (rK + C*(e^2)*sin(phi_old))/r_dsat;
-        phi_gd = atan(tanphid);
+        %tanphid = (rK + C*(e^2)*sin(phi_old))/r_dsat;
+        %phi_gd = atan(tanphid);
+        phi_gd = atan2(rK + C*(e^2)*sin(phi_old),r_dsat);
+        
         if abs(phi_gd - phi_old) < tol
             end_flag = 1;
         else
@@ -80,4 +83,3 @@ function [phi,lamda,he] = ECEF_to_LatLon(r_ecef)
     end
 
 end
-

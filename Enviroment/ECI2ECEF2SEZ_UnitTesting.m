@@ -47,8 +47,8 @@ vecef_actual = [-3.22563620;-2.872451450;5.531924446];
 
 pos = [recef recef_actual];
 
-error_r = abs(recef-recef_actual)*1000; %calculates the error between our recef and actual in meters
-error_v = abs(vecef-vecef_actual)*1000; %calculates the error between our recef and actual in meters
+error_position = abs(recef-recef_actual)*1000; %calculates the error between our recef and actual in meters
+error_velocity = abs(vecef-vecef_actual)*1000; %calculates the error between our recef and actual in meters
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 % Transforming from ECEF_to_LatLon
@@ -63,11 +63,13 @@ error_v = abs(vecef-vecef_actual)*1000; %calculates the error between our recef 
 % Going backwards : Transforming from Latlon_to_ECEF
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 [r_ecef] = LatLon2ecef(lamda,phi,he); 
+error_recef = abs(r_ecef - recef)*1000; %difference in position vector from going to lat/lon and then reverse in meters
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~`
 %Transforming from ECEF2ECI
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~`
-r_eci = prec*nut*st*recef;
+r_eci = prec*nut*st*r_ecef; 
+error_reci = abs(reci-r_eci)*1000; % difference in position vector going from eci to SEZ and then going in reverse in meters
 
 
 
