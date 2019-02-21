@@ -23,7 +23,7 @@ function [r_ecef] = LatLon2ecef(l,phi,he)
     r_K = (S_earth+he)*sind(phi); %position vector in K ECEF
     
    
-    r_ecef = [r_I r_J r_K]; %Coordinates in ECEF (I,J,K)
+    r_ecef = [r_I;r_J;r_K]; %Coordinates in ECEF (I,J,K)
 
 
 end
