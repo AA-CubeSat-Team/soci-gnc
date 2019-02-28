@@ -7,6 +7,7 @@ clear; clc; close all;
 
 addpath(genpath(pwd))
 addpath(genpath('../../Libraries/'))
+addpath(genpath('../../Libraries/Environment'))
 addpath(genpath('../../Sim'))
 
 J = [1000,0,0;
