@@ -1,9 +1,10 @@
-% Rigid Body Control Using Dynamics Dependent Control
 %Author: Devan Tormey
+%Title: Simulation Initialization 
+%Description:
+
 clear; clc; close all;
-%The biggest change here is now we determine Kp and Kd based on some
-%constraints we placed on the system as well as the face we know this to be
-%a second order system
+
+
 addpath(genpath(pwd))
 addpath(genpath('../../Libraries/'))
 addpath(genpath('../../Sim'))
@@ -46,4 +47,4 @@ Kp = wn.^2*J
 % kp = 1
 
 
-sim('Attitude_Control.slx')
+sim('Main_Sim.slx')
