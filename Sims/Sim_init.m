@@ -11,6 +11,11 @@ qt = rand(4,1);
 q0 = qt/norm(qt);
 w0 = rand(3,1)
 
+qd =[ 0.9973;
+    0.0535;
+   -0.0330;
+    0.0367;]
+
 %choices for Kp and Kd depend on zeta and wn
 
 z = 1; %Critically Damped
