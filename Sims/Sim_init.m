@@ -4,17 +4,22 @@ clear; clc; close all;
 %The biggest change here is now we determine Kp and Kd based on some
 %constraints we placed on the system as well as the face we know this to be
 %a second order system
+addpath(genpath(pwd))
+addpath(genpath('../../Libraries/'))
+addpath(genpath('../../Sim'))
 
-
-Inertia = eye(3);
+J = [1000,0,0;
+     0,500,0;
+     0,0,700]
+ 
 qt = rand(4,1);
 q0 = qt/norm(qt);
 w0 = rand(3,1)
 
-qd =[ 0.9973;
-    0.0535;
-   -0.0330;
-    0.0367;]
+qd =[ 1;
+      0;
+      0;
+      0];
 
 %choices for Kp and Kd depend on zeta and wn
 
@@ -31,8 +36,10 @@ wn = .017; %this corresponds to attenuating signals above 1 degree per second
 wn = .017*2 %this corresponds to doubling ^^
 % wn = .007 %assuming 60 degrees in 5 minutes
 
-kd = 2*z*wn
-kp = wn.^2
+Kd = 2*z*wn*J
+Kp = wn.^2*J
+
+
 
 % 
 % kd = 10
