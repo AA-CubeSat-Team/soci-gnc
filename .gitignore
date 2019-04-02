@@ -1,0 +1,11 @@
+# Simulink
+*.slxc
+*.slx.r2016a
+
+# Matlab
+*.m~
+*.mat
+*.l
+
+# Other
+*.xml
