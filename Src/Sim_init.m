@@ -7,15 +7,14 @@ clear; clc; close all;
 
 addpath(genpath(pwd))
 addpath(genpath('../Lib'))
+addpath(genpath('../Include'))
 
-
-J = [1000,0,0;
-     0,500,0;
-     0,0,700]
+definitions;
+params;
  
 qt = rand(4,1);
 q0 = qt/norm(qt);
-w0 = rand(3,1)
+w0 = rand(3,1);
 
 qd =[ 1;
       0;
@@ -34,11 +33,11 @@ z = 1; %Critically Damped
 % A couple different choices for wn are dependant on what kinda stuff we
 % think we need ot react to
 wn = .017; %this corresponds to attenuating signals above 1 degree per second
-wn = .017*2 %this corresponds to doubling ^^
+wn = .017*2; %this corresponds to doubling ^^
 % wn = .007 %assuming 60 degrees in 5 minutes
 
-Kd = 2*z*wn*J
-Kp = wn.^2*J
+Kd = 2*z*wn*J;
+Kp = wn.^2*J;
 
 
 

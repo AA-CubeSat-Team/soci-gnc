@@ -2,12 +2,17 @@
 %Author Kate Williams
 clc; clear;
 
+% ~~~~~~~~~~~~~~~~~~
+% Add Paths
+% ~~~~~~~~~~~~~~~~~~
 addpath(genpath(pwd))
-addpath(genpath('../../Libraries'))
-addpath(genpath('../../Libraries/'))
+addpath(genpath('../Lib'))
+addpath(genpath('../Include'))
+
+definitions;
+params;
 
 
-G=6.673*10^(-11); %N*m^2/kg^2
 R= 6.38*10^6+500*10^3;%m, assume orbit of 500km
 M=5.98*10^24 ;%kg, mass of earth
 vin =sqrt(G*M/R);%m/s
@@ -24,17 +29,16 @@ wy=0; %omega of earth in y direction
 vrel = [vin 0 0];%assume for now velocity in only one direction for testing
 UTC= 10^6;
 
-muh= 3.986004418e14;%m^3/s^2,assumed constant
-%u_h= muh/(500e3); %muh/(altitude of cubesat in meters),assumed constant
+
 
 lon = 60;    % [deg]
 lat  = -70;  % [deg]
 height = 500;  % [km]
 u_h=[lon;lat;height];
 
-sim('atmoDrag_testModel.slx');
+% sim('atmoDrag_testModel.slx');
 
-torque=AtmoTorque_Mn;
+% torque=AtmoTorque_Mn;
 
 
 
