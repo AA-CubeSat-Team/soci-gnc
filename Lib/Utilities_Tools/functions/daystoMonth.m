@@ -28,6 +28,9 @@ function [m,d] = daystoMonth(d_y,y,y_epoch)
         (31 + 29 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30),... %november
         (31 + 29 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31),... %december
         ];
+    
+    m = 0;
+    d = 0;
 % Calculate the current month froms days elapsed
     if (Is_Leap(y_epoch + y) == 1)
         for i=1:length(monthDays)

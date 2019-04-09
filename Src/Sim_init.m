@@ -4,10 +4,12 @@
 
 clear; clc; close all;
 
-
+% ~~~~~~~~~~~~~~~~~~
+% Add Paths
+% ~~~~~~~~~~~~~~~~~~
 addpath(genpath(pwd))
-addpath(genpath('../Lib'))
-addpath(genpath('../Include'))
+addpath(genpath('../Lib/'))
+addpath(genpath('../Include/'))
 
 definitions;
 params;
@@ -46,4 +48,4 @@ Kp = wn.^2*J;
 % kp = 1
 
 
-sim('Main_Sim.slx')
+% sim('Main_Sim.slx')

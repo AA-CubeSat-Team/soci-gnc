@@ -36,7 +36,7 @@ lat  = -70;  % [deg]
 height = 500;  % [km]
 u_h=[lon;lat;height];
 
-% sim('atmoDrag_testModel.slx');
+sim('atmoDrag_testModel.slx');
 
 % torque=AtmoTorque_Mn;
 

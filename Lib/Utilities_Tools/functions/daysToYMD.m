@@ -46,7 +46,8 @@ end
 %To calculate the right amount of days, 1 more day should be added to get
 %the right day in the calendar month. 
 serial_days = serial_days+1;
-
+m = 0;
+d = 0;
 %This function will calculate the months and days into the current month. 
 [m,d]=daystoMonth(serial_days,current_year,J2000); %checking-days-months
 YMD = [y m d]; %years-months-days
