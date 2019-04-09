@@ -23,4 +23,10 @@ atmoDrag_init;
 solarPressure_init;
 
 
+% sets up constants associated with the solar pressure model
+gravityGrad_init;
+
+
+
+
 %SIM
