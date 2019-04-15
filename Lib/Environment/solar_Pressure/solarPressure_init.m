@@ -5,6 +5,10 @@
 
 solarPressure = struct;
 
+solarPressure.psrp = 4.6*10^(-6);
+
+
+
 simParams.solarPressure = solarPressure;
 clear solarPressure
 
