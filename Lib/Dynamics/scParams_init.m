@@ -8,6 +8,9 @@ scParams.x_len = .10; %cm
 scParams.y_len = .10; %cm
 scParams.m_3u = 4; %kg
 
+% Mission start time (arbitrarily apr 17 2019 3:14PM)
+scParams.epoch_utc_s = 1555539201;
+
 % Inertia Tensor
 scParams.J = [(1/12)*scParams.m_3u*(scParams.z_len^2 + scParams.x_len^2),0,0;
     0,(1/12)*scParams.m_3u*(scParams.x_len^2 + scParams.z_len^2), 0;
