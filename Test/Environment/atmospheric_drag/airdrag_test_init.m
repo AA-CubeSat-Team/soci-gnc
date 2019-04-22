@@ -13,9 +13,9 @@ definitions;
 params;
 
 
-R= 6.38*10^6+500*10^3;%m, assume orbit of 500km
-M=5.98*10^24 ;%kg, mass of earth
-vin =sqrt(G*M/R);%m/s
+pos=simParams.atmoDrag.pos;%pos is orbit height plus radius of earth
+mE=simParams.atmoDrag.mE; %mass of earth
+vin =sqrt(G*mE/pos);%m/s
 
 %velocity relative to the atmosphere
 
@@ -27,18 +27,17 @@ wy=0; %omega of earth in y direction
 %Inputs to simulation
 %vel in m/s, vrel in m/s
 vrel = [vin 0 0];%assume for now velocity in only one direction for testing
-UTC= 10^6;
-
-
+UTC= 137803367;%test UTC time
 
 lon = 60;    % [deg]
 lat  = -70;  % [deg]
-height = 500;  % [km]
+height = 500^3;  % [km]
 u_h=[lon;lat;height];
 
-sim('atmoDrag_testModel.slx');
+sim('atmoDrag_test.slx');
 
-% torque=AtmoTorque_Mn;
+atmo_Force_N=atmo_Force_N.Data
+atmo_Torque_Nm=atmo_Torque_Nm.Data
 
 
 
