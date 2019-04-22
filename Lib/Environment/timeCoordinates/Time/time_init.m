@@ -18,7 +18,7 @@ time.DTT_TAI = 32.184; %TAI -> TT offset
 
 
 %  Mission start time (arbitrarily apr 17 2019 3:14PM)
-time.epoch_utc_s = 1555539201;
+time.epoch_utc_s = 631152000;
 % Time resolution
 time.res = 1;
 
