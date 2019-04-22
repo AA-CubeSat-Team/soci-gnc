@@ -1,17 +1,7 @@
 %sim 
 %Author Kate Williams
-clc; clear;
 
-% ~~~~~~~~~~~~~~~~~~
-% Add Paths
-% ~~~~~~~~~~~~~~~~~~
-addpath(genpath(pwd))
-addpath(genpath('../Lib'))
-addpath(genpath('../Include'))
-
-definitions;
-params;
-
+%Note run Sim_init.m before running this test file
 
 pos=simParams.atmoDrag.pos;%pos is orbit height plus radius of earth
 mE=simParams.atmoDrag.mE; %mass of earth
