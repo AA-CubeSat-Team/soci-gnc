@@ -26,6 +26,11 @@ solarPressure_init;
 % sets up constants associated with the solar pressure model
 gravityGrad_init;
 
+% initialize utility constants such as conversion rates
+constants_init;
+
+
+intitialConditions_init;
 
 
 
