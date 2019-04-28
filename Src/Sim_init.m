@@ -14,6 +14,14 @@ addpath(genpath('../Include/'))
 definitions;
 params;
 
+
+% Turning off and on 
+SP_ON = 1;
+GG_ON = 1;
+ATMO_ON = 0;
+
+
+
 %choices for Kp and Kd depend on zeta and wn
 
 z = 1; %Critically Damped
