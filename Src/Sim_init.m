@@ -13,15 +13,14 @@ addpath(genpath('../Include/'))
 
 definitions;
 params;
- 
-qt = rand(4,1);
-q0 = qt/norm(qt);
-w0 = rand(3,1);
 
-qd =[ 1;
-      0;
-      0;
-      0];
+
+% Turning off and on 
+SP_ON = 1;
+GG_ON = 1;
+ATMO_ON = 0;
+
+
 
 %choices for Kp and Kd depend on zeta and wn
 
@@ -43,6 +42,10 @@ Kp = wn.^2*J;
 
 
 
+qd =[ 1;
+      0;
+      0;
+      0];
 % 
 % kd = 10
 % kp = 1
