@@ -5,12 +5,22 @@
 %gradients as these will be disturbances to our system. 
 
 clc, 
-jdut1 = 2453101.82740678; %Julian Dated in UT1
-ttt = 0.0426236319; %Julian Centuries in TT
+
+
+UTC = 137803367;
 %reci = [5102.508958;6123.011401;6378.136928]; %km position from example 3.13 is Vallado
-reci=[0.1;0.1;6371];
-time =[ttt;jdut1];
+reci = [0;0;6380]; %km position from example 3.13 is Vallado
+%Chose sea level as the position vector to see if my acceleration computed
+%from the library would give -9.81 1G. 
 v = [1 1 1]'; %dummy variable for now for velocity
-state = [qd;reci;w0;v]; %Example state vector
+w = [0 0 0]';
+State = [reci;v;qd;w]; %Example state vector
 sim('gravityGradient_test.slx')
+g = 9.807;  %Actual acceleration at sea level
+
+if abs(g - norm(accel_eci_mps2)) < 0.5 
+    display('acceleration calculated is within 0.5 m/s')
+else
+    display('acceleration calculated is way off')
+end
 
