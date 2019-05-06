@@ -9,8 +9,8 @@ initialConditions = struct;
 qt = rand(4,1);
 initialConditions.q0 = qt/norm(qt);
 initialConditions.w0 = rand(3,1); 
-initialConditions.r0 = [3829.45; -888.41; 5459.13];
-initialConditions.v0 = [2.5396; 7.2434; -0.6063];
+initialConditions.r0 = [6.8781e+03; 0; 0];
+initialConditions.v0 = [0; 7.6124; 0];
 
 
 
