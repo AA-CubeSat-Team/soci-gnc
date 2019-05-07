@@ -22,16 +22,16 @@ atmoDrag_init;
 % sets up constants associated with the solar pressure model
 solarPressure_init;
 
-
 % sets up constants associated with the solar pressure model
 gravityGrad_init;
 
 % initialize utility constants such as conversion rates
 constants_init;
 
-
+% Create initial conditions such or Orbital elements and q0/w0
 intitialConditions_init;
 
-
+%Initialize the controller
+pdController_init;
 
 %SIM
