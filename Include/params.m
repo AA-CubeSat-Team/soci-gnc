@@ -9,6 +9,10 @@ fswParams = struct;
 
 % Sim Parameters 
 simParams = struct;
+simParams.sample_time_s = .001; %sample at 200Hz
+
+% initialize utility constants such as conversion rates
+constants_init;
 
 % The spacecraft Parameters such as weight and dimensions
 scParams_init;
@@ -22,11 +26,15 @@ atmoDrag_init;
 % sets up constants associated with the solar pressure model
 solarPressure_init;
 
-
 % sets up constants associated with the solar pressure model
 gravityGrad_init;
 
 
 
+% Create initial conditions such or Orbital elements and q0/w0
+intitialConditions_init;
+
+%Initialize the controller
+pdController_init;
 
 %SIM
