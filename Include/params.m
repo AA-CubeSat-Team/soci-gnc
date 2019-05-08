@@ -32,7 +32,7 @@ solarPressure_init;
 % sets up constants associated with the solar pressure model
 gravityGrad_init;
 
-% sets up constants associated with the gravity gradient model
+% sets up constants associated with the magnetic field model
 magField_init;
 
 % sets up constants associated with the actuators
