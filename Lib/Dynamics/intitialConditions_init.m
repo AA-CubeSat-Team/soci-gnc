@@ -9,8 +9,10 @@ r = [500+fswParams.constants.global.r_earth_km;0;0];
 v = [0;sqrt(fswParams.constants.global.mu_earth_km3s2/norm(r));0];
 
 qt = rand(4,1);
-initialConditions.q0 = qt/norm(qt);
-initialConditions.w0 = rand(3,1); 
+% initialConditions.q0 = qt/norm(qt);
+initialConditions.q0 = [1;0;0;0];
+% initialConditions.w0 = rand(3,1); 
+ initialConditions.w0 = [0;0;0];
 initialConditions.r0 = r;
 initialConditions.v0 = v;
 
