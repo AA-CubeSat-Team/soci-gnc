@@ -12,3 +12,13 @@ legend('T_{dx}','T_{dy}','T_{dz}')
 xlabel('Time [s]')
 ylabel('Torque [Nm]')
 title('Disturbance Torques')
+
+figure()
+hold all
+plot(tout,b_eci.Data(:,1))
+plot(tout,b_eci.Data(:,2))
+plot(tout,b_eci.Data(:,3))
+legend('b_{x}','b_{y}','b_{z}')
+xlabel('Time [s]')
+ylabel('B-Field')
+title('Magnetic Field Vector')

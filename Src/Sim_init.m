@@ -2,7 +2,7 @@
 %Title: Simulation Initialization 
 %Description:
 
-clear; clc; close all;
+% clear; clc; close all;
 
 % ~~~~~~~~~~~~~~~~~~
 % Add Paths
@@ -10,15 +10,16 @@ clear; clc; close all;
 addpath(genpath(pwd))
 addpath(genpath('../Lib/'))
 addpath(genpath('../Include/'))
+addpath(genpath('../Test/'))
 
 definitions;
 params;
 
 
 % Turning off and on 
-SP_ON = 0;
-GG_ON = 0;
-ATMO_ON = 0;
+SP_ON = 1;
+GG_ON = 1;
+ATMO_ON = 1;
 
 
 

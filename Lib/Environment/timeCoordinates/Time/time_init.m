@@ -17,8 +17,8 @@ time.TAI_offset = 37; %UTC -> TAI offset
 time.DTT_TAI = 32.184; %TAI -> TT offset
 
 
-%  Mission start time (arbitrarily mar 12 2015 3:14PM)
-time.epoch_utc_s = 478616400.000000;
+%  Mission start time (arbitrarily mar 12 2015 3:14PM) NO LONGER TRUE
+time.epoch_utc_s = 599572800.000000;
 
 % Time resolution
 time.res = 1;
