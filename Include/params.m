@@ -47,4 +47,7 @@ intitialConditions_init;
 %Initialize the controller
 pdController_init;
 
+% Initialize Estimation
+attitude_estimation_init;
+
 %SIM

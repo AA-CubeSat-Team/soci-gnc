@@ -27,7 +27,7 @@ if( nargin > 7 )
     end
 else
     % Assumed values from SWISSCUBE
-    B_star      = 32923;
+    B_star      = 0.32923;
     B_star_ex   = -4;
     sMNM_dot     = strcat('+.','00000',num2str(145));
 end
@@ -36,7 +36,11 @@ if( numel(YMDHMS) < 6 )
     error('TLE_gen: Not enough entries in YMDHMS; must be 6')
 end
 
-year     = YMDHMS(1) + 2000;
+if YMDHMS(1) < 2000
+year = YMDHMS(1) + 2000;
+else
+year = YMDHMS(1) ;
+end
 
 fullyear = year;
 if( year > 2000)

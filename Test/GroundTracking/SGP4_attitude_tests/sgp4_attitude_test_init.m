@@ -2,10 +2,11 @@
 
 t0 = simParams.time.epoch_utc_s;
 
-[YMDHMS,JD,JC] = TimeConversion(t0);
+[YMDHMS] = TimeConversion(t0,simParams);
 
-YMDHMS = YMDHMS{1}.'
+YMDHMS = YMDHMS.'
 
+% YMDHMS = [2018;12;365;11;59;59.963830411434];
     % Conversions
     DEG2RAD         = fswParams.constants.convert.DEG2RAD;
     REVpD2RADpM     = 2*pi/1440;
@@ -35,5 +36,8 @@ YMDHMS = YMDHMS{1}.'
     
    
     GPS_time = [129600; 2034];
+    GPS_time(1) = GPS_time(1) + 18;
 
+    
+    shifted_epoch = t0;
 % fswParams.orbit_tle = orbit_tle;

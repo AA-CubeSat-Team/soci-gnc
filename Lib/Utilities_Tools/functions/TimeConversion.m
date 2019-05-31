@@ -1,6 +1,6 @@
 % AUTHOR: Devan
 % DATE: 12/26/18
-function [YMDHMS,JD,JC] = TimeConversion(utc_in)
+function [UTC_ymd,UTI_ymd,TT_ymd,TAI_ymd,JD_UTC,JD_UTI,JD_TT,JD_TAI,JC_UTC,JC_UTI,JC_TT,JC_TAI,Time] = TimeConversion(utc_in,simParams)
 %TIMCONVERSION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -14,15 +14,14 @@ function [YMDHMS,JD,JC] = TimeConversion(utc_in)
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % REFERENCE EPOCH
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-y_epoch = 2000;
+y_epoch = simParams.time.y_epoch;
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % OFFSETS FOR TIME FRAME CHANGLE
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-DUT1 = -0.017795; %UTC -> UT1 Offset
-TAI_offset = 37; %UTC -> TAI offset
-DTT_TAI = 32.184; %TAI -> TT offset
-
+DUT1 = simParams.time.DUT1; %UTC -> UT1 Offset
+TAI_offset = simParams.time.TAI_offset; %UTC -> TAI offset
+DTT_TAI = simParams.time.DTT_TAI; %TAI -> TT offset
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %CONVERT ALL SECONDS
@@ -31,13 +30,17 @@ TAI = utc_in + TAI_offset;
 TT = TAI + DTT_TAI;
 UT1 = utc_in + DUT1;
 
+Time = [utc_in,UT1,TT,TAI];%Time in seconds
+
+
 INPUTs = [utc_in, UT1, TT, TAI];
 YMDHMSutc = zeros(6,1);
 YMDHMSut1 = zeros(6,1);
 YMDHMStt = zeros(6,1);
 YMDHMStai = zeros(6,1);
 YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
-
+JD = zeros(4,1);
+JC = zeros(4,1);
     for i = 1:4
         serialDays = Seconds_to_Days(INPUTs(i));
 
@@ -61,9 +64,11 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
         h = floor(remaining_seconds/(60*60));
         remaining_seconds = remaining_seconds - (h*60*60);
         min = floor(remaining_seconds/60);
-        left = remaining_seconds/60 - floor(remaining_seconds/60);
+%         left = remaining_seconds/60 - floor(remaining_seconds/60);
         remaining_seconds = remaining_seconds - (min*60);
-        s = remaining_seconds + left;
+        s = remaining_seconds %+ left;
+        
+        %actuall hms conversion
         
         
         % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,11 +88,25 @@ YMDHMS = {YMDHMSutc,YMDHMSut1,YMDHMStt,YMDHMStai};
 
 
     end
+ 
+UTC_ymd = zeros(1,6);
+UTI_ymd = zeros(1,6);
+TT_ymd  = zeros(1,6);
+TAI_ymd = zeros(1,6);
+for k = 1:6
+    UTC_ymd(k) = YMDHMS{1}(k);
+    UTI_ymd(k) = YMDHMS{2}(k);
+    TT_ymd(k)  = YMDHMS{3}(k);
+    TAI_ymd(k) = YMDHMS{4}(k);
+end
+JD_UTC = JD(1);
+JD_UTI = JD(2);
+JD_TT = JD(3);
+JD_TAI = JD(4);
 
-
-
-
-
+JC_UTC = JC(1);
+JC_UTI = JC(2);
+JC_TT = JC(3);
+JC_TAI = JC(4);
 
 end
-
