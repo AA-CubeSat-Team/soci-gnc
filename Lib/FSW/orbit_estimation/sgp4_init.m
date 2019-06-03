@@ -1,20 +1,16 @@
-% ----------------------------------------------------------------------- %
-%INIT_SGP4   
-% 
-% UW HusySat-1, ADCS Team
-%
-%   Init file for sgp4 library.
-%
-%   T. Reynolds -- 2.10.18
-%   updated: T. Reynolds -- 9.20.18 -- added TLE_gen functionality
-% ----------------------------------------------------------------------- %
+t0 = simParams.time.epoch_utc_s;
 
+[YMDHMS] = TimeConversion(t0,simParams);
+
+YMDHMS = YMDHMS.'
+
+% YMDHMS = [2018;12;365;11;59;59.963830411434];
     % Conversions
-    DEG2RAD         = fsw_params.constants.convert.deg2rad;
-    REVpD2RADpM     = fsw_params.constants.convert.revpday_2_radpmin;
+    DEG2RAD         = fswParams.constants.convert.DEG2RAD;
+    REVpD2RADpM     = 2*pi/1440;
     
     % Define our orbit
-    YMDHMS  = [ 2019; 1; 1; 0; 0; 0 ];
+%     YMDHMS  = [ 2019; 1; 1; 0; 0; 0 ]
     INC     = 54.6146;  % inclination
     RAAN    = 247.4627; % right ascension of ascending node
     ECC     = 0006703; % keep this w/o decimals and 7 digits
@@ -35,8 +31,8 @@
     sgp4.AOP     = sgp4.orbit_tle(7)*DEG2RAD;       % [rad]
     sgp4.MNA     = sgp4.orbit_tle(8)*DEG2RAD;       % [rad]
     sgp4.MNM     = sgp4.orbit_tle(9)*REVpD2RADpM;   % [rad/min]
-
-    % Compute initial GPS time
-    sgp4.gps_time       = JDUTC_2_GPS(sgp4.JD_UTC_epoch_J2000,fsw_params);
-    sgp4.gps_week_init  = sgp4.gps_time(2);
-    sgp4.gps_sec_init   = sgp4.gps_time(1);
+    
+    
+ fswParams.sgp4 = sgp4;
+ clear sgp4;
+    

@@ -50,4 +50,7 @@ pdController_init;
 % Initialize Estimation
 attitude_estimation_init;
 
+% initialize sgp4 and orbit propogation
+sgp4_init;
+
 %SIM
