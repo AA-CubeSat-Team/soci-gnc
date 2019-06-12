@@ -1,0 +1,24 @@
+---------------------------------------
+
+README : TIME CONVERSIONS
+
+---------------------------------------
+
+
+Intro: This folder contains all of the time conversion functions for 
+calculating the current time from a given UTC time stamp.
+
+
+Main Function : TimeConversion
+Takes in a UTC timestamp and outputs YMDHMS, JD, and JC
+as a 4x1 Struct, A Double, and a Double.
+
+The struct is as follows:
+ YMDHMS =
+        YMDHMSutc -> Time in UTC
+        YMDHMSut1 -> Time in UT1
+        YMDHMStt  -> Time in TT
+        YMDHMStai -> Time in TAI
+
+
+Functions used in this conversion:

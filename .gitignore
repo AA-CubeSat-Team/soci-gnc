@@ -1,5 +1,18 @@
 # Simulink
+<<<<<<< HEAD
 *.slx.autosave
 
 # Matlab
 *.m~
+=======
+*.slxc
+*.slx.r2016a
+
+# Matlab
+*.m~
+*.mat
+*.l
+
+# Other
+*.xml
+>>>>>>> dev
