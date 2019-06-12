@@ -36,8 +36,9 @@ YMDHMS = YMDHMS.'
     
    
     GPS_time = [129600; 2034];
+%     18 seconds added to GPS time
     GPS_time(1) = GPS_time(1) + 18;
 
-    
-    shifted_epoch = t0;
+    simParams.initialConditions.q0 = [1 0 0 0]';
+    shifted_epoch = t0 + 7*12*60*60;
 % fswParams.orbit_tle = orbit_tle;

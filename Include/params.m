@@ -50,7 +50,12 @@ pdController_init;
 % Initialize Estimation
 attitude_estimation_init;
 
+% Initialize EKF
+init_extended_kalman_filter;
+
 % initialize sgp4 and orbit propogation
 sgp4_init;
+
+
 
 %SIM

@@ -32,15 +32,7 @@ function [m,d] = daystoMonth(d_y,y,y_epoch)
     m = 0;
     d = 0;
 % Calculate the current month froms days elapsed
-    if (Is_Leap(y_epoch + y) == 1)
-        for i=1:length(monthDays)
-            if d_y < monthDays(i)
-               m = i - 1 ;
-               d = d_y - monthDays(i - 1);
-               d_y = 370;
-            end
-        end
-    else
+    if (Is_Leap(y_epoch + y))
         for i=1:length(monthDaysLeap)
             if d_y < monthDaysLeap(i)
                m = i - 1 ;
@@ -48,6 +40,14 @@ function [m,d] = daystoMonth(d_y,y,y_epoch)
                d_y = 370;
             end
         
+        end 
+    else   
+        for i=1:length(monthDays)
+            if d_y < monthDays(i)
+               m = i - 1 ;
+               d = d_y - monthDays(i - 1);
+               d_y = 370;
+            end
         end
     end
 end

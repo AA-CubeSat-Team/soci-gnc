@@ -21,7 +21,7 @@ time.DTT_TAI = 32.184; %TAI -> TT offset
 time.epoch_utc_s = 599572800.000000;
 
 % Time resolution
-time.res = 1;
+time.res = 1e-6;
 
 simParams.time = time;
 clear time

@@ -10,7 +10,8 @@ estimation = struct;
 estimation.sample_time_s = 1/10;
 
 % Initial conditions
-estimation.ic.quat_est_init = [.5 0.5 0.5 0.5]';
+% estimation.ic.quat_est_init = [0.5 0.5 0.5 0.5]';
+estimation.ic.quat_est_init = [1 0 0 0]';
 estimation.ic.rate_est_init = [0 0 0]';
 estimation.ic.bias_est_init = [0 0 0]';
 % Initial covariance from Crassidis Ex. 7.1 pp. 460.

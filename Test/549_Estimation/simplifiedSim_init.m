@@ -1,16 +1,22 @@
+
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Set Initial Conditions
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% This part has to set up all of the parameters to run in the sim.
+% this includes the orbital elements for our 500km ISS orbit
+
 t0 = simParams.time.epoch_utc_s;
 
 [YMDHMS] = TimeConversion(t0,simParams);
 
 YMDHMS = YMDHMS.'
 
-% YMDHMS = [2018;12;365;11;59;59.963830411434];
-    % Conversions
+
     DEG2RAD         = fswParams.constants.convert.DEG2RAD;
     REVpD2RADpM     = 2*pi/1440;
     
-    % Define our orbit
-%     YMDHMS  = [ 2019; 1; 1; 0; 0; 0 ]
+
     INC     = 54.6146;  % inclination
     RAAN    = 247.4627; % right ascension of ascending node
     ECC     = 0006703; % keep this w/o decimals and 7 digits
@@ -32,8 +38,26 @@ YMDHMS = YMDHMS.'
     sgp4.MNA     = sgp4.orbit_tle(8)*DEG2RAD;       % [rad]
     sgp4.MNM     = sgp4.orbit_tle(9)*REVpD2RADpM;   % [rad/min]
     
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Set up GPS time for Time Lib
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    GPS_time = [129600; 2034];
+%     18 seconds added to GPS time
+    GPS_time(1) = GPS_time(1) + 18;
     
- fswParams.sgp4 = sgp4;
- clear sgp4;
- clear AOP DEG2RAD ECC INC MNA MNM RAAN REVpD2RADpM t0 YMDHMS
+% ~~~~~~~~
+% Set up the actual quaternion we need to estimate
+% ~~~~~~~~
+
+    simParams.initialConditions.q0 = [.5 .5 .5 .5]';
     
+    
+% Clear The unecessary variables    
+    clear AOP DEG2RAD ECC INC MNA MNM RAAN REVpD2RADpM YMDHMS
+    
+% Run Sim.
+    sim('simplifiedSim')
+% Save Workspace.
+filename = 'simData';
+save('simData')
+

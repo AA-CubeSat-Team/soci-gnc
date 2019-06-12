@@ -66,7 +66,7 @@ JC = zeros(4,1);
         min = floor(remaining_seconds/60);
 %         left = remaining_seconds/60 - floor(remaining_seconds/60);
         remaining_seconds = remaining_seconds - (min*60);
-        s = remaining_seconds %+ left;
+        s = remaining_seconds; %+ left;
         
         %actuall hms conversion
         

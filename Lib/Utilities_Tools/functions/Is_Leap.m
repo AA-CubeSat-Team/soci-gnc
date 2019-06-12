@@ -3,9 +3,9 @@
 function [ Leap ] = Is_Leap( y )
 
 if (mod(y,4) == 0 )
-    Leap = 1;
+    Leap = true;
 else 
-    Leap = 0;
+    Leap = false;
 end
 
 end

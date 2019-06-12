@@ -29,6 +29,8 @@ constants.global.w_earth_rads = [0;0;0.0000729211585530];
 constants.global.mu_earth_km3s2 =  398600.4418;
 constants.global.r_earth_km = 6378.137;
 
+constants.global.JDJ2000 = 2451545.0;
+
 
 fswParams.constants = constants;
 clear constants
