@@ -1,4 +1,27 @@
-clear all; close all; clc;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+% Author: Cole Morgan
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+% generates a control signal u that stablizes a spacecraft under
+% slew rate and control constraints. The simulation shows rest-to-rest
+% sc reorientaiton from a "random" intial attitude. The code here
+% replicates the example in the "Feedback control logic for eigenaxis
+% rotations under slew rate and control constraints". 
+
+% Note that the quaternion here is scalar first (unlike the publication's
+% example) to follow our simulink standard. 
+
+% the simulink model allows you to see what the control signal and control
+% torques to each wheel are vs time
+
+
+
+%clear all; close all; clc;
 
 addpath('shared/')
 addpath('Q_lib/')
