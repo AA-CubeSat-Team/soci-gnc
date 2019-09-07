@@ -16,18 +16,14 @@ A = [cosd(alpha) -cosd(alpha) cosd(alpha) -cosd(alpha);
 
 A = A'*inv(A*A'); % psuedo inverse
 controllers.A = A;
-controllers.Phi = A;
 
 
 w_max = 6; %deg/sec max slew rate we chose arbitraily to
            % reorient quickly but not induce detumble mode
            % detumble mode enters at 9 deg/s about any axis
 w_max = w_max*pi/180; % max slew rate in rad/sec
-controllers.w_max = w_max;
-controllers.torque_max = .7*3.2*10^-3; %N-m 80% max for any given of our reaction wheel 
-m = controllers.torque_max;
-controllers.T = diag([1/m, 1/m, 1/m, 1/m]);
-
+P.w_max = w_max;
+P.torque_max = .3; %N-m max in any given reaction wheel 
 controllers.zeta = sqrt(2)/2;   % damping ratio
 controllers.wn = 1;            % natural frequency
 
@@ -67,4 +63,4 @@ controllers.qd1 =[1;0;0;0];
 fswParams.controllers = controllers;
 
 clear controllers 
-clear alpha A K w_max i q0 qd w0 m
+clear alpha A K w_max i q0 qd w0

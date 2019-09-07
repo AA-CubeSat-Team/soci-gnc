@@ -18,7 +18,7 @@
 
 
 
-% clear all; close all; clc;
+clear all; close all; clc;
 
 addpath('shared/')
 addpath('Q_lib/')
@@ -27,6 +27,7 @@ addpath('functions')
 global P;
 P = struct;
 P.inertia = [6292 0 0; 0 5477 0; 0 0 2687];
+P.max_torque = .3; % N-m
 % P.control_input = [0; 0; 0];
 % P.control_torque = [0;0;0;0];
 
@@ -60,7 +61,7 @@ P.K = K;
 P.P = (2*(P.wn^2))*(K\P.inertia);
 P.C = 2*P.zeta*P.wn*P.inertia;
 
-w0 = [0; 0; 0]; % init
+w0 = [0; 0; 0]; % initial body rates for rest-to-rest reorientation
 
 x0 = [q0 ; w0];
 
@@ -131,10 +132,19 @@ K = P.K;
 % basic controller % 
 % uu = -K*qe(1:3) - C*w + skew(w)*(P.inertia*w+h);
 
-% slew rate and control constrained %
-uu = -saturation_norm(K*saturation_1(P.P*qe(1:3)) + C*w);
+u = K*saturation_1(P.P*qe(1:3)) + C*w;
 
-tau = P.A*uu;
+tau = P.A*u; % control outputs to each motor minimized 
+              % based on psuedo-inverse of their mapping
+              
+tau = tau/P.max_torque;
+sig = norm(tau, inf);
+
+% slew rate and control constrained %
+uu = -saturation_torque(u, sig);
+
+
+
 % P.control_input = [P.control_input uu];
 % P.control_torque = [P.control_torque tau];
 

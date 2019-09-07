@@ -1,4 +1,4 @@
-function [x_out] = saturation_1(x_in)
+function [x_out] = saturation_torque(x_in)
 
 x_out = x_in;
 

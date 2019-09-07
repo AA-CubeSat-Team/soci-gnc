@@ -7,6 +7,7 @@ addpath('Lib')
 
 P = struct;
 P.inertia = [6292 0 0; 0 5477 0; 0 0 2687];
+P.max_torque = .3; % N-m
 P.control_input = [0; 0; 0];
 P.control_torque = [0;0;0;0];
 

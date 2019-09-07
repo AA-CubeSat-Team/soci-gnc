@@ -18,7 +18,7 @@
 
 
 
-% clear all; close all; clc;
+clear all; close all; clc;
 
 addpath('shared/')
 addpath('Q_lib/')
@@ -26,6 +26,7 @@ addpath('functions')
 
 global P;
 P = struct;
+P.count = 0;
 P.inertia = [6292 0 0; 0 5477 0; 0 0 2687];
 % P.control_input = [0; 0; 0];
 % P.control_torque = [0;0;0;0];
@@ -115,6 +116,7 @@ legend('q1_{err}', 'q2_{err}', 'q3_{err}', 'q4_{err} scalar')
 function [dx, uu, tau] = dynamics(t, x)
 
 global P;
+P.count = P.count +1
 q   = x(1:4, :);
 q   = q./norm(q);
 w   = x(5:7, :);

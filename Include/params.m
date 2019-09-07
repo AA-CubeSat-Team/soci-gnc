@@ -46,6 +46,7 @@ intitialConditions_init;
 
 %Initialize the controller
 pdController_init;
+SlewAndControlConstrained_init;
 
 % Initialize Estimation
 attitude_estimation_init;
