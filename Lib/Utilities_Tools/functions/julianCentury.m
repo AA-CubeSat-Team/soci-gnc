@@ -5,9 +5,6 @@ function [JC]=julianCentury(JD)
 %input will be JD of three different time frames, output will be julian
 %year in each of those time frames
 
-%test
-JD=22260.84097;
-
 JC=(JD-2451545.0)/36525; %julian cenutry from pg 184 of Vallado, 
 %constant for all time frames
 
