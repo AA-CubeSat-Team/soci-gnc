@@ -31,6 +31,11 @@ constants.global.r_earth_km = 6378.137;
 
 constants.global.JDJ2000 = 2451545.0;
 
+% state vector definitions
+constants.id_r = (1:3);
+constants.id_v = constants.id_r(end) + (1:3);
+constants.id_q = constants.id_v(end) + (1:4);
+constants.id_w = constants.id_q(end) + (1:3);
 
 fswParams.constants = constants;
 clear constants

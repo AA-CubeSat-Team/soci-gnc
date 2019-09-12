@@ -1,6 +1,7 @@
 # Simulink
 *.slxc
 *.slx.r2016a
+*.slx.autosave
 
 # Matlab
 *.m~

@@ -45,6 +45,9 @@ v = [-6580.108569;-49.846368;3920.219467]*10^(-3);
 initialConditions.r0 = r;
 initialConditions.v0 = v;
 
+initialConditions.all = [ initialConditions.r0; initialConditions.v0;
+                          initialConditions.q0; initialConditions.w0 ];
+
 simParams.initialConditions = initialConditions;
 
 clear qt r v initialConditions;
