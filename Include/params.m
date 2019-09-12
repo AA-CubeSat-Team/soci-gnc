@@ -46,16 +46,12 @@ intitialConditions_init;
 
 %Initialize the controller
 pdController_init;
+SlewAndControlConstrained_init;
 
 % Initialize Estimation
-attitude_estimation_init;
-
-% Initialize EKF
-init_extended_kalman_filter;
+% for Kylle
 
 % initialize sgp4 and orbit propogation
 sgp4_init;
 
 
-
-%SIM

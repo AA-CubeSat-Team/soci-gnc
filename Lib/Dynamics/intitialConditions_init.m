@@ -47,7 +47,6 @@ initialConditions.v0 = v;
 
 initialConditions.all = [ initialConditions.r0; initialConditions.v0;
                           initialConditions.q0; initialConditions.w0 ];
-
 simParams.initialConditions = initialConditions;
 
 clear qt r v initialConditions;

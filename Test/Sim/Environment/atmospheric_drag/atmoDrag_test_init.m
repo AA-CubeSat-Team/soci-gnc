@@ -34,7 +34,3 @@ sim('atmoDrag_test.slx');
 
 atmo_Force_N=atmo_Force_N.Data
 atmo_Torque_Nm=atmo_Torque_Nm.Data
-
-
-
-

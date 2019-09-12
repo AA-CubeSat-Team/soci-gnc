@@ -39,7 +39,6 @@ function [m,d] = daystoMonth(d_y,y,y_epoch)
                d = d_y - monthDays(i - 1);
                d_y = 370;
             end
-        
         end 
     else   
         for i=1:length(monthDays)
