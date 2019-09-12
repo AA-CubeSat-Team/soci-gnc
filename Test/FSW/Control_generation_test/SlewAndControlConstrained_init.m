@@ -24,35 +24,37 @@ w_max = 6; %deg/sec max slew rate we chose arbitraily to
            % detumble mode enters at 9 deg/s about any axis
 w_max = w_max*pi/180; % max slew rate in rad/sec
 controllers.w_max = w_max;
-controllers.torque_max = .7*3.2*10^-3; %N-m 80% max for any given of our reaction wheel 
+controllers.torque_max = .7*3.2*10^-3; %N-m 70% max for any given of our reaction wheel 
 m = controllers.torque_max;
 controllers.T = diag([1/m, 1/m, 1/m, 1/m]);
 
 controllers.zeta = sqrt(2)/2;   % damping ratio
-controllers.wn = 1;            % natural frequency
+controllers.wn = .5;            % natural frequency
 
 qd = [1;0;0;0];
 qd = qd/norm(qd);     % desired quaternion. scalar first.
 controllers.qd = qd;
 
 
-q0 = [0.6157; 0.265; 0.265; -.6930];
+q0 = [0.6157; 0.265; 0.265; -.6930]; % cannot be [1;0;0;0];
 q0 = q0/norm(q0);     % initial orientation
 controllers.q0 = q0;
 
+% K is now determined inside controller library block.
+% K = zeros(3, 3);
+% for i = 1:3
+%     K(i, i) = 2*controllers.zeta*controllers.wn*(abs(q0(i+1))/norm(q0(2:4)))*w_max*controllers.J(i, i);
+% end
+% controllers.K = K; 
 
-K = zeros(3, 3);
-for i = 1:3
-    K(i, i) = 2*controllers.zeta*controllers.wn*(abs(q0(i+1))/norm(q0(2:4)))*w_max*controllers.J(i, i);
-end
-
-controllers.K = K;
+controllers.ep = .001; % use this to determine if K needs to be changed
+controllers.K_init = eye(3); %will inevitably change
 controllers.P = (2*(controllers.wn^2))*(K\controllers.J);
 controllers.C = 2*controllers.zeta*controllers.wn*controllers.J;
 
 controllers.saturation = 1; %saturate the value of Pq to +-1
 
-% 2-norm is now hard coded in library for ease of normalization.
+
 %controllers.norm = 2;     % 1-norm or 2-norm for the controller
                           %inf-norm will need str2num in the library.
                           % inf-norm or 2-norm probably most appropriate
