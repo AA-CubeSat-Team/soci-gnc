@@ -1,8 +1,6 @@
 
 constants = struct;
 
-
-
 % All conversion gains
 constants.convert = struct;
 % convert meters to kilometers
@@ -21,7 +19,6 @@ constants.convert.SEC2DAY = 1 / 86400;
 constants.convert.RPS2RPM = 60/(2*pi);
 % convert the other way dummy 
 constants.convert.RPM2RPS = 2*pi/60;
-
 
 % Global Constants
 constants.global = struct;

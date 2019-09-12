@@ -5,11 +5,11 @@
 % variables for both flight software and simulink simulations
 
 % TLE 
-TLE = 'ourTLE.txt';
+TLE = 'ISS.txt';
 
 % Turning off and on 
-SP_ON = 1;
-GG_ON = 1;
+SP_ON   = 1;
+GG_ON   = 1;
 ATMO_ON = 1;
 
 %FSW 
@@ -27,6 +27,9 @@ constants_init;
 
 % The spacecraft Parameters such as weight and dimensions
 scParams_init;
+
+% Create initial conditions such or Orbital elements and q0/w0
+intitialConditions_init;
 
 % Constants associated with the time conversions
 time_init;
@@ -49,15 +52,12 @@ actuators_init;
 % sets up constants associated with the sesnors
 sensors_init;
 
-% Create initial conditions such or Orbital elements and q0/w0
-intitialConditions_init;
-
 %Initialize the controller
 pdController_init;
 SlewAndControlConstrained_init;
 
 % Initialize Estimation
-% for Kylle
+% >> Kylle <<
 
 % initialize sgp4 and orbit propogation
 sgp4_init;
