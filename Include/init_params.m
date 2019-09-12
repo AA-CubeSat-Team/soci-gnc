@@ -4,15 +4,23 @@
 % Description: this file sets up the two structs containing all of the
 % variables for both flight software and simulink simulations
 
+% TLE 
+TLE = 'ourTLE.txt';
+
+% Turning off and on 
+SP_ON = 1;
+GG_ON = 1;
+ATMO_ON = 1;
+
 %FSW 
 fswParams = struct;
 
 % FSW Parameters 
-fswParams.sample_time_s = .1;
+fswParams.sample_time_s = 0.1;
 
 % Sim Parameters 
 simParams = struct;
-simParams.sample_time_s = .005; %sample at 200Hz
+simParams.sample_time_s = 0.005; %sample at 200Hz
 
 % initialize utility constants such as conversion rates
 constants_init;
