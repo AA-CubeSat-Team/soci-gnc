@@ -12,15 +12,15 @@ SP_ON   = 1;
 GG_ON   = 1;
 ATMO_ON = 1;
 
-%FSW 
+% main structs
 fswParams = struct;
+simParams = struct;
 
 % FSW Parameters 
-fswParams.sample_time_s = 0.1;
+fswParams.sample_time_s = 0.1;      % sample at 10Hz
 
 % Sim Parameters 
-simParams = struct;
-simParams.sample_time_s = 0.005; %sample at 200Hz
+simParams.sample_time_s = 0.005;    % sample at 200Hz
 
 % initialize utility constants such as conversion rates
 constants_init;
@@ -53,13 +53,12 @@ actuators_init;
 sensors_init;
 
 %Initialize the controller
-pdController_init;
-SlewAndControlConstrained_init;
+controllers_init;
 
 % Initialize Estimation
 % >> Kylle <<
 
 % initialize sgp4 and orbit propogation
-sgp4_init;
+% sgp4_init;
 
 

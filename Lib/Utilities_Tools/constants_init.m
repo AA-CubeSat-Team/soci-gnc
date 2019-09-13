@@ -19,6 +19,10 @@ constants.convert.SEC2DAY = 1 / 86400;
 constants.convert.RPS2RPM = 60/(2*pi);
 % convert the other way dummy 
 constants.convert.RPM2RPS = 2*pi/60;
+% convert AU to kilometers
+constants.convert.AU2KM = 149598073;
+% convert nT to T
+constants.convert.nT2T  = 1e-9;
 
 % Global Constants
 constants.global = struct;
@@ -35,4 +39,5 @@ constants.id_q = constants.id_v(end) + (1:4);
 constants.id_w = constants.id_q(end) + (1:3);
 
 fswParams.constants = constants;
+simParams.constants = constants;
 clear constants

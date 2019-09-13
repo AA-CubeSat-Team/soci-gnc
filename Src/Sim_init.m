@@ -3,6 +3,7 @@
 %Description:
 
 % clear; clc; close all;
+clear;
 
 % ~~~~~~~~~~~~~~~~~~
 % Add Paths
