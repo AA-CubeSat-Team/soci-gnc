@@ -29,7 +29,7 @@ controllers.Kp1 = wn.^2*J;
 
 controllers.qd1 =[1;0;0;0];
 
-fswParams.controllers = controllers
+fswParams.controllers = controllers;
 
 clear controllers
 clear z

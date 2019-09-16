@@ -2,7 +2,7 @@ t0 = simParams.time.epoch_utc_s;
 
 [YMDHMS] = TimeConversion(t0,simParams);
 
-YMDHMS = YMDHMS.'
+YMDHMS = YMDHMS.';
 
 % YMDHMS = [2018;12;365;11;59;59.963830411434];
     % Conversions
