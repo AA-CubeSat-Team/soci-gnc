@@ -45,6 +45,8 @@ controllers.saturation = 1; %saturate the value of Pq to +-1
                             %higher values will allow higher body rates
 
 controllers.w0 = [0;0;0]; % initial body rates for rest-to-rest reorientation
+w0 = rand(3, 1);
+controllers.w0 = (9*pi/180)*w0/norm(w0);
 controllers.qd1 =[1;0;0;0];
 
 fswParams.controllers = controllers;
