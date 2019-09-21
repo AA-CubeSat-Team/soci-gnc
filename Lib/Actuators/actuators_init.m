@@ -20,16 +20,41 @@ actuators.rwa = rwa;
 % Magnetorquers (MTQ)
 mtq = struct;
 
-mtq.max_dipole_x  = 0.0515; 
-mtq.max_dipole_y  = 0.0515; 
-mtq.max_dipole_z  = 0.131; 
-mtq.current_A_xy  = 0.216;
-mtq.current_A_z   = 0.078;
-mtq.voltage_V_xy  = 5;
-mtq.voltage_V_z   = 3.3;
+% body frame normal vectors of each mtq coil
+mtq.normals = [  1, 0, 0;
+                -1, 0, 0;
+                 0, 1, 0;
+                 0,-1, 0;
+                 0, 0, 1 ];
+             
+% get the number of coils contributing to control about each body face, 
+% and the indices of the corresponding coil normal vectors in mtq.normals 
+mtq.n_coils = [ sum(abs(mtq.normals(:,1))); ...
+                sum(abs(mtq.normals(:,2))); 
+                sum(abs(mtq.normals(:,3))) ];
+mtq.id_x  = find(mtq.normals(:,1));
+mtq.id_y  = find(mtq.normals(:,2));
+mtq.id_z  = find(mtq.normals(:,3));
 
+% max dipoles
+mtq.dipoles_Am2    = [0.0515;0.0515;0.131];           % per individual coil
+mtq.dipole_max_Am2 = mtq.dipoles_Am2;% diag(mtq.n_coils) * mtq.dipoles_Am2;      % axes total
+
+% electric characteristics (per coil)
+mtq.voltage     = [5;5;3.3];                        % V
+mtq.max_current = [0.216;0.216;0.078];              % A
+mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W
+
+% digital value to drive each coil [0 mtq.dig_val] <=> [0 m_max]
+mtq.dig_val = 100;
+
+% ratios to map dipole to power (per coil)
+mtq.dipole_to_power = mtq.P_max_W./mtq.dipoles_Am2;
+
+% add mtq to actuators struct
 actuators.mtq = mtq;
 
+% add actuators struct to both fsw and sim params
 simParams.actuators = actuators; 
 fswParams.actuators = actuators;
 
