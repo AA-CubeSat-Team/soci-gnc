@@ -45,10 +45,9 @@ controller2.C = 2*controller2.zeta*controller2.wn*controller2.J;
 controller2.saturation = 1; %saturate the value of Pq to +-1
                             %higher values will allow higher body rates
 
-controller2.w0 = [0;0;0]; % initial body rates for rest-to-rest reorientation
-% w0 = rand(3, 1);
-% controllers.w0 = (9*pi/180)*w0/norm(w0);
-controller2.qd1 =[1;0;0;0];
+% controller2.w0 = [0;0;0]; % initial body rates for rest-to-rest reorientation
+w0 = rand(3, 1);
+controller2.w0 = (9*pi/180)*w0/norm(w0);
 
 fswParams.controllers.controller2 = controller2;
 
