@@ -2,8 +2,8 @@
 % Each Controller is found from a basic 1st order TF
 % Author: Devan Tormey
 
-controllers = struct;
-
+% controllers = struct;
+controller3 = struct;
 
 
 %choices for Kp and Kd depend on zeta and wn
@@ -22,16 +22,16 @@ wn = .017*2; %this corresponds to doubling ^^ for margins
 % wn = .007 %assuming 60 degrees in 5 minutes
 J = simParams.scParams.J;
 
-controllers.Kd1 = 2*z*wn*J;
-controllers.Kp1 = wn.^2*J;
+controller3.Kd1 = 2*z*wn*J;
+controller3.Kp1 = wn.^2*J;
 
 
 
-controllers.qd1 =[1;0;0;0];
+controller3.qd1 =[1;0;0;0];
 
-fswParams.controllers = controllers;
+fswParams.controllers.controller3 = controller3;
 
-clear controllers
+clear controller3
 clear z
 clear wn
 clear J

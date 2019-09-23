@@ -45,8 +45,7 @@ sensors_init;
 intitialConditions_init;
 
 %Initialize the controller
-pdController_init;
-SlewAndControlConstrained_init;
+controllers_init;
 
 % Initialize Estimation
 % for Kylle

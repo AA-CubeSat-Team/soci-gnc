@@ -10,14 +10,14 @@ controllers = struct;
 controllers.J = simParams.scParams.J;
 
 alpha = 45; % angle of the reaction wheels
-A = [cosd(alpha) -cosd(alpha) cosd(alpha) -cosd(alpha);
-    sind(alpha) 0 -sind(alpha) 0;
-    0 -sind(alpha) 0 sind(alpha)];
+A = [cosd(alpha) 0 -cosd(alpha) 0;
+    0 -cosd(alpha) 0 cosd(alpha);
+    sind(alpha) sind(alpha) sind(alpha) sind(alpha)];
 controllers.A = A;
 A = A'*inv(A*A'); % psuedo inverse
 controllers.Phi = A;
 
-w_max = 6; %deg/sec max slew rate we chose arbitraily to
+w_max = .6; %deg/sec max slew rate we chose arbitraily to
            % reorient quickly but not induce detumble mode
            % detumble mode enters at 9 deg/s about any axis
 w_max = w_max*pi/180; % max slew rate in rad/sec
@@ -45,8 +45,8 @@ controllers.saturation = 1; %saturate the value of Pq to +-1
                             %higher values will allow higher body rates
 
 controllers.w0 = [0;0;0]; % initial body rates for rest-to-rest reorientation
-w0 = rand(3, 1);
-controllers.w0 = (9*pi/180)*w0/norm(w0);
+% w0 = rand(3, 1);
+% controllers.w0 = (9*pi/180)*w0/norm(w0);
 controllers.qd1 =[1;0;0;0];
 
 fswParams.controllers = controllers;
