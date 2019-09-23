@@ -1,4 +1,5 @@
 actuators = struct;
+actuators.sample_time_s = simParams.sample_time_s;
 
 % Reaction Wheel Assembly (RWA)
 rwa = struct;
@@ -14,6 +15,17 @@ rwa.Is = (1/12)*4*(.3^2 + .1^2);
 rwa.B = 1; %Nm/(rad/s) viscous damping
 rwa.current_limit = 5; %amps
 rwa.voltage_limit = 24; %Volts
+
+% estimated from spec sheet using:
+% cvx_begin sdp
+%     variable J(4,4) diagonal
+%     variable g1 nonnegative
+%     variable g2 nonnegative
+%     minimize( g1 + g2 )
+%     norm(hw1-A*J*O1) <= g1;
+%     norm(hw2-A*J*O2) <= g2;
+% cvx_end
+rwa.inertia = 2.9526e-5 * eye(4);
 
 actuators.rwa = rwa;
 
@@ -37,13 +49,13 @@ mtq.id_y  = find(mtq.normals(:,2));
 mtq.id_z  = find(mtq.normals(:,3));
 
 % max dipoles
-mtq.dipoles_Am2    = [0.0515;0.0515;0.131];           % per individual coil
+mtq.dipoles_Am2    = 0.5*[0.0515;0.0515;0.131];           % per individual coil
 mtq.dipole_max_Am2 = mtq.dipoles_Am2;% diag(mtq.n_coils) * mtq.dipoles_Am2;      % axes total
 
 % electric characteristics (per coil)
 mtq.voltage     = [5;5;3.3];                        % V
 mtq.max_current = [0.216;0.216;0.078];              % A
-mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W
+mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W [0.4;0.4;0.4] ?
 
 % digital value to drive each coil [0 mtq.dig_val] <=> [0 m_max]
 mtq.dig_val = 100;
