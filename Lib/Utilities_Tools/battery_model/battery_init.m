@@ -1,11 +1,11 @@
 batt = struct;
 
 % Battery characteristics
-batt.capacity_Wh = 30;
+batt.capacity_Ws = 30 * simParams.constants.convert.HR2SEC;
 batt.dod_min     = 80;
 
 % initial conditions
-batt.ic.capacity_Wh = batt.capacity_Wh;
+batt.ic.capacity_Ws = batt.capacity_Ws;
 
 % COM power
 batt.com.rx_power_W = 0.450;

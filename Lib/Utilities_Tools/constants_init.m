@@ -14,7 +14,7 @@ constants.convert.RAD2DEG = 180 / pi;
 % convert days to seconds
 constants.convert.DAY2SEC = 86400;
 % convert seconds to days
-constants.convert.SEC2DAY = 1 / 86400;
+constants.convert.SEC2DAY = 1.0 / 86400;
 % convert rotations per second to rotations per minute
 constants.convert.RPS2RPM = 60/(2*pi);
 % convert the other way dummy 
@@ -23,6 +23,10 @@ constants.convert.RPM2RPS = 2*pi/60;
 constants.convert.AU2KM = 149598073;
 % convert nT to T
 constants.convert.nT2T  = 1e-9;
+% convert s to h
+constants.convert.HR2SEC = 3600.0;
+% convert h to s
+constants.convert.SEC2HR = 1/3600.0;
 
 % Global Constants
 constants.global = struct;
