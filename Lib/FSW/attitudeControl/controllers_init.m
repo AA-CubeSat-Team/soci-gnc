@@ -1,6 +1,6 @@
-% Initialization of the pd controller
-% Each Controller is found from a basic 1st order TF
-% Author: Devan Tormey
+% Initialization of various control schemes
+%
+% Author: Cole Morgan
 
 controllers = struct;
 

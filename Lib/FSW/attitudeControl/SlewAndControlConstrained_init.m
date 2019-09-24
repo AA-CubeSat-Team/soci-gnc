@@ -30,10 +30,6 @@ controller1.T = diag([1/m, 1/m, 1/m, 1/m]);
 controller1.zeta = sqrt(2)/2;   % damping ratio
 controller1.wn = .5;            % natural frequency
 
-q0 = [0.6157; 0.265; 0.265; -.6930]; % cannot be qd;
-q0 = q0/norm(q0);     % initial orientation
-controller1.q0 = q0;
-
 qd = [1;0;0;0];
 qd = qd/norm(qd);     % desired quaternion. scalar first.
 controller1.qd = qd;
@@ -45,12 +41,7 @@ controller1.C = 2*controller1.zeta*controller1.wn*controller1.J;
 controller1.saturation = 1; %saturate the value of Pq to +-1
                             %higher values will allow higher body rates
 
-controller1.w0 = [0;0;0]; % initial body rates for rest-to-rest reorientation
-% w0 = rand(3, 1);
-% controllers.w0 = (9*pi/180)*w0/norm(w0);
-controller1.qd1 =[1;0;0;0];
-
 fswParams.controllers.controller1 = controller1;
 
 clear controller1 
-clear alpha A K w_max i q0 qd w0 m
+clear alpha A K w_max i qd m
