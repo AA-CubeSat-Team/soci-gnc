@@ -2,8 +2,7 @@
 %Title: Simulation Initialization 
 %Description:
 
-% clear; clc; close all;
-clear;
+clear; clc; close all;
 
 % ~~~~~~~~~~~~~~~~~~
 % Add Paths

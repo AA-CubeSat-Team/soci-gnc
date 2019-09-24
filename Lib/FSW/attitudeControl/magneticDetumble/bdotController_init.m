@@ -4,8 +4,10 @@
 %
 % T.Reynolds
 
+bdot = struct;
+
 % Library sample time
-bdot.sample_time_s  = fswParams.sample_time_s;
+bdot.sample_time_s = fswParams.sample_time_s;
 
 % Initial conditions
 bdot.ic.RT_b_meas_valid = 0;
@@ -31,4 +33,4 @@ bdot.filter_num     = lpf_num(2);
 bdot.filter_den     = lpf_den(2);
 
 fswParams.controllers.bdot = bdot;
-clear lpf_c lpf_d lpf_num lpf_den bdot
+clear bdot lpf_c lpf_d lpf_num lpf_den bdot

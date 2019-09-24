@@ -30,5 +30,6 @@ scParams.Az = scParams.x_len * scParams.y_len;
 battery_init;
 
 simParams.scParams = scParams;
+fswParams.scParams = scParams;
 clear scParams
  
