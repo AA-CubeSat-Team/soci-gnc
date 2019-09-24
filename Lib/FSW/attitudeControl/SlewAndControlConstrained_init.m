@@ -6,57 +6,42 @@
 % Author: Cole Morgan
 
 
-controllers = struct;
-controllers.J = simParams.scParams.J;
+% controllers = struct;
+controller1 = struct;
+controller1.J = simParams.scParams.J;
 
 alpha = 45; % angle of the reaction wheels
-A = [cosd(alpha) -cosd(alpha) cosd(alpha) -cosd(alpha);
-    sind(alpha) 0 -sind(alpha) 0;
-    0 -sind(alpha) 0 sind(alpha)];
-
+A = [cosd(alpha) 0 -cosd(alpha) 0;
+    0 -cosd(alpha) 0 cosd(alpha);
+    sind(alpha) sind(alpha) sind(alpha) sind(alpha)];
+controller1.A = A;
 A = A'*inv(A*A'); % psuedo inverse
-controllers.A = A;
+controller1.Phi = A;
 
-
-w_max = 6; %deg/sec
+w_max = 6; %deg/sec max slew rate we chose arbitraily to
+           % reorient quickly but not induce detumble mode
+           % detumble mode enters at 9 deg/s about any axis
 w_max = w_max*pi/180; % max slew rate in rad/sec
-controllers.zeta = sqrt(2)/2;   % damping ratio
-controllers.wn = 1;            % natural frequency
+controller1.w_max = w_max;
+controller1.torque_max = .7*3.2*10^-3; %N-m 70% max for any given wheel in our RWA 
+m = controller1.torque_max;
+controller1.T = diag([1/m, 1/m, 1/m, 1/m]);
+
+controller1.zeta = sqrt(2)/2;   % damping ratio
+controller1.wn = .5;            % natural frequency
 
 qd = [1;0;0;0];
 qd = qd/norm(qd);     % desired quaternion. scalar first.
-controllers.qd = qd;
+controller1.qd = qd;
 
+controller1.ep = .001; % use this to determine if K needs to be changed
+controller1.K_init = eye(3); %will inevitably change in sim
+controller1.C = 2*controller1.zeta*controller1.wn*controller1.J;
 
-q0 = [0.6157; 0.265; 0.265; -.6930];
-q0 = q0/norm(q0);     % initial orientation
-controllers.q0 = q0;
+controller1.saturation = 1; %saturate the value of Pq to +-1
+                            %higher values will allow higher body rates
 
+fswParams.controllers.controller1 = controller1;
 
-K = zeros(3, 3);
-for i = 1:3
-    K(i, i) = 2*controllers.zeta*controllers.wn*(abs(q0(i+1))/norm(q0(2:4)))*w_max*controllers.J(i, i);
-end
-
-controllers.K = K;
-controllers.P = (2*(controllers.wn^2))*(K\controllers.J);
-controllers.C = 2*controllers.zeta*controllers.wn*controllers.J;
-
-controllers.saturation = 1; %saturate the value of Pq to +-1
-
-% 2-norm is now hard coded in library for ease of normalization.
-%controllers.norm = 2;     % 1-norm or 2-norm for the controller
-                          %inf-norm will need str2num in the library.
-                          % inf-norm or 2-norm probably most appropriate
-
-controllers.w0 = [0; 0; 0]; % initial body rates for rest-to-rest reorientation
-
-
-
-
-controllers.qd1 =[1;0;0;0];
-
-fswParams.controllers = controllers;
-
-clear controllers 
-clear alpha A K w_max i q0 qd w0
+clear controller1 
+clear alpha A K w_max i qd m

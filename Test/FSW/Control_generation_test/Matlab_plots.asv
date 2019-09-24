@@ -1,0 +1,31 @@
+clc;
+
+sim('SlewAndControlConstrained_Controller_unit_test.slx')
+
+figure()
+plot(simout.Time, simout.Data)
+xlabel('Time [sec]')
+ylabel('Attitude')
+title('Attitude vs. time')
+legend('q_1', 'q_2', 'q_3', 'q_4')
+
+figure()
+plot(simout1.Time, simout1.Data)
+xlabel('Time [sec]')
+ylabel('Body Rates')
+title('Attitude vs. time')
+legend('\omega_1', '\omega_2', '\omega_3')
+
+figure()
+plot(simout1.Time, simout1.Data)
+xlabel('Time [sec]')
+ylabel('Body Rates [rad')
+title('Body rates vs. time')
+legend('\omega_1', '\omega_2', '\omega_3')
+
+figure()
+plot(simout2.Time, simout2.Data)
+xlabel('Time [sec]')
+ylabel('Body Rates')
+title('Attitude vs. time')
+legend('\omega_1', '\omega_2', '\omega_3')
