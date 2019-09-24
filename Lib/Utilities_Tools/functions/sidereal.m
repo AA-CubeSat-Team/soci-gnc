@@ -21,11 +21,12 @@ function [st,stdot] = sidereal(jdut1,deltapsi,meaneps,omega)
 %    sec         - seconds                        sec
 %    temp        - temporary vector
 %    tempval     - temporary variable
+%#codegen
 
 % Constants
-twopi      = 2.0*pi;
-deg2rad    = pi/180.0;
-lod = .0015563;
+twopi       = 2.0*pi;
+deg2rad     = pi/180.0;
+lod         = 0.0015563;
 
 % ------------------------  Find GMST   ------------------
 % ////////////////////////////////////////////////////////
@@ -54,11 +55,11 @@ gmst = temp;
 % ////////////////////////////////////////////////////////
 
 if (jdut1 > 2450449.5 )
-    ast= gmst + deltapsi* cos(meaneps) ...
-        + 0.00264*pi /(3600*180)*sin(omega) ...
-        + 0.000063*pi /(3600*180)*sin(2.0 *omega);
+    ast = gmst + deltapsi* cos(meaneps) ...
+            + 0.00264*pi /(3600*180)*sin(omega) ...
+            + 0.000063*pi /(3600*180)*sin(2.0 *omega);
 else
-    ast= gmst + deltapsi* cos(meaneps);
+    ast = gmst + deltapsi* cos(meaneps);
 end
 
 ast        = mod(ast, 2.0*pi);
@@ -70,7 +71,8 @@ omegaearth = thetasa;
 
 % -------------- Calculate the Rotation Matrices -------------
 % /////////////////////////////////////////////////////////////
-fprintf(1,'st gmst %11.8f ast %11.8f ome  %11.8f \n', gmst*180/pi, ast*180/pi, omegaearth*180/pi );
+% fprintf(1,'st gmst %11.8f ast %11.8f ome  %11.8f \n', gmst*180/pi, ast*180/pi, omegaearth*180/pi );
+st = zeros(3,3);
 
         st(1,1) =  cos(ast);
         st(1,2) = -sin(ast);
@@ -83,6 +85,8 @@ fprintf(1,'st gmst %11.8f ast %11.8f ome  %11.8f \n', gmst*180/pi, ast*180/pi, o
         st(3,3) =  1.0;
 
 % compute sidereal time rate matrix
+stdot = zeros(3,3);
+
         stdot(1,1) = -omegaearth * sin(ast);
         stdot(1,2) = -omegaearth * cos(ast);
         stdot(1,3) =  0.0;

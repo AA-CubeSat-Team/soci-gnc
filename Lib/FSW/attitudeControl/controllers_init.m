@@ -1,13 +1,12 @@
-% Initialization of various control schemes
-%
-% Author: Cole Morgan
+%Initialize the controllers
 
-controllers = struct;
+% stabilization mode controller -- first one uses MTQ, second one
+% uses RWA.
+% bdotController_init;
+Detumbling_init;
 
-SlewAndControlConstrained_init; %controller1
-Detumbling_init; %controller2
-pdController_init; %controller3
+% (point-to-point) reorientation controller
+SlewAndControlConstrained_init;
 
-%fswParams.controllers = controllers;
-
-clear controllers
+% tracking controller
+pdController_init;

@@ -4,21 +4,32 @@
 % Description: this file sets up the two structs containing all of the
 % variables for both flight software and simulink simulations
 
-%FSW 
+% TLE 
+TLE = 'ISS.txt';
+
+% Turning off and on 
+SP_ON   = 1;
+GG_ON   = 1;
+ATMO_ON = 1;
+
+% main structs
 fswParams = struct;
+simParams = struct;
 
 % FSW Parameters 
-fswParams.sample_time_s = .1;
+fswParams.sample_time_s = 0.1;      % sample at 10Hz
 
 % Sim Parameters 
-simParams = struct;
-simParams.sample_time_s = .005; %sample at 200Hz
+simParams.sample_time_s = 0.005;    % sample at 200Hz
 
 % initialize utility constants such as conversion rates
 constants_init;
 
 % The spacecraft Parameters such as weight and dimensions
 scParams_init;
+
+% Create initial conditions such or Orbital elements and q0/w0
+intitialConditions_init;
 
 % Constants associated with the time conversions
 time_init;
@@ -41,16 +52,13 @@ actuators_init;
 % sets up constants associated with the sesnors
 sensors_init;
 
-% Create initial conditions such or Orbital elements and q0/w0
-intitialConditions_init;
-
 %Initialize the controller
 controllers_init;
 
 % Initialize Estimation
-% for Kylle
+% >> Kylle <<
 
 % initialize sgp4 and orbit propogation
-sgp4_init;
+% sgp4_init;
 
 

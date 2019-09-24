@@ -17,8 +17,8 @@ if( nargin > 7 )
         if( nargin == 8 )
             error('TLE_gen: Must give both B_star and B_star_ex')
         else
-            B_star = varargin{2};
-            B_star_ex = varargin{3};
+            B_star      = varargin{2};
+            B_star_ex   = varargin{3};
         end
     end
 else
@@ -57,12 +57,12 @@ end
 day_dec = day_dec + day + hour/24 + min/1440 + sec/86400;
 
 % Julian date at Jan 1, epoch_year, 00:00:00
-JD_begin_of_year    = 367*fullyear - floor((7/4)*(fullyear + floor(10/12))) + ...
-                        floor(275/9) + 1721013.5;
+JD_begin_of_year    = 367*fullyear - floor((7/4)*(fullyear + ...
+                        floor(10/12))) + floor(275/9) + 1721013.5;
 JD_UTC_epoch_J2000  = day_dec + JD_begin_of_year - 2451545;
 
 % Reformat the eccentricity1
-nz  = 7 - floor(log10(ECC)) - 1;
+nz  = 7 - abs(floor(log10(ECC)));
 switch nz
     case 0
         sECC = num2str(ECC,'%7.0f');
@@ -83,13 +83,15 @@ switch nz
 end
 
 % Output a text file with this TLE
-fID = fopen('ourTLE.txt','w');
-fprintf(fID,'1 00000U 18001Z   %02.0f%012.8f %s  00000-0 %+5.0f%2.0f 0  0017\n',year,day_dec,sMNM_dot,B_star,B_star_ex);
-fprintf(fID,'2 00000  %7.4f %08.4f %s %08.4f %08.4f %10.8f563537',INC,RAAN,sECC,AOP,MNA,MNM);
+fID = fopen('../Include/TLEs/ourTLE.txt','w');
+fprintf(fID,'1 00000U 18001Z   %02d%012.8f %s  00000-0 %+5.0f%2.0f 0 00017\n',...
+            year,day_dec,sMNM_dot,B_star,B_star_ex);
+fprintf(fID,'2 00000 %08.4f %08.4f %s %08.4f %08.4f %11.8f000007',...
+            INC,RAAN,sECC,AOP,MNA,MNM);
 fclose(fID);
 
 % Output a TLE in the format used for sim
 B_star      = B_star*10^(B_star_ex); 
-ECC         = ECC/1e7;
-orbit_tle   = [year, JD_UTC_epoch_J2000, B_star, INC, RAAN, ECC, AOP, MNA, MNM]';
+orbit_tle   = [ year; JD_UTC_epoch_J2000; B_star; ...
+                INC; RAAN; ECC; AOP; MNA; MNM];
 end
