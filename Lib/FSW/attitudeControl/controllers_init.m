@@ -10,3 +10,6 @@ SlewAndControlConstrained_init;
 
 % tracking controller
 pdController_init;
+
+% desaturation controller. MTQ desats RWA
+Desaturation_init;
