@@ -7,14 +7,14 @@
 % TLE 
 TLE = 'ISS.txt';
 
-% Turning off and on 
-SP_ON   = 1;
-GG_ON   = 1;
-ATMO_ON = 1;
-
 % main structs
 fswParams = struct;
 simParams = struct;
+
+% Turning off and on 
+simParams.opts.SP_ON   = 1;
+simParams.opts.GG_ON   = 1;
+simParams.opts.ATMO_ON = 1;
 
 % FSW Parameters 
 fswParams.sample_time_s = 0.1;      % sample at 10Hz
