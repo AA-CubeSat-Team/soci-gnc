@@ -49,6 +49,9 @@ magField_init;
 % sets up constants associated with the actuators
 actuators_init;
 
+% sets up constants associated with the allocator
+allocator_init;
+
 % sets up constants associated with the sesnors
 sensors_init;
 

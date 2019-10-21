@@ -25,4 +25,4 @@ desaturation.ht = Jw*ss_rate; % now an angular momentum target. NOT kg-m2/s !!
 fswParams.controllers.desaturation = desaturation;
 
 clear desaturation 
-clear Jw ss_rate B
+clear Jw ss_rate B B_vec

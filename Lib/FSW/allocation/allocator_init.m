@@ -8,7 +8,7 @@
 
 allocator = struct;
 
-alpha = 45; % angle of the reaction wheels
+alpha = 23; % angle of the reaction wheels
 
 A = [cosd(alpha) 0 -cosd(alpha) 0;
     0 -cosd(alpha) 0 cosd(alpha);
