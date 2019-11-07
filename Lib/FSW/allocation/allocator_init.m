@@ -11,7 +11,7 @@ allocator = struct;
 alpha = 23; % angle of the reaction wheels
 
 A = [cosd(alpha) 0 -cosd(alpha) 0;
-    0 -cosd(alpha) 0 cosd(alpha);
+    0 cosd(alpha) 0 -cosd(alpha);
     sind(alpha) sind(alpha) sind(alpha) sind(alpha)];
 allocator.A = A;
 Phi = A'/(A*A'); % psuedo inverse

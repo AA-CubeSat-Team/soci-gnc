@@ -20,6 +20,7 @@ rwa.time_cnst = [ 0.01; 0.01; 0.01; 0.01 ];
 
 % Wheel Characteristics
 rwa.max_RPM      = 6500;   % RPM
+rwa.max_RADPS    = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
 rwa.visc_fric    = 1e-6;    % WAG
 rwa.torque_cnst  = 1e-3;    % Nm/A WAG
 rwa.delay        = 0;       % s WAG
@@ -41,7 +42,8 @@ rwa.Aw = [ cb    0   -cb    0;
 rwa.iAw = inv(rwa.Aw);
 
 % Initial conditions
-rwa.ic.rpm              = 1000*ones(rwa.num_wheels,1);
+rwa.ic.rpm              = 1*[1000;-1000;1000;-1000];
+rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
 rwa.ic.momentum         = rwa.inertia_matrix ...
                       * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
 body_momentum           = rwa.Aw * rwa.ic.momentum; % about body axes
