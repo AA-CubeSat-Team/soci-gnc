@@ -8,7 +8,8 @@ mag = struct;
 mag.N_mag = 3;
 
 % set common sample time
-mag.sample_time_s = (1/20);
+% mag.sample_time_s = (1/20);
+mag.sample_time_s = simParams.sample_time_s;
 
 % set initial conditions in rate transitions/blocks
 mag.ic.B_eci_T = [1e-9;0;0];
@@ -39,7 +40,8 @@ gyro = struct;
 gyro.N_gyro = 3;
 
 % set common sample time
-gyro.sample_time_s = (1/40);
+% gyro.sample_time_s = (1/40);
+gyro.sample_time_s = simParams.sample_time_s;
 
 % loop through each sensor to set sensor specific values
 for k = 1:gyro.N_gyro
@@ -65,7 +67,8 @@ clear gyro
 sun_sensor = struct;
 
 % set sample time
-sun_sensor.sample_time_s = (1/20); % s
+% sun_sensor.sample_time_s = (1/20); % 
+sun_sensor.sample_time_s = simParams.sample_time_s;
 
 % body frame to sensor frame rotation matrix
 sun_sensor.body2sensor = [ 1.0, 0.0, 0.0;
