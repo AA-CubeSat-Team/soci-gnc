@@ -20,7 +20,7 @@ simParams.opts.ATMO_ON = 1;
 fswParams.sample_time_s = 0.1;      % sample at 10Hz
 
 % Sim Parameters 
-simParams.sample_time_s = 0.005;    % sample at 200Hz
+simParams.sample_time_s = 0.1;    % sample at 200Hz
 
 % initialize utility constants such as conversion rates
 constants_init;
