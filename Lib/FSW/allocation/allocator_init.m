@@ -16,6 +16,7 @@ A = [cosd(alpha) 0 -cosd(alpha) 0;
 allocator.A = A;
 Phi = A'/(A*A'); % psuedo inverse
 allocator.Phi = Phi;
+allo
 
 % New RW mapping if wheel_1 becomes unoperational. column 1 drops out.
 temp = A;
