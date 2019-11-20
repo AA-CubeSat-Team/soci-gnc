@@ -60,6 +60,7 @@ controllers_init;
 
 % Initialize Estimation
 % >> Kylle <<
+init_MEKF;
 
 % initialize sgp4 and orbit propogation
 % sgp4_init;
