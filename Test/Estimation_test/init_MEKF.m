@@ -17,7 +17,8 @@ estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simu
 sig_v = sqrt(10)*1e-10;% gyro sensor noise
 sig_u = sqrt(6)*1e-9; %'' ''
 sun_sensor_var = 0.0004; %sun sensor variance
-mag_var = [0.403053*10^-6;0.240996*10^-6;0.173209*10^-6]; %mag sensor variance
+mag_var1 =  10^-6*[0.403053;0.240996;0.173209];
+mag_var = mag_var1./norm(mag_var1,2); %normalized mag sensor variance
 
 
 %%Time step that the MEKF is ran at
