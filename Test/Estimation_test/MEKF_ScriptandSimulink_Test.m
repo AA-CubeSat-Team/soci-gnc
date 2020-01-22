@@ -176,11 +176,8 @@ simout1=sim('lib_testValidity','StopTime','tfinal', ...
 
         time2=simout1.get('timeoutNew');
         y=simout1.get('youtNew');
-        qs1=y{2}.Values.signal1.Data'; %get out estimated quaternions from simulink
-        qs2=y{2}.Values.signal2.Data'; 
-        qs3=y{2}.Values.signal3.Data'; 
-        qs4=y{2}.Values.signal4.Data';
-        qest_simu = [qs1;qs2;qs3;qs4]; % the simulink estimated quaternion
+        qest_simu = y{2}.Values.Data'; %get out estimated quaternions from simulink
+        % the simulink estimated quaternion
         
         
         sigma_simu = y{4}.Values.Data';%get out 3 sigma bounds from simulink (already multiplied by 3 and converted to degrees)
