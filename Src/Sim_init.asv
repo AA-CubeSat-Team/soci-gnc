@@ -14,5 +14,4 @@ addpath(genpath('../Test/'))
 
 init_params;
 
-% sim('Main_Sim.slx', 'StopTime', '10', 'debug', 'on')
-% sldebug('Main_Sim.slx')
+sim('Main_Sim.slx', 'StopTime', '10', 'debug', 'on')
