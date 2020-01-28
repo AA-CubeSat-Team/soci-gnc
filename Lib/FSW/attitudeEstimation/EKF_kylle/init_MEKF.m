@@ -1,5 +1,6 @@
 
-
+%%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
+                                              
 estimation = struct;
 
 %%%% Initial Conditions %%%%%
@@ -14,10 +15,10 @@ estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simu
 
 
 % Process and measurement covariances
-sig_v = sqrt(10)*1e-10;% gyro sensor noise
-sig_u = sqrt(6)*1e-9; %'' ''
-sun_sensor_var = 0.0004; %sun sensor variance
-mag_var = [0.403053*10^-6;0.240996*10^-6;0.173209*10^-6]; %mag sensor variance
+sig_v = sqrt(10)*1e-4;% zero mean gaussian covariance of gyro process noise
+sig_u = sqrt(6)*1e-8; % gyro random walk seems to work beter and converge quicker when this is smaller than sig_v
+sun_sensor_var = 0.0029/3; % sun sensor measurement covariance
+mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance
 
 
 %%Time step that the MEKF is ran at
