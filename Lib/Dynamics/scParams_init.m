@@ -27,7 +27,7 @@ scParams.Ay = scParams.y_len * scParams.z_len;
 scParams.Az = scParams.x_len * scParams.y_len;
 
 % Initialize battery model
-battery_init;
+% battery_init;
 
 simParams.scParams = scParams;
 fswParams.scParams = scParams;
