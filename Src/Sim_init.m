@@ -9,10 +9,8 @@ clear; clc; close all;
 % ~~~~~~~~~~~~~~~~~~
 addpath(genpath(pwd))
 addpath(genpath('../Lib/'))
+addpath(genpath('../Lib\Utilities_Tools\functions'))
 addpath(genpath('../Include/'))
 addpath(genpath('../Test/'))
 
 init_params;
-
-% sim('Main_Sim.slx', 'StopTime', '10', 'debug', 'on')
-% sldebug('Main_Sim.slx')
