@@ -66,7 +66,7 @@ for i = 1:m
         
         %%%calculate error
             qmix1 = ([qest(4,i);qest(1,i);qest(2,i);qest(3,i)]');
-                qmix = ([qest(4,i);-qest(1,i);-qest(2,i);-qest(3,i)]');
+                qmix = ([qest(4,i);-qest(1,i);-qest(2,i);-qeFst(3,i)]');
                     qmix_true = ([q_true(4,i);q_true(1,i);q_true(2,i);q_true(3,i)]');
                         qm(i,:) = quat_err(qmix1,qmix_true);
                             qerr = qm(:,1:3)*2; % error quaternion as a vector
