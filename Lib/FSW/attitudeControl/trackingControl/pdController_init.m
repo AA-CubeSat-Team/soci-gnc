@@ -16,7 +16,8 @@ z = sqrt(2)/2; %Damped
 % think we need ot react to
 wn = .017; %this corresponds to movement speeds of 1 deg/sec
 wn = .017*2; %this corresponds to doubling ^^ for margins
-wn = .017*10;
+% wn = .017*10;
+wn = 0.5;
 % wn = .007 %assuming 60 degrees in 5 minutes
 J = simParams.scParams.J;
 
