@@ -42,7 +42,7 @@ rwa.Aw = [ cb    0   -cb    0;
 rwa.iAw = inv(rwa.Aw);
 
 % Initial conditions
-rwa.ic.rpm              = 3.5*[1000;-1000;1000;-1000];
+rwa.ic.rpm              = 1*[1000;-1000;1000;-1000];
 rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
 rwa.ic.momentum         = rwa.inertia_matrix ...
                       * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
