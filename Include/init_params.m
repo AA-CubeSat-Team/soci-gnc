@@ -58,11 +58,20 @@ sensors_init;
 %Initialize the controller
 controllers_init;
 
+<<<<<<< HEAD
 % Initialize Estimation
 % >> Kylle <<
 init_MEKF;
+=======
+% Initialize State Estimation
+attitude_estimation_init;
+>>>>>>> dev_cole
+
+% Initialize Environmental Estimation
+environmentEstimation_init;
+
+% Initialize various FSW parameters
+FSW_init;
 
 % initialize sgp4 and orbit propogation
 % sgp4_init;
-
-

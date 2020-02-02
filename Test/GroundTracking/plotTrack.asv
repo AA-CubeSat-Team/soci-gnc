@@ -25,10 +25,6 @@ figure()
 hold all
 plot(long.data(:),lat.data(:),'.','LineWidth',2)
 plot(lon_seattle,lat_seattle,'*','LineWidth',2)
-hold on
-plot(x, (47+7)*ones(100, 1), 'r', x, (47-7)*ones(100, 1), 'r')
-hold on
-plot((-122+10)*ones(100, 1), y, 'r', (-122-10)*ones(100, 1), y, 'r')
 
 
 tol = 2;
@@ -47,8 +43,8 @@ end
 % plot( dist_v(:,1), dist_v(:,2),'.')
 title('Ground Track')
 xlabel('Longitude [deg]')
-ylabel('Latitude [deg]')
-legend('Ground Track','Seattle')%,'Within 10 degrees (euclidean)')
+ylabel("Latitude [
+legend('Ground Track','Seattle','Within 10 degrees (euclidean)')
 ylim([-90 90])
 xlim([-180 180])
 

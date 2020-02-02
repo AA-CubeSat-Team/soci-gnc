@@ -1,6 +1,7 @@
-% Initialization of the Allocator.
+% Initialization of the Allocators for the RWA and the MTQ.
 % Stores various methods for distributing the total body-axis 
-% control command to the available actuators.
+% control command to the available actuators. actuator frame to
+% body frames and visa versa.
 %
 %
 % Author: Cole Morgan
@@ -8,42 +9,36 @@
 
 allocator = struct;
 
+%%%% RWA Allocation %%%%
+
 alpha = 23; % angle of the reaction wheels
 
+% RWA frame to body frame.
 A = [cosd(alpha) 0 -cosd(alpha) 0;
     0 cosd(alpha) 0 -cosd(alpha);
     sind(alpha) sind(alpha) sind(alpha) sind(alpha)];
-allocator.A = A;
-Phi = A'/(A*A'); % psuedo inverse
-allocator.Phi = Phi;
-allocator.A_inv = Phi;
+allocator.RWA_A = A;
+temp = A'/(A*A'); % psuedo inverse
+allocator.Phi = temp;
+% body frame to RWA frame.
+allocator.RWA_A_inv = temp;
 
-% New RW mapping if wheel_1 becomes unoperational. column 1 drops out.
-temp = A;
-temp(:, 1) = [0;0;0];
-allocator.A_1 = temp;
-allocator.Phi_1 = temp'/(temp*temp');
- 
-% New RW mapping if wheel_2 becomes unoperational. column 2 drops out.
-temp = A;
-temp(:, 2) = [0;0;0];
-allocator.A_2 = temp;
-allocator.Phi_2 = temp'/(temp*temp');
- 
-% New RW mapping if wheel_3 becomes unoperational. column 3 drops out.
-temp = A;
-temp(:, 3) = [0;0;0];
-allocator.A_3 = temp;
-allocator.Phi_3 = temp'/(temp*temp');
- 
-% New RW mapping if wheel_4 becomes unoperational. column 4 drops out.
-temp = A;
-temp(:, 4) = [0;0;0];
-allocator.A_4 = temp;
-allocator.Phi_4 = temp'/(temp*temp');
+
+%%%% MTQ Allocation %%%%
+
+
+% allocation of MTQ frame to body frame.
+B = [1 -1 0 0 0;
+    0 0 1 -1 0;
+    0 0 0 0 1];
+allocator.MTQ_B = B;
+
+temp = B;
+% inv allocation from body to MTQ frame.
+allocator.MTQ_B_inv = temp'/(temp*temp');
  
 
 fswParams.allocator = allocator;
 
 clear allocator 
-clear alpha A Phi temp
+clear alpha A Phi temp B 
