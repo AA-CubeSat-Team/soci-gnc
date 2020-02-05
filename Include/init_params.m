@@ -58,14 +58,14 @@ sensors_init;
 %Initialize the controller
 controllers_init;
 
-<<<<<<< HEAD
+
 % Initialize Estimation
 % >> Kylle <<
 init_MEKF;
-=======
+
 % Initialize State Estimation
 attitude_estimation_init;
->>>>>>> dev_cole
+
 
 % Initialize Environmental Estimation
 environmentEstimation_init;
