@@ -1,7 +1,7 @@
 
 close all
 
-simParams.sample_time_s = .05;
+simParams.sample_time_s = .1;
 dt = simParams.sample_time_s;
 
 set_param(bdroot,'ShowPortDataTypes','on')
