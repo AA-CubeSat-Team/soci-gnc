@@ -22,7 +22,7 @@ mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance
 
 
 %%Time step that the MEKF is ran at
-estimation.dt = 0.1; 
+estimation.dt = 0.05; 
 
 %Constant MAtrices
 estimation.Q_k = [(sig_v^2*estimation.dt + 1/3*sig_u^2*estimation.dt^3)*eye(3), (0.5*sig_u^2*estimation.dt^2)*eye(3);
