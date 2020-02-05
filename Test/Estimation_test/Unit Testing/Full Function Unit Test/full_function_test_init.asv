@@ -2,12 +2,13 @@
 close all
 
 simParams.sample_time_s = .05;
-dt = simParams.sample_time_s;
+dt = 
+% tspan = 0:simParams.sample_time_s:10;
 
 set_param(bdroot,'ShowPortDataTypes','on')
 set_param(bdroot,'ShowLineDimensions','on')
 
-tspan = [0:dt:200]; % time span
+tspan = [0:0.1:200]; % time span
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
