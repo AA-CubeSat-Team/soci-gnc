@@ -1,5 +1,7 @@
 
 close all
+% clear all
+% clc
 
 simParams.sample_time_s = .1;
 dt = simParams.sample_time_s;
@@ -23,14 +25,14 @@ simout1=sim('simplified_sim_2018','StopTime','tfinal', ...
         q_true = y{5}.Values.Data';
         
         sigma_simu = y{4}.Values.Data';%get out 3 sigma bounds from simulink (already multiplied by 3 and converted to degrees)
-
+        Validity_Bool = y{6}.Values.Data';
 %%%%%%%%% CALCULATE THE ERROR QUATERNION FROM SIMULINK Q_EST %%%%%%%%%
-% for i = 1:m
-%     qmix1s = ([qest_simu(4,i);qest_simu(1,i);qest_simu(2,i);qest_simu(3,i)]');
-%         qmix_true = ([q_true(4,i);q_true(1,i);q_true(2,i);q_true(3,i)]');
-%         qm(i,:) = quat_err(qmix1s,qmix_true);
-%         qerrs = qm(:,1:3)*2;
-% end
+for i = 1:m
+    q_est_error = ([qest_simu(1,i);qest_simu(2,i);qest_simu(3,i);qest_simu(4,i)]');
+        q_true_error = ([q_true(1,i);q_true(2,i);q_true(3,i);q_true(4,i)]');
+        qm(i,:) = quat_err(q_est_error,q_true_error);
+        qerrs = qm(:,1:4)*2;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% CREATE FIGURE 1: ESTIMATED VS TRUE QUATERNION %%%%%%%%%%%%%%%%
@@ -69,80 +71,143 @@ figure
                     legend('True q_4','Estimated q_4 (simulink)','Estimated q_4 (script)','Location','northwest')
                     
 %%%%%%%% QUATERNION ERROR PLOTS %%%%%%%%%%%%%%%%
-% figure
-%  subplot(3,1,1)
-%             hold all;
-%             plot(t,sigma_simu(1,:),'*c')
-%             plot(t,-sigma_simu(1,:),'*m')
+figure
+ subplot(2,2,1)
+            hold all;
+            plot(t,sigma_simu(1,:),'*c')
+            plot(t,-sigma_simu(1,:),'*m')
 %             plot(t,3*180/pi*vestt(1,:),':m','LineWidth',2);
-%             plot(t,qerr(1:end,1)'*180/pi,'k'); %%% Script Error
-%             plot(t,qerrs(1:end,1)*180/pi,'b'); %%% Simulink Error
+            plot(t,qerrs(1:end,1)*180/pi,'b'); %%% Simulink Error
 %             plot(t,-3*180/pi*vestt(1,:),':c','LineWidth',2);
-%             title('q_1 Error & 3\sigma Bounds')
-%             legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_1 Error','Simu q_1 Error',...
-%                 '-3\sigma bound','Orientation','horizontal','Location','southeast')
-%             xlabel('Time (s)')
-%             ylabel('3 \sigma bound Error (deg)')
-%             grid on
-% 
-%                 subplot(3,1,2)
-%                     hold all;
-%                     plot(t,sigma_simu(2,:),'*c')
-%                     plot(t,-sigma_simu(2,:),'*m')
+            title('q_1 Error & 3\sigma Bounds')
+            legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_1 Error','Simu q_1 Error',...
+                '-3\sigma bound','Orientation','horizontal','Location','southeast')
+            xlabel('Time (s)')
+            ylabel('3 \sigma bound Error (deg)')
+            grid on
+
+                subplot(2,2,2)
+                    hold all;
+                    plot(t,sigma_simu(2,:),'*c')
+                    plot(t,-sigma_simu(2,:),'*m')
 %                     plot(t,3*180/pi*vestt(2,:),':m','LineWidth',2);
-%                     plot(t,qerr(1:end,2)*180/pi,'k'); %%% Script Error
-%                     plot(t,qerrs(1:end,2)*180/pi,'b'); %%% Simulink Error
+                    plot(t,qerrs(1:end,2)*180/pi,'b'); %%% Simulink Error
 %                     plot(t,-3*180/pi*vestt(2,:),':c','LineWidth',2);
-%                     title('q_2 Error & 3\sigma Bounds')
-%                     legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_2 Error','Simu q_2 Error',...
-%                         '-3\sigma bound','Orientation','horizontal','Location','southeast')
-%                     xlabel('Time (s)')
-%                     ylabel('3 \sigma bound Error (deg)')
-%                     grid on
-%                 
-%                         subplot(3,1,3)
-%                             hold all;
-%                             plot(t,sigma_simu(3,:),'*c')
-%                             plot(t,-sigma_simu(3,:),'*m')
+                    title('q_2 Error & 3\sigma Bounds')
+                    legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_2 Error','Simu q_2 Error',...
+                        '-3\sigma bound','Orientation','horizontal','Location','southeast')
+                    xlabel('Time (s)')
+                    ylabel('3 \sigma bound Error (deg)')
+                    grid on
+                
+                        subplot(2,2,3)
+                            hold all;
+                            plot(t,sigma_simu(3,:),'*c')
+                            plot(t,-sigma_simu(3,:),'*m')
 %                             plot(t,3*180/pi*vestt(3,:),':m','LineWidth',2);
-%                             plot(t,qerr(1:end,3)*180/pi,'k'); %%% Script Error
-%                             plot(t,qerrs(1:end,3)*180/pi,'b'); %%% Simulink Error
+                            plot(t,qerrs(1:end,3)*180/pi,'b'); %%% Simulink Error
 %                             plot(t,-3*180/pi*vestt(3,:),':c','LineWidth',2);
-%                             title('q_3 Error &3\sigma Bounds')
-%                             legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_3 Error','Simu q_3 Error',...
-%                                 '-3\sigma bound','Orientation','horizontal','Location','southeast')
-%                             xlabel('Time (s)')
-%                             ylabel('3 \sigma bound Error (deg)')
-%                             grid on
-%                     
-%                    
-% %%%%%%%%%%%%%% CREATE FIGURE 3: ESTIMATED Attitudes VS TRUE %%%%%%%%%%%%%%%%
+                            title('q_3 Error &3\sigma Bounds')
+                            legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_3 Error','Simu q_3 Error',...
+                                '-3\sigma bound','Orientation','horizontal','Location','southeast')
+                            xlabel('Time (s)')
+                            ylabel('3 \sigma bound Error (deg)')
+                            grid on
+                            
+                                subplot(2,2,4)
+                                    hold all;
+%                                     plot(t,sigma_simu(3,:),'*c')
+%                                     plot(t,-sigma_simu(3,:),'*m')
+        %                             plot(t,3*180/pi*vestt(3,:),':m','LineWidth',2);
+                                    plot(t,qerrs(1:end,4)*180/pi,'b'); %%% Simulink Error
+        %                             plot(t,-3*180/pi*vestt(3,:),':c','LineWidth',2);
+                                    title('q_4 Error')
+%                                     legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_3 Error','Simu q_3 Error',...
+%                                         '-3\sigma bound','Orientation','horizontal','Location','southeast')
+                                    xlabel('Time (s)')
+                                    ylabel('Error (deg)')
+                                    grid on
+                                    
+sun_bool = Validity_Bool(1,:);                           
+lev = 0.2;
+% Find points above the level
+aboveLine = (sun_bool>=lev);
+% Create 2 copies of y
+bottomLine = sun_bool;
+topLine = sun_bool;
+% Set the values you don't want to get drawn to nan
+bottomLine(aboveLine) = NaN;
+topLine(~aboveLine) = NaN; 
+
 % 
-% figure
-%     subplot(3,1,1)
-%     hold on
-%     plot(t,Rb(1,:)*180/pi,'--r',t,ytil(1,:)*180/pi,'g',t,Rb_hat(1,:)*180/pi,'--k')
-%     title('Roll Angle Time Evolution/Estimates')
-%     xlabel('Time (s)')
-%     ylabel('Roll Angle (deg)')
-%     grid on
-%     legend('Noisy Roll Data', 'Estimated Roll', 'True Roll')
-%     
-%         subplot(3,1,2)
-%             hold on
-%             plot(t,Rb(2,:)*180/pi,'--r',t,ytil(2,:)*180/pi,'g',t,Rb_hat(2,:)*180/pi,'--k')%,t,omega_est(1,:),t,omega_tilda(:,1),t,x1(:,5))
-%             title('Pitch Angle Time Evolution/Estimates')
-%             xlabel('Time (s)')
-%             ylabel('Pitch Angle (deg)')
-%             grid on
-%             legend('Noisy Pitch Data', 'Estimated Pitch Angle', 'True Pitch Angle')
-% 
-%                 subplot(3,1,3)
-%                     plot(t,Rb(3,:)*180/pi,'--r',t,ytil(3,:)*180/pi,'g',t,Rb_hat(3,:)*180/pi,'--k')
-%                     title('Yaw Angle Time Evolution/Estimates')
-%                     xlabel('Time (s)')
-%                     ylabel('Yaw Angle (deg)')
-%                     grid on
-%                     legend('Noisy Yaw Data', 'Estimated Yaw Angle', 'True Yaw Angle')
-% 
-%         
+% names1 = {'Healthy'};
+% names2 = {'Unhealthy'};
+%  y_label1 = {1,length(t)};
+%  y_label2 = {1,length(t)};
+% for rr = 1:length(t)
+%     y_label1{rr} = names1;
+%     y_label2{rr} = names2;
+% end
+% % set(gca,'xtick',[1:2],'yticklabel',names)
+
+figure
+    subplot(3,1,1)
+    hold on
+        plot(t,bottomLine,'r*','MarkerSize',5)
+%         set(gca,'ytick',topLine,'YTicklabel',y_label1)
+        plot(t,topLine,'g','LineWidth',5)
+%         set(gca,'ytick',bottomLine,'YTicklabel',y_label2)
+        title('Sun Sensor Health (Green = Healthy Measurements)')
+        xlabel('Time (s)')
+%         ylabel('True/False')
+        grid on
+%         xlim([-1,tfinal])
+        ylim([-0.1,1.1])
+        hold off
+%         legend('True q_1','Estimated q_1 (simulink)','Estimated q_1 (script)','Location','southeast')
+     
+mag_bool = Validity_Bool(2,:);                           
+lev = 0.2;
+% Find points above the level
+aboveLine = (mag_bool>=lev);
+% Create 2 copies of y
+bottomLine = mag_bool;
+topLine = mag_bool;
+% Set the values you don't want to get drawn to nan
+bottomLine(aboveLine) = NaN;
+topLine(~aboveLine) = NaN; 
+
+        subplot(3,1,2)
+        hold on
+            plot(t,bottomLine,'r*','MarkerSize',5)
+        plot(t,topLine,'g','LineWidth',5)
+            title('Mag Sensor Health (Green = Healthy Measurements')
+            xlabel('Time (s)')
+%             ylabel('True/False')
+            grid on
+%             xlim([-1,tfinal])
+            ylim([-0.1,1.1])
+                hold off
+                
+ gyro_bool = Validity_Bool(3,:);                           
+lev = 0.2;
+% Find points above the level
+aboveLine = (gyro_bool>=lev);
+% Create 2 copies of y
+bottomLine = gyro_bool;
+topLine = gyro_bool;
+% Set the values you don't want to get drawn to nan
+bottomLine(aboveLine) = NaN;
+topLine(~aboveLine) = NaN;
+               
+            subplot(3,1,3)
+            hold on
+            plot(t,bottomLine,'r*','MarkerSize',5)
+            plot(t,topLine,'g','LineWidth',5)
+            title('Gyro Sensor Health (Green = Healthy Measurements')
+            xlabel('Time (s)')
+%             ylabel('True/False')
+            grid on
+%             xlim([-1,tfinal])
+            ylim([-0.1,1.1])
+               hold off
