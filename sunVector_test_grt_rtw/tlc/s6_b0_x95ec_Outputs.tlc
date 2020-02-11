@@ -1,0 +1,56 @@
+%implements s6_b0_x95ec_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+real_T d;
+real_T b_min;
+real_T s;
+real_T jd;
+real_T M_s;
+real_T phi_e;
+real_T eps;
+real_T JC_idx_1;
+%closefile localVarDecl
+/* MATLAB Function: '<S2>/MATLAB Function3' incorporates:
+ *  Constant: '<Root>/Constant'
+ */
+%<(SLibCGCallSubFcn("sunVector_test_jseconds2ymdhms", ["sunVector_test_P.utc_test + -0.0361535", "&phi_e", "&eps", "&d", "&M_s", "&b_min", "&s", "&JC_idx_1", "&jd"], 0, 6, 11))>;
+/* MATLAB Function: '<S1>/MATLAB Function' incorporates:
+ *  MATLAB Function: '<S2>/MATLAB Function3'
+ */
+M_s = %<(SLibCGCallSubFcn("sunVector_test_mod", ["35999.05034 * JC_idx_1 + 357.5291092"], 0, 6, 0))>;
+d = M_s;
+%<(SLibCGCallSubFcn("sunVector_test_sind", ["&d"], 0, 6, 2))>;
+phi_e = 2.0 * M_s;
+%<(SLibCGCallSubFcn("sunVector_test_sind", ["&phi_e"], 0, 6, 3))>;
+phi_e = (%<(SLibCGCallSubFcn("sunVector_test_mod", ["36000.771 * JC_idx_1 + 280.46"], 0, 6, 1))> + 1.914666471 * d) + 0.019994643 * phi_e;
+eps = 23.439291 - 0.0130042 * JC_idx_1;
+d = M_s;
+%<(SLibCGCallSubFcn("sunVector_test_cosd", ["&d"], 0, 6, 4))>;
+d = 2.0 * M_s;
+%<(SLibCGCallSubFcn("sunVector_test_cosd", ["&d"], 0, 6, 5))>;
+d = phi_e;
+%<(SLibCGCallSubFcn("sunVector_test_cosd", ["&d"], 0, 6, 6))>;
+d = eps;
+%<(SLibCGCallSubFcn("sunVector_test_cosd", ["&d"], 0, 6, 7))>;
+M_s = phi_e;
+%<(SLibCGCallSubFcn("sunVector_test_sind", ["&M_s"], 0, 6, 8))>;
+%<(SLibCGCallSubFcn("sunVector_test_sind", ["&eps"], 0, 6, 9))>;
+%<(SLibCGCallSubFcn("sunVector_test_sind", ["&phi_e"], 0, 6, 10))>;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 6, fcnProtoType)>
+%endfunction
