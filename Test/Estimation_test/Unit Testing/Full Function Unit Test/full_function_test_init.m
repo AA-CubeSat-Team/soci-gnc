@@ -16,7 +16,7 @@ m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('simplified_sim_2018','StopTime','tfinal', ...
+simout1=sim('simplified_sim_20181','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
 
@@ -28,9 +28,9 @@ simout1=sim('simplified_sim_2018','StopTime','tfinal', ...
         
         sigma_simu = y{4}.Values.Data';%get out 3 sigma bounds from simulink (already multiplied by 3 and converted to degrees)
         Validity_Bool = y{6}.Values.Data';
-        att = y{7}.Values.Data';
-        figure 
-        plot(t,att(1,:),t,att(2,:),t,att(3,:))
+%         att = y{7}.Values.Data';
+%         figure 
+%         plot(t,att(1,:),t,att(2,:),t,att(3,:))
 %%%%%%%%% CALCULATE THE ERROR QUATERNION FROM SIMULINK Q_EST %%%%%%%%%
 for i = 1:m
     q_est_error = ([qest_simu(1,i);qest_simu(2,i);qest_simu(3,i);qest_simu(4,i)]');
