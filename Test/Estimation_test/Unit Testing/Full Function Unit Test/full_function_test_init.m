@@ -7,6 +7,7 @@ fswParams.sample_time_s = 0.01;
 simParams.sensors.sample_time_s = fswParams.sample_time_s;
 estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
+simParams.initialConditions.w0 = [0;0;0];
 
 set_param(bdroot,'ShowPortDataTypes','on')
 set_param(bdroot,'ShowLineDimensions','on')
