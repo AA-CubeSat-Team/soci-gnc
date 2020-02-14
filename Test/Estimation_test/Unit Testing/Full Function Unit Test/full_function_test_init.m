@@ -3,21 +3,33 @@ close all
 % clear all
 % clc
 
-fswParams.sample_time_s = 0.01;
+%make sure all time steps are equal across all files
+fswParams.sample_time_s = 0.1;
 simParams.sensors.sample_time_s = fswParams.sample_time_s;
 estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
+
+%set initial angular velo
 simParams.initialConditions.w0 = [0;0;0];
+fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
+
+% Set initial quaternion value from simParams (change scalar first to
+% scalar last in quaternion)
+fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
+    simParams.initialConditions.q0(3);
+    simParams.initialConditions.q0(4);
+    simParams.initialConditions.q0(1)];
+
 
 set_param(bdroot,'ShowPortDataTypes','on')
 set_param(bdroot,'ShowLineDimensions','on')
 
-tspan = [0:dt:200]; % time span
+tspan = [0:dt:5600]; % time span (5600 seconds is one orbit duration)
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('simplified_sim_20181','StopTime','tfinal', ...
+simout1=sim('simplified_sim1','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
 
