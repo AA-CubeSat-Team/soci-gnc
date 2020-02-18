@@ -10,26 +10,25 @@ estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
 
 %set initial angular velo
-simParams.initialConditions.w0 = [0;0;0];
+simParams.initialConditions.w0 = [-0.1;0.06;0.012];
 fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
 
 % Set initial quaternion value from simParams (change scalar first to
 % scalar last in quaternion)
+simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
 fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
     simParams.initialConditions.q0(3);
     simParams.initialConditions.q0(4);
     simParams.initialConditions.q0(1)];
-
-
 set_param(bdroot,'ShowPortDataTypes','on')
 set_param(bdroot,'ShowLineDimensions','on')
 
-tspan = [0:dt:5600]; % time span (5600 seconds is one orbit duration)
+tspan = [0:dt:500]; % time span (5600 seconds is one orbit duration)
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('simplified_sim1','StopTime','tfinal', ...
+simout1=sim('lib_testValidity','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
 
@@ -137,7 +136,7 @@ figure
 %                                     plot(t,sigma_simu(3,:),'*c')
 %                                     plot(t,-sigma_simu(3,:),'*m')
         %                             plot(t,3*180/pi*vestt(3,:),':m','LineWidth',2);
-                                    plot(t,qerrs(1:end,4)*180/pi,'b'); %%% Simulink Error
+                                    plot(t,(q_true(4,:)-qest_simu(4,:))*180/pi,'b'); %%% Simulink Error
         %                             plot(t,-3*180/pi*vestt(3,:),':c','LineWidth',2);
                                     title('q_4 Error')
 %                                     legend('+3\sigma bound (simulink)','-3\sigma bound (simulink)','+3\sigma bound','Script q_3 Error','Simu q_3 Error',...

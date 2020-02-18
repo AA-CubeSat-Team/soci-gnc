@@ -1,7 +1,8 @@
-function [vestt,qest,ytil,beta_est,omega_est,qerr] = mekf(qe,q_true,...
-    omega_tilda,P_sq,R,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_sq,K_i,S_i,V,D)
+function [vestt,qest,ytil,beta_est,omega_est,qerr] = mekf2(qe,q_true,...
+    omega_tilda,P_sq,R,m,Ri,Bb,nr,np,Beta,del_t,Q_sq,y_tilda,gamma)
 
-
+S = P_sq;
+% del_x = zeros(6,1);
 %%%%%%% THIS ROUTINE USES THE MEKF ALGORITHM IN TABLE 7.1 OF 
 %%%% CRASSIDIS/JUNKINS OPTIMAL ESTIMATION OF DYNAMIC SYSTEMS BOOK %%%%%%%%
 
@@ -42,23 +43,17 @@ for i = 1:m
         mat1 = A_q*Bb;
             mat_x1 = [0 -mat1(3) mat1(2);mat1(3) 0 -mat1(1);-mat1(2) mat1(1) 0];
         
-%%%%% Calcualte Kalman Gain
-        H = [mat_x, zeros(3,3);mat_x1,zeros(3,3)]; %sensitivity matrix
-            A = [R_sq',zeros(nr,np);(P_sq)*H', P_sq];
-%                 Sk_tilda_plus = [P_sq;R_sq*H];
-                [TA,UA] = qr(A); % note: the qr method is needed for the square root implementation, this is a deviation from the book
-                    Sk_plus = UA(1:np,1:np)'; %Updated P_sq
-                        W = UA(1:6,7:12)';
-                            sq_Bk = UA(1:6,1:6)';
-                                K = W*inv(sq_Bk)
-
-%               
+%%%%% Calcualte Kalman Gain and covariance Plus
+        H = [mat_x, zeros(3,3);mat_x1,zeros(3,3)];
+        yhat = [A_q*Ri;A_q*Bb];
+        ytilde = y_tilda(:,i);
+        [P_sq,del_x] = potter(P_sq,H,R,ytilde,yhat);
 %          
 %%%%%%% Measurement Update %%%%%%
         full_P  = P_sq*P_sq';
             vestt(:,i) = diag(full_P).^(0.5); % store diagnonals of the cov matrix for 3 sigma bounds
 % Alpha_K = TA'*[Alpha_K;R_sq*[A_q*Ri;A_q*Bb]];
-        del_x = K*(Rb(:,i)-[A_q*Ri;A_q*Bb]);
+%         del_x = K*(y_tilda(:,i)-[A_q*Ri;A_q*Bb]);
 % del_x = inv(Sk_plus)*Alpha_k;
             del_alpha = del_x(1:3,1);
                 del_beta = del_x(4:6,1);
@@ -99,15 +94,14 @@ for i = 1:m
                             zeros(3,3),sparse(eye(3));];
         
           qe = Omega_omega*qe; %quaternion propagation
-       
-          C = [P_sq'*Phi_discrete';Q_sq'];
-            [Tc,Uc] = qr(C);
-                sq_P_kp1 = Uc(1:6,1:6)';
-                    P_sq = sq_P_kp1; % sq_Pkpl becomes P_sq minus
-            
-                
-            
-%     
+% %        
+%           C = [Phi_discrete*P_sq;gamma*Q_sq'];
+%             [Tc,Uc] = qr(C);
+%                 sq_P_kp1 = Uc(1:6,1:6)';
+%                     P_sq = sq_P_kp1; % sq_Pkpl becomes P_sq minus
+          P = P_sq*P_sq';
+      P = Phi_discrete*P*Phi_discrete' + gamma*Q_k*gamma';
+    P_sq = chol(P,'lower');
     
 end
 end
