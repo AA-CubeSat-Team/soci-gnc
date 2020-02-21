@@ -64,7 +64,7 @@ controllers_init;
 init_MEKF;
 
 % Initialize State Estimation
-attitude_estimation_init;
+% attitude_estimation_init;
 
 
 % Initialize Environmental Estimation
