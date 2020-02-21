@@ -10,7 +10,7 @@ estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
 
 %set initial angular velo
-simParams.initialConditions.w0 = [-0.1;0.06;0.012];
+simParams.initialConditions.w0 = [0;0.06;0.0];
 fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
 
 % Set initial quaternion value from simParams (change scalar first to
@@ -28,7 +28,7 @@ m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('lib_testValidity','StopTime','tfinal', ...
+simout1=sim('simplified_sim1','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
 
