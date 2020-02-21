@@ -7,7 +7,8 @@ estimation = struct;
    
 estimation.ic.Beta_init = 0.0*[1;1;1];%Initialize gyro Bias
 estimation.ic.quat_est_init = [0;0;0;1]; 
-    
+estimation.ic.w_init = [0.001;0.001;0.001];
+
         P = [(0.1*pi/180)^2*eye(3) zeros(3,3);
         zeros(3,3),(0.2*pi/180/3600)*eye(3)];
         estimation.P_sq = chol(P,'lower'); %create square root form of cov matrix
@@ -15,8 +16,10 @@ estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simu
 
 
 % Process and measurement covariances
-sig_v = sqrt(100)*1e-8;% zero mean gaussian covariance of gyro process noise
-sig_u = sqrt(6)*1e-9; % gyro random walk seems to work beter and converge quicker when this is smaller than sig_v
+
+sig_v = sqrt(100)*1e-4;% zero mean gaussian covariance of gyro process noise
+sig_u = sqrt(6)*1e-8; % gyro random walk seems to work beter and converge quicker when this is smaller than sig_v
+
 sun_sensor_var = 0.5/(sqrt(2)*3.0); % sun sensor measurement covariance
 mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance
 
