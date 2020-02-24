@@ -7,7 +7,23 @@ close all
 fswParams.sample_time_s = 0.1;
 simParams.sensors.sample_time_s = fswParams.sample_time_s;
 estimation.dt = fswParams.sample_time_s;
-% dt = estimation.dt;
+
+dt = estimation.dt;
+
+%set initial angular velo
+simParams.initialConditions.w0 = [00.2;0.1;0.0];
+fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
+
+% Set initial quaternion value from simParams (change scalar first to
+% scalar last in quaternion)
+simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
+fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
+    simParams.initialConditions.q0(3);
+    simParams.initialConditions.q0(4);
+    simParams.initialConditions.q0(1)];
+set_param(bdroot,'ShowPortDataTypes','on')
+set_param(bdroot,'ShowLineDimensions','on')
+
 
 
 %%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
@@ -19,10 +35,10 @@ estimation = struct;
 estimation.ic.Beta_init = 0.0*[1;1;1];%Initialize gyro Bias
 % estimation.ic.quat_est_init = [1;0;0;0]; 
 
-simParams.initialConditions.w0 = [0;0.1;0];
+simParams.initialConditions.w0 = [-0.2;0.1;0];
 
-simParams.initialConditions.q0 = [0.53321544;0.592817248; 0.083109566 ;0.597780726]
-estimation.ic.quat_est_init
+simParams.initialConditions.q0 = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
+estimation.ic.quat_est_init = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
 estimation.ic.w_init = simParams.initialConditions.w0;
                P_0_a = 3.0462e-6;  % attitude
 P_0_b = 9.4018e-13; % bias
@@ -35,7 +51,7 @@ estimation.ic.P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 % Process and measurement covariances
 sig_v   = sqrt(10)*1e-7;            % angle random walk
 sig_u   = sqrt(10)*1e-10;           % rate random walk
-sun_sensor_var = 0.5/(sqrt(2)*3.0); % sun sensor measurement covariance
+sun_sensor_var = 0.05; %0.05/(sqrt(3)*3.0); % sun sensor measurement covariance
 mag_var =  [2e-7;2e-7;2e-7];%(10^-6*[0.403053;0.240996;0.173209]); % magnetometer covariance
 
 
@@ -49,7 +65,7 @@ estimation.Q_k = [(sig_v^2*estimation.dt + 1/3*sig_u^2*estimation.dt^3)*eye(3), 
 estimation.gamma = [-eye(3),zeros(3,3);zeros(3,3),eye(3)];
 % estimation.Q_sq = chol((estimation.gamma*estimation.Q_k*estimation.gamma'),'lower'); %square root dynamic noise matrix
 estimation.Qg = estimation.gamma*estimation.Q_k*estimation.gamma';
-   estimation.R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),(mag_var.^2).*eye(3)]; %create measurment error cov matrix
+   estimation.R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),(norm(mag_var)).*eye(3)]; %create measurment error cov matrix
 % estimation.R_sq = chol(R,'lower');  % reate square root form of measurement cov matrix  
 
 
@@ -65,7 +81,7 @@ tspan = [0:dt:500]; % time span (5600 seconds is one orbit duration)
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
-% sim('simz')
+
 simout1=sim('simz','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');

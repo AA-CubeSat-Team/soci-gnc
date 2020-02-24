@@ -1,6 +1,5 @@
 
-function [vestt,qest,ytil,beta_est,omega_est,qerr] = josephformmekf(qe,q_true,...
-    omega_tilda,P,R,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_k)
+function [vestt,qest,ytil,beta_est,omega_est,qerr] = josephformmekf(qe,q_true,omega_tilda,P,R,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_k)
 for i = 1:m
    Q = [qe(1:3,1)]; %change these q's to be q(1,1)
         Qx = [0 -qe(3) qe(2);qe(3) 0 -qe(1);-qe(2) qe(1) 0]; %cross product matrix of q

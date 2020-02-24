@@ -11,16 +11,16 @@ estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
 
 %set initial angular velo
-simParams.initialConditions.w0 = [0;0.06;0.0];
+simParams.initialConditions.w0 = [-0.25;0.1;0.01];
 fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
 
 % Set initial quaternion value from simParams (change scalar first to
 % scalar last in quaternion)
 simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
-fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
-    simParams.initialConditions.q0(3);
-    simParams.initialConditions.q0(4);
-    simParams.initialConditions.q0(1)];
+% fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
+%     simParams.initialConditions.q0(3);
+%     simParams.initialConditions.q0(4);
+%     simParams.initialConditions.q0(1)];
 set_param(bdroot,'ShowPortDataTypes','on')
 set_param(bdroot,'ShowLineDimensions','on')
 
@@ -32,10 +32,10 @@ estimation = struct;
 
 %%%% Initial Conditions %%%%%
    
-estimation.ic.Beta_init = 0.0*[1;1;1];%Initialize gyro Bias
+estimation.ic.Beta_init = 0.01*[1;1;1];%Initialize gyro Bias
 % estimation.ic.quat_est_init = [1;0;0;0]; 
 
-simParams.initialConditions.w0 = [-0.2;0.1;0];
+% simParams.initialConditions.w0 = [-0.2;0.1;0];
 
 simParams.initialConditions.q0 = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
 estimation.ic.quat_est_init = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
@@ -51,7 +51,7 @@ estimation.ic.P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 % Process and measurement covariances
 sig_v   = sqrt(10)*1e-7;            % angle random walk
 sig_u   = sqrt(10)*1e-10;           % rate random walk
-sun_sensor_var = 0.05; %0.05/(sqrt(3)*3.0); % sun sensor measurement covariance
+sun_sensor_var = 0.005; %0.05/(sqrt(3)*3.0); % sun sensor measurement covariance
 mag_var =  [2e-7;2e-7;2e-7];%(10^-6*[0.403053;0.240996;0.173209]); % magnetometer covariance
 
 
