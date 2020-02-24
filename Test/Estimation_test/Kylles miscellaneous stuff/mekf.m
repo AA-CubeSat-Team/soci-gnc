@@ -1,5 +1,5 @@
 function [vestt,qest,ytil,beta_est,omega_est,qerr] = mekf(qe,q_true,...
-    omega_tilda,P_sq,R,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_sq,K_i,S_i,V,D)
+    omega_tilda,P_sq,R_sq,m,sc,bc,nr,np,Beta,del_t,Q_sq,ymeas)
 
 
 %%%%%%% THIS ROUTINE USES THE MEKF ALGORITHM IN TABLE 7.1 OF 
@@ -36,18 +36,17 @@ for i = 1:m
                 Xi_q = [qe(4)*eye(3)+Qx;-Q'];
                     Phi_q = [qe(4)*eye(3)-Qx;-Q'];
                         A_q = Xi_q'*Phi_q;   %A(q_k minus) matrix
-
-        mat = A_q*Ri;
+mat = A_q*sc(i,:)';
             mat_x = [0 -mat(3) mat(2);mat(3) 0 -mat(1);-mat(2) mat(1) 0]; %cross product matrix of q
-        mat1 = A_q*Bb;
+        mat1 = A_q*bc(i,:)';
             mat_x1 = [0 -mat1(3) mat1(2);mat1(3) 0 -mat1(1);-mat1(2) mat1(1) 0];
-        
+%       
 %%%%% Calcualte Kalman Gain
-        H = [mat_x, zeros(3,3);mat_x1,zeros(3,3)]; %sensitivity matrix
-            A = [R_sq',zeros(nr,np);(P_sq)*H', P_sq];
+        H = [mat_x, zeros(3,3);mat_x1,zeros(3,3)];
+            A = [R_sq',zeros(nr,np);(P_sq)*H', P_sq'];
 %                 Sk_tilda_plus = [P_sq;R_sq*H];
                 [TA,UA] = qr(A); % note: the qr method is needed for the square root implementation, this is a deviation from the book
-                    Sk_plus = UA(1:np,1:np)'; %Updated P_sq
+                    P_sq = UA(1:np,1:np)'; %Updated P_sq
                         W = UA(1:6,7:12)';
                             sq_Bk = UA(1:6,1:6)';
                                 K = W*inv(sq_Bk)
@@ -58,7 +57,7 @@ for i = 1:m
         full_P  = P_sq*P_sq';
             vestt(:,i) = diag(full_P).^(0.5); % store diagnonals of the cov matrix for 3 sigma bounds
 % Alpha_K = TA'*[Alpha_K;R_sq*[A_q*Ri;A_q*Bb]];
-        del_x = K*(Rb(:,i)-[A_q*Ri;A_q*Bb]);
+        del_x = K*(ymeas(:,i)-[A_q*sc(i,:)';A_q*bc(i,:)']);
 % del_x = inv(Sk_plus)*Alpha_k;
             del_alpha = del_x(1:3,1);
                 del_beta = del_x(4:6,1);
@@ -75,7 +74,7 @@ for i = 1:m
                         qm(i,:) = quat_err(qmix1,qmix_true);
                             qerr = qm(:,1:3)*2; % error quaternion as a vector
 
-        ytil(:,i) = quatrotate(qmix1,Ri'); % create estimated attitude measurement
+        ytil(:,i) = A_q*sc(i,:)'; % create estimated attitude measurement
 
         Beta = Beta + del_beta; %updated Bias estimate
         beta_est(:,i) = Beta;
