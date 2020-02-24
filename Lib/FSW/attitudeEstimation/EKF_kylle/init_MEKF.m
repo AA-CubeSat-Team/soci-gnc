@@ -19,8 +19,8 @@ estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simu
 
 % Process and measurement covariances
 
-sig_v = sqrt(10)*1e-10;     % angle random walk
-sig_u = sqrt(10)*1e-7;    % rate random walk
+sig_v = sqrt(10)*1e-4;     % angle random walk
+sig_u = sqrt(10)*1e-8;    % rate random walk
 
 sun_sensor_var = 0.5/(sqrt(2)*3.0); % sun sensor measurement covariance
 mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance
