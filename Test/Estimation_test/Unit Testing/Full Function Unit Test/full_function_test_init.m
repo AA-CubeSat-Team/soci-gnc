@@ -7,7 +7,23 @@ close all
 fswParams.sample_time_s = 0.1;
 simParams.sensors.sample_time_s = fswParams.sample_time_s;
 estimation.dt = fswParams.sample_time_s;
-% dt = estimation.dt;
+
+dt = estimation.dt;
+
+%set initial angular velo
+simParams.initialConditions.w0 = [0;0.06;0.0];
+fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
+
+% Set initial quaternion value from simParams (change scalar first to
+% scalar last in quaternion)
+simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
+fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
+    simParams.initialConditions.q0(3);
+    simParams.initialConditions.q0(4);
+    simParams.initialConditions.q0(1)];
+set_param(bdroot,'ShowPortDataTypes','on')
+set_param(bdroot,'ShowLineDimensions','on')
+
 
 
 %%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
@@ -65,7 +81,7 @@ tspan = [0:dt:500]; % time span (5600 seconds is one orbit duration)
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
-% sim('simz')
+
 simout1=sim('simz','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
