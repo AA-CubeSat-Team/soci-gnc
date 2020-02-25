@@ -47,15 +47,10 @@ for k=1:length(tout)
    eul_est(:,k) = quat2eul(q_estimate(:,k)');
    eul_truth(:,k) = quat2eul(q_truth(k,:));
    eul_error(k) = dot(eul_truth(:,k),eul_est(:,k));
-   if bool.Data(k,1) < .5
-       findBad(k,1) = tout(k);
-       findBad(k,2) = eul_error(k);
-   end
+   if bool.Data(:,1) =
 end
 
 %%
-close all;
-
 figure()
 subplot(1,3,1)
 hold all
@@ -84,9 +79,7 @@ legend('estimated','truth')
 title('truth q0')
 
 figure()
-hold all
 plot(tout,eul_error)
-plot(findBad(:,1),findBad(:,2),'r*')
 title('Error in Euler Angle [Dot Product]')
 
 figure()

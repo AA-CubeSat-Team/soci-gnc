@@ -1,5 +1,5 @@
 sensors = struct;
-sensors.sample_time_s = 0.1;
+sensors.sample_time_s = 0.01;
 
 %% Magnetometer
 mag = struct;
