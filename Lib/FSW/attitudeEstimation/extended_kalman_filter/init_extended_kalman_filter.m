@@ -10,7 +10,9 @@
 ekf.sample_time_s = 1/10;
 
 % Initial conditions
-ekf.ic.quat_est_init = [1 0 0 0]';
+% ekf.ic.quat_est_init = [1 0 0 0]';
+
+ekf.ic.quat_est_init = [0.533215448243828,0.592817248117098,0.0831095662269988,0.597780725760345]';
 ekf.ic.rate_est_init = [0 0 0]';
 ekf.ic.bias_est_init = [0 0 0]';
 % Initial covariance from Crassidis Ex. 7.1 pp. 460.
@@ -42,7 +44,7 @@ ekf.dt  = ekf.sample_time_s;
 % Process and measurement covariances
 sig_v   = sqrt(10)*1e-7;            % angle random walk
 sig_u   = sqrt(10)*1e-10;           % rate random walk
-dt      = fswParams.estimation.dt;
+dt      = fswParams.ekf.dt;
 mag_err = norm([1.637696e-7;9.22938e-8;1.343961e-7]);
 sun_err = 0.05;
 
