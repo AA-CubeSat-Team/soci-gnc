@@ -5,7 +5,7 @@ sim('Main_Sim.slx')
 
 
 %%
- close all
+%  close all
 q_estimate = q_est.Data(:,:);
 
 q_truth= q_true.Data(:,:);
