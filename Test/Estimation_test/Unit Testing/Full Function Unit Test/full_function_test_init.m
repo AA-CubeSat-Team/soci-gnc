@@ -12,7 +12,7 @@ simParams.sensors.sample_time_s = fswParams.sample_time_s;simParams.sample_time_
 % dt = estimation.dt;
 
 %set initial angular velo
-% simParams.initialConditions.w0 = [-0.25;0.1;0.01];
+simParams.initialConditions.w0 = [-0.1;0.2;0.12];
 % fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
 
 % Set initial quaternion value from simParams (change scalar first to
@@ -35,7 +35,7 @@ m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('simplified_sim1','StopTime','tfinal', ...
+simout1=sim('simplified_sim2019','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
 % plot(tout,my_qtrue.Data(:,1),'k')
@@ -62,6 +62,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% CREATE FIGURE 1: ESTIMATED VS TRUE QUATERNION %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
 figure
     subplot(2,2,1)
         plot(t,q_true(1,:),'k',t,qest_simu(1,:),'g')
@@ -94,7 +96,7 @@ figure
                     ylabel('q4 (rad)')
                     grid on
                     legend('True q_4','Estimated q_4 (simulink)','Estimated q_4 (script)','Location','northwest')
-                    
+           
 %%%%%%%% QUATERNION ERROR PLOTS %%%%%%%%%%%%%%%%
 figure
  subplot(2,2,1)

@@ -1,6 +1,5 @@
-%%
-tfinal = 500;
-sim('Unit_Test_Debug',tfinal)
+
+sim('Unit_Test_Debug',Simulation_Time)
 
 
 %% plotting my estimated vs my true (plots from the unit_debug_model)

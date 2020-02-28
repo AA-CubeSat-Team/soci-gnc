@@ -23,7 +23,7 @@ estimation.ic.P_init = P;
 sig_v = sqrt(10)*1e-7;     % angle random walk
 sig_u = sqrt(10)*1e-10;    % rate random walk
 
-sun_sensor_var = 1; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
+sun_sensor_var = 0.00000004; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
 
 %%Time step that the MEKF is ran at
