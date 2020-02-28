@@ -5,18 +5,19 @@ close all
 
 %make sure all time steps are equal across all files
 fswParams.sample_time_s = 0.1;
-simParams.sensors.sample_time_s = fswParams.sample_time_s;
-estimation.dt = fswParams.sample_time_s;
+simParams.sensors.sample_time_s = fswParams.sample_time_s;simParams.sample_time_s = fswParams.sample_time_s;
+% simParams.sensors.sample_time_s = fswParams.sample_time_s;
+% estimation.dt = fswParams.sample_time_s;
 
-dt = estimation.dt;
+% dt = estimation.dt;
 
 %set initial angular velo
-simParams.initialConditions.w0 = [-0.25;0.1;0.01];
-fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
+% simParams.initialConditions.w0 = [-0.25;0.1;0.01];
+% fswParams.estimation.ic.w_init = simParams.initialConditions.w0;
 
 % Set initial quaternion value from simParams (change scalar first to
 % scalar last in quaternion)
-simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
+% simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
 % fswParams.estimation.ic.quat_est_init = [simParams.initialConditions.q0(2);
 %     simParams.initialConditions.q0(3);
 %     simParams.initialConditions.q0(4);
@@ -27,73 +28,26 @@ set_param(bdroot,'ShowLineDimensions','on')
 
 
 %%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
-                                              
-estimation = struct;
 
-%%%% Initial Conditions %%%%%
-   
-estimation.ic.Beta_init = 0.01*[1;1;1];%Initialize gyro Bias
-% estimation.ic.quat_est_init = [1;0;0;0]; 
-
-% simParams.initialConditions.w0 = [-0.2;0.1;0];
-
-simParams.initialConditions.q0 = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
-estimation.ic.quat_est_init = [0.53321544;0.592817248; 0.083109566 ;0.597780726];
-estimation.ic.w_init = simParams.initialConditions.w0;
-               P_0_a = 3.0462e-6;  % attitude
-P_0_b = 9.4018e-13; % bias
-estimation.ic.P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
-%         zeros(3,3),(0.2*pi/180/3600)*eye(3)];
-%         estimation.P_sq = chol(P,'lower'); %create square root form of cov matrix
-% estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simulink
-
-
-% Process and measurement covariances
-sig_v   = sqrt(10)*1e-7;            % angle random walk
-sig_u   = sqrt(10)*1e-10;           % rate random walk
-sun_sensor_var = 0.005; %0.05/(sqrt(3)*3.0); % sun sensor measurement covariance
-mag_var =  [2e-7;2e-7;2e-7];%(10^-6*[0.403053;0.240996;0.173209]); % magnetometer covariance
-
-
-%%Time step that the MEKF is ran at
-estimation.dt = 0.1; 
-estimation.del_t = 0.1; 
-
-%Constant MAtrices
-estimation.Q_k = [(sig_v^2*estimation.dt + 1/3*sig_u^2*estimation.dt^3)*eye(3), (0.5*sig_u^2*estimation.dt^2)*eye(3);
-        (0.5*sig_u^2*estimation.dt^2)*eye(3), (sig_u^2*estimation.dt)*eye(3)]; %create dynamic nnoise measurement matrix
-estimation.gamma = [-eye(3),zeros(3,3);zeros(3,3),eye(3)];
-% estimation.Q_sq = chol((estimation.gamma*estimation.Q_k*estimation.gamma'),'lower'); %square root dynamic noise matrix
-estimation.Qg = estimation.gamma*estimation.Q_k*estimation.gamma';
-   estimation.R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),(norm(mag_var)).*eye(3)]; %create measurment error cov matrix
-% estimation.R_sq = chol(R,'lower');  % reate square root form of measurement cov matrix  
-
-
-fswParams.estimation = estimation;
-clear estimation
-clear sig_v sig_u sun_sensor_var mag_var zero R Beta P
-
-
-
-
-dt = 1/10;
-tspan = [0:dt:500]; % time span (5600 seconds is one orbit duration)
+dt = fswParams.sample_time_s;
+tspan = [0:dt:400]; % time span (5600 seconds is one orbit duration)
 m = length(tspan);
 t = tspan; % time horizon
 tfinal = tspan(m); %final time
 
-simout1=sim('simz','StopTime','tfinal', ...
+simout1=sim('simplified_sim1','StopTime','tfinal', ...
     'SaveTime','on','TimeSaveName','timeoutNew',...
     'SaveOutput','on','OutputSaveName','youtNew');
-
+% plot(tout,my_qtrue.Data(:,1),'k')
+% plot(tout,my_qest.Data(:,1),'g--')
         time2=simout1.get('timeoutNew');
         y=simout1.get('youtNew');
-        qest_simu = simout1.q_est_simulink.Data'; %get out estimated quaternions from simulink
+        qest_simu = simout1.q_estimate.Data'; %get out estimated quaternions from simulink
         % the simulink estimated quaternion
         q_true = simout1.qtrue.Data';
         
         sigma_simu = simout1.three_sig.Data';%get out 3 sigma bounds from simulink (already multiplied by 3 and converted to degrees)
-        Validity_Bool = simout1.bool.Data';
+        Validity_Bool = simout1.Validity_vec.Data';
 %         att = y{7}.Values.Data';
 %         figure 
 %         plot(t,att(1,:),t,att(2,:),t,att(3,:))
@@ -110,7 +64,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure
     subplot(2,2,1)
-        plot(t,q_true(1,:),'k*',t,qest_simu(1,:),'g')
+        plot(t,q_true(1,:),'k',t,qest_simu(1,:),'g')
         title('q1 Evolution/Estimates')
         xlabel('Time (s)')
         ylabel('q1 (rad)')
@@ -118,7 +72,7 @@ figure
         legend('True q_1','Estimated q_1 (simulink)','Estimated q_1 (script)','Location','southeast')
 
         subplot(2,2,2)
-            plot(t,q_true(2,:),'k*',t,qest_simu(2,:),'g')
+            plot(t,q_true(2,:),'k',t,qest_simu(2,:),'g')
             title('q2 Evolution/Estimates')
             xlabel('Time (s)')
             ylabel('q2 (rad)')
@@ -126,7 +80,7 @@ figure
             legend('True q_2','Estimated q_2 (simulink)','Estimated q_2 (script)','Location','southwest')
 
             subplot(2,2,3)
-                plot(t,q_true(3,:),'k*',t,qest_simu(3,:),'g')
+                plot(t,q_true(3,:),'k',t,qest_simu(3,:),'g')
                 title('q3 Evolution/Estimates')
                 xlabel('Time (s)')
                 ylabel('q3 (rad)')
@@ -134,7 +88,7 @@ figure
                 legend('True q_3','Estimated q_3 (simulink)','Estimated q_3 (script)','Location','northeast')
 
                 subplot(2,2,4)
-                    plot(t,q_true(4,:),'k*',t,qest_simu(4,:),'g')
+                    plot(t,q_true(4,:),'k',t,qest_simu(4,:),'g')
                     title('q4 Evolution/Estimates')
                     xlabel('Time (s)')
                     ylabel('q4 (rad)')

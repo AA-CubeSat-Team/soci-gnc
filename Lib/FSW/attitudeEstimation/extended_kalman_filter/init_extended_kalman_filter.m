@@ -10,18 +10,14 @@
 ekf.sample_time_s = 1/10;
 
 % Initial conditions
-<<<<<<< Updated upstream
+
 % ekf.ic.quat_est_init = [1 0 0 0]';
 
 ekf.ic.quat_est_init = [0.533215448243828,0.592817248117098,0.0831095662269988,0.597780725760345]';
 ekf.ic.rate_est_init = [0 0 0]';
-=======
 ekf.ic.quat_est_init = [1 0 0 0]';
 ekf.ic.quat_est_init = simParams.initialConditions.q0;
 % ekf.ic.rate_est_init = [0 0 0]';
-w0 = [0.2 0.1 0]';
-ekf.ic.rate_est_init = w0;
->>>>>>> Stashed changes
 ekf.ic.bias_est_init = [0 0 0]';
 % Initial covariance from Crassidis Ex. 7.1 pp. 460.
 P_0_a = 3.0462e-6;  % attitude
@@ -52,20 +48,15 @@ ekf.dt  = ekf.sample_time_s;
 % Process and measurement covariances
 sig_v   = sqrt(10)*1e-7;            % angle random walk
 sig_u   = sqrt(10)*1e-10;           % rate random walk
-<<<<<<< Updated upstream
-dt      = fswParams.ekf.dt;
-mag_err = norm([1.637696e-7;9.22938e-8;1.343961e-7]);
-sun_err = 0.05;
-=======
-dt      = fswParams.estimation.dt;
 mag_err = 10^-6*[0.403053;0.240996;0.173209];
-sun_err =  0.0004; %0.5/(sqrt(2)*3.0);
->>>>>>> Stashed changes
+sun_err = 0.5/(sqrt(2)*3.0);
+
+
 
 ekf.proc_cov = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)    -(1/2*sig_u^2*dt^2)*eye(3);
                    -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)];
 % ekf.meas_cov = diag([(norm(mag_var)).*eye(3), sun_err*ones(1,3)]);
-ekf.meas_cov =[(norm(mag_err)).*eye(3),zeros(3,3);zeros(3,3),sun_err^2*eye(3)];
+ekf.meas_cov =[((mag_err.^2)).*eye(3),zeros(3,3);zeros(3,3),sun_err^2*eye(3)];
 fswParams.ekf = ekf;
 
 clear ekf;

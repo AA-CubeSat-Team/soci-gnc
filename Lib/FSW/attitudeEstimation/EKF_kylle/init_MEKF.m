@@ -5,23 +5,16 @@ estimation = struct;
 
 %%%% Initial Conditions %%%%%
    
-<<<<<<< Updated upstream
-estimation.ic.Beta_init = 0.0*[1;1;1];%Initialize gyro Bias
-estimation.ic.quat_est_init = [0.533215448243828,0.592817248117098,0.0831095662269988,0.597780725760345]';
-% estimation.ic.quat_est_init = simParams.initialConditions.q0;
 
-estimation.ic.w_init = [0.00;0.00;0.00];
-
-=======
 estimation.ic.Beta_init = [0 0 0];%Initialize gyro Bias
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
 estimation.ic.w_init = [0 0 0]';
->>>>>>> Stashed changes
 % estimation.sampleTime_s = .001;
 
 
-        P = [(0.1*pi/180)^2*eye(3) zeros(3,3);
-        zeros(3,3),(0.2*pi/180/3600)*eye(3)];
+%         P = [(0.1*pi/180)^2*eye(3) zeros(3,3);
+%         zeros(3,3),(0.2*pi/180/3600)*eye(3)];\
+P = 0.000001.*eye(6);
        
 estimation.ic.P_init = P;
 
@@ -30,9 +23,8 @@ estimation.ic.P_init = P;
 sig_v = sqrt(10)*1e-7;     % angle random walk
 sig_u = sqrt(10)*1e-10;    % rate random walk
 
-sun_sensor_var = 0.0005; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
+sun_sensor_var = 1; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
-
 
 %%Time step that the MEKF is ran at
 estimation.dt = fswParams.sample_time_s; 
