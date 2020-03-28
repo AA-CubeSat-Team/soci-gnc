@@ -5,7 +5,7 @@ estimation = struct;
 %%%% Initial Conditions %%%%%
 simParams.initialConditions.w0 = [0;0.01;0.0];
 estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
-% estimation.ic.quat_est_init = [1;0;0;0]; 
+estimation.ic.quat_est_init = [1;0;0;0]; 
 simParams.initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
 estimation.ic.w_init = [0.00;0.00;0.00];
