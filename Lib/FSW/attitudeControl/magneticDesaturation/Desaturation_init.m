@@ -20,8 +20,8 @@ desaturation.maxDipole = 0.0515; %A-m2 max dipole our magtorquers can generate.
 Jw = 2.94*10^-5; %kg-m2 inertia of the individual wheels.
 desaturation.Jw = Jw;
 % ss_rate = 1000*[1;1;1;1]; % 1000 rpm rate for each wheel is the target.
-ss_rate = -1000*[1, -1, 1, -1]; % make this dependent on null space?
-% ss_rate = 1000*[1; 1; -1; -1]; % actually make this **perpendicular** to the null space.
+ss_rate = 1000*[1, -1, 1, -1]; % make this dependent on null space?
+% ss_rate = 1000*[1; -1; 0; 0]; % actually make this **perpendicular** to the null space.
 desaturation.ht = Jw*ss_rate; % now an angular momentum target. NOT kg-m2/s !!
 
 fswParams.controllers.desaturation = desaturation;
