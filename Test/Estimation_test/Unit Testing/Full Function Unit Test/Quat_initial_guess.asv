@@ -31,6 +31,7 @@ for w = 1:num_omega
 for k = 1:num_err
 
 s = mat2str([quat_init(:,k)]);
+
 w1 = mat2str([omega(:,w)]);
 
 
@@ -44,15 +45,15 @@ qtrue = simOut.my_qtrue.Data';
 qest = simOut.my_qest.Data';
 q_init_est = simOut.my_qest_init.Data';
 q0_err = simOut.q0_error.Data';
-alpha_error = (simOut.qerr_deg.Data')*2*180/pi;
-% q1e = q_error(2,:); % these are the alpha angle errors that correspond to 3 sigma bounds errors
-% q2e = q_error(3,:);
-% q3e = q_error(4,:);
+q_error = (simOut.qerr_deg.Data')*2;
+q1e = q_error(2,:); % these are the alpha angle errors that correspond to 3 sigma bounds errors
+q2e = q_error(3,:);
+q3e = q_error(4,:);
 
 
         %Get Settling Times
         for c = 2:4
-        sett_time(c-1,k) = set_time(alpha_error(c,:),converge_time,dt,t);
+        sett_time(c-1,k) = set_time(q_error(c,:),converge_time,dt,t);
         end
         maximum = max(sett_time,[],1);
         [row_not_converged,col_not_converged] = find(sett_time == -1);
@@ -94,7 +95,7 @@ set(h1, 'markerfacecolor', get(h1, 'color'))
 % set(h2, 'markerfacecolor', get(h2, 'color'))
 % set(h3, 'markerfacecolor', get(h3, 'color'))
 xlim([0,max(start_error_angle) + 5])
-ylim([-2,inf])
+ylim([-4,inf])
 grid on
 xlabel('Starting \theta error (deg)')
 ylabel('Settling Time to Within 3.5 deg Error')
