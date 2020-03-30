@@ -5,9 +5,9 @@ initialConditions = struct;
 % ~~~~~~~~~~~~~~~~~~~~~ %
 % qt = rand(4,1);
 % initialConditions.q0 = qt/norm(qt);
-initialConditions.q0 = [0.533215448243828;0.592817248117098;0.0831095662269988;0.597780725760345];
+initialConditions.q0 = [1;0;0;0];
 % initialConditions.w0 = rand(3,1); 
- initialConditions.w0 = [ 0.0001; 0.0001; 0.0001 ];
+ initialConditions.w0 = [ 0.000; 0.000; 0.000 ];
  
 % ~~~~~~~~~~~~~~~~~~~~~ %
 %   Orbital  dynamics   %

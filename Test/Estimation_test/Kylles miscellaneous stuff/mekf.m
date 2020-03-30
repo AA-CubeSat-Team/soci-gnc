@@ -1,5 +1,6 @@
 function [vestt,qest,ytil,beta_est,omega_est,qerr] = mekf(qe,q_true,...
-    omega_tilda,P_sq,R_sq,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_sq)
+    omega_tilda,P_sq,R,m,Ri,Bb,Rb,nr,np,Beta,del_t,Q_sq,K_i,S_i,V,D)
+
 
 %%%%%%% THIS ROUTINE USES THE MEKF ALGORITHM IN TABLE 7.1 OF 
 %%%% CRASSIDIS/JUNKINS OPTIMAL ESTIMATION OF DYNAMIC SYSTEMS BOOK %%%%%%%%
@@ -43,19 +44,22 @@ for i = 1:m
         
 %%%%% Calcualte Kalman Gain
         H = [mat_x, zeros(3,3);mat_x1,zeros(3,3)]; %sensitivity matrix
-            A = [R_sq',zeros(nr,np);(P_sq')*H', P_sq'];
+            A = [R_sq',zeros(nr,np);(P_sq)*H', P_sq];
+%                 Sk_tilda_plus = [P_sq;R_sq*H];
                 [TA,UA] = qr(A); % note: the qr method is needed for the square root implementation, this is a deviation from the book
-                    P_sq = UA(7:12,7:12)'; %Updated P_sq
+                    Sk_plus = UA(1:np,1:np)'; %Updated P_sq
                         W = UA(1:6,7:12)';
                             sq_Bk = UA(1:6,1:6)';
-                                K = W*inv(sq_Bk);
-        
-        
+                                K = W*inv(sq_Bk)
+
+%               
+%          
 %%%%%%% Measurement Update %%%%%%
         full_P  = P_sq*P_sq';
             vestt(:,i) = diag(full_P).^(0.5); % store diagnonals of the cov matrix for 3 sigma bounds
-
+% Alpha_K = TA'*[Alpha_K;R_sq*[A_q*Ri;A_q*Bb]];
         del_x = K*(Rb(:,i)-[A_q*Ri;A_q*Bb]);
+% del_x = inv(Sk_plus)*Alpha_k;
             del_alpha = del_x(1:3,1);
                 del_beta = del_x(4:6,1);
                     qe = qe + 0.5*Xi_q*del_alpha; % estimated quaternion
@@ -66,7 +70,7 @@ for i = 1:m
         
         %%%calculate error
             qmix1 = ([qest(4,i);qest(1,i);qest(2,i);qest(3,i)]');
-                qmix = ([qest(4,i);-qest(1,i);-qest(2,i);-qeFst(3,i)]');
+                qmix = ([qest(4,i);-qest(1,i);-qest(2,i);-qest(3,i)]');
                     qmix_true = ([q_true(4,i);q_true(1,i);q_true(2,i);q_true(3,i)]');
                         qm(i,:) = quat_err(qmix1,qmix_true);
                             qerr = qm(:,1:3)*2; % error quaternion as a vector
@@ -100,7 +104,10 @@ for i = 1:m
             [Tc,Uc] = qr(C);
                 sq_P_kp1 = Uc(1:6,1:6)';
                     P_sq = sq_P_kp1; % sq_Pkpl becomes P_sq minus
-    
+            
+                
+            
+%     
     
 end
 end
