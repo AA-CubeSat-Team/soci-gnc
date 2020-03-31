@@ -7,8 +7,15 @@
 % Author: Cole Morgan
 
 
+% chosen "randomly" with at least 1 above the saturation limit of 4500rpm.
+% this needs to be a fsw params as well bc the controller cannot specify
+% the correct rpm command if it has the wrong value. 
+
+% nominal rpm values of each wheel when desaturated
+
+
 % Reaction Wheel Assembly (RWA)
-rwa               = struct;
+% rwa               = struct;
 % rwa.num_wheels    = 4;
 % rwa.sample_time_s = simParams.sample_time_s;
 
@@ -29,19 +36,16 @@ rwa.inv_inertia_matrix  = inv(rwa.inertia_matrix);
 % Initial conditions
 rwa.ic.rpm              = 1.0*[1000;-1000;1000;-1000];
 rwa.ic.rpm              = 1.0*[4600;-3400;2000;-3000];
-% chosen "randomly" with at least 1 above the saturation limit of 4500rpm.
-% this needs to be a fsw params as well bc the controller cannot specify
-% the correct rpm command if it has the wrong value. 
 rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
 rwa.ic.momentum         = rwa.inertia_matrix ...
                       * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
                   
-simParams.actuators.rwa.ic.rpm      = rwa.ic.rpm;
-simParams.actuators.rwa.ic.radps    = rwa.ic.radps;
-simParams.actuators.rwa.ic.momentum = rwa.ic.momentum;
-fswParams.actuators.rwa.ic.rpm      = rwa.ic.rpm;
-fswParams.actuators.rwa.ic.radps    = rwa.ic.radps;
-fswParams.actuators.rwa.ic.momentum = rwa.ic.momentum;
+simParams.actuators.ic.rpm      = rwa.ic.rpm;
+simParams.actuators.ic.radps    = rwa.ic.radps;
+simParams.actuators.ic.momentum = rwa.ic.momentum;
+fswParams.actuators.ic.rpm      = rwa.ic.rpm;
+fswParams.actuators.ic.radps    = rwa.ic.radps;
+fswParams.actuators.ic.momentum = rwa.ic.momentum;
 
 % momentum target. NOTICE these are not SI units of momentum. that is
 % becuase it is much more intuitive to think of this target in terms of rpm not rad per sec. 
@@ -50,4 +54,5 @@ fswParams.controllers.desaturation.ht = simParams.actuators.rwa.inertia_matrix*r
                   
 
 
-clear rwa nominal_rate
+clear rwa
+clear actuators body_momentum body_torque_Nm cb sb nominal_rate
