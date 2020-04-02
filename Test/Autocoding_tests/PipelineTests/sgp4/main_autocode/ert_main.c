@@ -22,7 +22,7 @@
 #include <stddef.h>
 #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
 #include <math.h>
-#include "sgp4_lib_fsw0.h"             /* Model's header file */
+#include "include/sgp4_lib_fsw0.h"             /* Model's header file */
 #include "rtwtypes.h"
 
 /*
