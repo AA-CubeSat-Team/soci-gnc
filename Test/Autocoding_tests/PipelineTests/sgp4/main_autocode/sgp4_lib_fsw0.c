@@ -19,7 +19,7 @@
  * Validation result: Not run
  */
 
-#include "sgp4_lib_fsw0.h"
+#include "include/sgp4_lib_fsw0.h"
 #include <math.h>
 #define NumBitsPerChar                 8U
 

@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-cd sgp4/main_autocode
+cd sgp4
 make clean
 make
 ./main >> sgp4.log
-mv sgp4.log ../../logs
+mv sgp4.log ../logs
 
-cd ../../
+cd ../
 
-cd soac/main_autocode
+cd soac
 make clean
 make
 ./main >> soac.log
-mv soac.log ../../logs
+mv soac.log ../logs
 
-cd ../../
+cd ../

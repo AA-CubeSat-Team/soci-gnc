@@ -1,8 +1,9 @@
 # Define the directories
+MAIN = main_autocode
 GENERIC_INC_DIR := ../std_autocode_headers/
-INC_DIR := ./include
-BUILD_DIR := ./build
-SRC_DIR := ./
+INC_DIR := ./$(MAIN)/
+BUILD_DIR := ./$(MAIN)/build
+SRC_DIR := ./$(MAIN)
 
 # Define macros for all file names of the files we care about
 SRC := $(wildcard $(SRC_DIR)/*.c)
@@ -12,7 +13,11 @@ OBJ := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
 
 # Macros for build options
 CC=gcc
-CFLAGS=-I$(GENERIC_INC_DIR) -I$(INC_DIR) -Wall -lm
+CFLAGS=-I$(GENERIC_INC_DIR) -I$(INC_DIR) -Wall
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	CFLAGS += -lm
+endif
 
 main: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) 
