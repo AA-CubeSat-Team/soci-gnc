@@ -21,7 +21,7 @@ estimation.ic.Pchol_init = chol(P_init,'lower');
 fswParams.sample_time_s = 1/30;
 
 sun_sensor_std = sqrt(6e-4); %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
-mag_var_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
+mag_var_std =  sqrt([2e-7;2e-7;2e-7]).; %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
 
 %%Time step that the Mestimation is ran at
 % estimation.ic.P_init = 1e-10*eye(6,6);
@@ -39,8 +39,8 @@ Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)    -(1/2*sig_u^2*dt^2)*eye(3);
                    -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; %create dynamic nnoise measurement matrix
 %Constant MAtrices
 gamma = blkdiag(-eye(3),eye(3));
-Q = gamma*Q_k*gamma';
-estimation.Qchol = chol(Q,'lower');
+Qg = gamma*Q_k*gamma';
+estimation.Qgchol = chol(Qg,'lower')
 
 R = [(sun_sensor_std^2)*eye(3),zeros(3,3);zeros(3,3),((mag_var_std.^2)).*eye(3)]; %create measurment error cov matrix
 estimation.Rchol = chol(R,'lower');

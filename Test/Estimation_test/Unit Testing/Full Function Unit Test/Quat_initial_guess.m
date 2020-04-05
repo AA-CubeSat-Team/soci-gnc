@@ -8,16 +8,15 @@ warning('off','all')
 warning
 
 set_param('UnitTestDebug','FastRestart','on')
-
 % Define Parameters
-tfinal = 50;
+tfinal = 500;
 dt = fswParams.sample_time_s;
 t = 0:dt:tfinal;
 L = length(t);
 converge_time = 0.95*tfinal;
 
 % Number of iterations
-num_err = 200; %number of starting error values to try
+num_err = 50; %number of starting error values to try
 
 % simParams.initialConditions.q0 = [1 0 0 0]';
 q0_sim = mat2str(simParams.initialConditions.q0);
@@ -26,7 +25,7 @@ set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
 r_sun_inertial = [1;0;0];
 r_sun = mat2str(r_sun_inertial);
 set_param( 'UnitTestDebug/r_sun_inertial','Value', '[1;0;0]')
-set_param( 'UnitTestDebug/sun_valid','Value', '1')
+% set_param( 'UnitTestDebug/sun_valid','Value', '1')
 
 % Allocate Space for Loop-built matrices
 Mag_err = zeros(1,L);      q0_error = zeros(1,L);    
@@ -57,14 +56,14 @@ end
 
 q_guess_vec = [0.5 0.5 0.5 0.5]';
 q_guess = mat2str(q_guess_vec);
-for k = 1:num_err
-     quat_init(1,k) = randn/70 + q_guess_vec(1); 
-     quat_init(2,k) = randn/70 + q_guess_vec(2); 
-     quat_init(3,k) = randn/70 + q_guess_vec(3); 
-     quat_init(4,k) = randn/70 + q_guess_vec(4); 
-     quat_init (:,k)  = quat_init(:,k)./norm(quat_init(:,k),2);
-end
-
+% for k = 1:num_err
+%      quat_init(1,k) = randn/70 + q_guess_vec(1); 
+%      quat_init(2,k) = randn/70 + q_guess_vec(2); 
+%      quat_init(3,k) = randn/70 + q_guess_vec(3); 
+%      quat_init(4,k) = randn/70 + q_guess_vec(4); 
+%      quat_init (:,k)  = quat_init(:,k)./norm(quat_init(:,k),2);
+% end
+% 
 
 
 
@@ -82,28 +81,24 @@ end
  end
  
  
-     rng(0,'twister')
-a = -0.002;
-b = 0.002;
-mag = 0.5*pi/180;
-for k = 1:num_err
+mag_deg = 15.5; %here is desired angular velo magnitude
+mag = mag_deg*pi/180;
+for k = 1:num_omega
     
-u = (b-a).*rand(1,1) + a;
-v = (b-a).*rand(1,1) + a;
-
-w = sqrt(mag^2 - (u^2 + v^2));
-omega(:,k) = [u;v;w];
+[x,~] = randfixedsum(3,1,mag^2,0,10);
+omega(1,k) = sqrt(x(1))*(-1)^randi(2);
+omega(2,k) = sqrt(x(2))*(-1)^randi(2);
+omega(3,k) = sqrt(x(3))*(-1)^randi(2);
 norm_omega(1,k) = round(norm(omega(:,k),2)*180/pi,2);%get into deg/s
-% norm_q(:,k) = norm(quat(:,k));
+% omega = 0*omega;
 end
-
  
  
  
  
 
 %run simulation loop for start error angles and angular velocities
-for w = 1:3%num_omega
+for w = 1:1%num_omega
     for k = 1:num_err
         
         s = mat2str(quat_init(:,k));
@@ -183,17 +178,17 @@ set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
 
 
 tout = simOut.tout;
-% figure;
-% 
-% grid on;
-% subplot(2,2,1)
-% title(['constant \omega =',mat2str(norm_omega(:,w)), 'rad/s'])
-% hold on
-% plot(tout,simOut.my_qtrue.Data(:,1),'k','Linewidth',1.25)
-% plot(tout,simOut.my_qest.Data(:,1),'m--','Linewidth',1.25)
-% legend('q1 true', 'q1 est')
-% grid on;
-% hold off
+figure;
+
+grid on;
+subplot(2,2,1)
+title(['constant \omega =',mat2str(norm_omega(:,w)), 'rad/s'])
+hold on
+plot(tout,simOut.my_qtrue.Data(:,1),'k','Linewidth',1.25)
+plot(tout,simOut.my_qest.Data(:,1),'m--','Linewidth',1.25)
+legend('q1 true', 'q1 est')
+grid on;
+hold off
 % 
 % subplot(2,2,2)
 % hold on
