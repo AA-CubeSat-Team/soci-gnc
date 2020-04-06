@@ -13,7 +13,7 @@ OBJ := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
 
 # Macros for build options
 CC=gcc
-CFLAGS=-I$(GENERIC_INC_DIR) -I$(INC_DIR) -Wall
+CFLAGS=-I$(GENERIC_INC_DIR) -I$(INC_DIR) -w -Wall
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	CFLAGS += -lm
