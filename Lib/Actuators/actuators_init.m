@@ -2,8 +2,8 @@ actuators = struct;
 actuators.sample_time_s = simParams.sample_time_s;
 
 % Reaction Wheel Assembly (RWA)
-rwa = struct;
-rwa.num_wheels = 4;
+rwa               = struct;
+rwa.num_wheels    = 4;
 rwa.sample_time_s = simParams.sample_time_s;
 
 % estimated from spec sheet using:
@@ -15,22 +15,26 @@ rwa.sample_time_s = simParams.sample_time_s;
 %     norm(hw1-A*J*O1) <= g1;
 %     norm(hw2-A*J*O2) <= g2;
 % cvx_end
-rwa.inertia = [ 2.9526e-5; 2.9526e-5; 2.9526e-5; 2.9526e-5 ];
+rwa.inertia   = [ 2.9526e-5; 2.9526e-5; 2.9526e-5; 2.9526e-5 ];
 rwa.time_cnst = [ 0.01; 0.01; 0.01; 0.01 ];
 
 % Wheel Characteristics
-rwa.max_RPM      = 6500;   % RPM
-rwa.max_RADPS    = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
+rwa.max_RPM        = 6500;   % RPM
+rwa.max_RADPS      = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
+rwa.max_torque_Nm  = 3.2e-3; % max torque per wheel
+rwa.nominal_rpm    = [1000; -1000; 1000; -1000];    % RPM. in nullspace
+rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
+
 rwa.visc_fric    = 1e-6;    % WAG
 rwa.torque_cnst  = 1e-3;    % Nm/A WAG
 rwa.delay        = 0;       % s WAG
 rwa.resistance   = 1;       % Ohms WAG
 rwa.inductance   = 1e-6;    % Henry WAG
+
 rwa.inertia_matrix      = diag(rwa.inertia);
 rwa.inv_inertia_matrix  = inv(rwa.inertia_matrix);
 rwa.dc_voltage          = 5; % V
-rwa.cant_angle          = 23 * simParams.constants.convert.DEG2RAD; % rad
-rwa.max_torque_Nm = 3.2e-3; % max torque per wheel
+rwa.cant_angle          = 23 * simParams.constants.convert.DEG2RAD; % rad 
 
 % torque allocation matrix
 cb = cos(rwa.cant_angle);
@@ -43,6 +47,8 @@ rwa.iAw = inv(rwa.Aw);
 
 % Initial conditions
 rwa.ic.rpm              = 1.0*[1000;-1000;1000;-1000];
+rwa.ic.rpm              = 1.0*[4300;-3400;2000;-3000];
+% rwa.ic.rpm              = 0*[3600;4400;2000;3000];
 rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
 rwa.ic.momentum         = rwa.inertia_matrix ...
                       * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
@@ -71,13 +77,46 @@ rwa.ic.deriv1           = 0;
 % rwa.tf_V2I_den  = sys_d2.Denominator{1};
 % clear num den num2 sys_c sys_c2 sys_d sys_d2
 
+% Continuos time PID
+% rwa.control.kp              = 1.3375803137951;
+% rwa.control.ki              = 267.355364694592;
+% rwa.control.kd              = -0.000485758916096801;
+% rwa.control.filter_coeff    = 378.094165182863;
+% rwa.control.setpt_weight_b  = 0.0302538537839731;
+% rwa.control.setpt_weight_c  = 0.220333136002326;
+
+% % Motor transfer functions
+num1         = [rwa.inertia(1) 0];
+den          = [rwa.time_cnst(1) 1];
+num2         = [1];
+sys_cont1    = tf(num1, den); % TF for omega -> dot{h}_w 
+sys_cont2    = tf(num2, den); % TF for omega_cmd -> omega
+sys_disc1    = c2d(sys_cont1,rwa.sample_time_s, 'foh'); 
+sys_disc2    = c2d(sys_cont2,rwa.sample_time_s, 'foh');
+rwa.tf_num1  = sys_disc1.Numerator{1};
+rwa.tf_den1  = sys_disc1.Denominator{1};
+rwa.tf_num2  = sys_disc2.Numerator{1};
+rwa.tf_den2  = sys_disc2.Denominator{1};
+clear num1 den num2 sys_cont1 sys_cont2 sys_disc1 sys_disc2
+
 % % Control Params - tuned with PID tool
+% Discrete time PID for V to I
 % rwa.control.kp              = 0.1;
 % rwa.control.ki              = 0.02;
 % rwa.control.kd              = 0;
 % rwa.control.filter_coeff    = 50;
 % rwa.control.setpt_weight_b  = 1;
 % rwa.control.setpt_weight_c  = 1;
+
+% % Control Params - tuned with PID tool
+% Discrete time PID for omega to torque
+rwa.control.kp              = 0.111;
+rwa.control.ki              = 2.25;
+rwa.control.kd              = 0;
+rwa.control.filter_coeff    = 100;
+rwa.control.setpt_weight_b  = 1;
+rwa.control.setpt_weight_c  = 1;
+
 
 actuators.rwa = rwa;
 

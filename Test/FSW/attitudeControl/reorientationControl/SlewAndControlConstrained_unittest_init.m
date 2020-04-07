@@ -6,16 +6,7 @@
 % Author: Cole Morgan
 
 
-% controller1 = struct;
+simParams.actuators.rwa.ic.rpm = [4600; -3400; 1900; -2000]; 
+% chosen "randomly" with at least 1 above the saturation limit of 4500rpm 
 
-q0 = [0.6157; 0.265; 0.265; -.6930]; % cannot be qd;
-q0 = q0/norm(q0);     % initial orientation
-simParams.initialConditions.q0 = q0;
-
-w0 = [0;0;0]; %rest to rest reorientation
-simParams.initialConditions.w0 = w0;
-
-% fswParams.controllers.controller1 = controller1;
-
-clear controller1 
-clear alpha A K w_max i q0 qd w0 m
+fswParams.

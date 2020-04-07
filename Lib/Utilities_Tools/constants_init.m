@@ -39,11 +39,11 @@ constants.global.JDJ2000 = 2451545.0;
 % 3.5 degrees attitude error is switch between tracking and 
 % reorientation controllers. If tripped, reorientation controller
 % will activate until it is brought below 1.5 degrees.
-constants.global.reorientation_controller_threshold_max = 3.5;
+constants.global.reorientation_controller_threshold_max = 2*3.5;
 constants.global.reorientation_controller_threshold_min = 1.5;
 
 % Use to protect against division by zero
-constants.global.small = 1e-4;
+constants.global.small = 1e-8;
 
 % state vector definitions
 constants.id_r = (1:3);
