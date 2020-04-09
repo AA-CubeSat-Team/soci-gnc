@@ -16,8 +16,6 @@ time.DTT_TAI = 32.184; %TAI -> TT offset
 time.epoch_utc_s = ...
               simParams.orbit_tle(2) * fswParams.constants.convert.DAY2SEC;
 
-time.J2000_epoch = 2451545.0;
-
 % Clock resolution
 time.res = 1e-6;
 
