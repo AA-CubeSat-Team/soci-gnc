@@ -9,14 +9,14 @@ warning
 
 set_param('UnitTestDebug','FastRestart','on')
 % Define Parameters
-tfinal = 500;
+tfinal = 200;
 dt = fswParams.sample_time_s;
 t = 0:dt:tfinal;
 L = length(t);
 converge_time = 0.95*tfinal;
 
 % Number of iterations
-num_err = 50; %number of starting error values to try
+num_err = 10; %number of starting error values to try
 
 % simParams.initialConditions.q0 = [1 0 0 0]';
 q0_sim = mat2str(simParams.initialConditions.q0);
@@ -56,14 +56,14 @@ end
 
 q_guess_vec = [0.5 0.5 0.5 0.5]';
 q_guess = mat2str(q_guess_vec);
-% for k = 1:num_err
-%      quat_init(1,k) = randn/70 + q_guess_vec(1); 
-%      quat_init(2,k) = randn/70 + q_guess_vec(2); 
-%      quat_init(3,k) = randn/70 + q_guess_vec(3); 
-%      quat_init(4,k) = randn/70 + q_guess_vec(4); 
-%      quat_init (:,k)  = quat_init(:,k)./norm(quat_init(:,k),2);
-% end
-% 
+for k = 1:num_err
+     quat_init(1,k) = randn/70 + q_guess_vec(1); 
+     quat_init(2,k) = randn/70 + q_guess_vec(2); 
+     quat_init(3,k) = randn/70 + q_guess_vec(3); 
+     quat_init(4,k) = randn/70 + q_guess_vec(4); 
+     quat_init (:,k)  = quat_init(:,k)./norm(quat_init(:,k),2);
+end
+
 
 
 
@@ -81,7 +81,7 @@ end
  end
  
  
-mag_deg = 15.5; %here is desired angular velo magnitude
+mag_deg = 0.5; %here is desired angular velo magnitude
 mag = mag_deg*pi/180;
 for k = 1:num_omega
     
@@ -103,7 +103,7 @@ for w = 1:1%num_omega
         
         s = mat2str(quat_init(:,k));
         w1 = mat2str(omega(:,w));
-        set_param( 'UnitTestDebug/MEKF_lib/Unit Delay2', 'InitialCondition', q_guess) %these vary the initial quaternion each iteration
+        set_param( 'UnitTestDebug/MEKF_lib/Unit Delay2', 'InitialCondition', mat2str(q_guess_vec)) %these vary the initial quaternion each iteration
 set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
     'InitialCondition', s)
         set_param( 'UnitTestDebug/Omega', 'Value',w1) %varies the angular velo each iteration
