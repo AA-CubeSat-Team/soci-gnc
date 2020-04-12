@@ -3,15 +3,11 @@
 estimation = struct;
 
 %%%% Initial Conditions %%%%%
-simParams.initialConditions.w0 = [0;0.01;0.0];
-% simParams.initialConditions.w0 = [-0.2;0.1;0.04];
 estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
 estimation.ic.quat_est_init = [1;0;0;0]; 
 simParams.initialConditions.q0 = [1;0;0;0];
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
-% estimation.ic.w_init = [0.00;0.00;0.00];
-% estimation.ic.w_init=  [-0.0759758375904211;0.239973389221653;-0.0991200265923264];
-simParams.initialConditions.w0 = [-0.01;0.05;-0.012];
+
 %Create covariance matrix for estimate
 P_0_a = 3.0462e-6;  % attitude
 P_0_b = 9.4018e-13; % bias
