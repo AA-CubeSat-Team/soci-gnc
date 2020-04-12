@@ -41,7 +41,7 @@ estimation.dt = fswParams.sample_time_s;
 dt = estimation.dt;
 estimation.sample_time_s = dt;
 
-%Constant MAtrices sqrt form
+%Constant Matrices sqrt form
 gamma = blkdiag(-eye(3),eye(3));
 Q = gamma*Q_k*gamma';
 estimation.Qchol = chol(Q,'lower');
