@@ -22,7 +22,7 @@
 #include <stddef.h>
 #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
 #include "sunVector_test.h"            /* Model's header file */
-#include "rtwtypes.h"
+#include "../std_autocode_headers/rtwtypes.h"
 
 /*
  * Associating rt_OneStep with a real-time clock or interrupt service routine
