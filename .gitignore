@@ -10,3 +10,7 @@
 
 # Other
 *.xml
+
+#autocoded build stuff
+*.o
+*.log
