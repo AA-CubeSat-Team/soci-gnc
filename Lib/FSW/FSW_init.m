@@ -8,13 +8,6 @@
 mode_select       = struct;
 target_generation = struct;
 
-<<<<<<< HEAD
-mode_select.sc_mode_ic              = int8(1.0);
-mode_select.body_rate_threshold_max = 9*pi/180;  %rad/s
-mode_select.body_rate_threshold_min = .5*pi/180; %rad/s
-mode_select.RWA_RPM_threshold_max   = 4500; %RPM
-mode_select.RWA_RPM_threshold_min   = 1060; %RPM
-=======
 mode_select.sc_mode_ic                    = int8(1.0);
 mode_select.body_rate_threshold_max       = 9*pi/180;  %rad/s
 mode_select.body_rate_threshold_min       = .5*pi/180; %rad/s
@@ -22,7 +15,6 @@ mode_select.RWA_RPM_threshold_max_inf     = 5000;   %RPM. limits max indv rpm
 mode_select.RWA_RPM_threshold_min_inf     = 1100;   %RPM.
 mode_select.RWA_RPM_threshold_max_2norm   = 2*3000; %RPM. limits total power
 mode_select.RWA_RPM_threshold_min_2norm   = 2*1100; %RPM. 
->>>>>>> dev_cole_b4_merge
 
 % Define our orbit
 % YMDHMS  = [ 2020; 1; 1; 0; 0; 0 ];
