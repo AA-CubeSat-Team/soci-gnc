@@ -10,7 +10,7 @@ estimation.ic.quat_est_init = simParams.initialConditions.q0;
 
 %Create covariance matrix for estimate
 P_0_a = 3.0462e-6;  % attitude
-P_0_b = 9.4018e-13; % bias
+P_0_b =9.4018e-13; % bias
 P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 estimation.ic.Pchol_init = chol(P_init,'lower');
 
@@ -25,14 +25,14 @@ simParams.sensors.sun_sensor.sample_time_s = dt;
 
 sun_sensor_std = (5e-3); %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 % mag_sens_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
-mag_sens_std  = ([2e-3;2e-3;2e-3]);
+mag_sens_std  = ([2e-7;2e-7;2e-7]);
 
 
 % Process and measurement covariances
-sig_v = sqrt(10)*1e-6;     % angle random walk Actual
-sig_u = sqrt(10)*1e-6;    % rate random walk
+sig_v = ((sqrt(10)*1e-6));     % angle random walk Actual
+sig_u = ((sqrt(10)*1e-6));    % rate random walk
 
-Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)    -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
+Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
                    -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 
 
               

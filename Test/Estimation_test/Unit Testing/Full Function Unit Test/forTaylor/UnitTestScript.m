@@ -3,13 +3,13 @@ clc
 close all
 clearvars -except fswParams simParams TLE
 %tag
-tfinal = 5600;
-omega_test = [0.1;0.05;-0.07];
+tfinal = 1500;
+omega_test = [0.02;0;0];
 w1 = mat2str([omega_test]);
 
 set_param( 'UnitTestDebug/omega_true', 'Value',w1) %set model angular velocity (constant)
-set_param( 'UnitTestDebug/Add Bias/gyroscope_lib/ARW', 'Gain','10*1e-5') %set model angle random walk
-set_param( 'UnitTestDebug/Add Bias/gyroscope_lib/RRW', 'Gain','10*1e-5') %set model rate random walk
+set_param( 'UnitTestDebug/Add Bias/gyroscope_lib/ARW', 'Gain','sqrt(10)*1e-7') %set model angle random walk
+set_param( 'UnitTestDebug/Add Bias/gyroscope_lib/RRW', 'Gain','sqrt(10)*1e-10') %set model rate random walk
 sim('UnitTestDebug',tfinal)
 
 %extract values from sim
