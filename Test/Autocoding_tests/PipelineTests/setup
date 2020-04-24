@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+
+
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied. Please provie the filename of the autocoded project"
+    exit 1
+fi
+
+
+
+cp makefile $1/
+
+cd $1
+
+mkdir main_autocode
+
+mkdir main_autocode/build
+
+mkdir main_autocode/include
+
+mv *.c main_autocode/
+
+mv *.h main_autocode/

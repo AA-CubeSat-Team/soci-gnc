@@ -25,9 +25,6 @@ main: $(OBJ)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-
-
-
 .PHONY: clean
 clean:
 	rm -f $(BUILD_DIR)/*.o $(BUILD_DIR)/*.d *~ cor
