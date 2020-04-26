@@ -1,7 +1,7 @@
 
 clc
 close all
-clearvars -except fswParams simParams TLE
+% clearvars -except fswParams simParams TLE
 %tag
 dt = 0.1;
 tspan = [0:dt:500];
@@ -9,7 +9,7 @@ tfinal = tspan(end);
 
 J = [3,-2,-1;-2,3,-1;-1,-1,4]; %inertial matrix
 q0 = [0;0;0;1];
-w0 = [0.05;0;0];
+w0 = [0.1;0;0];
 p0 = [q0;w0]; % initial conditions q0 concatinated with w0 !!THIS IS SCALAR LAST!!
 K = @(t,x) [(0.5.*([x(4), -x(3), x(2); x(3), x(4), -x(1); -x(2), x(1), x(4); -x(1), -x(2), -x(3)]*[x(5); x(6); x(7)]));
     (inv(J)*[0;0;0] - inv(J)*[0, -x(7), x(6); x(7), 0 , -x(5); -x(6), x(5), 0]*J*[x(5); x(6); x(7)])];
@@ -74,7 +74,7 @@ set_param( 'UnitTest_2/MEKF_lib/Unit Delay2', 'InitialCondition',q_init) %set qu
 sim('UnitTest_2',tfinal)
 
 %extract values from sim
-qtrue = my_qtrue.signals.values;
+qtrue = qmix;
 qest = my_qest.signals.values;
 quat_error = quat_theta_error_deg.signals.values;
 om_true = wtrue;
@@ -97,7 +97,7 @@ grid on;
 subplot(2,2,i)
 title('Quaternion Estimates')
 hold on
-plot(tout,qtrue(:,i),'k','Linewidth',1.25)
+plot(tout,qtrue(i,:),'k','Linewidth',1.25)
 plot(tout,qest(:,i),'m--','Linewidth',1.25)
 legend(['q_',num2str(i),  'true'],[ 'q_',num2str(i),  'est'])
 grid on;
