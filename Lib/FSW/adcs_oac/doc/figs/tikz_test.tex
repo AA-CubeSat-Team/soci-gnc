@@ -1,0 +1,46 @@
+\documentclass{standalone}
+\input{../preamble.tex}
+\input{../my_tikz.tex}
+
+\begin{document}
+\renewcommand{\tabspace}{\hspace{1em}}
+\begin{tikzpicture}
+\tikzmath{
+	\cx=0; \cy=0; \stp=0.35;
+	\cxx=\cx+0.25;
+	\cxxx=\cxx+2;
+	\cyy=\cy-\stp;
+	\cyyy=\cyy-\stp;
+	\cyyyy=\cyyy-\stp;
+	\cyyyyy=\cyyyy-\stp;
+	\cyyyyyy=\cyyyyy-\stp;
+	\cyyyyyyy=\cyyyyyy-\stp;
+}
+
+\coordinate (brace) at (\cxxx,\cyyyyy-0.04);
+
+\node[text width=2cm,align=left] at (\cx,\cy) {\ttt{soar\_telemetry}};
+\node[text width=2cm,align=left] at (\cxx,\cyy) {\ttt{.opt\_state}};
+\node[text width=2cm,align=left] at (\cxx,\cyyy) {\ttt{.opt\_ctrl\_Nm}};
+\node[text width=2cm,align=left] at (\cxx,\cyyyy) {\ttt{.final\_time\_s}};
+\node[text width=2cm,align=left] at (\cxx,\cyyyyy) {\ttt{.exitcode}};
+\node[text width=2cm,align=left] at (\cxx,\cyyyyyy) {\ttt{.slv\_time\_s}};
+\node[text width=2cm,align=left] at (\cxx,\cyyyyyyy) {\ttt{.soar\_count}};
+
+\draw [decorate,decoration={brace,amplitude=6pt}]
+($(brace)+(0,-0.75)$) -- ($(brace)+(0,0.75)$);
+\draw[->] (\cxx+0.75,\cyyyyy-0.04) -- ($(brace.west)+(-0.25,0)$);
+
+\begin{scope}[shift={(\cxxx,\cyyy)}]
+	\node[text width=2cm,anchor=west] at (\cx,\cyy) {\ttt{solver\_codes}};
+	\node[text width=2cm,anchor=west] at (\cx,\cyy-1.1*\stp) {\ttt{global\_iters}};
+	\node[text width=2cm,anchor=west] at (\cx,\cyy-2*\stp) {\ttt{soln\_valid}};
+\end{scope}
+
+
+\draw[help lines,opacity=0] (-5,-5) grid (5,5);
+% \filldraw[red!100] (0,0) circle (2pt);
+
+\end{tikzpicture}
+
+\end{document}

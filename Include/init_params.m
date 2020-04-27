@@ -73,5 +73,8 @@ environmentEstimation_init;
 % Initialize various FSW parameters
 FSW_init;
 
+% Initialize SOAC
+init_soac_params;
+
 % initialize sgp4 and orbit propogation
 % sgp4_init;
