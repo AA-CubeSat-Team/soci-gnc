@@ -1,10 +1,10 @@
 scParams = struct;
 
 % Dimension of cubesat
-scParams.z_len  = 0.30; %cm
+scParams.z_len  = 0.20; %cm
 scParams.x_len  = 0.10; %cm
 scParams.y_len  = 0.10; %cm
-scParams.m_3u   = 4.00; %kg
+scParams.m_2u   = 2.67; %kg
 
 % Body normals in the body frame
 scParams.xB_dir = [1,0,0];
@@ -13,9 +13,9 @@ scParams.zB_dir = [0,0,1];
 
 % Inertia Tensor
 scParams.J = [...
-     (1/12)*scParams.m_3u*(scParams.z_len^2 + scParams.x_len^2),0,0;
-     0,(1/12)*scParams.m_3u*(scParams.x_len^2 + scParams.z_len^2),0;
-     0,0,(1/12)*scParams.m_3u*(scParams.y_len^2 + scParams.x_len^2) ];
+     (1/12)*scParams.m_2u*(scParams.z_len^2 + scParams.x_len^2),0,0;
+     0,(1/12)*scParams.m_2u*(scParams.x_len^2 + scParams.z_len^2),0;
+     0,0,(1/12)*scParams.m_2u*(scParams.y_len^2 + scParams.x_len^2) ];
  
 % Point of pressure for S/C and estimated drag coefficent per face
 scParams.point_of_pressure = [0.01; 0.02; 0.03];

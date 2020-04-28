@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td><a id="l1" class='ln'>1</a></td><td><span class="ct">/*</span></td></tr>
+<tr name="2" id="2">
+<td><a id="l2" class='ln'>2</a></td><td><span class="ct"> * /Users/devantormey/Documents/MATLAB/UW/AACT/soci-gnc/Test/Autocoding_tests/slprj/grt/_sharedutils/eml_dlahqr_HClTWgbm.c</span></td></tr>
+<tr name="3" id="3">
+<td><a id="l3" class='ln'>3</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="4" id="4">
+<td><a id="l4" class='ln'>4</a></td><td><span class="ct"> * Academic License - for use in teaching, academic research, and meeting</span></td></tr>
+<tr name="5" id="5">
+<td><a id="l5" class='ln'>5</a></td><td><span class="ct"> * course requirements at degree granting institutions only.  Not for</span></td></tr>
+<tr name="6" id="6">
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * government, commercial, or other organizational use.</span></td></tr>
+<tr name="7" id="7">
+<td><a id="l7" class='ln'>7</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="8" id="8">
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * Code generation for model "soac_unit_test".</span></td></tr>
+<tr name="9" id="9">
+<td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="10" id="10">
+<td><a id="l10" class='ln'>10</a></td><td><span class="ct"> * Model version              : 1.95</span></td></tr>
+<tr name="11" id="11">
+<td><a id="l11" class='ln'>11</a></td><td><span class="ct"> * Simulink Coder version : 9.0 (R2018b) 24-May-2018</span></td></tr>
+<tr name="12" id="12">
+<td><a id="l12" class='ln'>12</a></td><td><span class="ct"> * C source code generated on : Tue Apr 21 17:06:42 2020</span></td></tr>
+<tr name="13" id="13">
+<td><a id="l13" class='ln'>13</a></td><td><span class="ct"> * Created for block: soac_unit_test</span></td></tr>
+<tr name="14" id="14">
+<td><a id="l14" class='ln'>14</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="15" id="15">
+<td><a id="l15" class='ln'>15</a></td><td></td></tr>
+<tr name="16" id="16">
+<td><a id="l16" class='ln'>16</a></td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="17" id="17">
+<td><a id="l17" class='ln'>17</a></td><td><span class="pp">#include &lt;math.h&gt;</span></td></tr>
+<tr name="18" id="18">
+<td><a id="l18" class='ln'>18</a></td><td><span class="pp">#include "xdlanv2_FIBA3SmX.h"</span></td></tr>
+<tr name="19" id="19">
+<td><a id="l19" class='ln'>19</a></td><td><span class="pp">#include "xrot_6iHri7if.h"</span></td></tr>
+<tr name="20" id="20">
+<td><a id="l20" class='ln'>20</a></td><td><span class="pp">#include "xrot_DROkKeLU.h"</span></td></tr>
+<tr name="21" id="21">
+<td><a id="l21" class='ln'>21</a></td><td><span class="pp">#include "xrot_JzPltzlP.h"</span></td></tr>
+<tr name="22" id="22">
+<td><a id="l22" class='ln'>22</a></td><td><span class="pp">#include "xzlarfg_J3AXVwxO.h"</span></td></tr>
+<tr name="23" id="23">
+<td><a id="l23" class='ln'>23</a></td><td><span class="pp">#include "eml_dlahqr_HClTWgbm.h"</span></td></tr>
+<tr name="24" id="24">
+<td><a id="l24" class='ln'>24</a></td><td></td></tr>
+<tr name="25" id="25">
+<td><a id="l25" class='ln'>25</a></td><td><span class="ct">/* Function for MATLAB Function: '&lt;S3&gt;/INITIALIZE' */</span></td></tr>
+<tr name="26" id="26">
+<td><a id="l26" class='ln'>26</a></td><td><a id="26c1" class="tk">int32_T</a> <a id="26c9" class="tk">eml_dlahqr_HClTWgbm</a>(<a id="26c29" class="tk">real_T</a> <a id="26c36" class="tk">h</a>[16], <a id="26c43" class="tk">real_T</a> <a id="26c50" class="tk">z</a>[16])</td></tr>
+<tr name="27" id="27">
+<td><a id="l27" class='ln'>27</a></td><td><span class="br">{</span></td></tr>
+<tr name="28" id="28">
+<td><a id="l28" class='ln'>28</a></td><td>  <a id="28c3" class="tk">int32_T</a> <a id="28c11" class="tk">info</a>;</td></tr>
+<tr name="29" id="29">
+<td><a id="l29" class='ln'>29</a></td><td>  <a id="29c3" class="tk">real_T</a> <a id="29c10" class="tk">v</a>[3];</td></tr>
+<tr name="30" id="30">
+<td><a id="l30" class='ln'>30</a></td><td>  <a id="30c3" class="tk">int32_T</a> <a id="30c11" class="tk">i</a>;</td></tr>
+<tr name="31" id="31">
+<td><a id="l31" class='ln'>31</a></td><td>  <a id="31c3" class="tk">int32_T</a> <a id="31c11" class="tk">L</a>;</td></tr>
+<tr name="32" id="32">
+<td><a id="l32" class='ln'>32</a></td><td>  <a id="32c3" class="tk">boolean_T</a> <a id="32c13" class="tk">goto150</a>;</td></tr>
+<tr name="33" id="33">
+<td><a id="l33" class='ln'>33</a></td><td>  <a id="33c3" class="tk">int32_T</a> <a id="33c11" class="tk">k</a>;</td></tr>
+<tr name="34" id="34">
+<td><a id="l34" class='ln'>34</a></td><td>  <a id="34c3" class="tk">real_T</a> <a id="34c10" class="tk">tst</a>;</td></tr>
+<tr name="35" id="35">
+<td><a id="l35" class='ln'>35</a></td><td>  <a id="35c3" class="tk">real_T</a> <a id="35c10" class="tk">htmp1</a>;</td></tr>
+<tr name="36" id="36">
+<td><a id="l36" class='ln'>36</a></td><td>  <a id="36c3" class="tk">real_T</a> <a id="36c10" class="tk">ab</a>;</td></tr>
+<tr name="37" id="37">
+<td><a id="l37" class='ln'>37</a></td><td>  <a id="37c3" class="tk">real_T</a> <a id="37c10" class="tk">ba</a>;</td></tr>
+<tr name="38" id="38">
+<td><a id="l38" class='ln'>38</a></td><td>  <a id="38c3" class="tk">real_T</a> <a id="38c10" class="tk">aa</a>;</td></tr>
+<tr name="39" id="39">
+<td><a id="l39" class='ln'>39</a></td><td>  <a id="39c3" class="tk">real_T</a> <a id="39c10" class="tk">h12</a>;</td></tr>
+<tr name="40" id="40">
+<td><a id="l40" class='ln'>40</a></td><td>  <a id="40c3" class="tk">int32_T</a> <a id="40c11" class="tk">m</a>;</td></tr>
+<tr name="41" id="41">
+<td><a id="l41" class='ln'>41</a></td><td>  <a id="41c3" class="tk">int32_T</a> <a id="41c11" class="tk">nr</a>;</td></tr>
+<tr name="42" id="42">
+<td><a id="l42" class='ln'>42</a></td><td>  <a id="42c3" class="tk">int32_T</a> <a id="42c11" class="tk">hoffset</a>;</td></tr>
+<tr name="43" id="43">
+<td><a id="l43" class='ln'>43</a></td><td>  <a id="43c3" class="tk">real_T</a> <a id="43c10" class="tk">cs</a>;</td></tr>
+<tr name="44" id="44">
+<td><a id="l44" class='ln'>44</a></td><td>  <a id="44c3" class="tk">real_T</a> <a id="44c10" class="tk">sn</a>;</td></tr>
+<tr name="45" id="45">
+<td><a id="l45" class='ln'>45</a></td><td>  <a id="45c3" class="tk">real_T</a> <a id="45c10" class="tk">b_v</a>[3];</td></tr>
+<tr name="46" id="46">
+<td><a id="l46" class='ln'>46</a></td><td>  <a id="46c3" class="tk">int32_T</a> <a id="46c11" class="tk">its</a>;</td></tr>
+<tr name="47" id="47">
+<td><a id="l47" class='ln'>47</a></td><td>  <a id="47c3" class="tk">int32_T</a> <a id="47c11" class="tk">tst_tmp</a>;</td></tr>
+<tr name="48" id="48">
+<td><a id="l48" class='ln'>48</a></td><td>  <a id="48c3" class="tk">real_T</a> <a id="48c10" class="tk">tst_tmp_0</a>;</td></tr>
+<tr name="49" id="49">
+<td><a id="l49" class='ln'>49</a></td><td>  <a id="49c3" class="tk">int32_T</a> <a id="49c11" class="tk">ba_tmp</a>;</td></tr>
+<tr name="50" id="50">
+<td><a id="l50" class='ln'>50</a></td><td>  <a id="50c3" class="tk">real_T</a> <a id="50c10" class="tk">tst_tmp_tmp</a>;</td></tr>
+<tr name="51" id="51">
+<td><a id="l51" class='ln'>51</a></td><td>  <a id="51c3" class="tk">int32_T</a> <a id="51c11" class="tk">ba_tmp_tmp</a>;</td></tr>
+<tr name="52" id="52">
+<td><a id="l52" class='ln'>52</a></td><td>  <a id="52c3" class="tk">int32_T</a> <a id="52c11" class="tk">ba_tmp_tmp_0</a>;</td></tr>
+<tr name="53" id="53">
+<td><a id="l53" class='ln'>53</a></td><td>  <a id="53c3" class="tk">boolean_T</a> <a id="53c13" class="tk">exitg1</a>;</td></tr>
+<tr name="54" id="54">
+<td><a id="l54" class='ln'>54</a></td><td>  <a id="54c3" class="tk">boolean_T</a> <a id="54c13" class="tk">exitg2</a>;</td></tr>
+<tr name="55" id="55">
+<td><a id="l55" class='ln'>55</a></td><td>  <a id="55c3" class="tk">boolean_T</a> <a id="55c13" class="tk">exitg3</a>;</td></tr>
+<tr name="56" id="56">
+<td><a id="l56" class='ln'>56</a></td><td>  <a id="56c3" class="tk">info</a> = 0;</td></tr>
+<tr name="57" id="57">
+<td><a id="l57" class='ln'>57</a></td><td>  <a id="57c3" class="tk">v</a>[0] = 0.0;</td></tr>
+<tr name="58" id="58">
+<td><a id="l58" class='ln'>58</a></td><td>  <a id="58c3" class="tk">v</a>[1] = 0.0;</td></tr>
+<tr name="59" id="59">
+<td><a id="l59" class='ln'>59</a></td><td>  <a id="59c3" class="tk">v</a>[2] = 0.0;</td></tr>
+<tr name="60" id="60">
+<td><a id="l60" class='ln'>60</a></td><td>  <a id="60c3" class="tk">h</a>[2] = 0.0;</td></tr>
+<tr name="61" id="61">
+<td><a id="l61" class='ln'>61</a></td><td>  <a id="61c3" class="tk">h</a>[3] = 0.0;</td></tr>
+<tr name="62" id="62">
+<td><a id="l62" class='ln'>62</a></td><td>  <a id="62c3" class="tk">h</a>[7] = 0.0;</td></tr>
+<tr name="63" id="63">
+<td><a id="l63" class='ln'>63</a></td><td>  <a id="63c3" class="tk">i</a> = 3;</td></tr>
+<tr name="64" id="64">
+<td><a id="l64" class='ln'>64</a></td><td>  <a id="64c3" class="tk">exitg1</a> = false;</td></tr>
+<tr name="65" id="65">
+<td><a id="l65" class='ln'>65</a></td><td>  <span class="kw">while</span> ((<a id="65c11" class="tk">!</a><a id="65c12" class="tk">exitg1</a>) <a id="65c20" class="tk">&amp;&amp;</a> (<a id="65c24" class="tk">i</a> <a id="65c26" class="tk">+</a> 1 <a id="65c30" class="tk">&gt;=</a> 1)) <span class="br">{</span></td></tr>
+<tr name="66" id="66">
+<td><a id="l66" class='ln'>66</a></td><td>    <a id="66c5" class="tk">L</a> = 1;</td></tr>
+<tr name="67" id="67">
+<td><a id="l67" class='ln'>67</a></td><td>    <a id="67c5" class="tk">goto150</a> = false;</td></tr>
+<tr name="68" id="68">
+<td><a id="l68" class='ln'>68</a></td><td>    <a id="68c5" class="tk">its</a> = 0;</td></tr>
+<tr name="69" id="69">
+<td><a id="l69" class='ln'>69</a></td><td>    <a id="69c5" class="tk">exitg2</a> = false;</td></tr>
+<tr name="70" id="70">
+<td><a id="l70" class='ln'>70</a></td><td>    <span class="kw">while</span> ((<a id="70c13" class="tk">!</a><a id="70c14" class="tk">exitg2</a>) <a id="70c22" class="tk">&amp;&amp;</a> (<a id="70c26" class="tk">its</a> <a id="70c30" class="tk">&lt;</a> 301)) <span class="br">{</span></td></tr>
+<tr name="71" id="71">
+<td><a id="l71" class='ln'>71</a></td><td>      <a id="71c7" class="tk">k</a> = <a id="71c11" class="tk">i</a>;</td></tr>
+<tr name="72" id="72">
+<td><a id="l72" class='ln'>72</a></td><td>      <a id="72c7" class="tk">exitg3</a> = false;</td></tr>
+<tr name="73" id="73">
+<td><a id="l73" class='ln'>73</a></td><td>      <span class="kw">while</span> ((<a id="73c15" class="tk">!</a><a id="73c16" class="tk">exitg3</a>) <a id="73c24" class="tk">&amp;&amp;</a> (<a id="73c28" class="tk">k</a> <a id="73c30" class="tk">+</a> 1 <a id="73c34" class="tk">&gt;</a> <a id="73c36" class="tk">L</a>)) <span class="br">{</span></td></tr>
+<tr name="74" id="74">
+<td><a id="l74" class='ln'>74</a></td><td>        <a id="74c9" class="tk">hoffset</a> = ((<a id="74c21" class="tk">k</a> <a id="74c23" class="tk">-</a> 1) <a id="74c28" class="tk">&lt;&lt;</a> 2) <a id="74c34" class="tk">+</a> <a id="74c36" class="tk">k</a>;</td></tr>
+<tr name="75" id="75">
+<td><a id="l75" class='ln'>75</a></td><td>        <a id="75c9" class="tk">ba</a> = <a id="75c14" class="tk">fabs</a>(<a id="75c19" class="tk">h</a>[<a id="75c21" class="tk">hoffset</a>]);</td></tr>
+<tr name="76" id="76">
+<td><a id="l76" class='ln'>76</a></td><td>        <span class="kw">if</span> (<a id="76c13" class="tk">ba</a> <a id="76c16" class="tk">&lt;=</a> 4.0083367200179456E-292) <span class="br">{</span></td></tr>
+<tr name="77" id="77">
+<td><a id="l77" class='ln'>77</a></td><td>          <a id="77c11" class="tk">exitg3</a> = true;</td></tr>
+<tr name="78" id="78">
+<td><a id="l78" class='ln'>78</a></td><td>        <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="79" id="79">
+<td><a id="l79" class='ln'>79</a></td><td>          <a id="79c11" class="tk">tst_tmp</a> = (<a id="79c22" class="tk">k</a> <a id="79c24" class="tk">&lt;&lt;</a> 2) <a id="79c30" class="tk">+</a> <a id="79c32" class="tk">k</a>;</td></tr>
+<tr name="80" id="80">
+<td><a id="l80" class='ln'>80</a></td><td>          <a id="80c11" class="tk">htmp1</a> = <a id="80c19" class="tk">fabs</a>(<a id="80c24" class="tk">h</a>[<a id="80c26" class="tk">tst_tmp</a>]);</td></tr>
+<tr name="81" id="81">
+<td><a id="l81" class='ln'>81</a></td><td>          <a id="81c11" class="tk">tst_tmp_0</a> = <a id="81c23" class="tk">h</a>[<a id="81c25" class="tk">hoffset</a> <a id="81c33" class="tk">-</a> 1];</td></tr>
+<tr name="82" id="82">
+<td><a id="l82" class='ln'>82</a></td><td>          <a id="82c11" class="tk">tst</a> = <a id="82c17" class="tk">fabs</a>(<a id="82c22" class="tk">tst_tmp_0</a>) <a id="82c33" class="tk">+</a> <a id="82c35" class="tk">htmp1</a>;</td></tr>
+<tr name="83" id="83">
+<td><a id="l83" class='ln'>83</a></td><td>          <span class="kw">if</span> (<a id="83c15" class="tk">tst</a> <a id="83c19" class="tk">==</a> 0.0) <span class="br">{</span></td></tr>
+<tr name="84" id="84">
+<td><a id="l84" class='ln'>84</a></td><td>            <span class="kw">if</span> (<a id="84c17" class="tk">k</a> <a id="84c19" class="tk">-</a> 1 <a id="84c23" class="tk">&gt;=</a> 1) <span class="br">{</span></td></tr>
+<tr name="85" id="85">
+<td><a id="l85" class='ln'>85</a></td><td>              <a id="85c15" class="tk">tst</a> = <a id="85c21" class="tk">fabs</a>(<a id="85c26" class="tk">h</a>[(((<a id="85c31" class="tk">k</a> <a id="85c33" class="tk">-</a> 2) <a id="85c38" class="tk">&lt;&lt;</a> 2) <a id="85c44" class="tk">+</a> <a id="85c46" class="tk">k</a>) <a id="85c49" class="tk">-</a> 1]);</td></tr>
+<tr name="86" id="86">
+<td><a id="l86" class='ln'>86</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="87" id="87">
+<td><a id="l87" class='ln'>87</a></td><td></td></tr>
+<tr name="88" id="88">
+<td><a id="l88" class='ln'>88</a></td><td>            <span class="kw">if</span> (<a id="88c17" class="tk">k</a> <a id="88c19" class="tk">+</a> 2 <a id="88c23" class="tk">&lt;=</a> 4) <span class="br">{</span></td></tr>
+<tr name="89" id="89">
+<td><a id="l89" class='ln'>89</a></td><td>              <a id="89c15" class="tk">tst</a> <a id="89c19" class="tk">+=</a> <a id="89c22" class="tk">fabs</a>(<a id="89c27" class="tk">h</a>[<a id="89c29" class="tk">tst_tmp</a> <a id="89c37" class="tk">+</a> 1]);</td></tr>
+<tr name="90" id="90">
+<td><a id="l90" class='ln'>90</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="91" id="91">
+<td><a id="l91" class='ln'>91</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="92" id="92">
+<td><a id="l92" class='ln'>92</a></td><td></td></tr>
+<tr name="93" id="93">
+<td><a id="l93" class='ln'>93</a></td><td>          <span class="kw">if</span> (<a id="93c15" class="tk">ba</a> <a id="93c18" class="tk">&lt;=</a> 2.2204460492503131E-16 <a id="93c44" class="tk">*</a> <a id="93c46" class="tk">tst</a>) <span class="br">{</span></td></tr>
+<tr name="94" id="94">
+<td><a id="l94" class='ln'>94</a></td><td>            <a id="94c13" class="tk">tst</a> = <a id="94c19" class="tk">fabs</a>(<a id="94c24" class="tk">h</a>[<a id="94c26" class="tk">tst_tmp</a> <a id="94c34" class="tk">-</a> 1]);</td></tr>
+<tr name="95" id="95">
+<td><a id="l95" class='ln'>95</a></td><td>            <span class="kw">if</span> (<a id="95c17" class="tk">ba</a> <a id="95c20" class="tk">&gt;</a> <a id="95c22" class="tk">tst</a>) <span class="br">{</span></td></tr>
+<tr name="96" id="96">
+<td><a id="l96" class='ln'>96</a></td><td>              <a id="96c15" class="tk">ab</a> = <a id="96c20" class="tk">ba</a>;</td></tr>
+<tr name="97" id="97">
+<td><a id="l97" class='ln'>97</a></td><td>              <a id="97c15" class="tk">ba</a> = <a id="97c20" class="tk">tst</a>;</td></tr>
+<tr name="98" id="98">
+<td><a id="l98" class='ln'>98</a></td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="99" id="99">
+<td><a id="l99" class='ln'>99</a></td><td>              <a id="99c15" class="tk">ab</a> = <a id="99c20" class="tk">tst</a>;</td></tr>
+<tr name="100" id="100">
+<td><a id="l100" class='ln'>100</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="101" id="101">
+<td><a id="l101" class='ln'>101</a></td><td></td></tr>
+<tr name="102" id="102">
+<td><a id="l102" class='ln'>102</a></td><td>            <a id="102c13" class="tk">tst</a> = <a id="102c19" class="tk">fabs</a>(<a id="102c24" class="tk">tst_tmp_0</a> <a id="102c34" class="tk">-</a> <a id="102c36" class="tk">h</a>[(<a id="102c39" class="tk">k</a> <a id="102c41" class="tk">&lt;&lt;</a> 2) <a id="102c47" class="tk">+</a> <a id="102c49" class="tk">k</a>]);</td></tr>
+<tr name="103" id="103">
+<td><a id="l103" class='ln'>103</a></td><td>            <span class="kw">if</span> (<a id="103c17" class="tk">htmp1</a> <a id="103c23" class="tk">&gt;</a> <a id="103c25" class="tk">tst</a>) <span class="br">{</span></td></tr>
+<tr name="104" id="104">
+<td><a id="l104" class='ln'>104</a></td><td>              <a id="104c15" class="tk">aa</a> = <a id="104c20" class="tk">htmp1</a>;</td></tr>
+<tr name="105" id="105">
+<td><a id="l105" class='ln'>105</a></td><td>              <a id="105c15" class="tk">htmp1</a> = <a id="105c23" class="tk">tst</a>;</td></tr>
+<tr name="106" id="106">
+<td><a id="l106" class='ln'>106</a></td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="107" id="107">
+<td><a id="l107" class='ln'>107</a></td><td>              <a id="107c15" class="tk">aa</a> = <a id="107c20" class="tk">tst</a>;</td></tr>
+<tr name="108" id="108">
+<td><a id="l108" class='ln'>108</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="109" id="109">
+<td><a id="l109" class='ln'>109</a></td><td></td></tr>
+<tr name="110" id="110">
+<td><a id="l110" class='ln'>110</a></td><td>            <a id="110c13" class="tk">tst</a> = <a id="110c19" class="tk">aa</a> <a id="110c22" class="tk">+</a> <a id="110c24" class="tk">ab</a>;</td></tr>
+<tr name="111" id="111">
+<td><a id="l111" class='ln'>111</a></td><td>            <span class="kw">if</span> (<a id="111c17" class="tk">ab</a> <a id="111c20" class="tk">/</a> <a id="111c22" class="tk">tst</a> <a id="111c26" class="tk">*</a> <a id="111c28" class="tk">ba</a> <a id="111c31" class="tk">&lt;=</a> <a id="111c34" class="tk">fmax</a>(4.0083367200179456E-292, <a id="111c64" class="tk">aa</a> <a id="111c67" class="tk">/</a> <a id="111c69" class="tk">tst</a> <a id="111c73" class="tk">*</a> <a id="111c75" class="tk">htmp1</a> <a id="111c81" class="tk">*</a></td></tr>
+<tr name="112" id="112">
+<td><a id="l112" class='ln'>112</a></td><td>                 2.2204460492503131E-16)) <span class="br">{</span></td></tr>
+<tr name="113" id="113">
+<td><a id="l113" class='ln'>113</a></td><td>              <a id="113c15" class="tk">exitg3</a> = true;</td></tr>
+<tr name="114" id="114">
+<td><a id="l114" class='ln'>114</a></td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="115" id="115">
+<td><a id="l115" class='ln'>115</a></td><td>              <a id="115c15" class="tk">k</a><a id="115c16" class="tk">--</a>;</td></tr>
+<tr name="116" id="116">
+<td><a id="l116" class='ln'>116</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="117" id="117">
+<td><a id="l117" class='ln'>117</a></td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="118" id="118">
+<td><a id="l118" class='ln'>118</a></td><td>            <a id="118c13" class="tk">k</a><a id="118c14" class="tk">--</a>;</td></tr>
+<tr name="119" id="119">
+<td><a id="l119" class='ln'>119</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="120" id="120">
+<td><a id="l120" class='ln'>120</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="121" id="121">
+<td><a id="l121" class='ln'>121</a></td><td>      <span class="br">}</span></td></tr>
+<tr name="122" id="122">
+<td><a id="l122" class='ln'>122</a></td><td></td></tr>
+<tr name="123" id="123">
+<td><a id="l123" class='ln'>123</a></td><td>      <a id="123c7" class="tk">L</a> = <a id="123c11" class="tk">k</a> <a id="123c13" class="tk">+</a> 1;</td></tr>
+<tr name="124" id="124">
+<td><a id="l124" class='ln'>124</a></td><td>      <span class="kw">if</span> (<a id="124c11" class="tk">k</a> <a id="124c13" class="tk">+</a> 1 <a id="124c17" class="tk">&gt;</a> 1) <span class="br">{</span></td></tr>
+<tr name="125" id="125">
+<td><a id="l125" class='ln'>125</a></td><td>        <a id="125c9" class="tk">h</a>[<a id="125c11" class="tk">k</a> <a id="125c13" class="tk">+</a> ((<a id="125c17" class="tk">k</a> <a id="125c19" class="tk">-</a> 1) <a id="125c24" class="tk">&lt;&lt;</a> 2)] = 0.0;</td></tr>
+<tr name="126" id="126">
+<td><a id="l126" class='ln'>126</a></td><td>      <span class="br">}</span></td></tr>
+<tr name="127" id="127">
+<td><a id="l127" class='ln'>127</a></td><td></td></tr>
+<tr name="128" id="128">
+<td><a id="l128" class='ln'>128</a></td><td>      <span class="kw">if</span> (<a id="128c11" class="tk">k</a> <a id="128c13" class="tk">+</a> 1 <a id="128c17" class="tk">&gt;=</a> <a id="128c20" class="tk">i</a>) <span class="br">{</span></td></tr>
+<tr name="129" id="129">
+<td><a id="l129" class='ln'>129</a></td><td>        <a id="129c9" class="tk">goto150</a> = true;</td></tr>
+<tr name="130" id="130">
+<td><a id="l130" class='ln'>130</a></td><td>        <a id="130c9" class="tk">exitg2</a> = true;</td></tr>
+<tr name="131" id="131">
+<td><a id="l131" class='ln'>131</a></td><td>      <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="132" id="132">
+<td><a id="l132" class='ln'>132</a></td><td>        <span class="kw">if</span> (<a id="132c13" class="tk">its</a> <a id="132c17" class="tk">==</a> 10) <span class="br">{</span></td></tr>
+<tr name="133" id="133">
+<td><a id="l133" class='ln'>133</a></td><td>          <a id="133c11" class="tk">tst</a> = <a id="133c17" class="tk">fabs</a>(<a id="133c22" class="tk">h</a>[(((<a id="133c27" class="tk">k</a> <a id="133c29" class="tk">+</a> 1) <a id="133c34" class="tk">&lt;&lt;</a> 2) <a id="133c40" class="tk">+</a> <a id="133c42" class="tk">k</a>) <a id="133c45" class="tk">+</a> 2]) <a id="133c51" class="tk">+</a> <a id="133c53" class="tk">fabs</a>(<a id="133c58" class="tk">h</a>[((<a id="133c62" class="tk">k</a> <a id="133c64" class="tk">&lt;&lt;</a> 2) <a id="133c70" class="tk">+</a> <a id="133c72" class="tk">k</a>) <a id="133c75" class="tk">+</a> 1]);</td></tr>
+<tr name="134" id="134">
+<td><a id="l134" class='ln'>134</a></td><td>          <a id="134c11" class="tk">ba</a> = <a id="134c16" class="tk">h</a>[(<a id="134c19" class="tk">k</a> <a id="134c21" class="tk">&lt;&lt;</a> 2) <a id="134c27" class="tk">+</a> <a id="134c29" class="tk">k</a>] <a id="134c32" class="tk">+</a> 0.75 <a id="134c39" class="tk">*</a> <a id="134c41" class="tk">tst</a>;</td></tr>
+<tr name="135" id="135">
+<td><a id="l135" class='ln'>135</a></td><td>          <a id="135c11" class="tk">h12</a> = <a id="135c17" class="tk">-</a>0.4375 <a id="135c25" class="tk">*</a> <a id="135c27" class="tk">tst</a>;</td></tr>
+<tr name="136" id="136">
+<td><a id="l136" class='ln'>136</a></td><td>          <a id="136c11" class="tk">aa</a> = <a id="136c16" class="tk">tst</a>;</td></tr>
+<tr name="137" id="137">
+<td><a id="l137" class='ln'>137</a></td><td>          <a id="137c11" class="tk">htmp1</a> = <a id="137c19" class="tk">ba</a>;</td></tr>
+<tr name="138" id="138">
+<td><a id="l138" class='ln'>138</a></td><td>        <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="138c20" class="tk">its</a> <a id="138c24" class="tk">==</a> 20) <span class="br">{</span></td></tr>
+<tr name="139" id="139">
+<td><a id="l139" class='ln'>139</a></td><td>          <a id="139c11" class="tk">tst</a> = <a id="139c17" class="tk">fabs</a>(<a id="139c22" class="tk">h</a>[(((<a id="139c27" class="tk">i</a> <a id="139c29" class="tk">-</a> 2) <a id="139c34" class="tk">&lt;&lt;</a> 2) <a id="139c40" class="tk">+</a> <a id="139c42" class="tk">i</a>) <a id="139c45" class="tk">-</a> 1]) <a id="139c51" class="tk">+</a> <a id="139c53" class="tk">fabs</a>(<a id="139c58" class="tk">h</a>[((<a id="139c62" class="tk">i</a> <a id="139c64" class="tk">-</a> 1) <a id="139c69" class="tk">&lt;&lt;</a> 2) <a id="139c75" class="tk">+</a> <a id="139c77" class="tk">i</a>]);</td></tr>
+<tr name="140" id="140">
+<td><a id="l140" class='ln'>140</a></td><td>          <a id="140c11" class="tk">ba</a> = <a id="140c16" class="tk">h</a>[(<a id="140c19" class="tk">i</a> <a id="140c21" class="tk">&lt;&lt;</a> 2) <a id="140c27" class="tk">+</a> <a id="140c29" class="tk">i</a>] <a id="140c32" class="tk">+</a> 0.75 <a id="140c39" class="tk">*</a> <a id="140c41" class="tk">tst</a>;</td></tr>
+<tr name="141" id="141">
+<td><a id="l141" class='ln'>141</a></td><td>          <a id="141c11" class="tk">h12</a> = <a id="141c17" class="tk">-</a>0.4375 <a id="141c25" class="tk">*</a> <a id="141c27" class="tk">tst</a>;</td></tr>
+<tr name="142" id="142">
+<td><a id="l142" class='ln'>142</a></td><td>          <a id="142c11" class="tk">aa</a> = <a id="142c16" class="tk">tst</a>;</td></tr>
+<tr name="143" id="143">
+<td><a id="l143" class='ln'>143</a></td><td>          <a id="143c11" class="tk">htmp1</a> = <a id="143c19" class="tk">ba</a>;</td></tr>
+<tr name="144" id="144">
+<td><a id="l144" class='ln'>144</a></td><td>        <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="145" id="145">
+<td><a id="l145" class='ln'>145</a></td><td>          <a id="145c11" class="tk">ba_tmp</a> = ((<a id="145c22" class="tk">i</a> <a id="145c24" class="tk">-</a> 1) <a id="145c29" class="tk">&lt;&lt;</a> 2) <a id="145c35" class="tk">+</a> <a id="145c37" class="tk">i</a>;</td></tr>
+<tr name="146" id="146">
+<td><a id="l146" class='ln'>146</a></td><td>          <a id="146c11" class="tk">ba</a> = <a id="146c16" class="tk">h</a>[<a id="146c18" class="tk">ba_tmp</a> <a id="146c25" class="tk">-</a> 1];</td></tr>
+<tr name="147" id="147">
+<td><a id="l147" class='ln'>147</a></td><td>          <a id="147c11" class="tk">aa</a> = <a id="147c16" class="tk">h</a>[<a id="147c18" class="tk">ba_tmp</a>];</td></tr>
+<tr name="148" id="148">
+<td><a id="l148" class='ln'>148</a></td><td>          <a id="148c11" class="tk">m</a> = (<a id="148c16" class="tk">i</a> <a id="148c18" class="tk">&lt;&lt;</a> 2) <a id="148c24" class="tk">+</a> <a id="148c26" class="tk">i</a>;</td></tr>
+<tr name="149" id="149">
+<td><a id="l149" class='ln'>149</a></td><td>          <a id="149c11" class="tk">h12</a> = <a id="149c17" class="tk">h</a>[<a id="149c19" class="tk">m</a> <a id="149c21" class="tk">-</a> 1];</td></tr>
+<tr name="150" id="150">
+<td><a id="l150" class='ln'>150</a></td><td>          <a id="150c11" class="tk">htmp1</a> = <a id="150c19" class="tk">h</a>[<a id="150c21" class="tk">m</a>];</td></tr>
+<tr name="151" id="151">
+<td><a id="l151" class='ln'>151</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="152" id="152">
+<td><a id="l152" class='ln'>152</a></td><td></td></tr>
+<tr name="153" id="153">
+<td><a id="l153" class='ln'>153</a></td><td>        <a id="153c9" class="tk">tst</a> = ((<a id="153c17" class="tk">fabs</a>(<a id="153c22" class="tk">ba</a>) <a id="153c26" class="tk">+</a> <a id="153c28" class="tk">fabs</a>(<a id="153c33" class="tk">h12</a>)) <a id="153c39" class="tk">+</a> <a id="153c41" class="tk">fabs</a>(<a id="153c46" class="tk">aa</a>)) <a id="153c51" class="tk">+</a> <a id="153c53" class="tk">fabs</a>(<a id="153c58" class="tk">htmp1</a>);</td></tr>
+<tr name="154" id="154">
+<td><a id="l154" class='ln'>154</a></td><td>        <span class="kw">if</span> (<a id="154c13" class="tk">tst</a> <a id="154c17" class="tk">==</a> 0.0) <span class="br">{</span></td></tr>
+<tr name="155" id="155">
+<td><a id="l155" class='ln'>155</a></td><td>          <a id="155c11" class="tk">ba</a> = 0.0;</td></tr>
+<tr name="156" id="156">
+<td><a id="l156" class='ln'>156</a></td><td>          <a id="156c11" class="tk">htmp1</a> = 0.0;</td></tr>
+<tr name="157" id="157">
+<td><a id="l157" class='ln'>157</a></td><td>          <a id="157c11" class="tk">ab</a> = 0.0;</td></tr>
+<tr name="158" id="158">
+<td><a id="l158" class='ln'>158</a></td><td>          <a id="158c11" class="tk">aa</a> = 0.0;</td></tr>
+<tr name="159" id="159">
+<td><a id="l159" class='ln'>159</a></td><td>        <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="160" id="160">
+<td><a id="l160" class='ln'>160</a></td><td>          <a id="160c11" class="tk">ba</a> <a id="160c14" class="tk">/=</a> <a id="160c17" class="tk">tst</a>;</td></tr>
+<tr name="161" id="161">
+<td><a id="l161" class='ln'>161</a></td><td>          <a id="161c11" class="tk">aa</a> <a id="161c14" class="tk">/=</a> <a id="161c17" class="tk">tst</a>;</td></tr>
+<tr name="162" id="162">
+<td><a id="l162" class='ln'>162</a></td><td>          <a id="162c11" class="tk">h12</a> <a id="162c15" class="tk">/=</a> <a id="162c18" class="tk">tst</a>;</td></tr>
+<tr name="163" id="163">
+<td><a id="l163" class='ln'>163</a></td><td>          <a id="163c11" class="tk">htmp1</a> <a id="163c17" class="tk">/=</a> <a id="163c20" class="tk">tst</a>;</td></tr>
+<tr name="164" id="164">
+<td><a id="l164" class='ln'>164</a></td><td>          <a id="164c11" class="tk">ab</a> = (<a id="164c17" class="tk">ba</a> <a id="164c20" class="tk">+</a> <a id="164c22" class="tk">htmp1</a>) <a id="164c29" class="tk">/</a> 2.0;</td></tr>
+<tr name="165" id="165">
+<td><a id="l165" class='ln'>165</a></td><td>          <a id="165c11" class="tk">ba</a> = (<a id="165c17" class="tk">ba</a> <a id="165c20" class="tk">-</a> <a id="165c22" class="tk">ab</a>) <a id="165c26" class="tk">*</a> (<a id="165c29" class="tk">htmp1</a> <a id="165c35" class="tk">-</a> <a id="165c37" class="tk">ab</a>) <a id="165c41" class="tk">-</a> <a id="165c43" class="tk">h12</a> <a id="165c47" class="tk">*</a> <a id="165c49" class="tk">aa</a>;</td></tr>
+<tr name="166" id="166">
+<td><a id="l166" class='ln'>166</a></td><td>          <a id="166c11" class="tk">aa</a> = <a id="166c16" class="tk">sqrt</a>(<a id="166c21" class="tk">fabs</a>(<a id="166c26" class="tk">ba</a>));</td></tr>
+<tr name="167" id="167">
+<td><a id="l167" class='ln'>167</a></td><td>          <span class="kw">if</span> (<a id="167c15" class="tk">ba</a> <a id="167c18" class="tk">&gt;=</a> 0.0) <span class="br">{</span></td></tr>
+<tr name="168" id="168">
+<td><a id="l168" class='ln'>168</a></td><td>            <a id="168c13" class="tk">ba</a> = <a id="168c18" class="tk">ab</a> <a id="168c21" class="tk">*</a> <a id="168c23" class="tk">tst</a>;</td></tr>
+<tr name="169" id="169">
+<td><a id="l169" class='ln'>169</a></td><td>            <a id="169c13" class="tk">ab</a> = <a id="169c18" class="tk">ba</a>;</td></tr>
+<tr name="170" id="170">
+<td><a id="l170" class='ln'>170</a></td><td>            <a id="170c13" class="tk">htmp1</a> = <a id="170c21" class="tk">aa</a> <a id="170c24" class="tk">*</a> <a id="170c26" class="tk">tst</a>;</td></tr>
+<tr name="171" id="171">
+<td><a id="l171" class='ln'>171</a></td><td>            <a id="171c13" class="tk">aa</a> = <a id="171c18" class="tk">-</a><a id="171c19" class="tk">htmp1</a>;</td></tr>
+<tr name="172" id="172">
+<td><a id="l172" class='ln'>172</a></td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="173" id="173">
+<td><a id="l173" class='ln'>173</a></td><td>            <a id="173c13" class="tk">ba</a> = <a id="173c18" class="tk">ab</a> <a id="173c21" class="tk">+</a> <a id="173c23" class="tk">aa</a>;</td></tr>
+<tr name="174" id="174">
+<td><a id="l174" class='ln'>174</a></td><td>            <a id="174c13" class="tk">ab</a> <a id="174c16" class="tk">-=</a> <a id="174c19" class="tk">aa</a>;</td></tr>
+<tr name="175" id="175">
+<td><a id="l175" class='ln'>175</a></td><td>            <span class="kw">if</span> (<a id="175c17" class="tk">fabs</a>(<a id="175c22" class="tk">ba</a> <a id="175c25" class="tk">-</a> <a id="175c27" class="tk">htmp1</a>) <a id="175c34" class="tk">&lt;=</a> <a id="175c37" class="tk">fabs</a>(<a id="175c42" class="tk">ab</a> <a id="175c45" class="tk">-</a> <a id="175c47" class="tk">htmp1</a>)) <span class="br">{</span></td></tr>
+<tr name="176" id="176">
+<td><a id="l176" class='ln'>176</a></td><td>              <a id="176c15" class="tk">ba</a> <a id="176c18" class="tk">*=</a> <a id="176c21" class="tk">tst</a>;</td></tr>
+<tr name="177" id="177">
+<td><a id="l177" class='ln'>177</a></td><td>              <a id="177c15" class="tk">ab</a> = <a id="177c20" class="tk">ba</a>;</td></tr>
+<tr name="178" id="178">
+<td><a id="l178" class='ln'>178</a></td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="179" id="179">
+<td><a id="l179" class='ln'>179</a></td><td>              <a id="179c15" class="tk">ab</a> <a id="179c18" class="tk">*=</a> <a id="179c21" class="tk">tst</a>;</td></tr>
+<tr name="180" id="180">
+<td><a id="l180" class='ln'>180</a></td><td>              <a id="180c15" class="tk">ba</a> = <a id="180c20" class="tk">ab</a>;</td></tr>
+<tr name="181" id="181">
+<td><a id="l181" class='ln'>181</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="182" id="182">
+<td><a id="l182" class='ln'>182</a></td><td></td></tr>
+<tr name="183" id="183">
+<td><a id="l183" class='ln'>183</a></td><td>            <a id="183c13" class="tk">htmp1</a> = 0.0;</td></tr>
+<tr name="184" id="184">
+<td><a id="l184" class='ln'>184</a></td><td>            <a id="184c13" class="tk">aa</a> = 0.0;</td></tr>
+<tr name="185" id="185">
+<td><a id="l185" class='ln'>185</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="186" id="186">
+<td><a id="l186" class='ln'>186</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="187" id="187">
+<td><a id="l187" class='ln'>187</a></td><td></td></tr>
+<tr name="188" id="188">
+<td><a id="l188" class='ln'>188</a></td><td>        <a id="188c9" class="tk">m</a> = <a id="188c13" class="tk">i</a> <a id="188c15" class="tk">-</a> 1;</td></tr>
+<tr name="189" id="189">
+<td><a id="l189" class='ln'>189</a></td><td>        <a id="189c9" class="tk">exitg3</a> = false;</td></tr>
+<tr name="190" id="190">
+<td><a id="l190" class='ln'>190</a></td><td>        <span class="kw">while</span> ((<a id="190c17" class="tk">!</a><a id="190c18" class="tk">exitg3</a>) <a id="190c26" class="tk">&amp;&amp;</a> (<a id="190c30" class="tk">m</a> <a id="190c32" class="tk">&gt;=</a> <a id="190c35" class="tk">k</a> <a id="190c37" class="tk">+</a> 1)) <span class="br">{</span></td></tr>
+<tr name="191" id="191">
+<td><a id="l191" class='ln'>191</a></td><td>          <a id="191c11" class="tk">tst_tmp</a> = ((<a id="191c23" class="tk">m</a> <a id="191c25" class="tk">-</a> 1) <a id="191c30" class="tk">&lt;&lt;</a> 2) <a id="191c36" class="tk">+</a> <a id="191c38" class="tk">m</a>;</td></tr>
+<tr name="192" id="192">
+<td><a id="l192" class='ln'>192</a></td><td>          <a id="192c11" class="tk">tst_tmp_tmp</a> = <a id="192c25" class="tk">h</a>[<a id="192c27" class="tk">tst_tmp</a> <a id="192c35" class="tk">-</a> 1];</td></tr>
+<tr name="193" id="193">
+<td><a id="l193" class='ln'>193</a></td><td>          <a id="193c11" class="tk">tst_tmp_0</a> = <a id="193c23" class="tk">tst_tmp_tmp</a> <a id="193c35" class="tk">-</a> <a id="193c37" class="tk">ab</a>;</td></tr>
+<tr name="194" id="194">
+<td><a id="l194" class='ln'>194</a></td><td>          <a id="194c11" class="tk">tst</a> = (<a id="194c18" class="tk">fabs</a>(<a id="194c23" class="tk">tst_tmp_0</a>) <a id="194c34" class="tk">+</a> <a id="194c36" class="tk">fabs</a>(<a id="194c41" class="tk">aa</a>)) <a id="194c46" class="tk">+</a> <a id="194c48" class="tk">fabs</a>(<a id="194c53" class="tk">h</a>[<a id="194c55" class="tk">tst_tmp</a>]);</td></tr>
+<tr name="195" id="195">
+<td><a id="l195" class='ln'>195</a></td><td>          <a id="195c11" class="tk">h12</a> = <a id="195c17" class="tk">h</a>[((<a id="195c21" class="tk">m</a> <a id="195c23" class="tk">-</a> 1) <a id="195c28" class="tk">&lt;&lt;</a> 2) <a id="195c34" class="tk">+</a> <a id="195c36" class="tk">m</a>] <a id="195c39" class="tk">/</a> <a id="195c41" class="tk">tst</a>;</td></tr>
+<tr name="196" id="196">
+<td><a id="l196" class='ln'>196</a></td><td>          <a id="196c11" class="tk">tst_tmp</a> = (<a id="196c22" class="tk">m</a> <a id="196c24" class="tk">&lt;&lt;</a> 2) <a id="196c30" class="tk">+</a> <a id="196c32" class="tk">m</a>;</td></tr>
+<tr name="197" id="197">
+<td><a id="l197" class='ln'>197</a></td><td>          <a id="197c11" class="tk">v</a>[0] = (<a id="197c19" class="tk">tst_tmp_0</a> <a id="197c29" class="tk">/</a> <a id="197c31" class="tk">tst</a> <a id="197c35" class="tk">*</a> (<a id="197c38" class="tk">tst_tmp_tmp</a> <a id="197c50" class="tk">-</a> <a id="197c52" class="tk">ba</a>) <a id="197c56" class="tk">+</a> <a id="197c58" class="tk">h</a>[<a id="197c60" class="tk">tst_tmp</a> <a id="197c68" class="tk">-</a> 1] <a id="197c73" class="tk">*</a> <a id="197c75" class="tk">h12</a>) <a id="197c80" class="tk">-</a></td></tr>
+<tr name="198" id="198">
+<td><a id="l198" class='ln'>198</a></td><td>            <a id="198c13" class="tk">aa</a> <a id="198c16" class="tk">/</a> <a id="198c18" class="tk">tst</a> <a id="198c22" class="tk">*</a> <a id="198c24" class="tk">htmp1</a>;</td></tr>
+<tr name="199" id="199">
+<td><a id="l199" class='ln'>199</a></td><td>          <a id="199c11" class="tk">v</a>[1] = (((<a id="199c21" class="tk">tst_tmp_tmp</a> <a id="199c33" class="tk">+</a> <a id="199c35" class="tk">h</a>[<a id="199c37" class="tk">tst_tmp</a>]) <a id="199c47" class="tk">-</a> <a id="199c49" class="tk">ba</a>) <a id="199c53" class="tk">-</a> <a id="199c55" class="tk">ab</a>) <a id="199c59" class="tk">*</a> <a id="199c61" class="tk">h12</a>;</td></tr>
+<tr name="200" id="200">
+<td><a id="l200" class='ln'>200</a></td><td>          <a id="200c11" class="tk">v</a>[2] = <a id="200c18" class="tk">h</a>[<a id="200c20" class="tk">tst_tmp</a> <a id="200c28" class="tk">+</a> 1] <a id="200c33" class="tk">*</a> <a id="200c35" class="tk">h12</a>;</td></tr>
+<tr name="201" id="201">
+<td><a id="l201" class='ln'>201</a></td><td>          <a id="201c11" class="tk">tst</a> = (<a id="201c18" class="tk">fabs</a>(<a id="201c23" class="tk">v</a>[0]) <a id="201c29" class="tk">+</a> <a id="201c31" class="tk">fabs</a>(<a id="201c36" class="tk">v</a>[1])) <a id="201c43" class="tk">+</a> <a id="201c45" class="tk">fabs</a>(<a id="201c50" class="tk">v</a>[2]);</td></tr>
+<tr name="202" id="202">
+<td><a id="l202" class='ln'>202</a></td><td>          <a id="202c11" class="tk">v</a>[0] <a id="202c16" class="tk">/=</a> <a id="202c19" class="tk">tst</a>;</td></tr>
+<tr name="203" id="203">
+<td><a id="l203" class='ln'>203</a></td><td>          <a id="203c11" class="tk">v</a>[1] <a id="203c16" class="tk">/=</a> <a id="203c19" class="tk">tst</a>;</td></tr>
+<tr name="204" id="204">
+<td><a id="l204" class='ln'>204</a></td><td>          <a id="204c11" class="tk">v</a>[2] <a id="204c16" class="tk">/=</a> <a id="204c19" class="tk">tst</a>;</td></tr>
+<tr name="205" id="205">
+<td><a id="l205" class='ln'>205</a></td><td>          <span class="kw">if</span> (<a id="205c15" class="tk">k</a> <a id="205c17" class="tk">+</a> 1 <a id="205c21" class="tk">==</a> <a id="205c24" class="tk">m</a>) <span class="br">{</span></td></tr>
+<tr name="206" id="206">
+<td><a id="l206" class='ln'>206</a></td><td>            <a id="206c13" class="tk">exitg3</a> = true;</td></tr>
+<tr name="207" id="207">
+<td><a id="l207" class='ln'>207</a></td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="208" id="208">
+<td><a id="l208" class='ln'>208</a></td><td>            <a id="208c13" class="tk">hoffset</a> = ((<a id="208c25" class="tk">m</a> <a id="208c27" class="tk">-</a> 2) <a id="208c32" class="tk">&lt;&lt;</a> 2) <a id="208c38" class="tk">+</a> <a id="208c40" class="tk">m</a>;</td></tr>
+<tr name="209" id="209">
+<td><a id="l209" class='ln'>209</a></td><td>            <span class="kw">if</span> (<a id="209c17" class="tk">fabs</a>(<a id="209c22" class="tk">h</a>[<a id="209c24" class="tk">hoffset</a> <a id="209c32" class="tk">-</a> 1]) <a id="209c38" class="tk">*</a> (<a id="209c41" class="tk">fabs</a>(<a id="209c46" class="tk">v</a>[1]) <a id="209c52" class="tk">+</a> <a id="209c54" class="tk">fabs</a>(<a id="209c59" class="tk">v</a>[2])) <a id="209c66" class="tk">&lt;=</a> ((<a id="209c71" class="tk">fabs</a></td></tr>
+<tr name="210" id="210">
+<td><a id="l210" class='ln'>210</a></td><td>                  (<a id="210c20" class="tk">h</a>[<a id="210c22" class="tk">hoffset</a> <a id="210c30" class="tk">-</a> 2]) <a id="210c36" class="tk">+</a> <a id="210c38" class="tk">fabs</a>(<a id="210c43" class="tk">tst_tmp_tmp</a>)) <a id="210c57" class="tk">+</a> <a id="210c59" class="tk">fabs</a>(<a id="210c64" class="tk">h</a>[(<a id="210c67" class="tk">m</a> <a id="210c69" class="tk">&lt;&lt;</a> 2) <a id="210c75" class="tk">+</a> <a id="210c77" class="tk">m</a>]))</td></tr>
+<tr name="211" id="211">
+<td><a id="l211" class='ln'>211</a></td><td>                <a id="211c17" class="tk">*</a> (2.2204460492503131E-16 <a id="211c43" class="tk">*</a> <a id="211c45" class="tk">fabs</a>(<a id="211c50" class="tk">v</a>[0]))) <span class="br">{</span></td></tr>
+<tr name="212" id="212">
+<td><a id="l212" class='ln'>212</a></td><td>              <a id="212c15" class="tk">exitg3</a> = true;</td></tr>
+<tr name="213" id="213">
+<td><a id="l213" class='ln'>213</a></td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="214" id="214">
+<td><a id="l214" class='ln'>214</a></td><td>              <a id="214c15" class="tk">m</a><a id="214c16" class="tk">--</a>;</td></tr>
+<tr name="215" id="215">
+<td><a id="l215" class='ln'>215</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="216" id="216">
+<td><a id="l216" class='ln'>216</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="217" id="217">
+<td><a id="l217" class='ln'>217</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="218" id="218">
+<td><a id="l218" class='ln'>218</a></td><td></td></tr>
+<tr name="219" id="219">
+<td><a id="l219" class='ln'>219</a></td><td>        <span class="kw">for</span> (<a id="219c14" class="tk">tst_tmp</a> = <a id="219c24" class="tk">m</a>; <a id="219c27" class="tk">tst_tmp</a> <a id="219c35" class="tk">&lt;=</a> <a id="219c38" class="tk">i</a>; <a id="219c41" class="tk">tst_tmp</a><a id="219c48" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="220" id="220">
+<td><a id="l220" class='ln'>220</a></td><td>          <a id="220c11" class="tk">nr</a> = (<a id="220c17" class="tk">i</a> <a id="220c19" class="tk">-</a> <a id="220c21" class="tk">tst_tmp</a>) <a id="220c30" class="tk">+</a> 2;</td></tr>
+<tr name="221" id="221">
+<td><a id="l221" class='ln'>221</a></td><td>          <span class="kw">if</span> (3 <a id="221c17" class="tk">&lt;</a> <a id="221c19" class="tk">nr</a>) <span class="br">{</span></td></tr>
+<tr name="222" id="222">
+<td><a id="l222" class='ln'>222</a></td><td>            <a id="222c13" class="tk">nr</a> = 3;</td></tr>
+<tr name="223" id="223">
+<td><a id="l223" class='ln'>223</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="224" id="224">
+<td><a id="l224" class='ln'>224</a></td><td></td></tr>
+<tr name="225" id="225">
+<td><a id="l225" class='ln'>225</a></td><td>          <span class="kw">if</span> (<a id="225c15" class="tk">tst_tmp</a> <a id="225c23" class="tk">&gt;</a> <a id="225c25" class="tk">m</a>) <span class="br">{</span></td></tr>
+<tr name="226" id="226">
+<td><a id="l226" class='ln'>226</a></td><td>            <a id="226c13" class="tk">ba_tmp</a> = (((<a id="226c25" class="tk">tst_tmp</a> <a id="226c33" class="tk">-</a> 2) <a id="226c38" class="tk">&lt;&lt;</a> 2) <a id="226c44" class="tk">+</a> <a id="226c46" class="tk">tst_tmp</a>) <a id="226c55" class="tk">-</a> 1;</td></tr>
+<tr name="227" id="227">
+<td><a id="l227" class='ln'>227</a></td><td>            <span class="kw">for</span> (<a id="227c18" class="tk">hoffset</a> = 0; <a id="227c31" class="tk">hoffset</a> <a id="227c39" class="tk">&lt;</a> <a id="227c41" class="tk">nr</a>; <a id="227c45" class="tk">hoffset</a><a id="227c52" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="228" id="228">
+<td><a id="l228" class='ln'>228</a></td><td>              <a id="228c15" class="tk">v</a>[<a id="228c17" class="tk">hoffset</a>] = <a id="228c28" class="tk">h</a>[<a id="228c30" class="tk">hoffset</a> <a id="228c38" class="tk">+</a> <a id="228c40" class="tk">ba_tmp</a>];</td></tr>
+<tr name="229" id="229">
+<td><a id="l229" class='ln'>229</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="230" id="230">
+<td><a id="l230" class='ln'>230</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="231" id="231">
+<td><a id="l231" class='ln'>231</a></td><td></td></tr>
+<tr name="232" id="232">
+<td><a id="l232" class='ln'>232</a></td><td>          <a id="232c11" class="tk">htmp1</a> = <a id="232c19" class="tk">v</a>[0];</td></tr>
+<tr name="233" id="233">
+<td><a id="l233" class='ln'>233</a></td><td>          <a id="233c11" class="tk">b_v</a>[0] = <a id="233c20" class="tk">v</a>[0];</td></tr>
+<tr name="234" id="234">
+<td><a id="l234" class='ln'>234</a></td><td>          <a id="234c11" class="tk">b_v</a>[1] = <a id="234c20" class="tk">v</a>[1];</td></tr>
+<tr name="235" id="235">
+<td><a id="l235" class='ln'>235</a></td><td>          <a id="235c11" class="tk">b_v</a>[2] = <a id="235c20" class="tk">v</a>[2];</td></tr>
+<tr name="236" id="236">
+<td><a id="l236" class='ln'>236</a></td><td>          <a id="236c11" class="tk">tst</a> = <a id="236c17" class="tk">xzlarfg_J3AXVwxO</a>(<a id="236c34" class="tk">nr</a>, <a id="236c38" class="tk">&amp;</a><a id="236c39" class="tk">htmp1</a>, <a id="236c46" class="tk">b_v</a>);</td></tr>
+<tr name="237" id="237">
+<td><a id="l237" class='ln'>237</a></td><td>          <a id="237c11" class="tk">v</a>[1] = <a id="237c18" class="tk">b_v</a>[1];</td></tr>
+<tr name="238" id="238">
+<td><a id="l238" class='ln'>238</a></td><td>          <a id="238c11" class="tk">v</a>[2] = <a id="238c18" class="tk">b_v</a>[2];</td></tr>
+<tr name="239" id="239">
+<td><a id="l239" class='ln'>239</a></td><td>          <a id="239c11" class="tk">v</a>[0] = <a id="239c18" class="tk">htmp1</a>;</td></tr>
+<tr name="240" id="240">
+<td><a id="l240" class='ln'>240</a></td><td>          <span class="kw">if</span> (<a id="240c15" class="tk">tst_tmp</a> <a id="240c23" class="tk">&gt;</a> <a id="240c25" class="tk">m</a>) <span class="br">{</span></td></tr>
+<tr name="241" id="241">
+<td><a id="l241" class='ln'>241</a></td><td>            <a id="241c13" class="tk">h</a>[(<a id="241c16" class="tk">tst_tmp</a> <a id="241c24" class="tk">+</a> ((<a id="241c28" class="tk">tst_tmp</a> <a id="241c36" class="tk">-</a> 2) <a id="241c41" class="tk">&lt;&lt;</a> 2)) <a id="241c48" class="tk">-</a> 1] = <a id="241c55" class="tk">htmp1</a>;</td></tr>
+<tr name="242" id="242">
+<td><a id="l242" class='ln'>242</a></td><td>            <a id="242c13" class="tk">h</a>[<a id="242c15" class="tk">tst_tmp</a> <a id="242c23" class="tk">+</a> ((<a id="242c27" class="tk">tst_tmp</a> <a id="242c35" class="tk">-</a> 2) <a id="242c40" class="tk">&lt;&lt;</a> 2)] = 0.0;</td></tr>
+<tr name="243" id="243">
+<td><a id="l243" class='ln'>243</a></td><td>            <span class="kw">if</span> (<a id="243c17" class="tk">tst_tmp</a> <a id="243c25" class="tk">&lt;</a> <a id="243c27" class="tk">i</a>) <span class="br">{</span></td></tr>
+<tr name="244" id="244">
+<td><a id="l244" class='ln'>244</a></td><td>              <a id="244c15" class="tk">h</a>[(<a id="244c18" class="tk">tst_tmp</a> <a id="244c26" class="tk">+</a> ((<a id="244c30" class="tk">tst_tmp</a> <a id="244c38" class="tk">-</a> 2) <a id="244c43" class="tk">&lt;&lt;</a> 2)) <a id="244c50" class="tk">+</a> 1] = 0.0;</td></tr>
+<tr name="245" id="245">
+<td><a id="l245" class='ln'>245</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="246" id="246">
+<td><a id="l246" class='ln'>246</a></td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="247" id="247">
+<td><a id="l247" class='ln'>247</a></td><td>            <span class="kw">if</span> (<a id="247c17" class="tk">m</a> <a id="247c19" class="tk">&gt;</a> <a id="247c21" class="tk">k</a> <a id="247c23" class="tk">+</a> 1) <span class="br">{</span></td></tr>
+<tr name="248" id="248">
+<td><a id="l248" class='ln'>248</a></td><td>              <a id="248c15" class="tk">h</a>[(<a id="248c18" class="tk">tst_tmp</a> <a id="248c26" class="tk">+</a> ((<a id="248c30" class="tk">tst_tmp</a> <a id="248c38" class="tk">-</a> 2) <a id="248c43" class="tk">&lt;&lt;</a> 2)) <a id="248c50" class="tk">-</a> 1] <a id="248c55" class="tk">*=</a> 1.0 <a id="248c62" class="tk">-</a> <a id="248c64" class="tk">tst</a>;</td></tr>
+<tr name="249" id="249">
+<td><a id="l249" class='ln'>249</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="250" id="250">
+<td><a id="l250" class='ln'>250</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="251" id="251">
+<td><a id="l251" class='ln'>251</a></td><td></td></tr>
+<tr name="252" id="252">
+<td><a id="l252" class='ln'>252</a></td><td>          <a id="252c11" class="tk">htmp1</a> = <a id="252c19" class="tk">b_v</a>[1];</td></tr>
+<tr name="253" id="253">
+<td><a id="l253" class='ln'>253</a></td><td>          <a id="253c11" class="tk">ab</a> = <a id="253c16" class="tk">tst</a> <a id="253c20" class="tk">*</a> <a id="253c22" class="tk">b_v</a>[1];</td></tr>
+<tr name="254" id="254">
+<td><a id="l254" class='ln'>254</a></td><td>          <span class="kw">if</span> (<a id="254c15" class="tk">nr</a> <a id="254c18" class="tk">==</a> 3) <span class="br">{</span></td></tr>
+<tr name="255" id="255">
+<td><a id="l255" class='ln'>255</a></td><td>            <a id="255c13" class="tk">aa</a> = <a id="255c18" class="tk">b_v</a>[2];</td></tr>
+<tr name="256" id="256">
+<td><a id="l256" class='ln'>256</a></td><td>            <a id="256c13" class="tk">h12</a> = <a id="256c19" class="tk">tst</a> <a id="256c23" class="tk">*</a> <a id="256c25" class="tk">b_v</a>[2];</td></tr>
+<tr name="257" id="257">
+<td><a id="l257" class='ln'>257</a></td><td>            <span class="kw">for</span> (<a id="257c18" class="tk">nr</a> = <a id="257c23" class="tk">tst_tmp</a> <a id="257c31" class="tk">-</a> 1; <a id="257c36" class="tk">nr</a> <a id="257c39" class="tk">+</a> 1 <a id="257c43" class="tk">&lt;</a> 5; <a id="257c48" class="tk">nr</a><a id="257c50" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="258" id="258">
+<td><a id="l258" class='ln'>258</a></td><td>              <a id="258c15" class="tk">hoffset</a> = <a id="258c25" class="tk">nr</a> <a id="258c28" class="tk">&lt;&lt;</a> 2;</td></tr>
+<tr name="259" id="259">
+<td><a id="l259" class='ln'>259</a></td><td>              <a id="259c15" class="tk">ba_tmp</a> = <a id="259c24" class="tk">hoffset</a> <a id="259c32" class="tk">+</a> <a id="259c34" class="tk">tst_tmp</a>;</td></tr>
+<tr name="260" id="260">
+<td><a id="l260" class='ln'>260</a></td><td>              <a id="260c15" class="tk">ba_tmp_tmp_0</a> = <a id="260c30" class="tk">ba_tmp</a> <a id="260c37" class="tk">-</a> 1;</td></tr>
+<tr name="261" id="261">
+<td><a id="l261" class='ln'>261</a></td><td>              <a id="261c15" class="tk">ba_tmp_tmp</a> = <a id="261c28" class="tk">ba_tmp</a> <a id="261c35" class="tk">+</a> 1;</td></tr>
+<tr name="262" id="262">
+<td><a id="l262" class='ln'>262</a></td><td>              <a id="262c15" class="tk">ba</a> = (<a id="262c21" class="tk">h</a>[<a id="262c23" class="tk">ba_tmp_tmp_0</a>] <a id="262c37" class="tk">+</a> <a id="262c39" class="tk">h</a>[<a id="262c41" class="tk">ba_tmp</a>] <a id="262c49" class="tk">*</a> <a id="262c51" class="tk">htmp1</a>) <a id="262c58" class="tk">+</a> <a id="262c60" class="tk">h</a>[<a id="262c62" class="tk">ba_tmp_tmp</a>] <a id="262c74" class="tk">*</a> <a id="262c76" class="tk">aa</a>;</td></tr>
+<tr name="263" id="263">
+<td><a id="l263" class='ln'>263</a></td><td>              <a id="263c15" class="tk">hoffset</a> <a id="263c23" class="tk">+=</a> <a id="263c26" class="tk">tst_tmp</a>;</td></tr>
+<tr name="264" id="264">
+<td><a id="l264" class='ln'>264</a></td><td>              <a id="264c15" class="tk">h</a>[<a id="264c17" class="tk">hoffset</a> <a id="264c25" class="tk">-</a> 1] = <a id="264c32" class="tk">h</a>[<a id="264c34" class="tk">ba_tmp_tmp_0</a>] <a id="264c48" class="tk">-</a> <a id="264c50" class="tk">ba</a> <a id="264c53" class="tk">*</a> <a id="264c55" class="tk">tst</a>;</td></tr>
+<tr name="265" id="265">
+<td><a id="l265" class='ln'>265</a></td><td>              <a id="265c15" class="tk">h</a>[<a id="265c17" class="tk">hoffset</a>] = <a id="265c28" class="tk">h</a>[<a id="265c30" class="tk">ba_tmp</a>] <a id="265c38" class="tk">-</a> <a id="265c40" class="tk">ba</a> <a id="265c43" class="tk">*</a> <a id="265c45" class="tk">ab</a>;</td></tr>
+<tr name="266" id="266">
+<td><a id="l266" class='ln'>266</a></td><td>              <a id="266c15" class="tk">h</a>[<a id="266c17" class="tk">hoffset</a> <a id="266c25" class="tk">+</a> 1] = <a id="266c32" class="tk">h</a>[<a id="266c34" class="tk">ba_tmp_tmp</a>] <a id="266c46" class="tk">-</a> <a id="266c48" class="tk">ba</a> <a id="266c51" class="tk">*</a> <a id="266c53" class="tk">h12</a>;</td></tr>
+<tr name="267" id="267">
+<td><a id="l267" class='ln'>267</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="268" id="268">
+<td><a id="l268" class='ln'>268</a></td><td></td></tr>
+<tr name="269" id="269">
+<td><a id="l269" class='ln'>269</a></td><td>            <a id="269c13" class="tk">ba_tmp</a> = <a id="269c22" class="tk">tst_tmp</a> <a id="269c30" class="tk">+</a> 3;</td></tr>
+<tr name="270" id="270">
+<td><a id="l270" class='ln'>270</a></td><td>            <a id="270c13" class="tk">nr</a> = <a id="270c18" class="tk">i</a> <a id="270c20" class="tk">+</a> 1;</td></tr>
+<tr name="271" id="271">
+<td><a id="l271" class='ln'>271</a></td><td>            <span class="kw">if</span> (<a id="271c17" class="tk">ba_tmp</a> <a id="271c24" class="tk">&lt;</a> <a id="271c26" class="tk">nr</a>) <span class="br">{</span></td></tr>
+<tr name="272" id="272">
+<td><a id="l272" class='ln'>272</a></td><td>              <a id="272c15" class="tk">nr</a> = <a id="272c20" class="tk">ba_tmp</a>;</td></tr>
+<tr name="273" id="273">
+<td><a id="l273" class='ln'>273</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="274" id="274">
+<td><a id="l274" class='ln'>274</a></td><td></td></tr>
+<tr name="275" id="275">
+<td><a id="l275" class='ln'>275</a></td><td>            <span class="kw">for</span> (<a id="275c18" class="tk">hoffset</a> = 0; <a id="275c31" class="tk">hoffset</a> <a id="275c39" class="tk">&lt;</a> <a id="275c41" class="tk">nr</a>; <a id="275c45" class="tk">hoffset</a><a id="275c52" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="276" id="276">
+<td><a id="l276" class='ln'>276</a></td><td>              <a id="276c15" class="tk">ba_tmp</a> = ((<a id="276c26" class="tk">tst_tmp</a> <a id="276c34" class="tk">-</a> 1) <a id="276c39" class="tk">&lt;&lt;</a> 2) <a id="276c45" class="tk">+</a> <a id="276c47" class="tk">hoffset</a>;</td></tr>
+<tr name="277" id="277">
+<td><a id="l277" class='ln'>277</a></td><td>              <a id="277c15" class="tk">ba_tmp_tmp_0</a> = (<a id="277c31" class="tk">tst_tmp</a> <a id="277c39" class="tk">&lt;&lt;</a> 2) <a id="277c45" class="tk">+</a> <a id="277c47" class="tk">hoffset</a>;</td></tr>
+<tr name="278" id="278">
+<td><a id="l278" class='ln'>278</a></td><td>              <a id="278c15" class="tk">ba_tmp_tmp</a> = ((<a id="278c30" class="tk">tst_tmp</a> <a id="278c38" class="tk">+</a> 1) <a id="278c43" class="tk">&lt;&lt;</a> 2) <a id="278c49" class="tk">+</a> <a id="278c51" class="tk">hoffset</a>;</td></tr>
+<tr name="279" id="279">
+<td><a id="l279" class='ln'>279</a></td><td>              <a id="279c15" class="tk">ba</a> = (<a id="279c21" class="tk">h</a>[<a id="279c23" class="tk">ba_tmp</a>] <a id="279c31" class="tk">+</a> <a id="279c33" class="tk">h</a>[<a id="279c35" class="tk">ba_tmp_tmp_0</a>] <a id="279c49" class="tk">*</a> <a id="279c51" class="tk">htmp1</a>) <a id="279c58" class="tk">+</a> <a id="279c60" class="tk">h</a>[<a id="279c62" class="tk">ba_tmp_tmp</a>] <a id="279c74" class="tk">*</a> <a id="279c76" class="tk">aa</a>;</td></tr>
+<tr name="280" id="280">
+<td><a id="l280" class='ln'>280</a></td><td>              <a id="280c15" class="tk">h</a>[<a id="280c17" class="tk">hoffset</a> <a id="280c25" class="tk">+</a> ((<a id="280c29" class="tk">tst_tmp</a> <a id="280c37" class="tk">-</a> 1) <a id="280c42" class="tk">&lt;&lt;</a> 2)] = <a id="280c51" class="tk">h</a>[<a id="280c53" class="tk">ba_tmp</a>] <a id="280c61" class="tk">-</a> <a id="280c63" class="tk">ba</a> <a id="280c66" class="tk">*</a> <a id="280c68" class="tk">tst</a>;</td></tr>
+<tr name="281" id="281">
+<td><a id="l281" class='ln'>281</a></td><td>              <a id="281c15" class="tk">h</a>[<a id="281c17" class="tk">hoffset</a> <a id="281c25" class="tk">+</a> (<a id="281c28" class="tk">tst_tmp</a> <a id="281c36" class="tk">&lt;&lt;</a> 2)] = <a id="281c45" class="tk">h</a>[<a id="281c47" class="tk">ba_tmp_tmp_0</a>] <a id="281c61" class="tk">-</a> <a id="281c63" class="tk">ba</a> <a id="281c66" class="tk">*</a> <a id="281c68" class="tk">ab</a>;</td></tr>
+<tr name="282" id="282">
+<td><a id="l282" class='ln'>282</a></td><td>              <a id="282c15" class="tk">h</a>[<a id="282c17" class="tk">hoffset</a> <a id="282c25" class="tk">+</a> ((<a id="282c29" class="tk">tst_tmp</a> <a id="282c37" class="tk">+</a> 1) <a id="282c42" class="tk">&lt;&lt;</a> 2)] = <a id="282c51" class="tk">h</a>[<a id="282c53" class="tk">ba_tmp_tmp</a>] <a id="282c65" class="tk">-</a> <a id="282c67" class="tk">ba</a> <a id="282c70" class="tk">*</a> <a id="282c72" class="tk">h12</a>;</td></tr>
+<tr name="283" id="283">
+<td><a id="l283" class='ln'>283</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="284" id="284">
+<td><a id="l284" class='ln'>284</a></td><td></td></tr>
+<tr name="285" id="285">
+<td><a id="l285" class='ln'>285</a></td><td>            <span class="kw">for</span> (<a id="285c18" class="tk">nr</a> = 0; <a id="285c26" class="tk">nr</a> <a id="285c29" class="tk">&lt;</a> 4; <a id="285c34" class="tk">nr</a><a id="285c36" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="286" id="286">
+<td><a id="l286" class='ln'>286</a></td><td>              <a id="286c15" class="tk">ba_tmp</a> = ((<a id="286c26" class="tk">tst_tmp</a> <a id="286c34" class="tk">-</a> 1) <a id="286c39" class="tk">&lt;&lt;</a> 2) <a id="286c45" class="tk">+</a> <a id="286c47" class="tk">nr</a>;</td></tr>
+<tr name="287" id="287">
+<td><a id="l287" class='ln'>287</a></td><td>              <a id="287c15" class="tk">ba_tmp_tmp_0</a> = (<a id="287c31" class="tk">tst_tmp</a> <a id="287c39" class="tk">&lt;&lt;</a> 2) <a id="287c45" class="tk">+</a> <a id="287c47" class="tk">nr</a>;</td></tr>
+<tr name="288" id="288">
+<td><a id="l288" class='ln'>288</a></td><td>              <a id="288c15" class="tk">hoffset</a> = (<a id="288c26" class="tk">tst_tmp</a> <a id="288c34" class="tk">+</a> 1) <a id="288c39" class="tk">&lt;&lt;</a> 2;</td></tr>
+<tr name="289" id="289">
+<td><a id="l289" class='ln'>289</a></td><td>              <a id="289c15" class="tk">ba_tmp_tmp</a> = <a id="289c28" class="tk">hoffset</a> <a id="289c36" class="tk">+</a> <a id="289c38" class="tk">nr</a>;</td></tr>
+<tr name="290" id="290">
+<td><a id="l290" class='ln'>290</a></td><td>              <a id="290c15" class="tk">ba</a> = (<a id="290c21" class="tk">z</a>[<a id="290c23" class="tk">ba_tmp</a>] <a id="290c31" class="tk">+</a> <a id="290c33" class="tk">z</a>[<a id="290c35" class="tk">ba_tmp_tmp_0</a>] <a id="290c49" class="tk">*</a> <a id="290c51" class="tk">htmp1</a>) <a id="290c58" class="tk">+</a> <a id="290c60" class="tk">z</a>[<a id="290c62" class="tk">ba_tmp_tmp</a>] <a id="290c74" class="tk">*</a> <a id="290c76" class="tk">aa</a>;</td></tr>
+<tr name="291" id="291">
+<td><a id="l291" class='ln'>291</a></td><td>              <a id="291c15" class="tk">z</a>[<a id="291c17" class="tk">nr</a> <a id="291c20" class="tk">+</a> ((<a id="291c24" class="tk">tst_tmp</a> <a id="291c32" class="tk">-</a> 1) <a id="291c37" class="tk">&lt;&lt;</a> 2)] = <a id="291c46" class="tk">z</a>[<a id="291c48" class="tk">ba_tmp</a>] <a id="291c56" class="tk">-</a> <a id="291c58" class="tk">ba</a> <a id="291c61" class="tk">*</a> <a id="291c63" class="tk">tst</a>;</td></tr>
+<tr name="292" id="292">
+<td><a id="l292" class='ln'>292</a></td><td>              <a id="292c15" class="tk">z</a>[<a id="292c17" class="tk">nr</a> <a id="292c20" class="tk">+</a> (<a id="292c23" class="tk">tst_tmp</a> <a id="292c31" class="tk">&lt;&lt;</a> 2)] = <a id="292c40" class="tk">z</a>[<a id="292c42" class="tk">ba_tmp_tmp_0</a>] <a id="292c56" class="tk">-</a> <a id="292c58" class="tk">ba</a> <a id="292c61" class="tk">*</a> <a id="292c63" class="tk">ab</a>;</td></tr>
+<tr name="293" id="293">
+<td><a id="l293" class='ln'>293</a></td><td>              <a id="293c15" class="tk">z</a>[<a id="293c17" class="tk">nr</a> <a id="293c20" class="tk">+</a> <a id="293c22" class="tk">hoffset</a>] = <a id="293c33" class="tk">z</a>[<a id="293c35" class="tk">ba_tmp_tmp</a>] <a id="293c47" class="tk">-</a> <a id="293c49" class="tk">ba</a> <a id="293c52" class="tk">*</a> <a id="293c54" class="tk">h12</a>;</td></tr>
+<tr name="294" id="294">
+<td><a id="l294" class='ln'>294</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="295" id="295">
+<td><a id="l295" class='ln'>295</a></td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="296" id="296">
+<td><a id="l296" class='ln'>296</a></td><td>            <span class="kw">if</span> (<a id="296c17" class="tk">nr</a> <a id="296c20" class="tk">==</a> 2) <span class="br">{</span></td></tr>
+<tr name="297" id="297">
+<td><a id="l297" class='ln'>297</a></td><td>              <span class="kw">for</span> (<a id="297c20" class="tk">nr</a> = <a id="297c25" class="tk">tst_tmp</a> <a id="297c33" class="tk">-</a> 1; <a id="297c38" class="tk">nr</a> <a id="297c41" class="tk">+</a> 1 <a id="297c45" class="tk">&lt;</a> 5; <a id="297c50" class="tk">nr</a><a id="297c52" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="298" id="298">
+<td><a id="l298" class='ln'>298</a></td><td>                <a id="298c17" class="tk">hoffset</a> = <a id="298c27" class="tk">nr</a> <a id="298c30" class="tk">&lt;&lt;</a> 2;</td></tr>
+<tr name="299" id="299">
+<td><a id="l299" class='ln'>299</a></td><td>                <a id="299c17" class="tk">ba_tmp</a> = <a id="299c26" class="tk">hoffset</a> <a id="299c34" class="tk">+</a> <a id="299c36" class="tk">tst_tmp</a>;</td></tr>
+<tr name="300" id="300">
+<td><a id="l300" class='ln'>300</a></td><td>                <a id="300c17" class="tk">ba_tmp_tmp_0</a> = <a id="300c32" class="tk">ba_tmp</a> <a id="300c39" class="tk">-</a> 1;</td></tr>
+<tr name="301" id="301">
+<td><a id="l301" class='ln'>301</a></td><td>                <a id="301c17" class="tk">ba</a> = <a id="301c22" class="tk">h</a>[<a id="301c24" class="tk">ba_tmp_tmp_0</a>] <a id="301c38" class="tk">+</a> <a id="301c40" class="tk">h</a>[<a id="301c42" class="tk">ba_tmp</a>] <a id="301c50" class="tk">*</a> <a id="301c52" class="tk">htmp1</a>;</td></tr>
+<tr name="302" id="302">
+<td><a id="l302" class='ln'>302</a></td><td>                <a id="302c17" class="tk">hoffset</a> <a id="302c25" class="tk">+=</a> <a id="302c28" class="tk">tst_tmp</a>;</td></tr>
+<tr name="303" id="303">
+<td><a id="l303" class='ln'>303</a></td><td>                <a id="303c17" class="tk">h</a>[<a id="303c19" class="tk">hoffset</a> <a id="303c27" class="tk">-</a> 1] = <a id="303c34" class="tk">h</a>[<a id="303c36" class="tk">ba_tmp_tmp_0</a>] <a id="303c50" class="tk">-</a> <a id="303c52" class="tk">ba</a> <a id="303c55" class="tk">*</a> <a id="303c57" class="tk">tst</a>;</td></tr>
+<tr name="304" id="304">
+<td><a id="l304" class='ln'>304</a></td><td>                <a id="304c17" class="tk">h</a>[<a id="304c19" class="tk">hoffset</a>] = <a id="304c30" class="tk">h</a>[<a id="304c32" class="tk">ba_tmp</a>] <a id="304c40" class="tk">-</a> <a id="304c42" class="tk">ba</a> <a id="304c45" class="tk">*</a> <a id="304c47" class="tk">ab</a>;</td></tr>
+<tr name="305" id="305">
+<td><a id="l305" class='ln'>305</a></td><td>              <span class="br">}</span></td></tr>
+<tr name="306" id="306">
+<td><a id="l306" class='ln'>306</a></td><td></td></tr>
+<tr name="307" id="307">
+<td><a id="l307" class='ln'>307</a></td><td>              <span class="kw">for</span> (<a id="307c20" class="tk">nr</a> = 0; <a id="307c28" class="tk">nr</a> <a id="307c31" class="tk">&lt;=</a> <a id="307c34" class="tk">i</a>; <a id="307c37" class="tk">nr</a><a id="307c39" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="308" id="308">
+<td><a id="l308" class='ln'>308</a></td><td>                <a id="308c17" class="tk">ba</a> = <a id="308c22" class="tk">h</a>[((<a id="308c26" class="tk">tst_tmp</a> <a id="308c34" class="tk">-</a> 1) <a id="308c39" class="tk">&lt;&lt;</a> 2) <a id="308c45" class="tk">+</a> <a id="308c47" class="tk">nr</a>] <a id="308c51" class="tk">+</a> <a id="308c53" class="tk">h</a>[(<a id="308c56" class="tk">tst_tmp</a> <a id="308c64" class="tk">&lt;&lt;</a> 2) <a id="308c70" class="tk">+</a> <a id="308c72" class="tk">nr</a>] <a id="308c76" class="tk">*</a></td></tr>
+<tr name="309" id="309">
+<td><a id="l309" class='ln'>309</a></td><td>                  <a id="309c19" class="tk">htmp1</a>;</td></tr>
+<tr name="310" id="310">
+<td><a id="l310" class='ln'>310</a></td><td>                <a id="310c17" class="tk">h</a>[<a id="310c19" class="tk">nr</a> <a id="310c22" class="tk">+</a> ((<a id="310c26" class="tk">tst_tmp</a> <a id="310c34" class="tk">-</a> 1) <a id="310c39" class="tk">&lt;&lt;</a> 2)] <a id="310c46" class="tk">-=</a> <a id="310c49" class="tk">ba</a> <a id="310c52" class="tk">*</a> <a id="310c54" class="tk">tst</a>;</td></tr>
+<tr name="311" id="311">
+<td><a id="l311" class='ln'>311</a></td><td>                <a id="311c17" class="tk">h</a>[<a id="311c19" class="tk">nr</a> <a id="311c22" class="tk">+</a> (<a id="311c25" class="tk">tst_tmp</a> <a id="311c33" class="tk">&lt;&lt;</a> 2)] <a id="311c40" class="tk">-=</a> <a id="311c43" class="tk">ba</a> <a id="311c46" class="tk">*</a> <a id="311c48" class="tk">ab</a>;</td></tr>
+<tr name="312" id="312">
+<td><a id="l312" class='ln'>312</a></td><td>              <span class="br">}</span></td></tr>
+<tr name="313" id="313">
+<td><a id="l313" class='ln'>313</a></td><td></td></tr>
+<tr name="314" id="314">
+<td><a id="l314" class='ln'>314</a></td><td>              <span class="kw">for</span> (<a id="314c20" class="tk">nr</a> = 0; <a id="314c28" class="tk">nr</a> <a id="314c31" class="tk">&lt;</a> 4; <a id="314c36" class="tk">nr</a><a id="314c38" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="315" id="315">
+<td><a id="l315" class='ln'>315</a></td><td>                <a id="315c17" class="tk">hoffset</a> = (<a id="315c28" class="tk">tst_tmp</a> <a id="315c36" class="tk">-</a> 1) <a id="315c41" class="tk">&lt;&lt;</a> 2;</td></tr>
+<tr name="316" id="316">
+<td><a id="l316" class='ln'>316</a></td><td>                <a id="316c17" class="tk">ba_tmp_tmp_0</a> = <a id="316c32" class="tk">hoffset</a> <a id="316c40" class="tk">+</a> <a id="316c42" class="tk">nr</a>;</td></tr>
+<tr name="317" id="317">
+<td><a id="l317" class='ln'>317</a></td><td>                <a id="317c17" class="tk">ba_tmp_tmp</a> = <a id="317c30" class="tk">tst_tmp</a> <a id="317c38" class="tk">&lt;&lt;</a> 2;</td></tr>
+<tr name="318" id="318">
+<td><a id="l318" class='ln'>318</a></td><td>                <a id="318c17" class="tk">ba_tmp</a> = <a id="318c26" class="tk">ba_tmp_tmp</a> <a id="318c37" class="tk">+</a> <a id="318c39" class="tk">nr</a>;</td></tr>
+<tr name="319" id="319">
+<td><a id="l319" class='ln'>319</a></td><td>                <a id="319c17" class="tk">ba</a> = <a id="319c22" class="tk">z</a>[<a id="319c24" class="tk">ba_tmp_tmp_0</a>] <a id="319c38" class="tk">+</a> <a id="319c40" class="tk">z</a>[<a id="319c42" class="tk">ba_tmp</a>] <a id="319c50" class="tk">*</a> <a id="319c52" class="tk">htmp1</a>;</td></tr>
+<tr name="320" id="320">
+<td><a id="l320" class='ln'>320</a></td><td>                <a id="320c17" class="tk">z</a>[<a id="320c19" class="tk">nr</a> <a id="320c22" class="tk">+</a> <a id="320c24" class="tk">hoffset</a>] = <a id="320c35" class="tk">z</a>[<a id="320c37" class="tk">ba_tmp_tmp_0</a>] <a id="320c51" class="tk">-</a> <a id="320c53" class="tk">ba</a> <a id="320c56" class="tk">*</a> <a id="320c58" class="tk">tst</a>;</td></tr>
+<tr name="321" id="321">
+<td><a id="l321" class='ln'>321</a></td><td>                <a id="321c17" class="tk">z</a>[<a id="321c19" class="tk">nr</a> <a id="321c22" class="tk">+</a> <a id="321c24" class="tk">ba_tmp_tmp</a>] = <a id="321c38" class="tk">z</a>[<a id="321c40" class="tk">ba_tmp</a>] <a id="321c48" class="tk">-</a> <a id="321c50" class="tk">ba</a> <a id="321c53" class="tk">*</a> <a id="321c55" class="tk">ab</a>;</td></tr>
+<tr name="322" id="322">
+<td><a id="l322" class='ln'>322</a></td><td>              <span class="br">}</span></td></tr>
+<tr name="323" id="323">
+<td><a id="l323" class='ln'>323</a></td><td>            <span class="br">}</span></td></tr>
+<tr name="324" id="324">
+<td><a id="l324" class='ln'>324</a></td><td>          <span class="br">}</span></td></tr>
+<tr name="325" id="325">
+<td><a id="l325" class='ln'>325</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="326" id="326">
+<td><a id="l326" class='ln'>326</a></td><td></td></tr>
+<tr name="327" id="327">
+<td><a id="l327" class='ln'>327</a></td><td>        <a id="327c9" class="tk">its</a><a id="327c12" class="tk">++</a>;</td></tr>
+<tr name="328" id="328">
+<td><a id="l328" class='ln'>328</a></td><td>      <span class="br">}</span></td></tr>
+<tr name="329" id="329">
+<td><a id="l329" class='ln'>329</a></td><td>    <span class="br">}</span></td></tr>
+<tr name="330" id="330">
+<td><a id="l330" class='ln'>330</a></td><td></td></tr>
+<tr name="331" id="331">
+<td><a id="l331" class='ln'>331</a></td><td>    <span class="kw">if</span> (<a id="331c9" class="tk">!</a><a id="331c10" class="tk">goto150</a>) <span class="br">{</span></td></tr>
+<tr name="332" id="332">
+<td><a id="l332" class='ln'>332</a></td><td>      <a id="332c7" class="tk">info</a> = <a id="332c14" class="tk">i</a> <a id="332c16" class="tk">+</a> 1;</td></tr>
+<tr name="333" id="333">
+<td><a id="l333" class='ln'>333</a></td><td>      <a id="333c7" class="tk">exitg1</a> = true;</td></tr>
+<tr name="334" id="334">
+<td><a id="l334" class='ln'>334</a></td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="335" id="335">
+<td><a id="l335" class='ln'>335</a></td><td>      <span class="kw">if</span> ((<a id="335c12" class="tk">i</a> <a id="335c14" class="tk">+</a> 1 <a id="335c18" class="tk">!=</a> <a id="335c21" class="tk">L</a>) <a id="335c24" class="tk">&amp;&amp;</a> (<a id="335c28" class="tk">L</a> <a id="335c30" class="tk">==</a> <a id="335c33" class="tk">i</a>)) <span class="br">{</span></td></tr>
+<tr name="336" id="336">
+<td><a id="l336" class='ln'>336</a></td><td>        <a id="336c9" class="tk">tst</a> = <a id="336c15" class="tk">h</a>[(((<a id="336c20" class="tk">i</a> <a id="336c22" class="tk">-</a> 1) <a id="336c27" class="tk">&lt;&lt;</a> 2) <a id="336c33" class="tk">+</a> <a id="336c35" class="tk">i</a>) <a id="336c38" class="tk">-</a> 1];</td></tr>
+<tr name="337" id="337">
+<td><a id="l337" class='ln'>337</a></td><td>        <a id="337c9" class="tk">htmp1</a> = <a id="337c17" class="tk">h</a>[((<a id="337c21" class="tk">i</a> <a id="337c23" class="tk">&lt;&lt;</a> 2) <a id="337c29" class="tk">+</a> <a id="337c31" class="tk">i</a>) <a id="337c34" class="tk">-</a> 1];</td></tr>
+<tr name="338" id="338">
+<td><a id="l338" class='ln'>338</a></td><td>        <a id="338c9" class="tk">ab</a> = <a id="338c14" class="tk">h</a>[((<a id="338c18" class="tk">i</a> <a id="338c20" class="tk">-</a> 1) <a id="338c25" class="tk">&lt;&lt;</a> 2) <a id="338c31" class="tk">+</a> <a id="338c33" class="tk">i</a>];</td></tr>
+<tr name="339" id="339">
+<td><a id="l339" class='ln'>339</a></td><td>        <a id="339c9" class="tk">ba</a> = <a id="339c14" class="tk">h</a>[(<a id="339c17" class="tk">i</a> <a id="339c19" class="tk">&lt;&lt;</a> 2) <a id="339c25" class="tk">+</a> <a id="339c27" class="tk">i</a>];</td></tr>
+<tr name="340" id="340">
+<td><a id="l340" class='ln'>340</a></td><td>        <a id="340c9" class="tk">xdlanv2_FIBA3SmX</a>(<a id="340c26" class="tk">&amp;</a><a id="340c27" class="tk">tst</a>, <a id="340c32" class="tk">&amp;</a><a id="340c33" class="tk">htmp1</a>, <a id="340c40" class="tk">&amp;</a><a id="340c41" class="tk">ab</a>, <a id="340c45" class="tk">&amp;</a><a id="340c46" class="tk">ba</a>, <a id="340c50" class="tk">&amp;</a><a id="340c51" class="tk">aa</a>, <a id="340c55" class="tk">&amp;</a><a id="340c56" class="tk">h12</a>, <a id="340c61" class="tk">&amp;</a><a id="340c62" class="tk">tst_tmp_0</a>,</td></tr>
+<tr name="341" id="341">
+<td><a id="l341" class='ln'>341</a></td><td>                         <a id="341c26" class="tk">&amp;</a><a id="341c27" class="tk">tst_tmp_tmp</a>, <a id="341c40" class="tk">&amp;</a><a id="341c41" class="tk">cs</a>, <a id="341c45" class="tk">&amp;</a><a id="341c46" class="tk">sn</a>);</td></tr>
+<tr name="342" id="342">
+<td><a id="l342" class='ln'>342</a></td><td>        <a id="342c9" class="tk">hoffset</a> = <a id="342c19" class="tk">i</a> <a id="342c21" class="tk">+</a> ((<a id="342c25" class="tk">i</a> <a id="342c27" class="tk">-</a> 1) <a id="342c32" class="tk">&lt;&lt;</a> 2);</td></tr>
+<tr name="343" id="343">
+<td><a id="l343" class='ln'>343</a></td><td>        <a id="343c9" class="tk">h</a>[<a id="343c11" class="tk">hoffset</a> <a id="343c19" class="tk">-</a> 1] = <a id="343c26" class="tk">tst</a>;</td></tr>
+<tr name="344" id="344">
+<td><a id="l344" class='ln'>344</a></td><td>        <a id="344c9" class="tk">its</a> = <a id="344c15" class="tk">i</a> <a id="344c17" class="tk">+</a> (<a id="344c20" class="tk">i</a> <a id="344c22" class="tk">&lt;&lt;</a> 2);</td></tr>
+<tr name="345" id="345">
+<td><a id="l345" class='ln'>345</a></td><td>        <a id="345c9" class="tk">h</a>[<a id="345c11" class="tk">its</a> <a id="345c15" class="tk">-</a> 1] = <a id="345c22" class="tk">htmp1</a>;</td></tr>
+<tr name="346" id="346">
+<td><a id="l346" class='ln'>346</a></td><td>        <a id="346c9" class="tk">h</a>[<a id="346c11" class="tk">hoffset</a>] = <a id="346c22" class="tk">ab</a>;</td></tr>
+<tr name="347" id="347">
+<td><a id="l347" class='ln'>347</a></td><td>        <a id="347c9" class="tk">h</a>[<a id="347c11" class="tk">its</a>] = <a id="347c18" class="tk">ba</a>;</td></tr>
+<tr name="348" id="348">
+<td><a id="l348" class='ln'>348</a></td><td>        <span class="kw">if</span> (4 <a id="348c15" class="tk">&gt;</a> <a id="348c17" class="tk">i</a> <a id="348c19" class="tk">+</a> 1) <span class="br">{</span></td></tr>
+<tr name="349" id="349">
+<td><a id="l349" class='ln'>349</a></td><td>          <a id="349c11" class="tk">xrot_JzPltzlP</a>(3 <a id="349c27" class="tk">-</a> <a id="349c29" class="tk">i</a>, <a id="349c32" class="tk">h</a>, <a id="349c35" class="tk">i</a> <a id="349c37" class="tk">+</a> ((<a id="349c41" class="tk">i</a> <a id="349c43" class="tk">+</a> 1) <a id="349c48" class="tk">&lt;&lt;</a> 2), (<a id="349c56" class="tk">i</a> <a id="349c58" class="tk">+</a> ((<a id="349c62" class="tk">i</a> <a id="349c64" class="tk">+</a> 1) <a id="349c69" class="tk">&lt;&lt;</a> 2)) <a id="349c76" class="tk">+</a> 1,</td></tr>
+<tr name="350" id="350">
+<td><a id="l350" class='ln'>350</a></td><td>                        <a id="350c25" class="tk">cs</a>, <a id="350c29" class="tk">sn</a>);</td></tr>
+<tr name="351" id="351">
+<td><a id="l351" class='ln'>351</a></td><td>        <span class="br">}</span></td></tr>
+<tr name="352" id="352">
+<td><a id="l352" class='ln'>352</a></td><td></td></tr>
+<tr name="353" id="353">
+<td><a id="l353" class='ln'>353</a></td><td>        <a id="353c9" class="tk">xrot_DROkKeLU</a>(<a id="353c23" class="tk">i</a> <a id="353c25" class="tk">-</a> 1, <a id="353c30" class="tk">h</a>, 1 <a id="353c35" class="tk">+</a> ((<a id="353c39" class="tk">i</a> <a id="353c41" class="tk">-</a> 1) <a id="353c46" class="tk">&lt;&lt;</a> 2), 1 <a id="353c55" class="tk">+</a> (<a id="353c58" class="tk">i</a> <a id="353c60" class="tk">&lt;&lt;</a> 2), <a id="353c67" class="tk">cs</a>, <a id="353c71" class="tk">sn</a>);</td></tr>
+<tr name="354" id="354">
+<td><a id="l354" class='ln'>354</a></td><td>        <a id="354c9" class="tk">xrot_6iHri7if</a>(<a id="354c23" class="tk">z</a>, 1 <a id="354c28" class="tk">+</a> ((<a id="354c32" class="tk">i</a> <a id="354c34" class="tk">-</a> 1) <a id="354c39" class="tk">&lt;&lt;</a> 2), 1 <a id="354c48" class="tk">+</a> (<a id="354c51" class="tk">i</a> <a id="354c53" class="tk">&lt;&lt;</a> 2), <a id="354c60" class="tk">cs</a>, <a id="354c64" class="tk">sn</a>);</td></tr>
+<tr name="355" id="355">
+<td><a id="l355" class='ln'>355</a></td><td>      <span class="br">}</span></td></tr>
+<tr name="356" id="356">
+<td><a id="l356" class='ln'>356</a></td><td></td></tr>
+<tr name="357" id="357">
+<td><a id="l357" class='ln'>357</a></td><td>      <a id="357c7" class="tk">i</a> = <a id="357c11" class="tk">L</a> <a id="357c13" class="tk">-</a> 2;</td></tr>
+<tr name="358" id="358">
+<td><a id="l358" class='ln'>358</a></td><td>    <span class="br">}</span></td></tr>
+<tr name="359" id="359">
+<td><a id="l359" class='ln'>359</a></td><td>  <span class="br">}</span></td></tr>
+<tr name="360" id="360">
+<td><a id="l360" class='ln'>360</a></td><td></td></tr>
+<tr name="361" id="361">
+<td><a id="l361" class='ln'>361</a></td><td>  <span class="kw">return</span> <a id="361c10" class="tk">info</a>;</td></tr>
+<tr name="362" id="362">
+<td><a id="l362" class='ln'>362</a></td><td><span class="br">}</span></td></tr>
+<tr name="363" id="363">
+<td><a id="l363" class='ln'>363</a></td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

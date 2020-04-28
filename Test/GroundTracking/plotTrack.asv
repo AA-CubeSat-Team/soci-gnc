@@ -1,0 +1,54 @@
+% Ground Track
+% Plots the Lat Lon of the mission
+% Author: Devan Tormey
+
+clear all; close all; clc;
+
+lon_seattle = -122.3321;
+lat_seattle = 47.6062;
+s = [-122.3321;47.6062];
+
+long = load('long.mat');
+long = long.data;
+lat = load('lat.mat');
+lat = lat.data;
+sc_above_gs = load('sc_above_gs.mat');
+sc_above_gs = sc_above_gs.data;
+% b = long.Data(:, 2);
+% plot(long, lat)
+n = length(long.data);
+x = linspace(-135, -110, 100);
+y = linspace(40, 54, 100);
+
+
+figure()
+hold all
+plot(long.data(:),lat.data(:),'.','LineWidth',2)
+plot(lon_seattle,lat_seattle,'*','LineWidth',2)
+
+
+tol = 2;
+dist_v = []
+l = 1;
+for k = 1:1:length(long.Data(:))
+    p = [long.Data(k);lat.Data(k)];
+    dist = norm(p - s);
+    if dist < tol
+        dist_v(l,1) = long.Data(k);
+        dist_v(l,2) = lat.Data(k);
+        l = l + 1;
+    end
+end
+
+% plot( dist_v(:,1), dist_v(:,2),'.')
+title('Ground Track')
+xlabel('Longitude [deg]')
+ylabel("Latitude [
+legend('Ground Track','Seattle','Within 10 degrees (euclidean)')
+ylim([-90 90])
+xlim([-180 180])
+
+hold on
+I = imread('ORd8G.png'); 
+h = image([-180 180],-[-90 90],I); 
+uistack(h,'bottom')

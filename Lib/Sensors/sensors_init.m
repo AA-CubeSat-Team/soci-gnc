@@ -1,5 +1,5 @@
 sensors = struct;
-sensors.sample_time_s = 0.1;
+sensors.sample_time_s = 0.01;
 
 %% Magnetometer
 mag = struct;
@@ -22,7 +22,7 @@ for k = 1:mag.N_mag
    % set different seeds so that each sensor has different noise values
    mag.seed(k) = 10*(k-1)+1;
    % set noise characterisitics (assumed from HMC5993 for now)
-   mag.err(:,k) = [ 2e-7; 2e-7; 2e-7 ]; 
+   mag.err(:,k) = 10^-6*[0.403053;0.240996;0.173209];
    % set sensor resolution (WAG)
    mag.resolution(k) = 1e-8;
    % set linear range of sensor
@@ -51,6 +51,7 @@ for k = 1:gyro.N_gyro
    % set noise characterisitics 
    gyro.arw(k) = sqrt(10)*1e-7;     % angle random walk
    gyro.rrw(k) = sqrt(10)*1e-10;    % rate random walk
+   
    % set sensor resolution (Bosch BMI055)
    gyro.resolution(k) = simParams.constants.convert.DEG2RAD * 0.004;
    % set initial bias

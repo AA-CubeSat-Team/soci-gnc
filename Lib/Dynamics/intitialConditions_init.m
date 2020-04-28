@@ -7,7 +7,7 @@ initialConditions = struct;
 % initialConditions.q0 = qt/norm(qt);
 initialConditions.q0 = [1;0;0;0];
 % initialConditions.w0 = rand(3,1); 
- initialConditions.w0 = [ 0.1; 0.1; 0.1 ];
+ initialConditions.w0 = [ 0.000; 0.000; 0.000 ];
  
 % ~~~~~~~~~~~~~~~~~~~~~ %
 %   Orbital  dynamics   %

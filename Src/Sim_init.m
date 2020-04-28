@@ -9,6 +9,7 @@ clear; clc; close all;
 % ~~~~~~~~~~~~~~~~~~
 addpath(genpath(pwd))
 addpath(genpath('../Lib/'))
+addpath(genpath('../Lib\Utilities_Tools\functions'))
 addpath(genpath('../Include/'))
 addpath(genpath('../Test/'))
 

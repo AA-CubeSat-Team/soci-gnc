@@ -6,24 +6,24 @@
 % Author: Cole Morgan
 
 
-reorientation = struct;
+reorientation   = struct;
 reorientation.J = simParams.scParams.J;
 
 % mappings from body torques to wheel torques
-reorientation.A = fswParams.actuators.rwa.Aw(1:3,:);
+reorientation.A   = fswParams.actuators.rwa.Aw(1:3,:);
 reorientation.Phi = fswParams.actuators.rwa.iAw(:,1:3);
 
 w_max = 6 * fswParams.constants.convert.DEG2RAD; %rad/sec max slew rate we 
                         % chose arbitraily to
                         % reorient quickly but not induce detumble mode
                         % detumble mode enters at 6.5 deg/s about any axis
-reorientation.w_max = w_max;
+reorientation.w_max      = w_max;
 reorientation.torque_max = 0.7*3.2*10^-3; % Nm -- 70% of max torque
-m = reorientation.torque_max;
-reorientation.T = diag([1/m, 1/m, 1/m, 1/m]);
+m                        = reorientation.torque_max;
+reorientation.T          = diag([1/m, 1/m, 1/m, 1/m]);
 
 reorientation.zeta = sqrt(2)/2;   % damping ratio
-reorientation.wn = 0.5;            % natural frequency
+reorientation.wn   = 0.5;         % natural frequency
 
 qd = [1;0;0;0];
 qd = qd/norm(qd);     % desired quaternion. scalar first.
@@ -41,18 +41,18 @@ for i = 1:3
 end
 reorientation.K = K; 
 
-reorientation.ep = 0.001; % use this to determine if K needs to be changed
+reorientation.ep     = 0.001; % use this to determine if K needs to be changed
 reorientation.K_init = eye(3); %will inevitably change
-reorientation.P = (2*(reorientation.wn^2))*(K\reorientation.J);
-reorientation.C = 2*reorientation.zeta*reorientation.wn*reorientation.J;
+reorientation.P      = (2*(reorientation.wn^2))*(K\reorientation.J);
+reorientation.C      = 2*reorientation.zeta*reorientation.wn*reorientation.J;
 
 reorientation.saturation = 1; %saturate the value of Pq to +-1
 
 %controllers.norm = 2;     % 1-norm or 2-norm for the controller
                           %inf-norm will need str2num in the library.
                           % inf-norm or 2-norm probably most appropriate
-reorientation.w0 = [0; 0; 0]; % initial body rates for rest-to-rest reorientation
-reorientation.qd1 =[1;0;0;0];
+reorientation.w0  = [0; 0; 0]; % initial body rates for rest-to-rest reorientation
+reorientation.qd1 = [1;0;0;0];
 
 fswParams.controllers.reorientation = reorientation;
 

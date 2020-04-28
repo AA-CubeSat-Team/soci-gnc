@@ -7,8 +7,8 @@ tracking = struct;
 
 %choices for Kp and Kd depend on zeta and wn
 
-z = 1; %Critically Damped
-% z = .7 %Damped
+% z = 1; %Critically Damped
+z = sqrt(2)/2; %Damped
 % z = .1 %under damped
 
 % wn is based on the assumption that our impulses are around this frequency
@@ -16,6 +16,8 @@ z = 1; %Critically Damped
 % think we need ot react to
 wn = .017; %this corresponds to movement speeds of 1 deg/sec
 wn = .017*2; %this corresponds to doubling ^^ for margins
+% wn = .017*10;
+wn = 0.5;
 % wn = .007 %assuming 60 degrees in 5 minutes
 J = simParams.scParams.J;
 
