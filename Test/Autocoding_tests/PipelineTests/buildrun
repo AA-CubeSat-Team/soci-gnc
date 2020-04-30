@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+echo "#############"
+echo "BUILDING SGP4"
+echo "#############"
+cd sgp4
+make clean
+make 
+./main >> sgp4.log
+mv sgp4.log ../logs
+
+cd ../
+
+echo "#############"
+echo "BUILDING SOAC"
+echo "#############"
+cd soac
+make clean
+make 
+./main >> soac.log
+mv soac.log ../logs
+
+cd ../
