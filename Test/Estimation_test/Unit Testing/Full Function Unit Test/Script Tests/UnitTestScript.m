@@ -1,9 +1,19 @@
 
 clc
 close all
-% clearvars -except fswParams simParams TLE
+clearvars -except fswParams simParams TLE
 %tag
-dt = 0.1;
+fswParams.sample_time_s = 1/30; %set all sample times the same
+dt = fswParams.sample_time_s;
+simParams.sensors.sample_time_s = dt;
+simParams.sample_time_s = dt;
+simParams.sensors.gyro.sample_time_s = dt;
+simParams.sensors.mag.sample_time_s = dt; 
+simParams.sensors.sun_sensor.sample_time_s = dt;
+simParams.actuators.sample_time_s = dt;
+simParams.magField.sample_time_s = dt;
+fswParams.actuators.sample_time_s = dt;
+dt = fswParams.sample_time_s;
 tspan = [0:dt:500];
 tfinal = tspan(end);
 
@@ -12,7 +22,7 @@ q0 = [0;0;0;1];
 w0 = [0.1;0;0];
 p0 = [q0;w0]; % initial conditions q0 concatinated with w0 !!THIS IS SCALAR LAST!!
 K = @(t,x) [(0.5.*([x(4), -x(3), x(2); x(3), x(4), -x(1); -x(2), x(1), x(4); -x(1), -x(2), -x(3)]*[x(5); x(6); x(7)]));
-    (inv(J)*[0;0;0] - inv(J)*[0, -x(7), x(6); x(7), 0 , -x(5); -x(6), x(5), 0]*J*[x(5); x(6); x(7)])];
+    (inv(J)*[0.025.*sin(0.2.*t);0;0] - inv(J)*[0, -x(7), x(6); x(7), 0 , -x(5); -x(6), x(5), 0]*J*[x(5); x(6); x(7)])];
 % 0.025.*sin(0.2.*t); this can be used as a torgue input
 opts = odeset('RelTol',1e-8,'AbsTol',1e-8);
 [t,x1] = ode45(K, tspan, p0,opts); %solve the kinematic ode for quaternion and omega

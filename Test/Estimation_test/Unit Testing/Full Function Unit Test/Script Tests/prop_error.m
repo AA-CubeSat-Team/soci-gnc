@@ -5,10 +5,18 @@ clearvars -except fswParams simParams TLE
 warning('off','all')
 warning
 
-set_param('UnitTestDebug','FastRestart','on')
-r_sun_inertial = [1;0;0];
-r_sun = mat2str(r_sun_inertial);
-set_param( 'UnitTestDebug/r_sun_inertial','Value', '[1;0;0]')
+fswParams.sample_time_s = 1/10; %set all sample times the same
+dt = fswParams.sample_time_s;
+% simParams.sensors.sample_time_s = dt;
+% simParams.sample_time_s = dt;
+% simParams.sensors.gyro.sample_time_s = dt;
+% simParams.sensors.mag.sample_time_s = dt; 
+% simParams.sensors.sun_sensor.sample_time_s = dt;
+% simParams.actuators.sample_time_s = dt;
+% simParams.magField.sample_time_s = dt;
+% fswParams.actuators.sample_time_s = dt;
+
+set_param('my_sim','FastRestart','on')
 dt = fswParams.sample_time_s;t_eclipse = 1900;
 tfinal = t_eclipse + 30*60 + 1900;
 t = 0:dt:tfinal;
@@ -20,8 +28,8 @@ eclipse_start_time = num2str(t_eclipse);
 t_eclipse_end = t_eclipse+30*60+dt;
 eclipse_end_time = num2str(t_eclipse_end);
 
-set_param( 'UnitTestDebug/Eclipse_time', 'Time', eclipse_start_time) 
-set_param( 'UnitTestDebug/Eclipse_end', 'Time', eclipse_end_time) 
+set_param( 'my_sim/Subsystem1/Eclipse_time', 'Time', eclipse_start_time) %set eclipse start time
+set_param( 'my_sim/Subsystem1/Eclipse_end', 'Time', eclipse_end_time)  %set eclipse end time
 
 
 % Number of iterations
@@ -31,13 +39,13 @@ num_omega = 1; %number of omega Vectors to try
 
 simParams.initialConditions.q0 = [0 1/sqrt(2) 1/sqrt(2) 0]';
 q0_sim = mat2str(simParams.initialConditions.q0);
-set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
-    'InitialCondition', q0_sim)
+set_param( 'my_sim/satelliteDynamics_lib/quat_propagation/Integrator', ...
+            'InitialCondition', q0_sim)
 % set_param( 'UnitTestDebug/sun_valid', 'Value', '0') 
-set_param( 'UnitTestDebug/MEKF_lib/Unit Delay2', 'InitialCondition', q0_sim) %Set initial quat to true quat value
+set_param( 'my_sim/MEKF_lib/Unit Delay2', 'InitialCondition', q0_sim) %Set initial quat to true quat value
 
 
-mag_deg = 0.5; %here is desired angular velo magnitude
+mag_deg = 15.5; %here is desired angular velo magnitude
 mag = mag_deg*pi/180;
 for k = 1:num_omega
     
@@ -52,14 +60,14 @@ end
 
  for w = 1:num_omega
         w1 = mat2str(omega(:,w));
+        set_param( 'my_sim/satelliteDynamics_lib/RigidBodyDynamics/wint', 'InitialCondition', w1)
+%         set_param( 'UnitTestDebug/Omega', 'Value',w1) %varies the angular velo each iteration
+        simOut = sim('my_sim'); % run the sim
         
-        set_param( 'UnitTestDebug/Omega', 'Value',w1) %varies the angular velo each iteration
-        simOut = sim('UnitTestDebug'); % run the sim
-        
-                qtrue = simOut.my_qtrue.Data'; %get out data from sim
+                qtrue = simOut.q_true.Data'; %get out data from sim
                 qest = simOut.my_qest.Data';
-                q0_err = simOut.q0_error.Data';
-                sun_bodytrue = simOut.sun_body_true.Data';
+                q0_err = simOut.q_initial_error.Data';
+%                 sun_bodytrue = simOut.sun_body_true.Data';
        
       att_error = (simOut.qerr.Data');% these are the attitude angle errors that correspond to the 3 sigma bounds errors
         
@@ -74,16 +82,13 @@ end
     Gold = [145 123 76]'/norm([145 123 76]');
     om_max = max(abs(norm_omega));
     om_plusminus = ((om_max-norm_omega)/norm_omega)*100;
-%     figure
-% t = t./60;
+
     hold on
     p1 = plot(t,theta(w,:),'color',Purple);
     p2 = plot(t,ones(length(t),1)*3.5,'r','LineWidth',1.25);
     
      set(p1, 'markerfacecolor', get(p1, 'color'))
-%     set(hleg1,'Location','northeast')
    set(0,'DefaultLegendAutoUpdate','off')
-% legend('Pointing Error (deg)','Location','northwest') % need to plot xs for the other quat values
     grid on
     ax = gca;
     ax.GridColor = Gold;
@@ -109,50 +114,27 @@ text((t_eclipse+30*60+t_eclipse/2)-700,180/2,txt2)
 h = [p1;p2];
        legend(h,['Attitude\newlineError (deg)'],...
         ['3.5^{\circ} Error\newlineThreshold']); 
+%     ylim([0,3.6])
 % 
 %      title(['Full Orbit Attitude Error Growth, ||\omega|| =',...
 %          num2str(norm_omega(1,k)),char(177) num2str(om_plusminus),'% deg/s\newline                           (100 Test Runs)'])
 
-%      title(['Full Orbit Attitude Error Growth, ||\omega|| =',...
-%          num2str(norm_omega(1,k)),' deg/s\newline                           (1 Test Runs)'])
-   title(['Full Orbit Attitude Error Growth, ||\omega|| ramps up from ',...
-         num2str(norm_omega(1,k)),' deg/s to 15.5 deg/s\newline                             within the first 200 seconds of Orbit'])
+     title(['Full Orbit Attitude Error Growth, ||\omega|| =',...
+         num2str(norm_omega(1,k)),' deg/s\newline                           (',num2str(num_omega),' Test Runs)'])
+%    title(['Full Orbit Attitude Error Growth, ||\omega|| ramps up from ',...
+%          num2str(norm_omega(1,k)),' deg/s to 15.5 deg/s\newline                             within the first 200 seconds of Orbit'])
      
      
-     tout = simOut.tout;
+%      tout = simOut.tout;
 figure;
-
+for j = 1:4
 grid on;
-subplot(2,2,1)
-title(['                            Quaternion Estimates, constant \omega =',mat2str(norm_omega(:,w)), 'rad/s'])
+subplot(2,2,j)
 hold on
-plot(tout,simOut.my_qtrue.Data(:,1),'k','Linewidth',1.25)
-plot(tout,simOut.my_qest.Data(:,1),'m--','Linewidth',1.25)
+plot(t,simOut.q_true.Data(:,j),'k','Linewidth',1.25)
+plot(t,simOut.my_qest.Data(:,j),'m--','Linewidth',1.25)
 legend('q1 true', 'q1 est')
 grid on;
 hold off
-
-subplot(2,2,2)
-hold on
-plot(tout,simOut.my_qtrue.Data(:,2),'k','Linewidth',1.25)
-plot(tout,simOut.my_qest.Data(:,2),'m--','Linewidth',1.25)
-legend('q2 true', 'q2 est')
-grid on;
-hold off
-
-subplot(2,2,3)
-hold on
-plot(tout,simOut.my_qtrue.Data(:,3),'k','Linewidth',1.25)
-plot(tout,simOut.my_qest.Data(:,3),'m--','Linewidth',1.25)
-legend('q3 true', 'q3 est')
-grid on;
-hold off
-
-subplot(2,2,4)
-hold on
-plot(tout,simOut.my_qtrue.Data(:,4),'k','Linewidth',1.25)
-plot(tout,simOut.my_qest.Data(:,4)','m--','Linewidth',1.25)
-legend('q4 true', 'q4 est')
-grid on;
-hold off
- 
+end
+title(['                            Quaternion Estimates, constant \omega =',mat2str(norm_omega(:,w)), 'rad/s'])

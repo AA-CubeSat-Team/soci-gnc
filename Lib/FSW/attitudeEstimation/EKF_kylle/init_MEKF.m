@@ -6,40 +6,47 @@ estimation = struct;
 estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
 estimation.ic.quat_est_init = [1;0;0;0]; 
 simParams.initialConditions.q0 = [1;0;0;0];
+simParams.initialConditions.w0 = [0.1;0.1;-0.2];
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
+simParams.scParams.J = [3,-2,-1;-2,3,-1;-1,-1,4];
+
+
+%%%%Rate Transitions
+estimation.ic.sun_valid_rt = 1;
+estimation.ic.mag_valid_rt = 1;
+estimation.ic.gyro_valid_rt = 1;
+estimation.ic.sc2sun_eci_unit_rt = [0;0;0];
+estimation.ic.B_eci_unit_rt = [0;0;0];
+estimation.ic.sunsensor_body_rad_rt = [0;0;0];
+estimation.ic.mag_body_rt = [0;0;0];
+estimation.ic.gyro_meas_rt = [0;0;0];
+estimation.ic.triad_activate_rt = 0;
+estimation.ic.Rchol_rt = 1e-7*eye(6);
+estimation.ic.Qchol_rt = 1e-10*eye(6);
 
 %Create covariance matrix for estimate
-P_0_a = 0.000001;  % attitude
-P_0_b =0.0000001; % bias
+P_0_a = 10e-10;  % attitude
+P_0_b =10e-10; % bias
 P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 estimation.ic.Pchol_init = chol(P_init,'lower');
 
-fswParams.sample_time_s = 1/10; %set all sample times the same
-dt = fswParams.sample_time_s;
-simParams.sensors.sample_time_s = dt;
-simParams.sample_time_s = dt;
-simParams.sensors.gyro.sample_time_s = dt;
-simParams.sensors.mag.sample_time_s = dt; 
-simParams.sensors.sun_sensor.sample_time_s = dt;
 
-
-sun_sensor_std = 8e-3; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
+sun_sensor_std = 2e-3; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 % mag_sens_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
 mag_sens_std  = ([2e-7;2e-7;2e-7]);
 
-% Process and measurement covariances
-sig_v = ((sqrt(10)*1e-6));     % angle random walk Actual
-sig_u = ((sqrt(6)*1e-6));    % rate random walk
-
-Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
-                   -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 
-
-              
 %%Time step that the MEKF is ran at
 estimation.dt = fswParams.sample_time_s; 
 dt = estimation.dt;
 estimation.sample_time_s = dt;
 
+% Process and measurement covariances
+sig_v = ((sqrt(10)*1e-7));     % angle random walk Actual
+sig_u = ((sqrt(10)*1e-10));    % rate random walk
+
+Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
+                   -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 
+     
 %Constant Matrices sqrt form
 gamma = blkdiag(-eye(3),eye(3));
 Q = gamma*Q_k*gamma';
@@ -51,4 +58,4 @@ estimation.Rchol = chol(R,'lower');
 
 fswParams.estimation = estimation;
 clear estimation
-clear sig_v sig_u sun_sensor_var mag_var zero R Beta P P_0_a P_0_b sun_sensor_std mag_var_std dt gamma Qg R
+clear sig_v sig_u sun_sensor_var mag_var zero R Beta P P_0_a P_0_b sun_sensor_std mag_sens_std dt gamma R Q Q_k P_init

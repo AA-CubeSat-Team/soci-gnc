@@ -3,28 +3,42 @@
 % Need to run Sim_init.m first before we run this file
 clc
 close all
-clearvars -except fswParams simParams TLE
+
+
 warning('off','all')
 warning
-
-set_param('UnitTestDebug','FastRestart','on')
+clearvars -except fswParams simParams TLE
+set_param('my_sim','FastRestart','on')
 % Define Parameters
-tfinal = 200;
+tfinal = 180;
+% 
+% fswParams.sample_time_s = 1/30; %set all sample times the same
+% dt = fswParams.sample_time_s;
+% simParams.sensors.sample_time_s = dt;
+% simParams.sample_time_s = dt;
+% simParams.sensors.gyro.sample_time_s = dt;
+% simParams.sensors.mag.sample_time_s = dt; 
+% simParams.sensors.sun_sensor.sample_time_s = dt;
+% simParams.actuators.sample_time_s = dt;
+% simParams.magField.sample_time_s = dt;
+% fswParams.actuators.sample_time_s = dt;
+
 dt = fswParams.sample_time_s;
 t = 0:dt:tfinal;
 L = length(t);
-converge_time = 0.95*tfinal;
+converge_time = tfinal;
+
 
 % Number of iterations
 num_err = 10; %number of starting error values to try
 
 % simParams.initialConditions.q0 = [1 0 0 0]';
-q0_sim = mat2str(simParams.initialConditions.q0);
-set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
-    'InitialCondition', q0_sim)
-r_sun_inertial = [1;0;0];
-r_sun = mat2str(r_sun_inertial);
-set_param( 'UnitTestDebug/r_sun_inertial','Value', '[1;0;0]')
+% q0_sim = mat2str(simParams.initialConditions.q0);
+% set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
+%     'InitialCondition', q0_sim)
+% r_sun_inertial = [1;0;0];
+% r_sun = mat2str(r_sun_inertial);
+% set_param( 'UnitTestDebug/r_sun_inertial','Value', '[1;0;0]')
 % set_param( 'UnitTestDebug/sun_valid','Value', '1')
 
 % Allocate Space for Loop-built matrices
@@ -34,7 +48,7 @@ quat_init = zeros(4,num_err);       start_error_angle = zeros(1,num_err);
 settling_time = zeros(1,num_err);     sett_time = zeros(1,num_err);
 
 
-    rng(0,'twister')
+rng(0,'twister')
 a = 0;
 b = 1;
 
@@ -57,14 +71,12 @@ end
 q_guess_vec = [0.5 0.5 0.5 0.5]';
 q_guess = mat2str(q_guess_vec);
 for k = 1:num_err
-     quat_init(1,k) = randn/70 + q_guess_vec(1); 
-     quat_init(2,k) = randn/70 + q_guess_vec(2); 
-     quat_init(3,k) = randn/70 + q_guess_vec(3); 
-     quat_init(4,k) = randn/70 + q_guess_vec(4); 
+     quat_init(1,k) = randn/10 + q_guess_vec(1); 
+     quat_init(2,k) = randn/10 + q_guess_vec(2); 
+     quat_init(3,k) = randn/10 + q_guess_vec(3); 
+     quat_init(4,k) = randn/10 + q_guess_vec(4); 
      quat_init (:,k)  = quat_init(:,k)./norm(quat_init(:,k),2);
 end
-
-
 
 
 %set up avg omega vectors (these range from 0.5 deg/s to 15.5 deg/s (9 deg/s in each axis) in magnitude
@@ -79,20 +91,20 @@ for p = 1:num_omega
   norm_omega(1,p) = round(norm(omega(:,p),2)*180/pi,2);%get into deg/s
 end
  end
+
  
- 
-mag_deg = 0.5; %here is desired angular velo magnitude
-mag = mag_deg*pi/180;
-for k = 1:num_omega
-    
-[x,~] = randfixedsum(3,1,mag^2,0,10);
-omega(1,k) = sqrt(x(1))*(-1)^randi(2);
-omega(2,k) = sqrt(x(2))*(-1)^randi(2);
-omega(3,k) = sqrt(x(3))*(-1)^randi(2);
-norm_omega(1,k) = round(norm(omega(:,k),2)*180/pi,2);%get into deg/s
+% mag_deg = 0.5; %here is desired angular velo magnitude
+% mag = mag_deg*pi/180;
+% for k = 1:num_omega
+%     
+% [x,~] = randfixedsum(3,1,mag^2,0,10);
+% omega(1,k) = sqrt(x(1))*(-1)^randi(2);
+% omega(2,k) = sqrt(x(2))*(-1)^randi(2);
+% omega(3,k) = sqrt(x(3))*(-1)^randi(2);
+% norm_omega(1,k) = round(norm(omega(:,k),2)*180/pi,2);%get into deg/s
 % omega = 0*omega;
-end
- 
+% end
+%  
  
  
  
@@ -102,20 +114,21 @@ for w = 1:1%num_omega
     for k = 1:num_err
         
         s = mat2str(quat_init(:,k));
-        w1 = mat2str(omega(:,w));
-        set_param( 'UnitTestDebug/MEKF_lib/Unit Delay2', 'InitialCondition', mat2str(q_guess_vec)) %these vary the initial quaternion each iteration
-set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
-    'InitialCondition', s)
-        set_param( 'UnitTestDebug/Omega', 'Value',w1) %varies the angular velo each iteration
+        w1 = mat2str(omega(:,w)); 
+%        w1 = mat2str(simParams.initialConditions.w0);
+        set_param( 'my_sim/MEKF_lib/Unit Delay2', 'InitialCondition', q_guess) %these vary the initial quaternion each iteration
+        set_param( 'my_sim/satelliteDynamics_lib/quat_propagation/Integrator', ...
+            'InitialCondition', s)
+        set_param( 'my_sim/satelliteDynamics_lib/RigidBodyDynamics/wint', 'InitialCondition', w1)
         
         % run the sim
-        simOut = sim('UnitTestDebug'); 
+        simOut = sim('my_sim'); 
        
         %get out data from sim
-%          qtrue = simOut.my_qtrue.Data'; 
-%          qest = simOut.my_qest.Data';
-         q0_err = simOut.q0_error.Data';
-         sun_bodytrue = simOut.sun_body_true.Data';
+         qtrue = simOut.q_true.Data'; 
+         qest = simOut.my_qest.Data';
+%          q0_err = simOut.q0_error.Data';
+
          att_error = (simOut.qerr.Data');% these are the attitude angle errors that correspond to the 3 sigma bounds errors
          start_error_angle(1,k) = 180/pi*2*acos(simOut.q_initial_error.Data(1,1));
          qerr = simOut.q_initial_error.Data';
@@ -175,42 +188,19 @@ set_param( 'UnitTestDebug/quat_propagation/Discrete-Time Integrator', ...
     title(['Initial Quaternion Error and Convergence Time,||\omega|| = '...
         ,mat2str(norm_omega(:,w)), 'deg/s'])
     
-
-
+end
 tout = simOut.tout;
 figure;
-
+for i = 1:4
 grid on;
-subplot(2,2,1)
-title(['constant \omega =',mat2str(norm_omega(:,w)), 'rad/s'])
+subplot(2,2,i)
+title('Quaternion Estimates')
 hold on
-plot(tout,simOut.my_qtrue.Data(:,1),'k','Linewidth',1.25)
-plot(tout,simOut.my_qest.Data(:,1),'m--','Linewidth',1.25)
-legend('q1 true', 'q1 est')
+plot(tout,qtrue(i,:),'k','Linewidth',1.25)
+plot(tout,qest(i,:),'m--','Linewidth',1.25)
+legend(['q_',num2str(i),  'true'],[ 'q_',num2str(i),  'est'])
 grid on;
+xlabel('Time (s)')
+ylabel('Quat Value (rad)')
 hold off
-% 
-% subplot(2,2,2)
-% hold on
-% plot(tout,simOut.my_qtrue.Data(:,2),'k','Linewidth',1.25)
-% plot(tout,simOut.my_qest.Data(:,2),'m--','Linewidth',1.25)
-% legend('q2 true', 'q2 est')
-% grid on;
-% hold off
-% 
-% subplot(2,2,3)
-% hold on
-% plot(tout,simOut.my_qtrue.Data(:,3),'k','Linewidth',1.25)
-% plot(tout,simOut.my_qest.Data(:,3),'m--','Linewidth',1.25)
-% legend('q3 true', 'q3 est')
-% grid on;
-% hold off
-% 
-% subplot(2,2,4)
-% hold on
-% plot(tout,simOut.my_qtrue.Data(:,4),'k','Linewidth',1.25)
-% plot(tout,simOut.my_qest.Data(:,4)','m--','Linewidth',1.25)
-% legend('q4 true', 'q4 est')
-% grid on;
-% hold off
 end
