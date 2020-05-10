@@ -2,6 +2,8 @@
 *.slxc
 *.slx.r2016a
 *.slx.autosave
+*Build/cache/
+*Build/slprj/
 
 # Matlab
 *.m~
@@ -10,7 +12,19 @@
 
 # Other
 *.xml
+*tr
+*scv
 
 #autocoded build stuff
 *.o
 *.log
+*.html
+*.png
+*.js
+*.css
+*.gif
+*.tmw
+*.tlc
+*.tlh
+*.dmr
+*/Build/*/*.txt
