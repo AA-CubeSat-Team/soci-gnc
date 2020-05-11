@@ -5,21 +5,23 @@
  *
  * File: ert_main.c
  *
- * Code generated for Simulink model 'my_wmm_test'.
+ * Code generated for Simulink model 'sgp4_lib_fsw0'.
  *
- * Model version                  : 1.2
+ * Model version                  : 1.52
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Sun May  3 14:05:51 2020
+ * C/C++ source code generated on : Sun Mar 29 15:15:33 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: Intel->x86-64 (Windows64)
- * Code generation objectives: Unspecified
+ * Embedded hardware selection: Atmel->AVR (8-bit)
+ * Code generation objectives:
+ *    1. Execution efficiency
+ *    2. RAM efficiency
  * Validation result: Not run
  */
 
 #include <stddef.h>
 #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
-#include "my_wmm_test.h"               /* Model's header file */
+#include "sgp4_lib_fsw0.h"             /* Model's header file */
 #include "rtwtypes.h"
 
 /*
@@ -42,7 +44,7 @@ void rt_OneStep(void)
 
   /* Check for overrun */
   if (OverrunFlag) {
-    rtmSetErrorStatus(my_wmm_test_M, "Overrun");
+    rtmSetErrorStatus(rtM, "Overrun");
     return;
   }
 
@@ -53,7 +55,7 @@ void rt_OneStep(void)
   /* Set model inputs here */
 
   /* Step the model */
-  my_wmm_test_step();
+  sgp4_lib_fsw0_step();
 
   /* Get model outputs here */
 
@@ -78,31 +80,51 @@ int_T main(int_T argc, const char *argv[])
   (void)(argv);
 
   /* Initialize model */
-  my_wmm_test_initialize();
+  sgp4_lib_fsw0_initialize();
+
+  rtU.JD_utc_J2000 = 7220.9952105745;
+  rtU.orbit_tle[0] = 19.0;
+  rtU.orbit_tle[1] = 7220.9945161301;
+  rtU.orbit_tle[2] = 0.0001027;
+  rtU.orbit_tle[3] = 51.6432;
+  rtU.orbit_tle[4] = 154.4443;
+  rtU.orbit_tle[5] = 0.0006957;
+  rtU.orbit_tle[6] = 130.5924;
+  rtU.orbit_tle[7] = 229.5833;
+  rtU.orbit_tle[8] = 15.5022591;
+  rtU.teme_to_gcrf[0] = 1.0;
+  rtU.teme_to_gcrf[1] = -0.04421;
+  rtU.teme_to_gcrf[2] = -0.001887;
+  rtU.teme_to_gcrf[3] = 0.00421;
+  rtU.teme_to_gcrf[4] = 1.0;
+  rtU.teme_to_gcrf[5] = 2.678e-6;
+  rtU.teme_to_gcrf[6] = 0.001887;
+  rtU.teme_to_gcrf[7] = -1.102e-5;
+  rtU.teme_to_gcrf[8] = 1.0;
+
+  rt_OneStep();
+
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.pos_eci_m[%d] = %20.12f\n",i,rtY.pos_eci_m[i]);
+  }
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.vel_eci_mps[%d] = %20.12f\n",i,rtY.vel_eci_mps[i]);
+  }
+  printf("rtY.SGP4_FLAG = %f\n",rtY.SGP4_FLAG);
 
   /* Attach rt_OneStep to a timer or interrupt service routine with
-   * period 0.02 seconds (the model's base sample time) here.  The
+   * period 0.002 seconds (the model's base sample time) here.  The
    * call syntax for rt_OneStep is
    *
    *  rt_OneStep();
    */
-  printf("Warning: The simulation will run forever. "
-         "Generated ERT main won't simulate model step behavior. "
-         "To change this behavior select the 'MAT-file logging' option.\n");
-  fflush((NULL));
-  while (rtmGetErrorStatus(my_wmm_test_M) == (NULL)) {
-    /*  Perform other application tasks here */
-  }
-    
-  while(1){
-    my_wmm_test_step();
-    sleep(1000)
-  }
-  
-  /* Disable rt_OneStep() here */
+  printf("I'm working!\n");
+  // fflush((NULL));
+  // while (rtmGetErrorStatus(rtM) == (NULL)) {
+  //   /*  Perform other application tasks here */
+  // }
 
-  /* Terminate model */
-  my_wmm_test_terminate();
+  /* Disable rt_OneStep() here */
   return 0;
 }
 

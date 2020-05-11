@@ -5,21 +5,23 @@
  *
  * File: ert_main.c
  *
- * Code generated for Simulink model 'my_wmm_test'.
+ * Code generated for Simulink model 'sgp4_lib_fsw0'.
  *
- * Model version                  : 1.2
+ * Model version                  : 1.52
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Sun May  3 14:05:51 2020
+ * C/C++ source code generated on : Sun Mar 29 15:15:33 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: Intel->x86-64 (Windows64)
- * Code generation objectives: Unspecified
+ * Embedded hardware selection: Atmel->AVR (8-bit)
+ * Code generation objectives:
+ *    1. Execution efficiency
+ *    2. RAM efficiency
  * Validation result: Not run
  */
 
 #include <stddef.h>
 #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
-#include "my_wmm_test.h"               /* Model's header file */
+#include "sgp4_lib_fsw0.h"             /* Model's header file */
 #include "rtwtypes.h"
 
 /*
@@ -42,7 +44,7 @@ void rt_OneStep(void)
 
   /* Check for overrun */
   if (OverrunFlag) {
-    rtmSetErrorStatus(my_wmm_test_M, "Overrun");
+    rtmSetErrorStatus(rtM, "Overrun");
     return;
   }
 
@@ -53,7 +55,7 @@ void rt_OneStep(void)
   /* Set model inputs here */
 
   /* Step the model */
-  my_wmm_test_step();
+  sgp4_lib_fsw0_step();
 
   /* Get model outputs here */
 
@@ -78,31 +80,23 @@ int_T main(int_T argc, const char *argv[])
   (void)(argv);
 
   /* Initialize model */
-  my_wmm_test_initialize();
+  sgp4_lib_fsw0_initialize();
 
   /* Attach rt_OneStep to a timer or interrupt service routine with
-   * period 0.02 seconds (the model's base sample time) here.  The
+   * period 0.002 seconds (the model's base sample time) here.  The
    * call syntax for rt_OneStep is
    *
    *  rt_OneStep();
    */
-  printf("Warning: The simulation will run forever. "
-         "Generated ERT main won't simulate model step behavior. "
-         "To change this behavior select the 'MAT-file logging' option.\n");
+  printf("I'm working! Time to die. Goodbye.\n");
   fflush((NULL));
-  while (rtmGetErrorStatus(my_wmm_test_M) == (NULL)) {
+  exit(0);
+  // Don't know if this stuff has gotta run but I'll drop it for the tests sake
+  while (rtmGetErrorStatus(rtM) == (NULL)) {
     /*  Perform other application tasks here */
   }
-    
-  while(1){
-    my_wmm_test_step();
-    sleep(1000)
-  }
-  
+  /*printf("Does it get here?");
   /* Disable rt_OneStep() here */
-
-  /* Terminate model */
-  my_wmm_test_terminate();
   return 0;
 }
 
