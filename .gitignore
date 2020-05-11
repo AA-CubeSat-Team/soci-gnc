@@ -8,6 +8,7 @@
 # Matlab
 *.m~
 *.mat
+!/Include/fswBusDefinitions.mat
 *.l
 
 # Other
