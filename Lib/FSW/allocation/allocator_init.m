@@ -37,6 +37,7 @@ sb = sind(beta_deg);
 rwa.A = [ cb,   0, -cb,   0;
            0,  cb,   0, -cb;
           sb,  sb,  sb,  sb ];
+rwa.max_norm_ellipsoid_R = [ 28813; 28813; 79957 ];
 rwa.num_facet = uint8(6);
 rwa.h_targ_wheel_Nms = RPM2RPS .* (Jw*[ 1000; -1000; 1000; -1000 ]);
 rwa.feedback_gain = 0.01;
