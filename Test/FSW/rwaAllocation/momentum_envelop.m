@@ -4,7 +4,7 @@ clear
 n = 4;
 
 % arbitrary choice
-Hmax = 1;
+Hmax = 3.2e-3;
 
 % SOCi parameters
 beta = deg2rad(23);
@@ -24,6 +24,8 @@ pairs = [ pairs; pairs(:,2), pairs(:,1) ];
 
 vertices = zeros(3,4*n*(n-1));
 
+A = zeros(12,3); % number of facets x 3
+b = zeros(12,1); % number of facets x 1
 w_ij = zeros(3,size(pairs,1));
 g_ij = zeros(1,size(pairs,1));
 inrm2 = zeros(1,size(pairs,1));
@@ -63,15 +65,41 @@ for p = 1:size(pairs,1)
    w_ij(:,p) = (1/d_ij) .* n_hat_ij;
    g_ij(p) = dot(n_hat_ij,cross(v_ij,w_hat_j))./norm(temp);
    inrm2(p) = 1.0/(norm(temp)^2);
+   A(p,:) = n_hat_ij';
+   b(p) = dot(vertices(:,4*(p-1)+1),n_hat_ij);
    
 end
 
 % compute unique vertices
 vertices = unique(vertices','rows')';
 
+% compute the largest ellipsoid inside the polytope (will fail if you dont
+% have CVX setup but won't throw an error)
+try
+    cvx_begin sdp quiet
+        variable Qh(3,3) symmetric
+        maximize( det_rootn(Qh) )
+        subject to
+            for k = 1:numel(b)
+                norm( Qh*A(k,:)',2 ) <= b(k);
+            end
+    cvx_end
+    [X,Y,Z] = ellipsoid(0,0,0,Qh(1,1),Qh(2,2),Qh(3,3),50);
+    plot_ellip = true;
+catch
+    plot_ellip = false;
+end
+
 % plot the envelope
 figure(1), clf, hold on, grid on, box on
 plot3(vertices(1,:),vertices(2,:),vertices(3,:),'r*')
+if (plot_ellip)
+%     colormap('c')
+    h = surf(X,Y,Z);
+    h.LineStyle = 'none';
+    h.FaceAlpha = 1;
+    h.FaceColor = 'm';
+end
 id_hull = convhull(vertices','Simplify',true);
 plot3(0,0,0,'ro','MarkerSize',6)
 h = trisurf(id_hull,vertices(1,:),vertices(2,:),vertices(3,:),...
