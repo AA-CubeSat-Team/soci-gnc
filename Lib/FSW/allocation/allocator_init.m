@@ -39,7 +39,7 @@ rwa.A = [ cb,   0, -cb,   0;
           sb,  sb,  sb,  sb ];
 rwa.num_facet = uint8(6);
 rwa.h_targ_wheel_Nms = RPM2RPS .* (Jw*[ 1000; -1000; 1000; -1000 ]);
-rwa.feedback_gain = 0.1;
+rwa.feedback_gain = 0.01;
 
 n = 4;
 n_pair = 1:n;
@@ -81,13 +81,16 @@ for p = 1:size(pairs,1)
 end
 
 allocator.rwa = rwa;
+allocator.RWA_A = rwa.A;
+A = allocator.RWA_A;
+allocator.RWA_A_inv = A'/(A*A'); % psuedo inverse
 
 %%%% MTQ Allocation %%%%
 
 % allocation of MTQ frame to body frame.
 B = [1 -1 0 0 0;
-    0 0 1 -1 0;
-    0 0 0 0 1];
+     0 0 1 -1 0;
+     0 0 0 0 1];
 allocator.MTQ_B = B;
 
 temp = B;
