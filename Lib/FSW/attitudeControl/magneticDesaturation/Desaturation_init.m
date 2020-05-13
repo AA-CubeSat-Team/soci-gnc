@@ -9,7 +9,7 @@
 % controllers = struct;
 desaturation = struct;
 
-desaturation.k = 1; %1/1000; 
+desaturation.k = 1.0; %1/1000; 
 % unloading control gain. chosen as this because it seems to make things
 % work well. probably some function of the max dipole vs
 % torque required to drive rwa, but this is just by running a few times and 
@@ -19,6 +19,11 @@ desaturation.k = 1; %1/1000;
 % set to 1000 or something large is so that the rwa rpms do not develope
 % oscillations around their setpoint making it easier to see when the desat
 % mode should be over.
+
+% start reducing gain when rpm error becomes less than about 400 rpm.
+desaturation.gain_tol = ...
+    400*fswParams.constants.convert.RPM2RPS*fswParams.actuators.rwa.inertia(1);
+desaturation.k2 = 0.125; % when error low, try to smoothly reduce rpms further.
 
 B = 3.12*10^-5; % general strength of earth mag field. for testing.
 desaturation.B = B;

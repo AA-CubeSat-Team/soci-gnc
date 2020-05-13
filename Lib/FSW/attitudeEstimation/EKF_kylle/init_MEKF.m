@@ -50,3 +50,4 @@ estimation.R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),((mag_var.^2)).*ey
 fswParams.estimation = estimation;
 clear estimation
 clear sig_v sig_u sun_sensor_var mag_var zero R Beta P
+clearvars -except fswParams simParams TLE
