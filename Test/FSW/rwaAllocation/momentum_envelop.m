@@ -85,24 +85,90 @@ try
             end
     cvx_end
     [X,Y,Z] = ellipsoid(0,0,0,Qh(1,1),Qh(2,2),Qh(3,3),50);
+    vol_ellip  = 4/3*pi*prod(diag(Qh));
     plot_ellip = true;
 catch
     plot_ellip = false;
+end
+
+% compute the largest rectangle inside the polytope
+try
+    Ap = max(A,0);
+    Am = max(-A,0);
+    cvx_begin quiet
+        variable l(3,1)
+        variable u(3,1)
+%         maximize( sum_log(u-l) )
+        maximize( log(u(1)-l(1)) + log(u(2)-l(2)) + log(u(3)-l(3)) )
+        subject to
+            Ap * u - Am * l <= b;
+            l <= u;
+%             id = 1;
+%             for k = 0:3
+%                 lst = combnk(1:3,k);
+%                 if (~isempty(lst))
+%                     for row = 1:size(lst,1)
+%                         temp = l;
+%                         for col = 1:size(lst,2)
+%                             temp(lst(row,col)) = u(lst(row,col));
+%                         end
+%                         A * temp <= b;
+%                     end
+%                 else
+%                     A * l <= b;
+%                 end
+%             end
+    cvx_end
+    vol_rect  = prod(u-l);
+    plot_rect = true;
+catch
+    plot_rect = false;
 end
 
 % plot the envelope
 figure(1), clf, hold on, grid on, box on
 plot3(vertices(1,:),vertices(2,:),vertices(3,:),'r*')
 if (plot_ellip)
-%     colormap('c')
-    h = surf(X,Y,Z);
-    h.LineStyle = 'none';
-    h.FaceAlpha = 1;
-    h.FaceColor = 'm';
+    he = surf(X,Y,Z);
+    he.LineStyle = 'none';
+    he.FaceAlpha = 0.75;
+    he.FaceColor = 'm';
 end
+if (plot_rect)
+    rect_vertices = zeros(3,8);
+    id = 1;
+    for k = 0:3
+       lst = combnk(1:3,k);
+       if (~isempty(lst))
+           
+           for row = 1:size(lst,1)
+               temp = l;
+               for col = 1:size(lst,2)
+                   temp(lst(row,col)) = u(lst(row,col));
+               end
+               rect_vertices(:,id) = temp;
+               id = id + 1;
+           end
+
+       else
+           rect_vertices(:,id) = l;
+           id = id + 1;
+       end  
+    end
+    id_rect_hull = convhull(rect_vertices','Simplify',true);
+    h = trisurf(id_rect_hull,rect_vertices(1,:),...
+        rect_vertices(2,:),rect_vertices(3,:),...
+            'FaceColor','k','FaceAlpha',0.8,...
+            'EdgeColor','k','LineWidth',1);
+    %     rect = alphaShape(rect_vertices(1,:)',...
+%                       rect_vertices(2,:)',...
+%                       rect_vertices(3,:)');
+%     plot(rect)
+end
+fprintf('Ratio of ellipsoidal volume to rectangular: %5.2f\n',vol_ellip/vol_rect);
 id_hull = convhull(vertices','Simplify',true);
 plot3(0,0,0,'ro','MarkerSize',6)
 h = trisurf(id_hull,vertices(1,:),vertices(2,:),vertices(3,:),...
-            'FaceColor','b','FaceAlpha',0.7,...
-            'EdgeColor','c','LineWidth',1);
+            'FaceColor','c','FaceAlpha',0.2,...
+            'EdgeColor','c','LineWidth',0.5);
 axis equal
