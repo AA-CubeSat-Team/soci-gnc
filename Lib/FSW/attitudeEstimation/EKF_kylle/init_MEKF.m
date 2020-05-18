@@ -1,4 +1,8 @@
-%%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
+
+
+%Author: Kylle Ashton 5/18/2020
+%Title: MEKF Initialization 
+%Description:% Initialize Parameters for the MEKF 
                                      
 estimation = struct;
 
@@ -21,8 +25,6 @@ estimation.ic.sunsensor_body_rad_rt = [0;0;0];
 estimation.ic.mag_body_rt = [0;0;0];
 estimation.ic.gyro_meas_rt = [0;0;0];
 estimation.ic.triad_activate_rt = 0;
-estimation.ic.Rchol_rt = 1e-7*eye(6);
-estimation.ic.Qchol_rt = 1e-10*eye(6);
 
 %Create covariance matrix for estimate
 P_0_a = 10e-10;  % attitude
@@ -31,7 +33,7 @@ P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 estimation.ic.Pchol_init = chol(P_init,'lower');
 
 
-sun_sensor_std = 2e-3; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
+sun_sensor_std = 0.5/(sqrt(3)*3.0)*pi/180; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 % mag_sens_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
 mag_sens_std  = ([2e-7;2e-7;2e-7]);
 
@@ -41,8 +43,8 @@ dt = estimation.dt;
 estimation.sample_time_s = dt;
 
 % Process and measurement covariances
-sig_v = ((sqrt(10)*1e-7));     % angle random walk Actual
-sig_u = ((sqrt(10)*1e-10));    % rate random walk
+sig_v = ((sqrt(10)*1e-6));     % angle random walk Actual
+sig_u = ((sqrt(6)*1e-7));    % rate random walk
 
 Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
                    -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 

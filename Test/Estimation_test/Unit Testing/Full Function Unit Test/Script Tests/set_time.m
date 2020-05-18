@@ -1,4 +1,10 @@
+%Author: Kylle Ashton 3/10/2020
+%Title: Settling time
+%Description:% Finds settling time of quaternion error for under 3.5 deg
+%error
 function [settling_time] = set_time(q1e,converge_time,dt,t)
+
+
 ind = find(abs(q1e) > 3.5);
 
 if max(q1e) <=3.5 % within error on first iteration

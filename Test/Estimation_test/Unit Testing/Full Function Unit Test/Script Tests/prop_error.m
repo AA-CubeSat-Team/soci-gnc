@@ -1,4 +1,7 @@
-
+%Author: Kylle Ashton 3/12/2020
+%Title: Propagation Error
+%Description:% Using  Eclipse_Unit_Test.slx, this runs a simulated eclipse
+%and plots error growth of attitude during the eclipse
 clc
 close all
 clearvars -except fswParams simParams TLE
@@ -45,7 +48,7 @@ set_param( 'my_sim/satelliteDynamics_lib/quat_propagation/Integrator', ...
 set_param( 'my_sim/MEKF_lib/Unit Delay2', 'InitialCondition', q0_sim) %Set initial quat to true quat value
 
 
-mag_deg = 15.5; %here is desired angular velo magnitude
+mag_deg = 0.25; %here is desired angular velo magnitude
 mag = mag_deg*pi/180;
 for k = 1:num_omega
     

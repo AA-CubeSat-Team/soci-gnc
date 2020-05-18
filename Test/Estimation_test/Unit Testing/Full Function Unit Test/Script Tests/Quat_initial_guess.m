@@ -1,7 +1,9 @@
 
-%Author: Kylle Ashton
-% Need to run Sim_init.m first before we run this file
-clc
+%Author: Kylle Ashton 3/08/2020
+%Title: Quaternion Initial Guess
+%Description: Using my_sim.slx, this code plots the initial error of a
+%quaternion for the EKF vs the true value and returns the settling times of
+%each initial guess
 close all
 
 
@@ -11,17 +13,6 @@ clearvars -except fswParams simParams TLE
 set_param('my_sim','FastRestart','on')
 % Define Parameters
 tfinal = 180;
-% 
-% fswParams.sample_time_s = 1/30; %set all sample times the same
-% dt = fswParams.sample_time_s;
-% simParams.sensors.sample_time_s = dt;
-% simParams.sample_time_s = dt;
-% simParams.sensors.gyro.sample_time_s = dt;
-% simParams.sensors.mag.sample_time_s = dt; 
-% simParams.sensors.sun_sensor.sample_time_s = dt;
-% simParams.actuators.sample_time_s = dt;
-% simParams.magField.sample_time_s = dt;
-% fswParams.actuators.sample_time_s = dt;
 
 dt = fswParams.sample_time_s;
 t = 0:dt:tfinal;
