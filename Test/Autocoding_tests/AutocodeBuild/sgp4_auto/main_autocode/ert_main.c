@@ -82,26 +82,79 @@ int_T main(int_T argc, const char *argv[])
   /* Initialize model */
   sgp4_lib_fsw0_initialize();
 
-  /* Attach rt_OneStep to a timer or interrupt service routine with
-   * period 0.002 seconds (the model's base sample time) here.  The
-   * call syntax for rt_OneStep is
-   *
-   *  rt_OneStep();
-   */
-  printf("I'm working! Time to die. Goodbye.\n");
-  fflush((NULL));
-  exit(0);
-  // Don't know if this stuff has gotta run but I'll drop it for the tests sake
-  while (rtmGetErrorStatus(rtM) == (NULL)) {
-    /*  Perform other application tasks here */
+  //Open The File
+
+  FILE *fp = fopen("input.txt", "r");
+
+  if (!fp) {
+      printf("Can't open file\n");
+      return 0;
   }
-  /*printf("Does it get here?");
-  /* Disable rt_OneStep() here */
+
+  // We will need to pull these from the python parse
+  int num_var = 3;
+  int var_length[3] = {1,9,9};
+
+  //This is all fairly generic
+  char buf[1024];
+  int row_count = 0;
+  int value_count = 0;
+  int var_count = 0;
+  while (fgets(buf, 1024, fp)) {
+      value_count = 0;
+      row_count++;
+      if (row_count > 3) {
+          var_count = row_count-4;
+          printf("We are on Var %d\n", var_count);
+          char *values = strtok(buf, ",");
+          while(values){
+              if (value_count < var_length[row_count-4]){
+                  printf("%s\n", values);
+                  switch (var_count){
+                    case 0:
+                      // printf("var 1");
+                      rtU.JD_utc_J2000 = atof(values);
+                    case 1:
+                      // printf("var 2");
+                      rtU.orbit_tle[value_count] = values;
+                    case 2:
+                      // printf("var 3");
+                      rtU.teme_to_gcrf[value_count] = values;
+                  }
+
+              }
+              values = strtok(NULL, ",");
+              value_count++;
+          }
+          printf("Value Count: %d \n",value_count - 1);
+          printf("\n");
+      }
+      
+
+  }
+
+  fclose(fp);
+
+  char line[1024];
+  while (fgets(line, 1024, fp))
+  {
+      char* tmp = strdup(line);
+      // printf("%s\n", tmp);
+      // // NOTE strtok clobbers tmp
+      free(tmp);
+  }
+
+  rt_OneStep();
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.pos_eci_m[%d] = %20.12f\n",i,rtY.pos_eci_m[i]);
+  }
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.vel_eci_mps[%d] = %20.12f\n",i,rtY.vel_eci_mps[i]);
+  }
+  printf("rtY.SGP4_FLAG = %f\n",rtY.SGP4_FLAG);
+
   return 0;
 }
 
-/*
- * File trailer for generated code.
- *
- * [EOF]
- */
+
+

@@ -73,7 +73,9 @@ for line in lines:
 		print("start Strip")
 		new_file.write("\n")
 # 
-lines = new_file.readlines()
+new_file.close()
+
+
 
 print("~~~~~~~~~~~~~~~~~~~~")
 print("Autocoding The Test")
@@ -82,8 +84,12 @@ print("~~~~~~~~~~~~~~~~~~~~")
 #Grab the lines from the stripped function
 # new_file = open("sert_main.c", "w")
 
+sert_in = open("sert_main.c", "r")
+new_lines = sert_in.readlines()
 
-for line in lines:
+new_file = open("sert_main.c", "w")
+
+for line in new_lines:
 	new_file.write(line)
 	if "sgp4_lib_fsw0_initialize();" in line:
 		print("Adding Code")
@@ -92,13 +98,12 @@ for line in lines:
 		# new_file.write("//you will need something like this:")
 		new_file.write("  for (int i = 0; i < 3; ++i) {\n")
 		new_file.write("    printf(\"rtY.pos_eci_m[%d] = %20.12f\\n\",i,rtY.pos_eci_m[i]);\n")
-		new_file.write("  for (int i = 0; i < 3; ++i) {\n")
 		new_file.write("  }\n")
 		new_file.write("  for (int i = 0; i < 3; ++i) {\n")
 		new_file.write("    printf(\"rtY.vel_eci_mps[%d] = %20.12f\\n\",i,rtY.vel_eci_mps[i]);\n")
 		new_file.write("  }\n")
-		new_file.write("  printf(\"rtY.SGP4_FLAG = %f\\n\",rtY.SGP4_FLAG);\n")
-		new_file.close()
- 		break;
+		new_file.write("  printf(\"rtY.SGP4_FLAG = %f\\n\",rtY.SGP4_FLAG);\n")	
+ 	# new_file.write(line)
 
 new_file.close()
+
