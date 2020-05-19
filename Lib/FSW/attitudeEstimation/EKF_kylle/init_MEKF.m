@@ -9,10 +9,10 @@ estimation = struct;
 %%%% Initial Conditions %%%%%
 estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
 estimation.ic.quat_est_init = [1;0;0;0]; 
-simParams.initialConditions.q0 = [1;0;0;0];
-simParams.initialConditions.w0 = [0.1;0.1;-0.2];
+% simParams.initialConditions.q0 = [1;0;0;0];
+% simParams.initialConditions.w0 = [0.1;0.1;-0.2];
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
-simParams.scParams.J = [3,-2,-1;-2,3,-1;-1,-1,4];
+% simParams.scParams.J = [3,-2,-1;-2,3,-1;-1,-1,4];
 
 
 %%%%Rate Transitions
