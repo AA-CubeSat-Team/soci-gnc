@@ -1,53 +1,63 @@
 
-%%%%% THIS SCRIPT SETS UP PARAMETERS AND INITIAL CONDITIONS FOR the simulink estimator
+
+%Author: Kylle Ashton 5/18/2020
+%Title: MEKF Initialization 
+%Description:% Initialize Parameters for the MEKF 
                                      
 estimation = struct;
 
 %%%% Initial Conditions %%%%%
-   
-estimation.ic.Beta_init = 0.0*[1;1;1];%Initialize gyro Bias
+estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
 estimation.ic.quat_est_init = [1;0;0;0]; 
-% estimation.ic.quat_est_init = simParams.initialConditions.q0;
+simParams.initialConditions.q0 = [1;0;0;0];
+simParams.initialConditions.w0 = [0.1;0.1;-0.2];
+estimation.ic.quat_est_init = simParams.initialConditions.q0;
+simParams.scParams.J = [3,-2,-1;-2,3,-1;-1,-1,4];
 
-estimation.ic.w_init = [0.00;0.00;0.00];
 
-% estimation.sampleTime_s = .001;
+%%%%Rate Transitions
+estimation.ic.sun_valid_rt = 1;
+estimation.ic.mag_valid_rt = 1;
+estimation.ic.gyro_valid_rt = 1;
+estimation.ic.sc2sun_eci_unit_rt = [0;0;0];
+estimation.ic.B_eci_unit_rt = [0;0;0];
+estimation.ic.sunsensor_body_rad_rt = [0;0;0];
+estimation.ic.mag_body_rt = [0;0;0];
+estimation.ic.gyro_meas_rt = [0;0;0];
+estimation.ic.triad_activate_rt = 0;
+
+%Create covariance matrix for estimate
+P_0_a = 10e-10;  % attitude
+P_0_b =10e-10; % bias
+P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
+estimation.ic.Pchol_init = chol(P_init,'lower');
 
 
-        P = [(0.1*pi/180)^2*eye(3) zeros(3,3);
-        zeros(3,3),(0.2*pi/180/3600)*eye(3)];
-        estimation.P_sq = chol(P,'lower'); %create square root form of cov matrix
-estimation.ic.P_sq_init = estimation.P_sq; %initial value of cov matrix for simulink
- P_0_a = 3.0462e-6;  % attitude
-P_0_b = 9.4018e-13; % bias
-estimation.ic.P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
-
-% Process and measurement covariances
-
-sig_v = sqrt(10)*1e-7;     % angle random walk
-sig_u = sqrt(10)*1e-10;    % rate random walk
-
-sun_sensor_var = 0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
-mag_var =  10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
-
+sun_sensor_std = 0.5/(sqrt(3)*3.0)*pi/180; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
+% mag_sens_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
+mag_sens_std  = ([2e-7;2e-7;2e-7]);
 
 %%Time step that the MEKF is ran at
 estimation.dt = fswParams.sample_time_s; 
 dt = estimation.dt;
+estimation.sample_time_s = dt;
 
-estimation.Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)    -(1/2*sig_u^2*dt^2)*eye(3);
-                   -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; %create dynamic nnoise measurement matrix
-%Constant MAtrices
-%  [(sig_v^2*estimation.dt + 1/3*sig_u^2*estimation.dt^3)*eye(3), -(0.5*sig_u^2*estimation.dt^2)*eye(3);
-%         -(0.5*sig_u^2*estimation.dt^2)*eye(3), (sig_u^2*estimation.dt)*eye(3)]; 
-estimation.gamma = blkdiag(-eye(3),eye(3));
-estimation.Q_sq = chol((estimation.gamma*estimation.Q_k*estimation.gamma'),'lower'); %square root dynamic noise matrix
-estimation.Qg = estimation.gamma*estimation.Q_k*estimation.gamma';
-R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),(norm(mag_var)).*eye(3)]; %create measurment error cov matrix
-estimation.R_sq = chol(R,'lower');  % reate square root form of measurement cov matrix  
+% Process and measurement covariances
+sig_v = ((sqrt(10)*1e-6));     % angle random walk Actual
+sig_u = ((sqrt(6)*1e-7));    % rate random walk
 
-estimation.R = [sun_sensor_var^2*eye(3),zeros(3,3);zeros(3,3),((mag_var.^2)).*eye(3)]; %create measurment error cov matrix
+Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
+                   -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 
+     
+%Constant Matrices sqrt form
+gamma = blkdiag(-eye(3),eye(3));
+Q = gamma*Q_k*gamma';
+estimation.Qchol = chol(Q,'lower');
+
+R = [(sun_sensor_std^2)*eye(3),zeros(3,3);zeros(3,3),((mag_sens_std.^2)).*eye(3)]; %create measurment error cov matrix
+estimation.Rchol = chol(R,'lower');
+
+
 fswParams.estimation = estimation;
 clear estimation
-clear sig_v sig_u sun_sensor_var mag_var zero R Beta P
-clearvars -except fswParams simParams TLE RWA
+clear sig_v sig_u sun_sensor_var mag_var zero R Beta P P_0_a P_0_b sun_sensor_std mag_sens_std dt gamma R Q Q_k P_init
