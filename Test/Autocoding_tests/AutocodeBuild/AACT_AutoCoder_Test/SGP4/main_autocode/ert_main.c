@@ -82,27 +82,29 @@ int_T main(int_T argc, const char *argv[])
   /* Initialize model */
   sgp4_lib_fsw0_initialize();
 
-  /* Attach rt_OneStep to a timer or interrupt service routine with
-   * period 0.002 seconds (the model's base sample time) here.  The
-   * call syntax for rt_OneStep is
-   *
-   *  rt_OneStep();
-   */
-   
-  printf("I'm working! Time to die. Goodbye.\n");
-  fflush((NULL));
-  exit(0);
-  // Don't know if this stuff has gotta run but I'll drop it for the tests sake
-  while (rtmGetErrorStatus(rtM) == (NULL)) {
-    /*  Perform other application tasks here */
+	char buffer[1024];
+	int num_trials = 1;
+	FILE * fp; 
+	fp = fopen ("input.txt", "r");
+	fscanf(fp, "%s", buffer);
+	fscanf(fp, "%s", buffer);
+	fscanf(fp, "%s", buffer);
+	fscanf(fp, "%s", buffer);
+	// This Line will pull in variables from text file 
+	fscanf(fp,"%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", &rtU.JD_utc_J2000, &rtU.orbit_tle[0], &rtU.orbit_tle[1], &rtU.orbit_tle[2], &rtU.orbit_tle[3], &rtU.orbit_tle[4], &rtU.orbit_tle[5], &rtU.orbit_tle[6], &rtU.orbit_tle[7], &rtU.orbit_tle[8], &rtU.teme_to_gcrf[0], &rtU.teme_to_gcrf[1], &rtU.teme_to_gcrf[2], &rtU.teme_to_gcrf[3], &rtU.teme_to_gcrf[4], &rtU.teme_to_gcrf[5], &rtU.teme_to_gcrf[6], &rtU.teme_to_gcrf[7], &rtU.teme_to_gcrf[8]);
+
+  rt_OneStep();
+
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.pos_eci_m[%d] = %20.12f\n",i,rtY.pos_eci_m[i]);
   }
-  /*printf("Does it get here?");
-  /* Disable rt_OneStep() here */
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.vel_eci_mps[%d] = %20.12f\n",i,rtY.vel_eci_mps[i]);
+  }
+  printf("rtY.SGP4_FLAG = %f\n",rtY.SGP4_FLAG);
+
   return 0;
 }
 
-/*
- * File trailer for generated code.
- *
- * [EOF]
- */
+
+
