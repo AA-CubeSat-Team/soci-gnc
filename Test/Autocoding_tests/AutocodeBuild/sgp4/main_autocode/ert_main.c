@@ -83,26 +83,48 @@ int_T main(int_T argc, const char *argv[])
   /* Initialize model */
   sgp4_lib_fsw0_initialize();
 
+  rtU.JD_utc_J2000 = 7220.9952105745;
+  rtU.orbit_tle[0] = 19.0;
+  rtU.orbit_tle[1] = 7220.9945161301;
+  rtU.orbit_tle[2] = 0.0001027;
+  rtU.orbit_tle[3] = 51.6432;
+  rtU.orbit_tle[4] = 154.4443;
+  rtU.orbit_tle[5] = 0.0006957;
+  rtU.orbit_tle[6] = 130.5924;
+  rtU.orbit_tle[7] = 229.5833;
+  rtU.orbit_tle[8] = 15.5022591;
+  rtU.teme_to_gcrf[0] = 1.0;
+  rtU.teme_to_gcrf[1] = -0.04421;
+  rtU.teme_to_gcrf[2] = -0.001887;
+  rtU.teme_to_gcrf[3] = 0.00421;
+  rtU.teme_to_gcrf[4] = 1.0;
+  rtU.teme_to_gcrf[5] = 2.678e-6;
+  rtU.teme_to_gcrf[6] = 0.001887;
+  rtU.teme_to_gcrf[7] = -1.102e-5;
+  rtU.teme_to_gcrf[8] = 1.0;
+
+  rt_OneStep();
+
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.pos_eci_m[%d] = %20.12f\n",i,rtY.pos_eci_m[i]);
+  }
+  for (int i = 0; i < 3; ++i) {
+    printf("rtY.vel_eci_mps[%d] = %20.12f\n",i,rtY.vel_eci_mps[i]);
+  }
+  printf("rtY.SGP4_FLAG = %f\n",rtY.SGP4_FLAG);
+
   /* Attach rt_OneStep to a timer or interrupt service routine with
    * period 0.002 seconds (the model's base sample time) here.  The
    * call syntax for rt_OneStep is
    *
    *  rt_OneStep();
    */
-  printf("I'm working! Time to die. Goodbye.\n");
-  fflush((NULL));
-  exit(0);
-  // Don't know if this stuff has gotta run but I'll drop it for the tests sake
-  while (rtmGetErrorStatus(rtM) == (NULL)) {
-    /*  Perform other application tasks here */
-  }
-  /*printf("Does it get here?");
+  // printf("I'm working!\n");
+  // fflush((NULL));
+  // while (rtmGetErrorStatus(rtM) == (NULL)) {
+  //   /*  Perform other application tasks here */
+  // }
+
   /* Disable rt_OneStep() here */
   return 0;
 }
-
-/*
- * File trailer for generated code.
- *
- * [EOF]
- */
