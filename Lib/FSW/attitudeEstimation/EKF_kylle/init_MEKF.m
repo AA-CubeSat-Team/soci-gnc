@@ -35,7 +35,7 @@ estimation.ic.Pchol_init = chol(P_init,'lower');
 
 sun_sensor_std = 0.5/(sqrt(3)*3.0)*pi/180; %0.5/(sqrt(2)*3.0); % sun sensor measurement covariance (radians)
 % mag_sens_std =  sqrt([2e-7;2e-7;2e-7]); %10^-6*[0.403053;0.240996;0.173209]; % magnetometer covariance (micro tesla)
-mag_sens_std  = ([2e-7;2e-7;2e-7]);
+mag_sens_std  = [4.03053e-07;2.40996e-07;1.73209e-07];
 
 %%Time step that the MEKF is ran at
 estimation.dt = fswParams.sample_time_s; 
