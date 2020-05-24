@@ -93,8 +93,8 @@ int_T main(int_T argc, const char *argv[])
 	// This Line will pull in variables from text file 
 	fscanf(fp,"%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", &rtU.JD_utc_J2000, &rtU.orbit_tle[0], &rtU.orbit_tle[1], &rtU.orbit_tle[2], &rtU.orbit_tle[3], &rtU.orbit_tle[4], &rtU.orbit_tle[5], &rtU.orbit_tle[6], &rtU.orbit_tle[7], &rtU.orbit_tle[8], &rtU.teme_to_gcrf[0], &rtU.teme_to_gcrf[1], &rtU.teme_to_gcrf[2], &rtU.teme_to_gcrf[3], &rtU.teme_to_gcrf[4], &rtU.teme_to_gcrf[5], &rtU.teme_to_gcrf[6], &rtU.teme_to_gcrf[7], &rtU.teme_to_gcrf[8]);
 
-// This will Step through your model,
-rt_OneStep();
+	// This will Step through your model,
+	rt_OneStep();
 
 	for(int i=0; i<3; i++) {
 		printf(" pos_eci_m[%d]: %lf \n", i,rtY.pos_eci_m[i]);
