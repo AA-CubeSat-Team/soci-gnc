@@ -2,15 +2,30 @@
 *.slxc
 *.slx.r2016a
 *.slx.autosave
+*Build/cache/
+*Build/slprj/
 
 # Matlab
 *.m~
 *.mat
+!/Include/fswBusDefinitions.mat
 *.l
 
 # Other
 *.xml
+*tr
+*scv
 
 #autocoded build stuff
 *.o
 *.log
+*.html
+*.png
+*.js
+*.css
+*.gif
+*.tmw
+*.tlc
+*.tlh
+*.dmr
+*/Build/*/*.txt

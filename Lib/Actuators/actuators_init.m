@@ -24,6 +24,11 @@ rwa.max_RADPS      = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
 rwa.max_torque_Nm  = 3.2e-3; % max torque per wheel
 rwa.nominal_rpm    = [1000; -1000; 1000; -1000];    % RPM. in nullspace
 rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
+rwa.visc_fric_coef = rwa.max_torque_Nm / rwa.max_RADPS; % [N-m-s/rad]
+rwa.stall_torque   = rwa.max_torque_Nm;
+rwa.mech_eff       = 1.452; %.182; % 18 percent efficient. 
+                           % (1/4)*stall_torque*Max_Rpm = 3 Watts*eff
+                           % eff = .182
 
 rwa.visc_fric    = 1e-6;    % WAG
 rwa.torque_cnst  = 1e-3;    % Nm/A WAG
@@ -47,8 +52,8 @@ rwa.iAw = inv(rwa.Aw);
 
 % Initial conditions
 rwa.ic.rpm              = 1.0*[1000;-1000;1000;-1000];
-rwa.ic.rpm              = 1.0*[4300;-3400;2000;-3000];
-% rwa.ic.rpm              = 0*[3600;4400;2000;3000];
+rwa.ic.rpm              = 1.0*[3600;-3800;2600;-3000];
+% rwa.ic.rpm              = 1.0*[5200;2400;2200;3200];
 rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
 rwa.ic.momentum         = rwa.inertia_matrix ...
                       * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
