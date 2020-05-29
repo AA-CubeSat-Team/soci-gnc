@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "List of Possible Commands:"
+echo ""
+echo "./setup <folder_name> #this sets up your folder to work with all available commands"
+echo ""
+echo "./buildrun all  #this will attempt to clean and build all of the available folders. Then run them and store the outputs in .log files"
+echo ""
+echo "./buildrun <yourfolder> <log_format (.csv .log .text etc)> #This command will build a specific folder and run the resulting main. The log file argument allows you to select data format appearing in /log"
