@@ -5,12 +5,13 @@
 
 clc
 close all
-tfinal = 2000;
+tfinal = 20000;
 t = 0:fswParams.sample_time_s:tfinal;
 qest = my_qest.Data';
 qtrue = q_true.Data';
-bias = reshape(bias_out.signals.values,3,length(t))';
-omega_est1 = reshape(omega_est.signals.values,3,length(t))';
+% bias = reshape(bias_out.signals.values,3,length(t))';
+bias = bias_out.Data';
+omega_est1 = omega_est.Data'; %reshape(omega_est.signals.values,3,length(t))';
 for i =1:length(t)
  qmix1 = [qest(4,i);qest(1,i);qest(2,i);qest(3,i)]';
                 qmix = ([qest(4,i);-qest(1,i);-qest(2,i);-qest(3,i)]');
@@ -37,9 +38,10 @@ p = plot(t,my_qest.Data(:,j),'color',Gold,'Linewidth',1.5)
 legend(['q_',num2str(j),' true'], [qleg{j}, ' est'],'Location','Best')
 p.LineStyle = '--';
 xlabel('Time (hours)')
- xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
+% xlim([5745,20000])
+ xt = round([0:(tfinal/3600)/6:tfinal/3600],2);
     xt(end) = tfinal/3600;
-set(gca,'XTick',0:tfinal/11:tfinal)
+set(gca,'XTick',0:tfinal/6:tfinal)
 set(gca,'XTickLabel',xt)
 grid on;
 hold off
@@ -53,12 +55,14 @@ grid on;
 subplot(4,1,j)
 hold on
 if j ==1
+%    h1 = plot(t,q_err.Data(:,j),'color',Purple,'Linewidth',1.25)
    h1 = plot(t,q_err.Data(:,j),'color',Purple,'Linewidth',1.25)
     legend(h1,['AKE error']);
     title('Attitude Knowledge Error')
     ylabel('Error (deg)')
  xlabel('Time (hours)')
-%  xlim([5500,tfinal])
+% xlim([5745,20000])
+ylim([0,3.5])
       xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
     xt(end) = tfinal/3600;
 set(gca,'XTick',0:tfinal/11:tfinal)
@@ -71,7 +75,8 @@ legend(h,[qleg{j},' error']);
 title([qleg{j},' error and 3 \sigma Bounds']) 
 ylabel('Error (deg)')
  xlabel('Time (hours)')
- xlim([5500,tfinal])
+xlim([5745,20000])
+% ylim([-0.1,0.1])
       xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
     xt(end) = tfinal/3600;
 set(gca,'XTick',0:tfinal/11:tfinal)
@@ -81,24 +86,41 @@ hold off
 end
 end
 
-ax1 = {'\omega_x','\omega_y','\omega_z'};
- figure;
-for j = 1:3
-grid on;
-subplot(3,1,j)
-hold on
-plot(t,omega_est1(:,j),'color',Purple,'Linewidth',1.1)
-% legend(h,['q_',num2str(j),' error']);
-title(['Estimated ',ax1{j}]) 
-ylabel('Value (deg/s)')
- xlabel('Time (hours)')
- xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
-    xt(end) = tfinal/3600;
-set(gca,'XTick',0:tfinal/11:tfinal)
-set(gca,'XTickLabel',xt)
-grid on;
-hold off
-end
+% omeg_err = omega_est1-wtrue.Data';
+% for k = 1:length(t)
+%     om_nerr(k) = norm(omeg_err(:,k),2);
+% end
+% ax1 = {'\omega_x','\omega_y','\omega_z'};
+%  figure;
+% for j = 1:4
+% grid on;
+% subplot(4,1,j)
+% hold on
+% if j<4
+%  plot(t,omega_est1(j,:),'color',Purple,'Linewidth',1.1)
+%  plot(t,wtrue.Data(:,j)','color',Gold,'Linewidth',1.1)
+% legend(['q_',num2str(j),' error'],'\omega true');
+% title(['Estimated ',ax1{j}]) 
+% ylabel('Value (deg/s)')
+%  xlabel('Time (hours)')
+%  xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
+%     xt(end) = tfinal/3600;
+% set(gca,'XTick',0:tfinal/11:tfinal)
+% set(gca,'XTickLabel',xt)
+% else 
+%     g1 = plot(t,om_nerr(j),'color',Purple,'Linewidth',1.1)
+% legend(g1,['q_',num2str(j),' error']);
+% % title(['Estimated ',ax1{j}]) 
+% ylabel('Value (deg/s)')
+%  xlabel('Time (hours)')
+%  xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
+%     xt(end) = tfinal/3600;
+% set(gca,'XTick',0:tfinal/11:tfinal)
+% set(gca,'XTickLabel',xt)
+% grid on;
+% hold off
+% end
+% end
 
 
 ax = {'\beta_x','\beta_y','\beta_z'};
@@ -107,11 +129,12 @@ for j = 1:3
 grid on;
 subplot(3,1,j)
 hold on
-plot(t,bias(:,j),'color',Purple,'Linewidth',1.1)
+plot(t,bias(j,:),'color',Purple,'Linewidth',1.1)
 % legend(h,['q_',num2str(j),' error']);
 title([ax{j},' Value']) 
 ylabel('Bias (deg/s)')
  xlabel('Time (hours)')
+ xlim([5745,20000])
  xt = round([0:(tfinal/3600)/11:tfinal/3600],2);
     xt(end) = tfinal/3600;
 set(gca,'XTick',0:tfinal/11:tfinal)

@@ -27,8 +27,8 @@ estimation.ic.gyro_meas_rt = [0;0;0];
 estimation.ic.triad_activate_rt = 0;
 
 %Create covariance matrix for estimate
-P_0_a = 10e-5;  % attitude
-P_0_b = 10e-16; % bias
+P_0_a = 10e-10;  % attitude
+P_0_b = 10e-10; % bias
 P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 estimation.ic.Pchol_init = chol(P_init,'lower');
 
@@ -43,8 +43,8 @@ dt = estimation.dt;
 estimation.sample_time_s = dt;
 
 % Process and measurement covariances
-sig_v = ((sqrt(10)*1e-7));     % angle random walk Actual
-sig_u = ((sqrt(6)*1e-8));    % rate random walk
+sig_v = ((sqrt(10)*1e-6));     % angle random walk Actual
+sig_u = ((sqrt(6)*1e-7));    % rate random walk
 
 Q_k = [(sig_v^2*dt + 1/3*sig_u^2*dt^3)*eye(3)   -(1/2*sig_u^2*dt^2)*eye(3); %create dynamic nnoise measurement matrix
                    -(1/2*sig_u^2*dt^2)*eye(3)              (sig_u^2*dt)*eye(3)]; 
