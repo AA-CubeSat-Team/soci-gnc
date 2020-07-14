@@ -10,7 +10,7 @@ estimation = struct;
 estimation.ic.Beta_init = [0;0;0];%Initialize gyro Bias
 estimation.ic.quat_est_init = [1;0;0;0]; 
 estimation.ic.quat_est_init = simParams.initialConditions.q0;
-estimation.ic.begin_triad = 1;
+estimation.ic.activate_triad = 1;
 
 
 %%%%Rate Transitions
