@@ -12,4 +12,4 @@ addpath(genpath('../Lib/'))
 addpath(genpath('../Include/'))
 addpath(genpath('../Test/'))
 
-init_params;
+init_params; 

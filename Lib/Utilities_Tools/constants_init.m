@@ -27,6 +27,10 @@ constants.convert.nT2T  = 1e-9;
 constants.convert.HR2SEC = 3600.0;
 % convert h to s
 constants.convert.SEC2HR = 1/3600.0;
+% convert s to m
+constants.convert.MIN2SEC = 60.0;
+% convert h to s
+constants.convert.SEC2MIN = 1/60.0;
 
 % Global Constants
 constants.global = struct;
