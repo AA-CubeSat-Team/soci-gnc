@@ -1,52 +1,38 @@
-function [Year, Month, Day, h, min, s,JC,JD] = jseconds2ymdhms(j_seconds)
-%JSECONDS2YMDHMS This function takes in an arbitrary time stamp in seconds
-%and converts to YMDHMS, Julian Century and Julian Date
+function [Year,Month,Day,Hour,Min,Sec,JC_J2000,JD] = jseconds2ymdhms(time_s_J2000)
+%JSECONDS2YMDHMS
+%
+% This function takes in an arbitrary time stamp in seconds
+% since the J2000 epoch and converts to YMDHMS, Julian Century and 
+% absolute Julian Date.
+%
+% Uses the following algorithms from Vallado 4e:
+%   - ALGORITHM 22 on p. 202 (tested again Ex 3-13 on p. 203)
+%   - Eq (3-42) on p. 184 for Julian century calculation
 
 % Constants
-DAY2SEC = 86400; %convert seconds to days
-JD_J2000 = 2451545; %move back to absolute JD team
-LMonth = [31,28,31,30,31,30,31,31,30,31,30,31]; %Days in each month (non Leapyr)
+DAY2SEC  = 86400;       % convert seconds to days
+JD_J2000 = 2451545;     % J2000 epoch in Julian days
+JD_1900  = 2415019.5;   % J1900 epoch in Julian days
+LMonth   = [31,28,31,30,31,30,31,31,30,31,30,31]; % days in each month
 
+% compute absolute Julian Day 
+JD = time_s_J2000/DAY2SEC + JD_J2000; 
 
-% Allocate Space for Outputs
-YMDHMS = zeros(6,1);
-JC = 0;
-JD = 0;
-Month = 0;
-temp = 0;
+% convert to julian cenutry since J2000 epoch
+JC_J2000 = ( JD - JD_J2000 )/36525; 
 
-% ~~~~~~~~~~~~~~~~~~~~~~
-% Convert to Julian Days
-% ~~~~~~~~~~~~~~~~~~~~~~
-JD = j_seconds/DAY2SEC + JD_J2000; %Julian Day absolute
-
-
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Convert to Julian Century
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~
-JC=(JD-2451545.0)/36525; %julian cenutry from pg 184 of Vallado, 
-%constant for all time frames
-
-%NOTE julian century is off by 11 minutes and 14 seconds per year or one
-%day every 128 years. Since cubesat will not be operating til 2128, do not
-%need to account for error in julian century
-
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
-% Convert from JD to YMDHMS
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
-% This is take from vallado pg 202 (4th edition) ALGORITHM 22
-% tested against the example on pg 203 
-T_1900 = (JD - 2415019.5)/365.25;
+% Convert from JD to YMDHMS using Algorithm 22
+T_1900 = (JD - JD_1900)/365.25;
 
 Year = 1900 + floor(T_1900);
 
 LeapYrs = floor( (Year - 1900 - 1)*(0.25)  );
-Days = (JD - 2415019.5)  - ( (Year - 1900)*(365.0) + LeapYrs );
+Days = (JD - JD_1900)  - ( (Year - 1900)*(365.0) + LeapYrs );
 
 if Days<1 
     Year = Year - 1;
     LeapYrs = floor( (Year - 1900 - 1)*(0.25)  );
-    Days = (JD - 2415019.5)  - ( (Year - 1900)*(365.0) + LeapYrs );    
+    Days = (JD - JD_1900)  - ( (Year - 1900)*(365.0) + LeapYrs );    
 end
 
 % current year leap?
@@ -57,31 +43,20 @@ end
 DayofYr = floor(Days);
 % Calculate the day
 sum = 0;
-
-
+Month = 0;
 while sum < DayofYr
-    Month   = Month + 1;
+    Month = Month + 1;
     sum = sum + LMonth(Month);
 end
+% Day = DayofYr - (sum - LMonth(Month));
+% the Day output must be DayofYr for the atmospheric model
+Day = DayofYr;
 
-Day = DayofYr - (sum - LMonth(Month));
-
-% Day = DayofYr;
-
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Determine Hour Min Second
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-tau = (Days - DayofYr)*24;
-h = floor(tau);
-min =floor((tau - h)*60);
-s = (tau - h - min/60)*3600;
-
-
-
-
-
-
+% determine the Hour-Min-Second
+tau  = (Days - DayofYr)*24;
+Hour = floor(tau);
+Min  = floor((tau - Hour)*60);
+Sec  = (tau - Hour - Min/60)*3600;
 
 end
 
