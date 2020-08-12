@@ -26,6 +26,9 @@ scParams.Ax = scParams.x_len * scParams.z_len;
 scParams.Ay = scParams.y_len * scParams.z_len;
 scParams.Az = scParams.x_len * scParams.y_len;
 
+% Residual dipole moment
+scParams.res_dipole_Am2 = [ 0.0; 0.0; 0.0 ];
+
 % Initialize battery model
 % battery_init;
 
