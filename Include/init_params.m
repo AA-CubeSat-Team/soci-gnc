@@ -7,6 +7,7 @@
 % TLE 
 TLE = 'ISS.txt';
 load('fswBusDefinitions.mat')
+load('simBusDefinitions.mat')
 
 % main structs
 fswParams = struct;
