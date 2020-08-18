@@ -9,6 +9,8 @@
 *.m~
 *.mat
 !/Include/fswBusDefinitions.mat
+!/Include/simBusDefinitions.mat
+!/Include/IOBusDefinitions.mat
 *.l
 
 # Other

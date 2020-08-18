@@ -33,7 +33,7 @@ for k = 1:mag.N_mag
 end
 
 sensors.mag = mag;
-clear mag
+clear mag k
 
 %% Gyroscope
 gyro = struct;
@@ -64,7 +64,7 @@ for k = 1:gyro.N_gyro
 end
 
 sensors.gyro = gyro;
-clear gyro
+clear gyro k
 
 %% Sun sensor
 sun_sensor = struct;
