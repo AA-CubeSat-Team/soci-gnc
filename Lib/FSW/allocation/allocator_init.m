@@ -101,4 +101,4 @@ allocator.MTQ_B_inv = temp'/(temp*temp');
 
 fswParams.allocator = allocator;
 
-clearvars -except fswParams simParams TLE RWA sensor_bus
+clearvars -except fswParams simParams TLE RWA sensor_bus actuator_control actuator_meas orbit_data state
