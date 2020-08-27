@@ -1,6 +1,10 @@
-%% Spacecraft Parameters 
+function [fswParams,simParams] = scParams_init(fswParams,simParams)
+%SCPARAMS_INIT
 %
-% Last sync with SOC-i's CAD model: July 16, 2020
+% Initialize spacecraft parameters. Last sync with SOC-i's CAD model: 
+%   July 16, 2020
+%
+% T. P. Reynolds
 
 scParams = struct;
 
@@ -24,7 +28,7 @@ scParams.J = [  11820643.5013,  431707.2662,    -7306.1275;
 % Point of pressure for S/C and estimated drag coefficent per face. Assume
 % geometric center for now, so use -ve of the CoM's location w.r.t. the
 % geometric center
-scParams.point_of_pressure = [ 2.1986; 2.4908; -8.0777] * 1e-3; % m
+scParams.point_of_pressure = [ 2.1986; 2.4908; -8.0777 ] * 1e-3; % m
 scParams.CD = 2.2; % standard for 3U cubesat
 
 % Area of the faces of the S/C
@@ -38,7 +42,9 @@ scParams.res_dipole_Am2 = [ 0.0; 0.0; 0.0 ];
 % Initialize battery model
 % battery_init;
 
+% add to main structs
 simParams.scParams = scParams;
 fswParams.scParams = scParams;
-clear scParams
+
+end
  

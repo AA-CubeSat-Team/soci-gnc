@@ -1,3 +1,10 @@
+function [fswParams,simParams] = actuators_init(fswParams,simParams)
+%ACTUATORS_INIT
+%
+% 
+%
+% C. Morgan & T. P. Reynolds
+
 actuators = struct;
 actuators.sample_time_s = simParams.sample_time_s;
 
@@ -29,12 +36,6 @@ rwa.stall_torque   = rwa.max_torque_Nm;
 rwa.mech_eff       = 1.452; %.182; % 18 percent efficient. 
                            % (1/4)*stall_torque*Max_Rpm = 3 Watts*eff
                            % eff = .182
-
-rwa.visc_fric    = 1e-6;    % WAG
-rwa.torque_cnst  = 1e-3;    % Nm/A WAG
-rwa.delay        = 0;       % s WAG
-rwa.resistance   = 1;       % Ohms WAG
-rwa.inductance   = 1e-6;    % Henry WAG
 
 rwa.inertia_matrix      = diag(rwa.inertia);
 rwa.inv_inertia_matrix  = inv(rwa.inertia_matrix);
@@ -122,7 +123,6 @@ rwa.control.filter_coeff    = 100;
 rwa.control.setpt_weight_b  = 1;
 rwa.control.setpt_weight_c  = 1;
 
-
 actuators.rwa = rwa;
 
 % Magnetorquers (MTQ)
@@ -154,11 +154,6 @@ mtq.voltage     = [5;5;3.3];                        % V
 mtq.max_current = [0.216;0.216;0.078];              % A
 mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W
 
-% digital value to drive each coil [0 mtq.dig_val] <=> [0 m_max]
-mtq.dc_max = 100;
-mtq.m_2_dc = mtq.dc_max./mtq.dipole_max_Am2;
-mtq.dc_2_m = 1.0./mtq.m_2_dc;
-
 % ratios to map dipole to power (per coil)
 mtq.dipole_to_power = mtq.P_max_W./mtq.dipoles_Am2;
 
@@ -169,5 +164,4 @@ actuators.mtq = mtq;
 simParams.actuators = actuators; 
 fswParams.actuators = actuators;
 
-clear rwa mtq
-clear actuators body_momentum body_torque_Nm cb sb;
+end
