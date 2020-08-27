@@ -22,7 +22,7 @@ desaturation.k = 1.0; %1/1000;
 
 % start reducing gain when rpm error becomes less than about 400 rpm.
 desaturation.gain_tol = ...
-    400*fswParams.constants.convert.RPM2RPS*fswParams.actuators.rwa.inertia(1);
+    400*fswParams.constants.convert.RPM2RPS*simParams.actuators.rwa.inertia(1,1);
 desaturation.k2 = 0.125; % when error low, try to smoothly reduce rpms further.
 
 B = 3.12*10^-5; % general strength of earth mag field. for testing.

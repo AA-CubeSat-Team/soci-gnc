@@ -19,11 +19,11 @@ mode_select.RWA_RPM_threshold_min_2norm   = 2*1100;  %RPM.
 mode_select.orbital_period_s              = 91*60.0; %seconds
 mode_select.desat_timer_buffer_s          = 30;      %seconds
 
-command_gen.spindown_torque_Nm            = 0.01*fswParams.actuators.rwa.max_torque_Nm;
+command_gen.spindown_torque_Nm            = 0.01*simParams.actuators.rwa.max_torque_Nm;
         % Limits how quickly spindown happens. limits power consumption
         % and limits oscillations once at nominal rpm but not out of desat.
 command_gen.spindown_tol                  = ...
-    400*fswParams.constants.convert.RPM2RPS*fswParams.actuators.rwa.inertia(1); 
+    400*fswParams.constants.convert.RPM2RPS*simParams.actuators.rwa.inertia(1,1); 
         % sets limit on max angular momentum error of wheels in body frame to begin
         % spindown. too high, wheel rpms wont be in null space. too low,
         % you might get stuck oscillating about the nullspace. 

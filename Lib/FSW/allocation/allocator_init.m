@@ -1,45 +1,32 @@
+function [fswParams,simParams] = allocator_init(fswParams,simParams)
+%ALLOCATOR_INIT
+%
 % Initialization of the Allocators for the RWA and the MTQ.
 % Stores various methods for distributing the total body-axis 
 % control command to the available actuators. actuator frame to
 % body frames and visa versa.
 %
-%
-% Author: Cole Morgan
-
+% Author: Cole Morgan & T. P. Reynolds
 
 allocator = struct;
 
-%%%% RWA Allocation %%%%
+%% Reaction Wheel Assembly
 
-%%% OLD STRUCT
+% The rwa struct defined below MUST MATCH the RWA bus definition. Adding
+% parameters here without changing that bus definition will cause an error
+% in the sim on compile.
 
-% alpha = 23; % angle of the reaction wheels
-% 
-% % RWA frame to body frame.
-% A = [cosd(alpha) 0 -cosd(alpha) 0;
-%     0 cosd(alpha) 0 -cosd(alpha);
-%     sind(alpha) sind(alpha) sind(alpha) sind(alpha)];
-% allocator.RWA_A = A;
-% temp = A'/(A*A'); % psuedo inverse
-% allocator.Phi = temp;
-% % body frame to RWA frame.
-% allocator.RWA_A_inv = temp;
-
-%%% NEW STRUCT
-
-Jw = fswParams.actuators.rwa.inertia_matrix;
-RPM2RPS = fswParams.constants.convert.RPM2RPS;
+% constants
+Jw          = simParams.actuators.rwa.inertia;
+RPM2RPS     = fswParams.constants.convert.RPM2RPS;
+targ_rpm    = fswParams.rwa.targ_rpm;
 
 rwa = struct;
-beta_deg = 23;
-cb = cosd(beta_deg);
-sb = sind(beta_deg);
-rwa.A = [ cb,   0, -cb,   0;
-           0,  cb,   0, -cb;
-          sb,  sb,  sb,  sb ];
+
+rwa.A               = simParams.actuators.rwa.Aw(1:3,:);
 rwa.max_norm_ellipsoid_R = [ 28813; 28813; 79957 ];
 rwa.num_facet = uint8(6);
-rwa.h_targ_wheel_Nms = RPM2RPS .* (Jw*[ 1000; -1000; 1000; -1000 ]);
+rwa.h_targ_wheel_Nms = RPM2RPS .* ( Jw * targ_rpm );
 rwa.feedback_gain = 0.01;
 
 n = 4;
@@ -82,23 +69,25 @@ for p = 1:size(pairs,1)
 end
 
 allocator.rwa = rwa;
+
+% to be removed once allocator fully integrated
 allocator.RWA_A = rwa.A;
 A = allocator.RWA_A;
 allocator.RWA_A_inv = A'/(A*A'); % psuedo inverse
 
-%%%% MTQ Allocation %%%%
+%% Magnetorquers
 
+% to be removed once allocator fully integrated
 % allocation of MTQ frame to body frame.
 B = [1 -1 0 0 0;
      0 0 1 -1 0;
      0 0 0 0 1];
 allocator.MTQ_B = B;
 
-temp = B;
 % inv allocation from body to MTQ frame.
-allocator.MTQ_B_inv = temp'/(temp*temp');
+allocator.MTQ_B_inv = B'/(B*B');
  
-
+%% attach allocation struct to main struct
 fswParams.allocator = allocator;
 
-clearvars -except fswParams simParams TLE RWA sensor_bus actuator_control actuator_meas orbit_data state
+end

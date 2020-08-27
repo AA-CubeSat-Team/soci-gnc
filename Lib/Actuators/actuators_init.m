@@ -1,131 +1,103 @@
 function [fswParams,simParams] = actuators_init(fswParams,simParams)
 %ACTUATORS_INIT
 %
-% 
+% Define the parameters used by the actuator models in the SIM.
 %
 % C. Morgan & T. P. Reynolds
 
 actuators = struct;
 actuators.sample_time_s = simParams.sample_time_s;
 
-% Reaction Wheel Assembly (RWA)
-rwa               = struct;
-rwa.num_wheels    = 4;
-rwa.sample_time_s = simParams.sample_time_s;
+%% Reaction Wheel Assembly
+rwa = struct;
+rwa.num_wheels = 4;
 
-% estimated from spec sheet using:
-% cvx_begin sdp
-%     variable J(4,4) diagonal
-%     variable g1 nonnegative
-%     variable g2 nonnegative
-%     minimize( g1 + g2 )
-%     norm(hw1-A*J*O1) <= g1;
-%     norm(hw2-A*J*O2) <= g2;
-% cvx_end
-rwa.inertia   = [ 2.9526e-5; 2.9526e-5; 2.9526e-5; 2.9526e-5 ];
+% Physical properties
+    % estimated from spec sheet using:
+    % cvx_begin sdp
+    %     variable J(4,4) diagonal
+    %     variable g1 nonnegative
+    %     variable g2 nonnegative
+    %     minimize( g1 + g2 )
+    %     norm(hw1-A*J*O1) <= g1;
+    %     norm(hw2-A*J*O2) <= g2;
+    % cvx_end
+rwa.inertia   = diag([ 2.9526e-5; 2.9526e-5; 2.9526e-5; 2.9526e-5 ]);
 rwa.time_cnst = [ 0.01; 0.01; 0.01; 0.01 ];
+rwa.cant_angle = 23 * simParams.constants.convert.DEG2RAD; % rad 
 
-% Wheel Characteristics
-rwa.max_RPM        = 6500;   % RPM
-rwa.max_RADPS      = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
-rwa.max_torque_Nm  = 3.2e-3; % max torque per wheel
-rwa.nominal_rpm    = [1000; -1000; 1000; -1000];    % RPM. in nullspace
-rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
-rwa.visc_fric_coef = rwa.max_torque_Nm / rwa.max_RADPS; % [N-m-s/rad]
-rwa.stall_torque   = rwa.max_torque_Nm;
-rwa.mech_eff       = 1.452; %.182; % 18 percent efficient. 
-                           % (1/4)*stall_torque*Max_Rpm = 3 Watts*eff
-                           % eff = .182
-
-rwa.inertia_matrix      = diag(rwa.inertia);
-rwa.inv_inertia_matrix  = inv(rwa.inertia_matrix);
-rwa.dc_voltage          = 5; % V
-rwa.cant_angle          = 23 * simParams.constants.convert.DEG2RAD; % rad 
-
-% torque allocation matrix
+% mapping from wheel frame to body frame ( body = Aw * wheel )
 cb = cos(rwa.cant_angle);
 sb = sin(rwa.cant_angle);
 rwa.Aw = [ cb    0   -cb    0;
             0   cb     0  -cb;
-           sb   sb    sb   sb;
-            1   -1     1   -1 ];
-rwa.iAw = inv(rwa.Aw);
+           sb   sb    sb   sb ];
 
-% Initial conditions
-rwa.ic.rpm              = 1.0*[1000;-1000;1000;-1000];
-rwa.ic.rpm              = 1.0*[3600;-3800;2600;-3000];
-% rwa.ic.rpm              = 1.0*[5200;2400;2200;3200];
-rwa.ic.radps            = simParams.constants.convert.RPM2RPS * rwa.ic.rpm;
-rwa.ic.momentum         = rwa.inertia_matrix ...
-                      * (simParams.constants.convert.RPM2RPS * rwa.ic.rpm);
-body_momentum           = rwa.Aw * rwa.ic.momentum; % about body axes
-rwa.ic.body_momentum    = body_momentum(1:3);
-rwa.ic.power_W          = zeros(rwa.num_wheels,1);
-rwa.ic.torque_Nm        = zeros(rwa.num_wheels,1); % about wheel axes
-body_torque_Nm          = rwa.Aw * rwa.ic.torque_Nm;
-rwa.ic.body_torque_Nm   = body_torque_Nm(1:3); % about body axes
-rwa.ic.rt1              = 0;
-rwa.ic.deriv1           = 0;
-
-% % Motor transfer functions
-% num  = rwa.torque_cnst;
-% den  = [ rwa.inertia*rwa.inductance ...
-%          rwa.inductance*rwa.visc_fric + rwa.resistance*rwa.inertia ...
-%          rwa.resistance*rwa.visc_fric + rwa.torque_cnst^2 ];
-% num2 = [ rwa.inertia rwa.visc_fric ];            
-% sys_c           = tf(num,den);   % TF for V to Omega
-% sys_c2          = tf(num2,den);  % TF for V to I
-% sys_d           = c2d(sys_c,rwa.sample_time_s); 
-% sys_d2          = c2d(sys_c2,rwa.sample_time_s); 
-% rwa.tf_num      = sys_d.Numerator{1};
-% rwa.tf_den      = sys_d.Denominator{1};
-% rwa.tf_V2I_num  = sys_d2.Numerator{1};
-% rwa.tf_V2I_den  = sys_d2.Denominator{1};
-% clear num den num2 sys_c sys_c2 sys_d sys_d2
-
-% Continuos time PID
-% rwa.control.kp              = 1.3375803137951;
-% rwa.control.ki              = 267.355364694592;
-% rwa.control.kd              = -0.000485758916096801;
-% rwa.control.filter_coeff    = 378.094165182863;
-% rwa.control.setpt_weight_b  = 0.0302538537839731;
-% rwa.control.setpt_weight_c  = 0.220333136002326;
-
-% % Motor transfer functions
-num1         = [rwa.inertia(1) 0];
-den          = [rwa.time_cnst(1) 1];
-num2         = [1];
+% motor transfer functions
+num1         = [ rwa.inertia(1,1), 0 ];
+num2         = 1.0;
+den          = [ rwa.time_cnst(1), 1 ];
 sys_cont1    = tf(num1, den); % TF for omega -> dot{h}_w 
 sys_cont2    = tf(num2, den); % TF for omega_cmd -> omega
-sys_disc1    = c2d(sys_cont1,rwa.sample_time_s, 'foh'); 
-sys_disc2    = c2d(sys_cont2,rwa.sample_time_s, 'foh');
+sys_disc1    = c2d(sys_cont1,actuators.sample_time_s, 'zoh'); 
+sys_disc2    = c2d(sys_cont2,actuators.sample_time_s, 'zoh');
 rwa.tf_num1  = sys_disc1.Numerator{1};
 rwa.tf_den1  = sys_disc1.Denominator{1};
 rwa.tf_num2  = sys_disc2.Numerator{1};
 rwa.tf_den2  = sys_disc2.Denominator{1};
-clear num1 den num2 sys_cont1 sys_cont2 sys_disc1 sys_disc2
 
-% % Control Params - tuned with PID tool
-% Discrete time PID for V to I
-% rwa.control.kp              = 0.1;
-% rwa.control.ki              = 0.02;
-% rwa.control.kd              = 0;
-% rwa.control.filter_coeff    = 50;
-% rwa.control.setpt_weight_b  = 1;
-% rwa.control.setpt_weight_c  = 1;
+% motor controller params - tuned with PID tool. Discrete time PID for omega 
+% to torque
+rwa.control.kp             = 0.111;
+rwa.control.ki             = 2.25;
+rwa.control.kd             = 0;
+rwa.control.filter_coeff   = 100;
+rwa.control.setpt_weight_b = 1;
+rwa.control.setpt_weight_c = 1;
 
-% % Control Params - tuned with PID tool
-% Discrete time PID for omega to torque
-rwa.control.kp              = 0.111;
-rwa.control.ki              = 2.25;
-rwa.control.kd              = 0;
-rwa.control.filter_coeff    = 100;
-rwa.control.setpt_weight_b  = 1;
-rwa.control.setpt_weight_c  = 1;
+% bounding properties
+rwa.max_RPM        = 6500;   % RPM
+rwa.max_RADPS      = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
+rwa.max_torque_Nm  = 3.2e-3; % max torque per wheel
 
+% power calculation parameters
+rwa.visc_fric_coef = rwa.max_torque_Nm / rwa.max_RADPS; % [N-m-s/rad]
+rwa.stall_torque   = rwa.max_torque_Nm;
+rwa.mech_eff       = 1.452; %.182; % 18 percent efficient. 
+                            % (1/4)*stall_torque*Max_Rpm = 3 Watts*eff
+                            % eff = .182
+                           
+% variance to simulate wheel jitter
+rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
+
+% initial conditions
+simParams.initialConditions.rwa.rpm = [ 1000; -1000; 1000; -1000 ];
+simParams.initialConditions.rwa.radps = simParams.constants.convert.RPM2RPS ...
+                                    * simParams.initialConditions.rwa.rpm;
+simParams.initialConditions.rwa.h_wheel_Nms = rwa.inertia ...
+                                    * simParams.initialConditions.rwa.radps;
+h_body_Nms = rwa.Aw * simParams.initialConditions.rwa.h_wheel_Nms; 
+simParams.initialConditions.rwa.h_body_Nms = h_body_Nms(1:3);
+simParams.initialConditions.rwa.power_W  = zeros(rwa.num_wheels,1);
+simParams.initialConditions.rwa.torque_wheel_Nm = zeros(rwa.num_wheels,1); 
+torque_body_Nm = rwa.Aw * simParams.initialConditions.rwa.torque_wheel_Nm;
+simParams.initialConditions.rwa.torque_body_Nm = torque_body_Nm(1:3); 
+simParams.initialConditions.rwa.rt1     = 0;
+simParams.initialConditions.rwa.deriv1  = 0;
+
+% Add minimal stuff required for FSW version of the rwa struct
+rwa_fsw = struct;
+rwa_fsw.inertia         = rwa.inertia;
+rwa_fsw.inv_inertia     = eye(rwa.num_wheels)/rwa.inertia;
+rwa_fsw.max_torque_Nm   = rwa.max_torque_Nm;
+rwa_fsw.max_RPM         = rwa.max_RPM;
+rwa_fsw.A               = rwa.Aw(1:3,:);
+rwa_fsw.targ_rpm        = [ 1000; -1000; 1000; -1000 ];
+
+% add to actuators struct
 actuators.rwa = rwa;
 
-% Magnetorquers (MTQ)
+%% Magnetorquers (MTQ)
 mtq = struct;
 
 % body frame normal vectors of each mtq coil
@@ -140,28 +112,24 @@ mtq.normals = [  1, 0, 0;
 mtq.n_coils = [ sum(abs(mtq.normals(:,1))); ...
                 sum(abs(mtq.normals(:,2))); 
                 sum(abs(mtq.normals(:,3))) ];
-mtq.tot_coils = sum(mtq.n_coils);
-mtq.id_x  = find(mtq.normals(:,1));
-mtq.id_y  = find(mtq.normals(:,2));
-mtq.id_z  = find(mtq.normals(:,3));
+mtq.id_x = find(mtq.normals(:,1));
+mtq.id_y = find(mtq.normals(:,2));
+mtq.id_z = find(mtq.normals(:,3));
 
 % max dipoles
-mtq.dipoles_Am2    = [0.0515;0.0515;0.131];           % per individual coil
-mtq.dipole_max_Am2 = mtq.dipoles_Am2;% diag(mtq.n_coils) * mtq.dipoles_Am2;      % axes total
+mtq.max_dipoles_Am2 = [0.0515;0.0515;0.131]; % per axis
 
-% electric characteristics (per coil)
+% electric characteristics (per axis)
 mtq.voltage     = [5;5;3.3];                        % V
 mtq.max_current = [0.216;0.216;0.078];              % A
 mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W
-
-% ratios to map dipole to power (per coil)
-mtq.dipole_to_power = mtq.P_max_W./mtq.dipoles_Am2;
+mtq.dipole_to_power = mtq.P_max_W./mtq.max_dipoles_Am2; % map dipole to power
 
 % add mtq to actuators struct
 actuators.mtq = mtq;
 
 % add actuators struct to both fsw and sim params
 simParams.actuators = actuators; 
-fswParams.actuators = actuators;
+fswParams.rwa = rwa_fsw;
 
 end

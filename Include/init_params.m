@@ -37,10 +37,10 @@ load('simBusDefinitions.mat')
 % [fswParams,simParams] = magField_init(fswParams,simParams);
 
 % sets up constants associated with the actuators
-actuators_init;
+[fswParams,simParams] = actuators_init(fswParams,simParams);
 
 % sets up constants associated with the allocator
-allocator_init;
+[fswParams,simParams] = allocator_init(fswParams,simParams);
 
 % sets up constants associated with the sesnors
 sensors_init;

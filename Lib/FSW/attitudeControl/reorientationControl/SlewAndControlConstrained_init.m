@@ -10,8 +10,9 @@ reorientation   = struct;
 reorientation.J = simParams.scParams.J;
 
 % mappings from body torques to wheel torques
-reorientation.A   = fswParams.actuators.rwa.Aw(1:3,:);
-reorientation.Phi = fswParams.actuators.rwa.iAw(:,1:3);
+reorientation.A   = simParams.actuators.rwa.Aw(1:3,:);
+reorientation.Phi = pinv(reorientation.A);
+% reorientation.Phi = simParams.actuators.rwa.iAw(:,1:3);
 
 w_max = 6 * fswParams.constants.convert.DEG2RAD; %rad/sec max slew rate we 
                         % chose arbitraily to
