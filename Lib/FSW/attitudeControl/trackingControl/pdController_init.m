@@ -1,7 +1,10 @@
+function [fswParams,simParams] = pdController_init(fswParams,simParams)
+%PDCONTROLLER_INIT 
+%
 % Initialization of the pd controller
 % Each Controller is found from a basic 1st order TF
+%
 % Author: Devan Tormey
-
 
 tracking = struct;
 
@@ -27,4 +30,4 @@ tracking.qd1 =[1;0;0;0];
 
 fswParams.controllers.tracking = tracking;
 
-clear tracking z wn J
+end

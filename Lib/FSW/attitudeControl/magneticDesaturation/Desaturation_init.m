@@ -1,10 +1,11 @@
+function [fswParams,simParams] = desaturation_init(fswParams,simParams)
+%DESATURATION_INIT
+% 
 % Initialization of the Desaturation controller
 % Largely follows the outline from Spacecraft Dynamics and Control
 % Marcel Sidi section 7.5
 %
-%
 % Author: Cole Morgan
-
 
 % controllers = struct;
 desaturation = struct;
@@ -21,8 +22,8 @@ desaturation.k = 1.0; %1/1000;
 % mode should be over.
 
 % start reducing gain when rpm error becomes less than about 400 rpm.
-desaturation.gain_tol = ...
-    400*fswParams.constants.convert.RPM2RPS*simParams.actuators.rwa.inertia(1,1);
+desaturation.gain_tol = 400 * fswParams.constants.convert.RPM2RPS ...
+                            * simParams.actuators.rwa.inertia(1,1);
 desaturation.k2 = 0.125; % when error low, try to smoothly reduce rpms further.
 
 B = 3.12*10^-5; % general strength of earth mag field. for testing.
@@ -30,10 +31,10 @@ desaturation.B = B;
 B_vec = [1;1;1];
 desaturation.B_vec = B*B_vec/norm(B_vec); % assuming some constant B field in 
                                         % all directions for testing.
-m = 0.0515;
+m = simParams.actuators.mtq.max_dipoles_Am2(1);
 desaturation.maxDipole = m; %A-m2 max dipole our magtorquers can generate. 
 desaturation.T         = diag([1/m; 1/m; 1/m; 1/m; 1/(2*m)]);
-Jw = 2.94*10^-5; %kg-m2 inertia of the individual wheels.
+Jw = fswParams.rwa.inertia(1,1); %kg-m2 inertia of the individual wheels.
 desaturation.Jw = Jw;
 % ss_rate = 1000*[1;1;1;1]; % 1000 rpm rate for each wheel is the target.
 ss_rate = 1000*[1, -1, 1, -1]; % make this dependent on null space?
@@ -42,5 +43,4 @@ desaturation.ht = Jw*ss_rate; % now an angular momentum target. NOT kg-m2/s !!
 
 fswParams.controllers.desaturation = desaturation;
 
-clear desaturation 
-clear Jw ss_rate B B_vec m
+end

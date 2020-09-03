@@ -1,6 +1,7 @@
+function [fswParams,simParams] = bdotController_init(fswParams,simParams)
 %BDOTCONTROLLER_INIT
 %
-% Loads the parameters of the b-dot  controller using predefined fswParams.
+% Loads the parameters of the b-dot controller using predefined fswParams.
 %
 % T.Reynolds
 
@@ -33,4 +34,5 @@ bdot.filter_num     = lpf_num(2);
 bdot.filter_den     = lpf_den(2);
 
 fswParams.controllers.bdot = bdot;
-clear bdot lpf_c lpf_d lpf_num lpf_den bdot
+
+end

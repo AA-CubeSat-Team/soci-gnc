@@ -1,5 +1,7 @@
 function [fswParams,simParams] = default_config()
 
+open('Main_Sim.slx')
+
 % main structs
 fswParams = struct;
 simParams = struct;

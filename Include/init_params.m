@@ -43,28 +43,22 @@ load('simBusDefinitions.mat')
 [fswParams,simParams] = allocator_init(fswParams,simParams);
 
 % sets up constants associated with the sesnors
-sensors_init;
+[fswParams,simParams] = sensors_init(fswParams,simParams);
 
-%Initialize the controller
-controllers_init;
+% sets up constants associated with the controllers
+[fswParams,simParams] = controllers_init(fswParams,simParams);
 
-
-% Initialize Estimation
-% >> Kylle <<
-init_MEKF;
-
-% Initialize State Estimation
-% attitude_estimation_init;
-
+% sets up constants associated with the estimators
+[fswParams,simParams] = MEKF_init(fswParams,simParams);
 
 % Initialize Environmental Estimation
-environmentEstimation_init;
+[fswParams,simParams] = environmentEstimation_init(fswParams,simParams);
 
 % Initialize various FSW parameters
 FSW_init;
 
-% Initialize SOAC
-init_soac_params;
+% Initialize SOAR
+[fswParams,simParams] = init_soar_params(fswParams,simParams);
 
 % initialize sgp4 and orbit propogation
 % sgp4_init;

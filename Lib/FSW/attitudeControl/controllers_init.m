@@ -1,15 +1,21 @@
-%Initialize the controllers
+function [fswParams,simParams] = controllers_init(fswParams,simParams)
+%CONTROLLERS_INIT
+%
+% Initialize the controllers
+%
+% Author: C. Morgan
 
-% stabilization mode controller -- first one uses MTQ, second one
-% uses RWA.
-% bdotController_init;
-Detumbling_init;
+% stabilization mode controller -- first one uses MTQ, second one uses the RWA
+% [fswParams,simParams] = bdotController_init(fswParams,simParams);
+[fswParams,simParams] = asmController_init(fswParams,simParams);
 
 % (point-to-point) reorientation controller
-SlewAndControlConstrained_init;
+[fswParams,simParams] = SlewAndControlConstrained_init(fswParams,simParams);
 
 % tracking controller
-pdController_init;
+[fswParams,simParams] = pdController_init(fswParams,simParams);
 
 % desaturation controller. MTQ desats RWA
-Desaturation_init;
+[fswParams,simParams] = desaturation_init(fswParams,simParams);
+
+end
