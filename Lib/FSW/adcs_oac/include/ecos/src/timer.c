@@ -32,24 +32,24 @@
 
 #if PROFILING > 0
 
-#if (defined WIN32 || _WIN64)
+// #if (defined WIN32 || _WIN64)
 
-#include <windows.h>
+// #include <windows.h>
 
-void tic(timer* t)
-{
-	QueryPerformanceFrequency((LARGE_INTEGER*)&t->freq);
-	QueryPerformanceCounter((LARGE_INTEGER*)&t->tic);
-}
+// void tic(timer* t)
+// {
+// 	QueryPerformanceFrequency((LARGE_INTEGER*)&t->freq);
+// 	QueryPerformanceCounter((LARGE_INTEGER*)&t->tic);
+// }
 
-pfloat toc(timer* t)
-{
-	QueryPerformanceCounter((LARGE_INTEGER*)&t->toc);
-	return ((t->toc - t->tic) / (pfloat)t->freq);
-}
+// pfloat toc(timer* t)
+// {
+// 	QueryPerformanceCounter((LARGE_INTEGER*)&t->toc);
+// 	return ((t->toc - t->tic) / (pfloat)t->freq);
+// }
 
 
-#elif (defined __APPLE__)
+// #elif (defined __APPLE__)
 
 void tic(timer* t)
 {
@@ -75,33 +75,33 @@ pfloat toc(timer* t)
 
 
 
-#else
+// #else
 
-/* read current time */
-void tic(timer* t)
-{
-	clock_gettime(CLOCK_MONOTONIC, &t->tic);
-}
+// /* read current time */
+// void tic(timer* t)
+// {
+// 	clock_gettime(CLOCK_MONOTONIC, &t->tic);
+// }
 
 
-/* return time passed since last call to tic on this timer */
-double toc(timer* t)
-{
-	struct timespec temp;
+// /* return time passed since last call to tic on this timer */
+// double toc(timer* t)
+// {
+// 	struct timespec temp;
     
-	clock_gettime(CLOCK_MONOTONIC, &t->toc);	
+// 	clock_gettime(CLOCK_MONOTONIC, &t->toc);
     
-	if ((t->toc.tv_nsec - t->tic.tv_nsec)<0) {
-		temp.tv_sec = t->toc.tv_sec - t->tic.tv_sec-1;
-		temp.tv_nsec = 1000000000+t->toc.tv_nsec - t->tic.tv_nsec;
-	} else {
-		temp.tv_sec = t->toc.tv_sec - t->tic.tv_sec;
-		temp.tv_nsec = t->toc.tv_nsec - t->tic.tv_nsec;
-	}
-	return (pfloat)temp.tv_sec + (pfloat)temp.tv_nsec / 1000000000;
-}
+// 	if ((t->toc.tv_nsec - t->tic.tv_nsec)<0) {
+// 		temp.tv_sec = t->toc.tv_sec - t->tic.tv_sec-1;
+// 		temp.tv_nsec = 1000000000+t->toc.tv_nsec - t->tic.tv_nsec;
+// 	} else {
+// 		temp.tv_sec = t->toc.tv_sec - t->tic.tv_sec;
+// 		temp.tv_nsec = t->toc.tv_nsec - t->tic.tv_nsec;
+// 	}
+// 	return (pfloat)temp.tv_sec + (pfloat)temp.tv_nsec / 1000000000;
+// }
 
-#endif
+// #endif
 
 
 #endif

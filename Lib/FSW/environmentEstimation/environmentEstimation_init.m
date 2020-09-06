@@ -3,7 +3,7 @@ function [fswParams,simParams] = environmentEstimation_init(fswParams,simParams)
 % 
 % Initialization of the environmental estimation.
 %
-% Author: Cole Morgan
+% C. Morgan
 
 gp_predict = struct;
 

@@ -13,7 +13,7 @@ function [fswParams,simParams] = init_soar_params(fswParams,simParams)
 %  any changes to its value must be followed by re-running build_SOAR.m
 %  from the `adcs_oac/build/` directory.
 %
-% T. Reynolds -- RAIN Lab
+% T. P. Reynolds
 
 soar = struct;
 % Initial Conditions

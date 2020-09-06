@@ -5,7 +5,7 @@ function [fswParams,simParams] = asmController_init(fswParams,simParams)
 % Largely follows the design and methodology in "Feedback control logic for 
 % eigenaxis rotations under slew rate and control constraints"
 %
-% Author: Cole Morgan
+% C. Morgan
 
 asm   = struct;
 J     = fswParams.scParams.J;

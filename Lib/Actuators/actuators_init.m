@@ -3,7 +3,7 @@ function [fswParams,simParams] = actuators_init(fswParams,simParams)
 %
 % Define the parameters used by the actuator models in the SIM.
 %
-% C. Morgan & T. P. Reynolds
+% C. Morgan | T. P. Reynolds
 
 actuators = struct;
 actuators.sample_time_s = simParams.sample_time_s;

@@ -6,7 +6,7 @@ function [fswParams,simParams] = allocator_init(fswParams,simParams)
 % control command to the available actuators. actuator frame to
 % body frames and visa versa.
 %
-% Author: Cole Morgan & T. P. Reynolds
+% Author: Cole Morgan | T. P. Reynolds
 
 allocator = struct;
 

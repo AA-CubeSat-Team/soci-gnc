@@ -1,4 +1,12 @@
 function [fswParams,simParams] = default_config()
+%DEFAULT_CONFIG
+%
+% Sets some of the basic parameters for the sim. This function creates the
+% initial fswParams and simParams structs and defines the fsw/sim sample
+% rates. Note that the open('Main_Sim.slx') is needed to properly
+% initialize the default values of the CDH commands
+%
+% T. P. Reynolds
 
 open('Main_Sim.slx')
 
@@ -12,10 +20,10 @@ simParams.opts.GG_ON   = 1;
 simParams.opts.ATMO_ON = 1;
 
 % FSW Parameters 
-fswParams.sample_time_s = 0.1;      % sample at 10Hz
+fswParams.sample_time_s = 0.1; % sample at 10Hz
 
 % Sim Parameters s
-simParams.sample_time_s = 0.1;    % sample at 200Hz
+simParams.sample_time_s = 0.1; % sample at 200Hz
 
 % Set initial CDH commands
 cdh = Simulink.Mask.get('Main_Sim/CDH_command_lib');

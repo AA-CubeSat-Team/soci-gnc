@@ -1,13 +1,15 @@
 % Parameters Initialization
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
-% Author: Devan Tormey
-% Description: this file sets up the two structs containing all of the
-% variables for both flight software and simulink simulations
+%
+% This file sets up the two structs containing all of the
+% variables for both flight software and simulink simulations. Any lines
+% that are commented out do not currently have parameters associated with
+% them, but are place holders in case future stuff is needed.
+%
+% Devan Tormey | T. P. Reynolds
 
 % TLE 
 TLE = 'ISS.txt';
-load('fswBusDefinitions.mat')
-load('simBusDefinitions.mat')
+load('busDefinitions.mat')
 
 % main structs defined by default config file
 [fswParams,simParams] = default_config();
@@ -51,14 +53,11 @@ load('simBusDefinitions.mat')
 % sets up constants associated with the estimators
 [fswParams,simParams] = MEKF_init(fswParams,simParams);
 
-% Initialize Environmental Estimation
+% sets up constants associated with environmental estimation
 [fswParams,simParams] = environmentEstimation_init(fswParams,simParams);
 
-% Initialize various FSW parameters
-FSW_init;
+% sets up constants associated with the operating mode selection
+[fswParams,simParams] = modeSelect_init(fswParams,simParams);
 
-% Initialize SOAR
+% initialize the SOAR payload
 [fswParams,simParams] = init_soar_params(fswParams,simParams);
-
-% initialize sgp4 and orbit propogation
-% sgp4_init;

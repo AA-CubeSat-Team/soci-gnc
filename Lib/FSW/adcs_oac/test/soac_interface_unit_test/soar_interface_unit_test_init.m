@@ -1,19 +1,21 @@
-% Unit test file for GNC-2 interface library
+% Unit test file for SOAR interface library
 %
 % T. Reynolds -- RAIN Lab
 
 rng(2) % for repeatability of random IC
 
+soar_params = fswParams.soar;
+
 % constants
-w_max   = soac_params.w_max;
-T_max   = soac_params.T_max;
+w_max   = soar_params.w_max;
+T_max   = soar_params.T_max;
 hw_max  = [ 37; 37; 31.3 ] * 1e-3; % Nms
-Jw      = sim_params.actuators.reaction_wheel.inertia_matrix;
-Aw      = sim_params.actuators.reaction_wheel.Aw;
-J       = soac_params.inertia;
-RPM2RADPS = fsw_params.constants.convert.RPM_2_radps;
+Jw      = simParams.actuators.rwa.inertia;
+Aw      = simParams.actuators.rwa.Aw;
+J       = soar_params.inertia;
+RPM2RADPS = fswParams.constants.convert.RPM2RPS;
 sc_mode   = 33;
-GPS_epoch = sim_params.environment.sgp4.gps_time; % epoch and GPS time
+GPS_epoch = simParams.environment.sgp4.gps_time; % epoch and GPS time
 
 % initial conditions
 ax       = [0.72756;0.027687;0.68549];
@@ -26,10 +28,10 @@ hw0      = Aw * Jw * (RPM2RADPS * Om0);     % initial wheel momentum
 hw_in    = [2.1259e-6;5.8341e-6;-8.6055e-7];%horzcat(eye(3),zeros(3,1)) * hw0;
 
 % overwrite internal parameters for the simulation
-sim_params.dynamics.ic.quat_init                = quat_in;
-sim_params.dynamics.ic.rate_init                = omega_in;
-sim_params.actuators.reaction_wheel.ic.rpm      = Om0;
-fsw_params.control.cmd_processing.ic.momentum   = hw0;
+simParams.dynamics.ic.quat_init                = quat_in;
+simParams.dynamics.ic.rate_init                = omega_in;
+simParams.actuators.reaction_wheel.ic.rpm      = Om0;
+fswParams.control.cmd_processing.ic.momentum   = hw0;
 
 % final conditions
 q_err       = [ cosd(2/2); sind(2/2).*ax ];
@@ -40,8 +42,8 @@ omega_cmd   = [ 0.0; 0.0; 0.0 ];
 sI_unit  = [ 1.0; 0.0; 0.0 ];
 
 % Load sim and set run time
-run_time    = 60;%soac_params.s_max;
-mdl         = 'soac_interface_unit_test';
+run_time    = 60;%soar_params.s_max;
+mdl         = 'soar_interface_unit_test';
 load_system(mdl);
 set_param(mdl,'StopTime', num2str(run_time));
 
@@ -51,7 +53,7 @@ sim(mdl);
 %% analyze results
 
 % write input file
-filename = strcat('soac_interface_test_inputs','_',num2str(1/soac_params.sample_time_s),'Hz','.txt');
+filename = strcat('soar_interface_test_inputs','_',num2str(1/soar_params.sample_time_s),'Hz','.txt');
 flag = write_testinput_file(filename,...
             sc_mode_.Data,quat_in_.Data,omega_in_.Data,hw_in_.Data,...
             quat_cmd_.Data,omega_cmd_.Data,sI_unit_.Data,...

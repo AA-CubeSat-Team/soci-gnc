@@ -4,7 +4,7 @@ function [fswParams,simParams] = sensors_init(fswParams,simParams)
 % Initialization of the sensors, including magnetometer, gyroscopes, sun
 % sensor, solar panels and photodiodes.
 %
-% Author: T. P. Reynolds
+% T. P. Reynolds
 
 sensors = struct;
 sensors.sample_time_s = simParams.sample_time_s;

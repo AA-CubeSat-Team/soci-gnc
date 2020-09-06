@@ -4,7 +4,7 @@ function [fswParams,simParams] = MEKF_init(fswParams,simParams)
 % Initialize parameters for the Multiplicative Extended Kalman Filter (MEKF) 
 % used for attitude estimation.
 %
-% Author: Kylle Ashton 5/18/2020
+% K. Ashton
                                      
 estimation = struct;
 

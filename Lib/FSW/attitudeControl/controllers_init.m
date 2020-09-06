@@ -1,9 +1,9 @@
 function [fswParams,simParams] = controllers_init(fswParams,simParams)
 %CONTROLLERS_INIT
 %
-% Initialize the controllers
+% Initialize the parameters used by each controller
 %
-% Author: C. Morgan
+% C. Morgan
 
 % stabilization mode controller -- first one uses MTQ, second one uses the RWA
 % [fswParams,simParams] = bdotController_init(fswParams,simParams);
