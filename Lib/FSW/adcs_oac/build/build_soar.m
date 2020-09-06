@@ -1,4 +1,4 @@
-%BUILD_SOAC
+%BUILD_SOAR
 %
 % Convex optimization call is written with the C API for the ECOS solver
 % This file converts this C code to a MEX file for use in Simulink as an 
@@ -6,12 +6,12 @@
 %
 % Run this file from the BUILD directory
 %
-% Courtesy D. Malyuta
+% Courtesy D. Malyuta, modified by T. P. Reynolds for SOAR
 
 %% Compilation parameters
 
-% These must match what is in init_soac_params
-switch  fswParams.soac.config
+% These must match what is in init_soar_params
+switch  fswParams.soar.config
     case 'b'
         c_size      = 332;
         Air_size    = 1278;
@@ -49,7 +49,7 @@ switch  fswParams.soac.config
         q_size      = 21;
         y_size      = 334;
     otherwise
-        error('BUILD_SOAC: Undefined build configuration')
+        error('BUILD_SOAR: Undefined build configuration')
 end
 
 def = legacy_code('initialize');

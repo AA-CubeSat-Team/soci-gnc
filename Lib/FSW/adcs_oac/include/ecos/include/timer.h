@@ -27,19 +27,19 @@
 
 #if PROFILING > 0
 
-#if (defined _WIN32 || defined _WIN64 || defined _WINDLL )
+// #if (defined _WIN32 || defined _WIN64 || defined _WINDLL )
 
-/* Use Windows QueryPerformanceCounter for timing */
-#include <windows.h>
+//  // Use Windows QueryPerformanceCounter for timing 
+// #include <windows.h>
 
-typedef struct timer{
-	__int64 tic;
-	__int64 toc;
-	__int64 freq;
-} timer;
+// typedef struct timer{
+// 	__int64 tic;
+// 	__int64 toc;
+// 	__int64 freq;
+// } timer;
 
 
-#elif (defined __APPLE__)
+// #elif (defined __APPLE__)
 
 #include <mach/mach_time.h>
 
@@ -52,18 +52,18 @@ typedef struct timer{
 
 
 
-#else
+// #else
 
-/* Use POSIX clocl_gettime() for timing on non-Windows machines */
-#include <time.h>
-#include <sys/time.h>
+// /* Use POSIX clocl_gettime() for timing on non-Windows machines */
+// #include <time.h>
+// #include <sys/time.h>
 
-typedef struct timer{
-	struct timespec tic;
-	struct timespec toc;
-} timer;
+// typedef struct timer{
+// 	struct timespec tic;
+// 	struct timespec toc;
+// } timer;
 
-#endif
+// #endif
 
 /* METHODS are the same for both */
 void tic(timer* t);

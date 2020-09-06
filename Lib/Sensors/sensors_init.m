@@ -1,6 +1,12 @@
-sensors = struct;
-% sensors.sample_time_s = 0.01;
+function [fswParams,simParams] = sensors_init(fswParams,simParams)
+%SENSORS_INIT
+%
+% Initialization of the sensors, including magnetometer, gyroscopes, sun
+% sensor, solar panels and photodiodes.
+%
+% T. P. Reynolds
 
+sensors = struct;
 sensors.sample_time_s = simParams.sample_time_s;
 
 %% Magnetometer
@@ -24,16 +30,13 @@ for k = 1:mag.N_mag
    % set different seeds so that each sensor has different noise values
    mag.seed(k) = 10*(k-1)+1;
    % set noise characterisitics (assumed from HMC5993 for now)
-   mag.err(:,k) = 10^-6*[0.403053;0.240996;0.173209];
-   % set sensor resolution (WAG)
-   mag.resolution(k) = 1e-8;
+   mag.err_T(:,k) = 10^-6*[0.403053;0.240996;0.173209]; % T
    % set linear range of sensor
-   mag.B_min(k) = -2e-4;   % T
-   mag.B_max(k) =  2e-4;   % T
+   mag.B_min_T(k) = -2e-4;   % T
+   mag.B_max_T(k) =  2e-4;   % T
 end
 
 sensors.mag = mag;
-clear mag k
 
 %% Gyroscope
 gyro = struct;
@@ -48,12 +51,11 @@ gyro.sample_time_s = simParams.sample_time_s;
 % loop through each sensor to set sensor specific values
 for k = 1:gyro.N_gyro
    % set different seeds so that each sensor has different noise values
-   gyro.seed_arw(:,k) = [ 10*(k-1)+1; 10*(k-1)+2; 10*(k-1)+3 ];
-   gyro.seed_rrw(:,k) = [ 10*(k+2)+1; 10*(k+2)+2; 10*(k+2)+3 ];
+   gyro.seed_arw(:,k) = (11*(k-1)+(1:gyro.N_gyro))';
+   gyro.seed_rrw(:,k) = (10*(k+2)+(1:gyro.N_gyro))';
    % set noise characterisitics 
    gyro.arw(k) = sqrt(10)*1e-7;     % angle random walk
    gyro.rrw(k) = sqrt(10)*1e-10;    % rate random walk
-   
    % set sensor resolution (Bosch BMI055)
    gyro.resolution(k) = simParams.constants.convert.DEG2RAD * 0.004;
    % set initial bias
@@ -64,7 +66,6 @@ for k = 1:gyro.N_gyro
 end
 
 sensors.gyro = gyro;
-clear gyro k
 
 %% Sun sensor
 sun_sensor = struct;
@@ -73,10 +74,11 @@ sun_sensor = struct;
 % sun_sensor.sample_time_s = (1/20); % 
 sun_sensor.sample_time_s = simParams.sample_time_s;
 
-% body frame to sensor frame rotation matrix
-sun_sensor.body2sensor = [ 1.0, 0.0, 0.0;
-                           0.0, 0.0, 1.0;
-                           0.0, 1.0, 0.0 ];
+% body frame to sensor frame rotation matrices
+sun_sensor.body2ss = [ -1.0, 0.0, 0.0;
+                        0.0, 0.0, 1.0;
+                        0.0, 1.0, 0.0 ];
+sun_sensor.ss2body = sun_sensor.body2ss';
 
 % toggle sensor noise
 sun_sensor.noise = true;
@@ -90,11 +92,7 @@ sun_sensor.seed = [ 101; 102 ];
 % set field of view
 sun_sensor.range_deg = 60;
 
-% set sensor resolution
-sun_sensor.resolution = 1e-8;
-
 sensors.sun_sensor = sun_sensor;
-clear sun_sensor
 
 %% Solar panels
 solar_panels = struct;
@@ -108,7 +106,6 @@ solar_panels.maxPower = solar_panels.eff .* solar_panels.maxPower;
 solar_panels.num      = sum(solar_panels.maxPower>0);
 
 sensors.solar_panels = solar_panels;
-clear solar_panels;
 
 %% Photodiodes
 photodiodes = struct;
@@ -123,8 +120,8 @@ photodiodes.I_out_ApW = 0.55; % A/W
 photodiodes.I_cutoff_A = (0.5*photodiodes.I_out_ApW).*sensors.solar_panels.maxPower;
 
 sensors.photodiodes = photodiodes;
-clear photodiodes
 
 %% Attach sensors to simParams and clear things
 simParams.sensors = sensors;
-clear sensors;
+
+end

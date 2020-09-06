@@ -1,82 +1,63 @@
 % Parameters Initialization
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
-% Author: Devan Tormey
-% Description: this file sets up the two structs containing all of the
-% variables for both flight software and simulink simulations
+%
+% This file sets up the two structs containing all of the
+% variables for both flight software and simulink simulations. Any lines
+% that are commented out do not currently have parameters associated with
+% them, but are place holders in case future stuff is needed.
+%
+% Devan Tormey | T. P. Reynolds
 
 % TLE 
 TLE = 'ISS.txt';
-load('fswBusDefinitions.mat')
-load('simBusDefinitions.mat')
+load('busDefinitions.mat')
 
-% main structs
-fswParams = struct;
-simParams = struct;
-
-% Turning off and on 
-simParams.opts.SP_ON   = 1;
-simParams.opts.GG_ON   = 1;
-simParams.opts.ATMO_ON = 1;
-
-% FSW Parameters 
-fswParams.sample_time_s = 0.1;      % sample at 10Hz
-
-% Sim Parameters s
-simParams.sample_time_s = 0.1;    % sample at 200Hz
+% main structs defined by default config file
+[fswParams,simParams] = default_config();
 
 % initialize utility constants such as conversion rates
-constants_init;
+[fswParams,simParams] = constants_init(fswParams,simParams);
 
 % The spacecraft Parameters such as weight and dimensions
-scParams_init;
+[fswParams,simParams] = scParams_init(fswParams,simParams);
 
 % Create initial conditions such or Orbital elements and q0/w0
-intitialConditions_init;
+[fswParams,simParams] = intitialConditions_init(fswParams,simParams,TLE);
 
 % Constants associated with the time conversions
-time_init;
+[fswParams,simParams] = time_init(fswParams,simParams);
 
 % sets up the constants for the atmospheric drag model
-atmoDrag_init;
+% [fswParams,simParams] = atmoDrag_init(fswParams,simParams);
 
 % sets up constants associated with the solar pressure model
-solarPressure_init;
+[fswParams,simParams] = solarPressure_init(fswParams,simParams);
 
 % sets up constants associated with the solar pressure model
-gravityGrad_init;
+% [fswParams,simParams] = gravityGrad_init(fswParams,simParams);
 
 % sets up constants associated with the magnetic field model
-magField_init;
+% [fswParams,simParams] = magField_init(fswParams,simParams);
 
 % sets up constants associated with the actuators
-actuators_init;
+[fswParams,simParams] = actuators_init(fswParams,simParams);
 
 % sets up constants associated with the allocator
-allocator_init;
+[fswParams,simParams] = allocator_init(fswParams,simParams);
 
 % sets up constants associated with the sesnors
-sensors_init;
+[fswParams,simParams] = sensors_init(fswParams,simParams);
 
-%Initialize the controller
-controllers_init;
+% sets up constants associated with the controllers
+[fswParams,simParams] = controllers_init(fswParams,simParams);
 
+% sets up constants associated with the estimators
+[fswParams,simParams] = MEKF_init(fswParams,simParams);
 
-% Initialize Estimation
-% >> Kylle <<
-init_MEKF;
+% sets up constants associated with environmental estimation
+[fswParams,simParams] = environmentEstimation_init(fswParams,simParams);
 
-% Initialize State Estimation
-% attitude_estimation_init;
+% sets up constants associated with the operating mode selection
+[fswParams,simParams] = modeSelect_init(fswParams,simParams);
 
-
-% Initialize Environmental Estimation
-environmentEstimation_init;
-
-% Initialize various FSW parameters
-FSW_init;
-
-% Initialize SOAC
-init_soac_params;
-
-% initialize sgp4 and orbit propogation
-% sgp4_init;
+% initialize the SOAR payload
+[fswParams,simParams] = init_soar_params(fswParams,simParams);

@@ -1,14 +1,14 @@
+function [fswParams,simParams] = solarPressure_init(fswParams,simParams)
+%SOLARPRESSURE_INIT
+%
 % Solar Pressure Initialization
-% Author Devan Tormey
-% Description: Create variables for running the atmospheric drag model.
-
+%
+% D. Tormey
 
 solarPressure = struct;
-
-solarPressure.psrp = 4.6*10^(-6);
-
-
+solarPressure.psrp = 4.57e-6; % N/m2
 
 simParams.solarPressure = solarPressure;
-clear solarPressure
+
+end
 

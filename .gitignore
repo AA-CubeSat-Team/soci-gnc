@@ -1,6 +1,7 @@
 # Simulink
 *.slxc
 *.slx.r2016a
+*.slx.r2016b
 *.slx.autosave
 *Build/cache/
 *Build/slprj/
@@ -8,8 +9,7 @@
 # Matlab
 *.m~
 *.mat
-!/Include/fswBusDefinitions.mat
-!/Include/simBusDefinitions.mat
+!/Include/busDefinitions.mat
 !/Include/IOBusDefinitions.mat
 *.l
 
@@ -17,6 +17,7 @@
 *.xml
 *tr
 *scv
+*.mexmaci64
 
 #autocoded build stuff
 *.o
@@ -30,4 +31,4 @@
 *.tlc
 *.tlh
 *.dmr
-*/Build/*/*.txt
+*Build/*/*.txt
