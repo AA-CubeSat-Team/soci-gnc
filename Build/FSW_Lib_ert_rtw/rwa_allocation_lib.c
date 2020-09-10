@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.225
+ * Model version                  : 1.232
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Sep  3 09:54:35 2020
+ * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -155,7 +155,7 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
             rtConstP.pooled23[n_whl + 4] * (0.10471975511965977 * rtu_rwa_rpm[1]))
            + rtConstP.pooled23[n_whl + 8] * (0.10471975511965977 * rtu_rwa_rpm[2]))
           + rtConstP.pooled23[n_whl + 12] * (0.10471975511965977 * rtu_rwa_rpm[3]))
-         - rtConstP.pooled28[n_whl])) * 0.01 + rtb_output_wheel_b[n_whl];
+         - rtConstP.pooled26[n_whl])) * 0.01 + rtb_output_wheel_b[n_whl];
     }
 
     /* Update for DiscreteIntegrator: '<S164>/Discrete-Time Integrator' */
@@ -208,17 +208,17 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
 
       for (n_whl = 0; n_whl < 3; n_whl++) {
         rtb_A_out_tmp = ((int32_T)id_good[n_whl] - 1) * 3;
-        rtb_A_out[3 * n_whl] = rtConstP.pooled30[rtb_A_out_tmp];
-        rtb_A_out[1 + 3 * n_whl] = rtConstP.pooled30[rtb_A_out_tmp + 1];
-        rtb_A_out[2 + 3 * n_whl] = rtConstP.pooled30[rtb_A_out_tmp + 2];
+        rtb_A_out[3 * n_whl] = rtConstP.pooled29[rtb_A_out_tmp];
+        rtb_A_out[1 + 3 * n_whl] = rtConstP.pooled29[rtb_A_out_tmp + 1];
+        rtb_A_out[2 + 3 * n_whl] = rtConstP.pooled29[rtb_A_out_tmp + 2];
       }
       break;
 
      case 4:
       for (n_whl = 0; n_whl < 3; n_whl++) {
-        rtb_A_out[3 * n_whl] = rtConstP.pooled30[3 * n_whl];
-        rtb_A_out[1 + 3 * n_whl] = rtConstP.pooled30[3 * n_whl + 1];
-        rtb_A_out[2 + 3 * n_whl] = rtConstP.pooled30[3 * n_whl + 2];
+        rtb_A_out[3 * n_whl] = rtConstP.pooled29[3 * n_whl];
+        rtb_A_out[1 + 3 * n_whl] = rtConstP.pooled29[3 * n_whl + 1];
+        rtb_A_out[2 + 3 * n_whl] = rtConstP.pooled29[3 * n_whl + 2];
       }
       break;
 

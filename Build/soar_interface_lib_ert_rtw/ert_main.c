@@ -5,24 +5,27 @@
  *
  * File: ert_main.c
  *
- * Code generated for Simulink model 'FSW_Lib'.
+ * Code generated for Simulink model 'soar_interface_lib'.
  *
- * Model version                  : 1.232
+ * Model version                  : 1.15
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
+ * C/C++ source code generated on : Wed Sep  9 17:42:11 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: NXP->Cortex-M4
+ * Embedded hardware selection: Intel->x86-64 (Mac OS X)
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
+ *    3. ROM efficiency
+ *    4. Debugging
  * Validation result: Not run
  */
 
 #include <stddef.h>
-#include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
-#include "FSW_Lib.h"                   /* Model's header file */
+// #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
+#include "soar_interface_lib.h"        /* Model's header file */
 #include "rtwtypes.h"
+#include "zero_crossing_types.h"
 
 /*
  * Associating rt_OneStep with a real-time clock or interrupt service routine
@@ -38,83 +41,29 @@
 void rt_OneStep(void);
 void rt_OneStep(void)
 {
-  static boolean_T OverrunFlags[3] = { 0, 0, 0 };
-
-  static boolean_T eventFlags[3] = { 0, 0, 0 };/* Model has 3 rates */
-
-  static int_T taskCounter[3] = { 0, 0, 0 };
+  static boolean_T OverrunFlag = false;
 
   /* Disable interrupts here */
 
-  /* Check base rate for overrun */
-  if (OverrunFlags[0]) {
+  /* Check for overrun */
+  if (OverrunFlag) {
     rtmSetErrorStatus(rtM, "Overrun");
     return;
   }
 
-  OverrunFlags[0] = true;
+  OverrunFlag = true;
 
   /* Save FPU context here (if necessary) */
   /* Re-enable timer or interrupt here */
+  /* Set model inputs here */
 
-  /*
-   * For a bare-board target (i.e., no operating system), the
-   * following code checks whether any subrate overruns,
-   * and also sets the rates that need to run this time step.
-   */
-  if (taskCounter[2] == 0) {
-    if (eventFlags[2]) {
-      OverrunFlags[0] = false;
-      OverrunFlags[2] = true;
-
-      /* Sampling too fast */
-      rtmSetErrorStatus(rtM, "Overrun");
-      return;
-    }
-
-    eventFlags[2] = true;
-  }
-
-  taskCounter[1]++;
-  if (taskCounter[1] == 1) {
-    taskCounter[1]= 0;
-  }
-
-  taskCounter[2]++;
-  if (taskCounter[2] == 10) {
-    taskCounter[2]= 0;
-  }
-
-  /* Set model inputs associated with base rate here */
-
-  /* Step the model for base rate */
-  FSW_Lib_step0();
+  /* Step the model */
+  soar_interface_lib_step();
 
   /* Get model outputs here */
 
-  /* Indicate task for base rate complete */
-  OverrunFlags[0] = false;
-
-  /* If task 1 is running, don't run any lower priority task */
-  if (OverrunFlags[1]) {
-    return;
-  }
-
-  /* Step the model for subrate */
-  if (eventFlags[2]) {
-    OverrunFlags[2] = true;
-
-    /* Set model inputs associated with subrates here */
-
-    /* Step the model for subrate 2 */
-    FSW_Lib_step2();
-
-    /* Get model outputs here */
-
-    /* Indicate task complete for subrate */
-    OverrunFlags[2] = false;
-    eventFlags[2] = false;
-  }
+  /* Indicate task complete */
+  OverrunFlag = false;
 
   /* Disable interrupts here */
   /* Restore FPU context here (if necessary) */
@@ -134,7 +83,7 @@ int_T main(int_T argc, const char *argv[])
   (void)(argv);
 
   /* Initialize model */
-  FSW_Lib_initialize();
+  soar_interface_lib_initialize();
 
   /* Attach rt_OneStep to a timer or interrupt service routine with
    * period 0.1 seconds (the model's base sample time) here.  The

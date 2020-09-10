@@ -53,7 +53,7 @@
 
 void tic(timer* t)
 {
-    /* read current clock cycles */
+    // read current clock cycles 
     t->tic = mach_absolute_time();
 }
 
@@ -65,7 +65,7 @@ pfloat toc(timer* t)
     t->toc = mach_absolute_time();
     duration = t->toc - t->tic;
     
-    /*conversion from clock cycles to nanoseconds*/
+    // conversion from clock cycles to nanoseconds
     mach_timebase_info(&(t->tinfo));
     duration *= t->tinfo.numer;
     duration /= t->tinfo.denom;

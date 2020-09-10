@@ -25,7 +25,7 @@
 #include "ecos.h"
 #include "data.h"
 
-int main(void)
+int ecosmain(void)
 {
 	/*char ver[7];*/
     idxint exitflag = ECOS_FATAL;

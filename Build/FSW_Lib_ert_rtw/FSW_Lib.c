@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.225
+ * Model version                  : 1.232
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Sep  3 09:54:35 2020
+ * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -594,13 +594,13 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   real_T rtb_Product2_p[3];
   real_T rtb_Gain[3];
   real_T rtb_MathFunction[3];
-  real_T rtb_Transpose_o[4];
+  real_T rtb_Transpose[4];
   real_T rtb_Multiply[4];
+  real_T rtb_Multiply1[9];
   real_T rtb_Abs[5];
   real_T rtb_pos_teme_km[3];
   real_T rtb_vel_teme_kmps[3];
   real_T rtb_teme_to_gcrf[9];
-  real_T rtb_Transpose[9];
   boolean_T RateTransition1[4];
   real_T rtb_nT2T[3];
   boolean_T rtb_VariableSelector3;
@@ -674,12 +674,12 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
       RWA_A[b_r1] = 0.0;
       b_r2 = i << 2;
       b_r3 = 3 * i + b_rtemp;
-      RWA_A[b_r1] = RWA_A[b_r3] + (real_T)d[b_r2] * rtConstP.pooled30[b_rtemp];
-      RWA_A[b_r1] = (real_T)d[b_r2 + 1] * rtConstP.pooled30[b_rtemp + 3] +
+      RWA_A[b_r1] = RWA_A[b_r3] + (real_T)d[b_r2] * rtConstP.pooled29[b_rtemp];
+      RWA_A[b_r1] = (real_T)d[b_r2 + 1] * rtConstP.pooled29[b_rtemp + 3] +
         RWA_A[b_r3];
-      RWA_A[b_r1] = (real_T)d[b_r2 + 2] * rtConstP.pooled30[b_rtemp + 6] +
+      RWA_A[b_r1] = (real_T)d[b_r2 + 2] * rtConstP.pooled29[b_rtemp + 6] +
         RWA_A[b_r3];
-      RWA_A[b_r1] = (real_T)d[b_r2 + 3] * rtConstP.pooled30[b_rtemp + 9] +
+      RWA_A[b_r1] = (real_T)d[b_r2 + 3] * rtConstP.pooled29[b_rtemp + 9] +
         RWA_A[b_r3];
     }
   }
@@ -822,16 +822,16 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   }
 
   /* MATLAB Function: '<S178>/MATLAB Function3' incorporates:
-   *  Inport: '<Root>/MET_utc_s'
+   *  Inport: '<Root>/telecommands'
    */
-  jseconds2ymdhms(rtU.MET_utc_s, &rtb_YMDHMS_UTC_idx_0, &rtb_YMDHMS_UTC_idx_1,
-                  &rtb_YMDHMS_UTC_idx_2, &rtb_YMDHMS_UTC_idx_3,
-                  &rtb_YMDHMS_UTC_idx_4, &rtb_YMDHMS_UTC_idx_5, &M_sun,
-                  &tsince_JD);
-  jseconds2ymdhms(rtU.MET_utc_s + -0.0361535, &b_a21, &epsb_1980, &M_moon,
-                  &O_moon, &M_sun, &dpsi_1980, &num_dead_MTQ, &u_moon);
-  jseconds2ymdhms((rtU.MET_utc_s + 37.0) + 32.184, &epsb_1980, &M_moon, &O_moon,
-                  &M_sun, &dpsi_1980, &u_moon, &b_a21, &D_sun);
+  jseconds2ymdhms(rtU.telecommands.MET_utc_s, &rtb_YMDHMS_UTC_idx_0,
+                  &rtb_YMDHMS_UTC_idx_1, &rtb_YMDHMS_UTC_idx_2,
+                  &rtb_YMDHMS_UTC_idx_3, &rtb_YMDHMS_UTC_idx_4,
+                  &rtb_YMDHMS_UTC_idx_5, &M_sun, &tsince_JD);
+  jseconds2ymdhms(rtU.telecommands.MET_utc_s + -0.0361535, &b_a21, &epsb_1980,
+                  &M_moon, &O_moon, &M_sun, &dpsi_1980, &num_dead_MTQ, &u_moon);
+  jseconds2ymdhms((rtU.telecommands.MET_utc_s + 37.0) + 32.184, &epsb_1980,
+                  &M_moon, &O_moon, &M_sun, &dpsi_1980, &u_moon, &b_a21, &D_sun);
 
   /* MATLAB Function: '<S322>/MATLAB Function' incorporates:
    *  MATLAB Function: '<S178>/MATLAB Function3'
@@ -1070,19 +1070,19 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     for (b_rtemp = 0; b_rtemp < 3; b_rtemp++) {
       b_r1 = i + 3 * b_rtemp;
       rtb_teme_to_gcrf[b_r1] = 0.0;
-      rtb_Transpose[b_r1] = 0.0;
+      rtb_Multiply1[b_r1] = 0.0;
       b_r2 = 3 * b_rtemp + i;
       rtb_teme_to_gcrf[b_r1] = rtb_teme_to_gcrf[b_r2] + M_1[3 * b_rtemp] * y[i];
-      rtb_Transpose[b_r1] = rtb_Transpose[b_r2] + rtb_MathFunction1_f[3 * i] *
+      rtb_Multiply1[b_r1] = rtb_Multiply1[b_r2] + rtb_MathFunction1_f[3 * i] *
         y[b_rtemp];
       rtb_teme_to_gcrf[b_r1] = M_1[3 * b_rtemp + 1] * y[i + 3] +
         rtb_teme_to_gcrf[b_r2];
-      rtb_Transpose[b_r1] = rtb_MathFunction1_f[3 * i + 1] * y[b_rtemp + 3] +
-        rtb_Transpose[b_r2];
+      rtb_Multiply1[b_r1] = rtb_MathFunction1_f[3 * i + 1] * y[b_rtemp + 3] +
+        rtb_Multiply1[b_r2];
       rtb_teme_to_gcrf[b_r1] = M_1[3 * b_rtemp + 2] * y[i + 6] +
         rtb_teme_to_gcrf[b_r2];
-      rtb_Transpose[b_r1] = rtb_MathFunction1_f[3 * i + 2] * y[b_rtemp + 6] +
-        rtb_Transpose[b_r2];
+      rtb_Multiply1[b_r1] = rtb_MathFunction1_f[3 * i + 2] * y[b_rtemp + 6] +
+        rtb_Multiply1[b_r2];
     }
 
     /* End of Math: '<S178>/Transpose' */
@@ -1090,17 +1090,18 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
 
   /* MATLAB Function: '<S176>/MATLAB Function' incorporates:
    *  Constant: '<S176>/JD_J2000'
-   *  Inport: '<Root>/orbit_tle'
+   *  Inport: '<Root>/telecommands'
    *  MATLAB Function: '<S178>/MATLAB Function3'
    *  Sum: '<S176>/Sum'
    */
   O_moon = 1.88027916E-9;
   epsb_1980 = 1.01222928;
-  b_a21 = rtU.orbit_tle[3] * 0.0174532925;
-  M_sun = rtU.orbit_tle[6] * 0.0174532925;
-  M_moon = rtU.orbit_tle[7] * 0.0174532925;
-  u_moon = rtU.orbit_tle[8] * 2.0 * 3.1415926535897931 / 1440.0;
-  if ((rtU.orbit_tle[5] >= 1.0) || (rtU.orbit_tle[5] <= 0.0)) {
+  b_a21 = rtU.telecommands.orbit_tle[3] * 0.0174532925;
+  M_sun = rtU.telecommands.orbit_tle[6] * 0.0174532925;
+  M_moon = rtU.telecommands.orbit_tle[7] * 0.0174532925;
+  u_moon = rtU.telecommands.orbit_tle[8] * 2.0 * 3.1415926535897931 / 1440.0;
+  if ((rtU.telecommands.orbit_tle[5] >= 1.0) || (rtU.telecommands.orbit_tle[5] <=
+       0.0)) {
     rtb_pos_teme_km[0] = 6378.137;
     rtb_vel_teme_kmps[0] = 0.0;
     rtb_pos_teme_km[1] = 6378.137;
@@ -1115,7 +1116,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     rtb_pos_teme_km[2] = 6878.137;
     rtb_vel_teme_kmps[2] = 0.0;
   } else {
-    tsince_JD = (tsince_JD - 2.451545E+6) - rtU.orbit_tle[1];
+    tsince_JD = (tsince_JD - 2.451545E+6) - rtU.telecommands.orbit_tle[1];
     if (fabs(tsince_JD) < 1.0E-8) {
       tsince_JD = 0.0;
     } else {
@@ -1127,17 +1128,17 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     dpsi_1980 = 1440.0 * tsince_JD;
     tsince_JD = rt_powd_snf(0.0743669161 / u_moon, 0.66666666666666663);
     D_sun_tmp = cos(b_a21);
-    api = 1.0 - rtU.orbit_tle[5] * rtU.orbit_tle[5];
+    api = 1.0 - rtU.telecommands.orbit_tle[5] * rtU.telecommands.orbit_tle[5];
     D_sun = (D_sun_tmp * D_sun_tmp * 3.0 - 1.0) / rt_powd_snf(api, 1.5) *
       (0.000541308 / (tsince_JD * tsince_JD) * 1.5);
     tsince_JD *= ((1.0 - 0.33333333333333331 * D_sun) - D_sun * D_sun) -
       1.654320987654321 * rt_powd_snf(D_sun, 3.0);
     deps_1980 = (D_sun_tmp * D_sun_tmp * 3.0 - 1.0) / rt_powd_snf(1.0 -
-      rtU.orbit_tle[5] * rtU.orbit_tle[5], 1.5) * (0.000541308 / (tsince_JD *
-      tsince_JD) * 1.5);
+      rtU.telecommands.orbit_tle[5] * rtU.telecommands.orbit_tle[5], 1.5) *
+      (0.000541308 / (tsince_JD * tsince_JD) * 1.5);
     D_sun = u_moon / (1.0 + deps_1980);
     deps_1980 = tsince_JD / (1.0 - deps_1980);
-    IL3 = (1.0 - rtU.orbit_tle[5]) * deps_1980;
+    IL3 = (1.0 - rtU.telecommands.orbit_tle[5]) * deps_1980;
     tsince_JD = (IL3 - 1.0) * 6378.137;
     if (IL3 < 1.0344928307435228) {
       b_r1 = 1;
@@ -1157,7 +1158,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
 
     xi = 1.0 / (deps_1980 - epsb_1980);
     b_o = sqrt(api);
-    eta = deps_1980 * rtU.orbit_tle[5] * xi;
+    eta = deps_1980 * rtU.telecommands.orbit_tle[5] * xi;
     if (eta == 1.0) {
       rtb_pos_teme_km[0] = 6378.137;
       rtb_vel_teme_kmps[0] = 0.0;
@@ -1170,13 +1171,13 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
       tsince_JD = rt_powd_snf(xi, 4.0);
       api_tmp = rt_powd_snf(1.0 - eta * eta, -3.5);
       api_tmp_tmp = rt_powd_snf(eta, 3.0);
-      api_tmp_0 = rtU.orbit_tle[5] * api_tmp_tmp;
+      api_tmp_0 = rtU.telecommands.orbit_tle[5] * api_tmp_tmp;
       api_tmp_1 = d_w * 1.5;
-      api = ((((api_tmp_1 + 1.0) + 4.0 * rtU.orbit_tle[5] * eta) + api_tmp_0) *
-             deps_1980 + (D_sun_tmp * D_sun_tmp * 1.5 + -0.5) *
+      api = ((((api_tmp_1 + 1.0) + 4.0 * rtU.telecommands.orbit_tle[5] * eta) +
+              api_tmp_0) * deps_1980 + (D_sun_tmp * D_sun_tmp * 1.5 + -0.5) *
              (0.00081196200000000006 * xi) * ((d_w * 24.0 + 8.0) + 3.0 *
               rt_powd_snf(eta, 4.0)) / (1.0 - d_w)) * (O_moon * tsince_JD *
-        D_sun * api_tmp) * rtU.orbit_tle[2];
+        D_sun * api_tmp) * rtU.telecommands.orbit_tle[2];
       C_5 = 0.0;
       D_2 = 0.0;
       D_3 = 0.0;
@@ -1186,7 +1187,8 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
       IL5 = 0.0;
       if (b_r1 == 0) {
         C_5 = 2.0 * O_moon * tsince_JD * deps_1980 * (b_o * b_o) * api_tmp *
-          ((2.75 * eta * (eta + rtU.orbit_tle[5]) + 1.0) + api_tmp_0);
+          ((2.75 * eta * (eta + rtU.telecommands.orbit_tle[5]) + 1.0) +
+           api_tmp_0);
         u_moon = api * api;
         D_2 = 4.0 * deps_1980 * xi * u_moon;
         IL4 = rt_powd_snf(api, 3.0);
@@ -1224,30 +1226,34 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
                      8.7904305259200008E-7 / epsb_1980_tmp +
                      -0.0016239240000000001 * D_sun_tmp / (epsb_1980 *
         rt_powd_snf(b_o, 4.0))) + (3.0 - D_4_tmp) * (3.1049437500000002E-6 *
-        D_sun_tmp) / epsb_1980_tmp) * D_sun * dpsi_1980 + rtU.orbit_tle[4] *
-                   0.0174532925) - D_sun * 0.000541308 * D_sun_tmp / (epsb_1980 *
-        (b_o * b_o)) * 10.5 * api * epsb_1980_tmp_0;
+        D_sun_tmp) / epsb_1980_tmp) * D_sun * dpsi_1980 +
+                   rtU.telecommands.orbit_tle[4] * 0.0174532925) - D_sun *
+        0.000541308 * D_sun_tmp / (epsb_1980 * (b_o * b_o)) * 10.5 * api *
+        epsb_1980_tmp_0;
       if (b_r1 == 0) {
         d_w = O_moon * rt_powd_snf(xi, 5.0) * 2.538815E-6 * D_sun * sin(b_a21) /
-          (0.000541308 * rtU.orbit_tle[5]) * rtU.orbit_tle[2] * cos(M_sun) *
-          dpsi_1980;
-        tsince_JD = -0.66666666666666663 * O_moon * rtU.orbit_tle[2] * tsince_JD
-          * (1.0 / (rtU.orbit_tle[5] * eta)) * (rt_powd_snf(eta * cos(M_DF) +
-          1.0, 3.0) - rt_powd_snf(eta * cos(M_moon) + 1.0, 3.0));
+          (0.000541308 * rtU.telecommands.orbit_tle[5]) *
+          rtU.telecommands.orbit_tle[2] * cos(M_sun) * dpsi_1980;
+        tsince_JD = -0.66666666666666663 * O_moon * rtU.telecommands.orbit_tle[2]
+          * tsince_JD * (1.0 / (rtU.telecommands.orbit_tle[5] * eta)) *
+          (rt_powd_snf(eta * cos(M_DF) + 1.0, 3.0) - rt_powd_snf(eta * cos
+            (M_moon) + 1.0, 3.0));
         M_DF = (M_DF + d_w) + tsince_JD;
         u_moon = (u_moon - d_w) - tsince_JD;
-        O_moon = (rtU.orbit_tle[5] - ((((rtU.orbit_tle[5] * eta + 1.0) * (2.0 *
-          eta) + 0.5 * rtU.orbit_tle[5]) + 0.5 * rt_powd_snf(eta, 3.0)) -
-                   ((((1.0 - eta * eta * 1.5) - 2.0 * rtU.orbit_tle[5] * eta) -
-                     0.5 * rtU.orbit_tle[5] * rt_powd_snf(eta, 3.0)) * ((1.0 -
+        O_moon = (rtU.telecommands.orbit_tle[5] -
+                  ((((rtU.telecommands.orbit_tle[5] * eta + 1.0) * (2.0 * eta) +
+                     0.5 * rtU.telecommands.orbit_tle[5]) + 0.5 * rt_powd_snf
+                    (eta, 3.0)) - ((((1.0 - eta * eta * 1.5) - 2.0 *
+          rtU.telecommands.orbit_tle[5] * eta) - 0.5 *
+          rtU.telecommands.orbit_tle[5] * rt_powd_snf(eta, 3.0)) * ((1.0 -
           D_sun_tmp * D_sun_tmp * 3.0) * 3.0) + ((eta * eta * 2.0 -
-          rtU.orbit_tle[5] * eta) - rtU.orbit_tle[5] * rt_powd_snf(eta, 3.0)) *
-                    ((1.0 - D_sun_tmp * D_sun_tmp) * 0.75) * cos(2.0 * M_sun)) *
-                   (0.001082616 * xi / ((1.0 - eta * eta) * deps_1980))) * (2.0 *
-                   D_sun * O_moon * rt_powd_snf(xi, 4.0) * deps_1980 * (b_o *
-                    b_o) * rt_powd_snf(1.0 - eta * eta, -3.5)) * rtU.orbit_tle[2]
-                  * dpsi_1980) - rtU.orbit_tle[2] * C_5 * (sin(M_DF) - sin
-          (M_moon));
+          rtU.telecommands.orbit_tle[5] * eta) - rtU.telecommands.orbit_tle[5] *
+          rt_powd_snf(eta, 3.0)) * ((1.0 - D_sun_tmp * D_sun_tmp) * 0.75) * cos
+                    (2.0 * M_sun)) * (0.001082616 * xi / ((1.0 - eta * eta) *
+          deps_1980))) * (2.0 * D_sun * O_moon * rt_powd_snf(xi, 4.0) *
+                          deps_1980 * (b_o * b_o) * rt_powd_snf(1.0 - eta * eta,
+                    -3.5)) * rtU.telecommands.orbit_tle[2] * dpsi_1980) -
+          rtU.telecommands.orbit_tle[2] * C_5 * (sin(M_DF) - sin(M_moon));
         xi = rt_powd_snf(dpsi_1980, 3.0);
         tsince_JD = rt_powd_snf(dpsi_1980, 4.0);
         M_sun = (((1.0 - api * dpsi_1980) - epsb_1980_tmp_0 * D_2) - D_3 * xi) -
@@ -1259,15 +1265,16 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
       } else {
         IL3 = 1.0 - api * dpsi_1980;
         M_moon = IL3 * IL3 * deps_1980;
-        D_2 = rtU.orbit_tle[5] * eta;
-        O_moon = rtU.orbit_tle[5] - ((((D_2 + 1.0) * (2.0 * eta) + 0.5 *
-          rtU.orbit_tle[5]) + 0.5 * api_tmp_tmp) - ((((1.0 - api_tmp_1) - 2.0 *
-          rtU.orbit_tle[5] * eta) - 0.5 * rtU.orbit_tle[5] * api_tmp_tmp) *
-          ((1.0 - D_sun_tmp * D_sun_tmp * 3.0) * 3.0) + ((d_w * 2.0 - D_2) -
-          api_tmp_0) * ((1.0 - D_sun_tmp * D_sun_tmp) * 0.75) * cos(2.0 * M_sun))
-          * (0.001082616 * xi / ((1.0 - eta * eta) * deps_1980))) * (2.0 * D_sun
-          * O_moon * tsince_JD * deps_1980 * (b_o * b_o) * api_tmp) *
-          rtU.orbit_tle[2] * dpsi_1980;
+        D_2 = rtU.telecommands.orbit_tle[5] * eta;
+        O_moon = rtU.telecommands.orbit_tle[5] - ((((D_2 + 1.0) * (2.0 * eta) +
+          0.5 * rtU.telecommands.orbit_tle[5]) + 0.5 * api_tmp_tmp) - ((((1.0 -
+          api_tmp_1) - 2.0 * rtU.telecommands.orbit_tle[5] * eta) - 0.5 *
+          rtU.telecommands.orbit_tle[5] * api_tmp_tmp) * ((1.0 - D_sun_tmp *
+          D_sun_tmp * 3.0) * 3.0) + ((d_w * 2.0 - D_2) - api_tmp_0) * ((1.0 -
+          D_sun_tmp * D_sun_tmp) * 0.75) * cos(2.0 * M_sun)) * (0.001082616 * xi
+          / ((1.0 - eta * eta) * deps_1980))) * (2.0 * D_sun * O_moon *
+          tsince_JD * deps_1980 * (b_o * b_o) * api_tmp) *
+          rtU.telecommands.orbit_tle[2] * dpsi_1980;
         api = 1.5 * api * D_sun * epsb_1980_tmp_0 + ((M_DF + u_moon) + epsb_1980);
       }
 
@@ -1402,8 +1409,8 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
 
   /* Product: '<S175>/MatrixMultiply' */
   for (i = 0; i < 3; i++) {
-    rtb_pos_teme_km[i] = rtb_Transpose[i + 6] * M[2] + (rtb_Transpose[i + 3] *
-      M[1] + rtb_Transpose[i] * M[0]);
+    rtb_pos_teme_km[i] = rtb_Multiply1[i + 6] * M[2] + (rtb_Multiply1[i + 3] *
+      M[1] + rtb_Multiply1[i] * M[0]);
   }
 
   /* End of Product: '<S175>/MatrixMultiply' */
@@ -1696,9 +1703,9 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     /* Math: '<S175>/Transpose1' incorporates:
      *  Math: '<S174>/Math Function1'
      */
-    rtb_MathFunction1_f[3 * i] = rtb_Transpose[i];
-    rtb_MathFunction1_f[1 + 3 * i] = rtb_Transpose[i + 3];
-    rtb_MathFunction1_f[2 + 3 * i] = rtb_Transpose[i + 6];
+    rtb_MathFunction1_f[3 * i] = rtb_Multiply1[i];
+    rtb_MathFunction1_f[1 + 3 * i] = rtb_Multiply1[i + 3];
+    rtb_MathFunction1_f[2 + 3 * i] = rtb_Multiply1[i + 6];
   }
 
   /* MATLAB Function: '<S294>/MATLAB Function' */
@@ -1938,8 +1945,8 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     rtb_Gain[i] = -M[i];
 
     /* Product: '<S174>/Product2' */
-    rtb_Product2_p[i] = rtb_Transpose[i + 6] * rtb_YMDHMS_UTC_idx_4 +
-      (rtb_Transpose[i + 3] * rtb_YMDHMS_UTC_idx_2 + rtb_Transpose[i] *
+    rtb_Product2_p[i] = rtb_Multiply1[i + 6] * rtb_YMDHMS_UTC_idx_4 +
+      (rtb_Multiply1[i + 3] * rtb_YMDHMS_UTC_idx_2 + rtb_Multiply1[i] *
        num_dead_MTQ);
   }
 
@@ -1965,21 +1972,21 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
    *  Product: '<S332>/Product'
    */
   if (num_dead_MTQ > 0.0) {
-    rtb_Transpose_o[0] = rtb_Gain[0];
-    rtb_Transpose_o[1] = rtb_Gain[1];
-    rtb_Transpose_o[2] = rtb_Gain[2];
-    rtb_Transpose_o[3] = num_dead_MTQ;
+    rtb_Transpose[0] = rtb_Gain[0];
+    rtb_Transpose[1] = rtb_Gain[1];
+    rtb_Transpose[2] = rtb_Gain[2];
+    rtb_Transpose[3] = num_dead_MTQ;
   } else {
-    rtb_Transpose_o[0] = rtb_Gain[0] * 0.0;
-    rtb_Transpose_o[1] = rtb_Gain[1] * 0.0;
-    rtb_Transpose_o[2] = rtb_Gain[2] * 0.0;
-    rtb_Transpose_o[3] = 1.0;
+    rtb_Transpose[0] = rtb_Gain[0] * 0.0;
+    rtb_Transpose[1] = rtb_Gain[1] * 0.0;
+    rtb_Transpose[2] = rtb_Gain[2] * 0.0;
+    rtb_Transpose[3] = 1.0;
   }
 
   /* End of Switch: '<S332>/Switch' */
   for (i = 0; i < 3; i++) {
     /* Product: '<S332>/Divide' */
-    rtb_Gain[i] = rtb_Transpose_o[i] / rtb_Transpose_o[3];
+    rtb_Gain[i] = rtb_Transpose[i] / rtb_Transpose[3];
 
     /* Gain: '<S176>/Gain3' incorporates:
      *  Product: '<S176>/Product1'
@@ -2014,15 +2021,15 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
    *  Product: '<S331>/Product'
    */
   if (num_dead_MTQ > 0.0) {
-    rtb_Transpose_o[0] = rtb_MathFunction[0];
-    rtb_Transpose_o[1] = rtb_MathFunction[1];
-    rtb_Transpose_o[2] = rtb_MathFunction[2];
-    rtb_Transpose_o[3] = num_dead_MTQ;
+    rtb_Transpose[0] = rtb_MathFunction[0];
+    rtb_Transpose[1] = rtb_MathFunction[1];
+    rtb_Transpose[2] = rtb_MathFunction[2];
+    rtb_Transpose[3] = num_dead_MTQ;
   } else {
-    rtb_Transpose_o[0] = rtb_MathFunction[0] * 0.0;
-    rtb_Transpose_o[1] = rtb_MathFunction[1] * 0.0;
-    rtb_Transpose_o[2] = rtb_MathFunction[2] * 0.0;
-    rtb_Transpose_o[3] = 1.0;
+    rtb_Transpose[0] = rtb_MathFunction[0] * 0.0;
+    rtb_Transpose[1] = rtb_MathFunction[1] * 0.0;
+    rtb_Transpose[2] = rtb_MathFunction[2] * 0.0;
+    rtb_Transpose[3] = 1.0;
   }
 
   /* End of Switch: '<S331>/Switch' */
@@ -2042,15 +2049,15 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     } else {
       rtb_MathFunction[0] = rtb_pos_teme_km[0] / api;
       num_dead_MTQ = rtb_Product2_p[0] / D_sun;
-      O_moon = rtb_Transpose_o[0] / rtb_Transpose_o[3] * num_dead_MTQ;
+      O_moon = rtb_Transpose[0] / rtb_Transpose[3] * num_dead_MTQ;
       sc2gs_unit[0] = num_dead_MTQ;
       rtb_MathFunction[1] = rtb_pos_teme_km[1] / api;
       num_dead_MTQ = rtb_Product2_p[1] / D_sun;
-      O_moon += rtb_Transpose_o[1] / rtb_Transpose_o[3] * num_dead_MTQ;
+      O_moon += rtb_Transpose[1] / rtb_Transpose[3] * num_dead_MTQ;
       sc2gs_unit[1] = num_dead_MTQ;
       rtb_MathFunction[2] = rtb_pos_teme_km[2] / api;
       num_dead_MTQ = rtb_Product2_p[2] / D_sun;
-      O_moon += rtb_Transpose_o[2] / rtb_Transpose_o[3] * num_dead_MTQ;
+      O_moon += rtb_Transpose[2] / rtb_Transpose[3] * num_dead_MTQ;
       sc2gs_unit[2] = num_dead_MTQ;
       if (fabs(O_moon) > 0.999) {
         b_r1 = -1;
@@ -2173,16 +2180,16 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
 
   /* Outputs for Atomic SubSystem: '<S1>/MEKF_lib' */
   /* Inport: '<Root>/sensor_meas' incorporates:
-   *  Inport: '<Root>/TRIAD_override'
+   *  Inport: '<Root>/telecommands'
    *  S-Function (sdspperm2): '<S2>/Variable Selector2'
    *  S-Function (sdspperm2): '<S2>/Variable Selector3'
    */
   MEKF_libTID0(rtM, rtb_pos_teme_km, rtb_nT2T, rtb_Gain, rtb_VariableSelector1,
                rtb_VariableSelector, rtU.sensor_meas.sun_meas_valid,
                rtU.sensor_meas.mag_meas_valid[0],
-               rtU.sensor_meas.gyro_meas_valid[0], rtU.TRIAD_override,
-               rtDW.qmerge, rtb_vel_teme_kmps, rtb_MathFunction, rtb_Product2_p,
-               &rtDW.MEKF_lib_g);
+               rtU.sensor_meas.gyro_meas_valid[0],
+               rtU.telecommands.triad_override, rtDW.qmerge, rtb_vel_teme_kmps,
+               rtb_MathFunction, rtb_Product2_p, &rtDW.MEKF_lib_g);
 
   /* End of Outputs for SubSystem: '<S1>/MEKF_lib' */
 
@@ -2310,10 +2317,10 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   /* RateTransition: '<S4>/Rate Transition5' incorporates:
    *  Inport: '<Root>/act_meas'
    */
-  rtb_Transpose_o[0] = rtU.act_meas.rwa_rpm[0];
-  rtb_Transpose_o[1] = rtU.act_meas.rwa_rpm[1];
-  rtb_Transpose_o[2] = rtU.act_meas.rwa_rpm[2];
-  rtb_Transpose_o[3] = rtU.act_meas.rwa_rpm[3];
+  rtb_Transpose[0] = rtU.act_meas.rwa_rpm[0];
+  rtb_Transpose[1] = rtU.act_meas.rwa_rpm[1];
+  rtb_Transpose[2] = rtU.act_meas.rwa_rpm[2];
+  rtb_Transpose[3] = rtU.act_meas.rwa_rpm[3];
 
   /* If: '<S112>/If' incorporates:
    *  Inport: '<S144>/In1'
@@ -2349,9 +2356,9 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  MATLAB Function: '<S5>/MATLAB Function'
      */
     for (i = 0; i < 3; i++) {
-      rtb_YMDHMS_UTC_idx_1 = RWA_A[i + 9] * tmp_1[3] + (RWA_A[i + 6] * tmp_1[2]
-        + (RWA_A[i + 3] * tmp_1[1] + RWA_A[i] * tmp_1[0]));
-      rtb_Product2_p[i] = rtb_YMDHMS_UTC_idx_1;
+      num_dead_MTQ = RWA_A[i + 9] * tmp_1[3] + (RWA_A[i + 6] * tmp_1[2] +
+        (RWA_A[i + 3] * tmp_1[1] + RWA_A[i] * tmp_1[0]));
+      rtb_Product2_p[i] = num_dead_MTQ;
     }
 
     /* End of Product: '<S145>/Matrix Multiply' */
@@ -2525,16 +2532,6 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      Expression: output = (57.2958*input) + (0) */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
-  for (i = 0; i < 5; i++) {
-    /* Outport: '<Root>/MTQ_cmd_Am2' incorporates:
-     *  Inport: '<Root>/act_meas'
-     *  Product: '<S6>/Matrix Multiply1'
-     *  Product: '<S6>/Multiply1'
-     */
-    rtY.MTQ_cmd_Am2[i] = (real_T)rtU.act_meas.mtq_valid[i] * (b_temp[i + 10] *
-      rtb_nT2T[2] + (b_temp[i + 5] * rtb_nT2T[1] + b_temp[i] * rtb_nT2T[0]));
-  }
-
   for (i = 0; i < 4; i++) {
     /* Product: '<S157>/Product' incorporates:
      *  Constant: '<S157>/Constant'
@@ -2560,34 +2557,43 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
 
     /* End of Saturate: '<S157>/Saturation' */
 
-    /* Outport: '<Root>/RWA_cmd_rpm' incorporates:
+    /* Product: '<S6>/Multiply' incorporates:
      *  Inport: '<Root>/act_meas'
-     *  Product: '<S6>/Multiply'
      *  RateTransition: '<S4>/Rate Transition1'
      */
-    rtY.RWA_cmd_rpm[i] = (real_T)rtU.act_meas.rwa_valid[i] * num_dead_MTQ;
+    rtY.fsw_out_j.rwa_cmd_rpm[i] = (real_T)rtU.act_meas.rwa_valid[i] *
+      num_dead_MTQ;
+  }
 
-    /* MATLAB Function: '<S107>/Desat_control_logic' incorporates:
-     *  Constant: '<S107>/Constant'
-     *  Constant: '<S107>/Constant1'
+  for (i = 0; i < 5; i++) {
+    /* Product: '<S6>/Multiply1' incorporates:
      *  Inport: '<Root>/act_meas'
-     *  Product: '<S107>/Matrix Multiply'
-     *  RateTransition: '<S4>/Rate Transition5'
+     *  Product: '<S6>/Matrix Multiply1'
      */
+    rtb_Multiply1[i] = (real_T)rtU.act_meas.mtq_valid[i] * (b_temp[i + 10] *
+      rtb_nT2T[2] + (b_temp[i + 5] * rtb_nT2T[1] + b_temp[i] * rtb_nT2T[0]));
+  }
+
+  /* MATLAB Function: '<S107>/Desat_control_logic' incorporates:
+   *  Constant: '<S107>/Constant'
+   *  Constant: '<S107>/Constant1'
+   *  Inport: '<Root>/act_meas'
+   *  MATLAB Function: '<S5>/MATLAB Function'
+   *  Product: '<S107>/Matrix Multiply'
+   *  RateTransition: '<S4>/Rate Transition5'
+   */
+  for (i = 0; i < 4; i++) {
     momentum_error_wheel[i] = (((rtConstP.pooled23[i + 4] *
       rtU.act_meas.rwa_rpm[1] + rtConstP.pooled23[i] * rtU.act_meas.rwa_rpm[0])
       + rtConstP.pooled23[i + 8] * rtU.act_meas.rwa_rpm[2]) +
       rtConstP.pooled23[i + 12] * rtU.act_meas.rwa_rpm[3]) - rtConstP.pooled26[i];
   }
 
-  /* MATLAB Function: '<S107>/Desat_control_logic' incorporates:
-   *  MATLAB Function: '<S5>/MATLAB Function'
-   */
   for (i = 0; i < 3; i++) {
-    num_dead_MTQ = RWA_A[i + 9] * momentum_error_wheel[3] + (RWA_A[i + 6] *
-      momentum_error_wheel[2] + (RWA_A[i + 3] * momentum_error_wheel[1] +
+    rtb_YMDHMS_UTC_idx_1 = RWA_A[i + 9] * momentum_error_wheel[3] + (RWA_A[i + 6]
+      * momentum_error_wheel[2] + (RWA_A[i + 3] * momentum_error_wheel[1] +
       RWA_A[i] * momentum_error_wheel[0]));
-    rtb_nT2T[i] = num_dead_MTQ;
+    rtb_nT2T[i] = rtb_YMDHMS_UTC_idx_1;
   }
 
   rtb_YMDHMS_UTC_idx_4 = 0.0;
@@ -2681,6 +2687,8 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     rtDW.rwa_spindown_flag = 0.0;
   }
 
+  /* End of MATLAB Function: '<S107>/Desat_control_logic' */
+
   /* If: '<S111>/If' incorporates:
    *  Gain: '<S137>/Gain'
    *  Inport: '<S136>/In1'
@@ -2695,7 +2703,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Constant: '<S137>/Constant'
      */
     for (i = 0; i < 3; i++) {
-      rtb_Gain[i] = rtConstP.pooled22[i + 6] * rtb_vel_teme_kmps[2] +
+      rtb_nT2T[i] = rtConstP.pooled22[i + 6] * rtb_vel_teme_kmps[2] +
         (rtConstP.pooled22[i + 3] * rtb_vel_teme_kmps[1] + rtConstP.pooled22[i] *
          rtb_vel_teme_kmps[0]);
     }
@@ -2705,8 +2713,8 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Product: '<S137>/Matrix Multiply'
      */
     for (i = 0; i < 4; i++) {
-      tmp_1[i] = rtConstP.pooled20[i + 8] * rtb_Gain[2] + (rtConstP.pooled20[i +
-        4] * rtb_Gain[1] + rtConstP.pooled20[i] * rtb_Gain[0]);
+      tmp_1[i] = rtConstP.pooled20[i + 8] * rtb_nT2T[2] + (rtConstP.pooled20[i +
+        4] * rtb_nT2T[1] + rtConstP.pooled20[i] * rtb_nT2T[0]);
     }
 
     /* End of Product: '<S138>/Matrix Multiply' */
@@ -2760,15 +2768,15 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
        *  Product: '<S137>/Matrix Multiply'
        *  Product: '<S138>/Divide1'
        */
-      b_a21 = -(rtb_Gain[0] / rtb_YMDHMS_UTC_idx_0);
+      rtb_YMDHMS_UTC_idx_1 = -(rtb_nT2T[0] / rtb_YMDHMS_UTC_idx_0);
     } else {
       /* Gain: '<S137>/Gain' incorporates:
        *  Product: '<S137>/Matrix Multiply'
        */
-      b_a21 = -rtb_Gain[0];
+      rtb_YMDHMS_UTC_idx_1 = -rtb_nT2T[0];
     }
 
-    rtb_Gain[0] = b_a21;
+    rtb_nT2T[0] = rtb_YMDHMS_UTC_idx_1;
 
     /* If: '<S138>/If3' incorporates:
      *  Gain: '<S137>/Gain'
@@ -2776,12 +2784,12 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Product: '<S138>/Divide1'
      */
     if (rEQ0) {
-      b_a21 = -(rtb_Gain[1] / rtb_YMDHMS_UTC_idx_0);
+      rtb_YMDHMS_UTC_idx_1 = -(rtb_nT2T[1] / rtb_YMDHMS_UTC_idx_0);
     } else {
-      b_a21 = -rtb_Gain[1];
+      rtb_YMDHMS_UTC_idx_1 = -rtb_nT2T[1];
     }
 
-    rtb_Gain[1] = b_a21;
+    rtb_nT2T[1] = rtb_YMDHMS_UTC_idx_1;
 
     /* If: '<S138>/If3' incorporates:
      *  Gain: '<S137>/Gain'
@@ -2789,21 +2797,21 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Product: '<S138>/Divide1'
      */
     if (rEQ0) {
-      b_a21 = -(rtb_Gain[2] / rtb_YMDHMS_UTC_idx_0);
+      rtb_YMDHMS_UTC_idx_1 = -(rtb_nT2T[2] / rtb_YMDHMS_UTC_idx_0);
     } else {
-      b_a21 = -rtb_Gain[2];
+      rtb_YMDHMS_UTC_idx_1 = -rtb_nT2T[2];
     }
 
-    rtb_Gain[2] = b_a21;
+    rtb_nT2T[2] = rtb_YMDHMS_UTC_idx_1;
 
     /* End of Outputs for SubSystem: '<S111>/If Action Subsystem' */
   } else {
     /* Outputs for IfAction SubSystem: '<S111>/If Action Subsystem1' incorporates:
      *  ActionPort: '<S136>/Action Port'
      */
-    rtb_Gain[0] = 0.0;
-    rtb_Gain[1] = 0.0;
-    rtb_Gain[2] = 0.0;
+    rtb_nT2T[0] = 0.0;
+    rtb_nT2T[1] = 0.0;
+    rtb_nT2T[2] = 0.0;
 
     /* End of Outputs for SubSystem: '<S111>/If Action Subsystem1' */
   }
@@ -2823,11 +2831,11 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Gain: '<S134>/kd'
      */
     for (i = 0; i < 3; i++) {
-      rtb_nT2T[i] = (0.0 - ((rtConstP.Kp_Gain[i + 3] * rtb_Multiply[2] +
+      rtb_Product2_p[i] = (0.0 - ((rtConstP.Kp_Gain[i + 3] * rtb_Multiply[2] +
         rtConstP.Kp_Gain[i] * rtb_Multiply[1]) + rtConstP.Kp_Gain[i + 6] *
-                            rtb_Multiply[3])) - ((rtConstP.pooled22[i + 3] *
-        rtb_vel_teme_kmps[1] + rtConstP.pooled22[i] * rtb_vel_teme_kmps[0]) +
-        rtConstP.pooled22[i + 6] * rtb_vel_teme_kmps[2]);
+        rtb_Multiply[3])) - ((rtConstP.pooled22[i + 3] * rtb_vel_teme_kmps[1] +
+        rtConstP.pooled22[i] * rtb_vel_teme_kmps[0]) + rtConstP.pooled22[i + 6] *
+        rtb_vel_teme_kmps[2]);
     }
 
     /* End of Sum: '<S134>/Sum' */
@@ -2836,9 +2844,9 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     /* Outputs for IfAction SubSystem: '<S110>/If Action Subsystem1' incorporates:
      *  ActionPort: '<S133>/Action Port'
      */
-    rtb_nT2T[0] = 0.0;
-    rtb_nT2T[1] = 0.0;
-    rtb_nT2T[2] = 0.0;
+    rtb_Product2_p[0] = 0.0;
+    rtb_Product2_p[1] = 0.0;
+    rtb_Product2_p[2] = 0.0;
 
     /* End of Outputs for SubSystem: '<S110>/If Action Subsystem1' */
   }
@@ -2915,18 +2923,18 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
        *  Constant: '<S124>/Constant'
        */
       for (i = 0; i < 3; i++) {
-        rtb_Product2_p[i] = rtConstP.Constant_Value_p[i + 6] *
-          rtb_YMDHMS_UTC_idx_0 + (rtConstP.Constant_Value_p[i + 3] *
-          rtb_YMDHMS_UTC_idx_1 + rtConstP.Constant_Value_p[i] * b_a21);
+        rtb_Gain[i] = rtConstP.Constant_Value_p[i + 6] * rtb_YMDHMS_UTC_idx_0 +
+          (rtConstP.Constant_Value_p[i + 3] * rtb_YMDHMS_UTC_idx_1 +
+           rtConstP.Constant_Value_p[i] * b_a21);
       }
 
       /* End of Product: '<S124>/Matrix Multiply' */
 
       /* S-Function (sdspdiag2): '<S124>/Create Diagonal Matrix' */
       memset(&rtb_teme_to_gcrf[0], 0, 9U * sizeof(real_T));
-      rtb_teme_to_gcrf[0] = rtb_Product2_p[0];
-      rtb_teme_to_gcrf[4] = rtb_Product2_p[1];
-      rtb_teme_to_gcrf[8] = rtb_Product2_p[2];
+      rtb_teme_to_gcrf[0] = rtb_Gain[0];
+      rtb_teme_to_gcrf[4] = rtb_Gain[1];
+      rtb_teme_to_gcrf[8] = rtb_Gain[2];
 
       /* End of Outputs for SubSystem: '<S121>/If Action Subsystem' */
     } else {
@@ -2945,7 +2953,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
      *  Constant: '<S120>/Constant1'
      */
     for (i = 0; i < 3; i++) {
-      rtb_MathFunction[i] = rtConstP.Constant1_Value[i + 6] * rtb_Multiply[3] +
+      rtb_Gain[i] = rtConstP.Constant1_Value[i + 6] * rtb_Multiply[3] +
         (rtConstP.Constant1_Value[i + 3] * rtb_Multiply[2] +
          rtConstP.Constant1_Value[i] * rtb_Multiply[1]);
     }
@@ -2953,30 +2961,30 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     /* End of Product: '<S120>/Matrix Multiply1' */
 
     /* Saturate: '<S120>/Saturation1' */
-    if (rtb_MathFunction[0] > 1.0) {
+    if (rtb_Gain[0] > 1.0) {
       b_a21 = 1.0;
-    } else if (rtb_MathFunction[0] < -1.0) {
+    } else if (rtb_Gain[0] < -1.0) {
       b_a21 = -1.0;
     } else {
-      b_a21 = rtb_MathFunction[0];
+      b_a21 = rtb_Gain[0];
     }
 
     /* Saturate: '<S120>/Saturation2' */
-    if (rtb_MathFunction[1] > 1.0) {
+    if (rtb_Gain[1] > 1.0) {
       rtb_YMDHMS_UTC_idx_1 = 1.0;
-    } else if (rtb_MathFunction[1] < -1.0) {
+    } else if (rtb_Gain[1] < -1.0) {
       rtb_YMDHMS_UTC_idx_1 = -1.0;
     } else {
-      rtb_YMDHMS_UTC_idx_1 = rtb_MathFunction[1];
+      rtb_YMDHMS_UTC_idx_1 = rtb_Gain[1];
     }
 
     /* Saturate: '<S120>/Saturation3' */
-    if (rtb_MathFunction[2] > 1.0) {
+    if (rtb_Gain[2] > 1.0) {
       rtb_YMDHMS_UTC_idx_0 = 1.0;
-    } else if (rtb_MathFunction[2] < -1.0) {
+    } else if (rtb_Gain[2] < -1.0) {
       rtb_YMDHMS_UTC_idx_0 = -1.0;
     } else {
-      rtb_YMDHMS_UTC_idx_0 = rtb_MathFunction[2];
+      rtb_YMDHMS_UTC_idx_0 = rtb_Gain[2];
     }
 
     for (i = 0; i < 3; i++) {
@@ -2988,20 +2996,20 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
        *  Saturate: '<S120>/Saturation2'
        *  Saturate: '<S120>/Saturation3'
        */
-      rtb_Product2_p[i] = ((rtConstP.pooled22[i + 3] * rtb_vel_teme_kmps[1] +
-                            rtConstP.pooled22[i] * rtb_vel_teme_kmps[0]) +
-                           rtConstP.pooled22[i + 6] * rtb_vel_teme_kmps[2]) +
-        (rtb_teme_to_gcrf[i + 6] * rtb_YMDHMS_UTC_idx_0 + (rtb_teme_to_gcrf[i +
-          3] * rtb_YMDHMS_UTC_idx_1 + rtb_teme_to_gcrf[i] * b_a21));
+      rtb_MathFunction[i] = ((rtConstP.pooled22[i + 3] * rtb_vel_teme_kmps[1] +
+        rtConstP.pooled22[i] * rtb_vel_teme_kmps[0]) + rtConstP.pooled22[i + 6] *
+        rtb_vel_teme_kmps[2]) + (rtb_teme_to_gcrf[i + 6] * rtb_YMDHMS_UTC_idx_0
+        + (rtb_teme_to_gcrf[i + 3] * rtb_YMDHMS_UTC_idx_1 + rtb_teme_to_gcrf[i] *
+           b_a21));
     }
 
     /* Product: '<S122>/Matrix Multiply' incorporates:
      *  Constant: '<S122>/Constant'
      */
     for (i = 0; i < 4; i++) {
-      tmp_1[i] = rtConstP.pooled20[i + 8] * rtb_Product2_p[2] +
-        (rtConstP.pooled20[i + 4] * rtb_Product2_p[1] + rtConstP.pooled20[i] *
-         rtb_Product2_p[0]);
+      tmp_1[i] = rtConstP.pooled20[i + 8] * rtb_MathFunction[2] +
+        (rtConstP.pooled20[i + 4] * rtb_MathFunction[1] + rtConstP.pooled20[i] *
+         rtb_MathFunction[0]);
     }
 
     /* End of Product: '<S122>/Matrix Multiply' */
@@ -3054,39 +3062,39 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
       /* Gain: '<S120>/Gain' incorporates:
        *  Product: '<S122>/Divide1'
        */
-      rtb_YMDHMS_UTC_idx_1 = -(rtb_Product2_p[0] / rtb_YMDHMS_UTC_idx_0);
+      b_a21 = -(rtb_MathFunction[0] / rtb_YMDHMS_UTC_idx_0);
     } else {
       /* Gain: '<S120>/Gain' incorporates:
        *  Product: '<S122>/Divide1'
        */
-      rtb_YMDHMS_UTC_idx_1 = -rtb_Product2_p[0];
+      b_a21 = -rtb_MathFunction[0];
     }
 
-    rtb_Product2_p[0] = rtb_YMDHMS_UTC_idx_1;
+    rtb_MathFunction[0] = b_a21;
 
     /* If: '<S122>/If3' incorporates:
      *  Gain: '<S120>/Gain'
      *  Product: '<S122>/Divide1'
      */
     if (rEQ0) {
-      rtb_YMDHMS_UTC_idx_1 = -(rtb_Product2_p[1] / rtb_YMDHMS_UTC_idx_0);
+      b_a21 = -(rtb_MathFunction[1] / rtb_YMDHMS_UTC_idx_0);
     } else {
-      rtb_YMDHMS_UTC_idx_1 = -rtb_Product2_p[1];
+      b_a21 = -rtb_MathFunction[1];
     }
 
-    rtb_Product2_p[1] = rtb_YMDHMS_UTC_idx_1;
+    rtb_MathFunction[1] = b_a21;
 
     /* If: '<S122>/If3' incorporates:
      *  Gain: '<S120>/Gain'
      *  Product: '<S122>/Divide1'
      */
     if (rEQ0) {
-      rtb_YMDHMS_UTC_idx_1 = -(rtb_Product2_p[2] / rtb_YMDHMS_UTC_idx_0);
+      b_a21 = -(rtb_MathFunction[2] / rtb_YMDHMS_UTC_idx_0);
     } else {
-      rtb_YMDHMS_UTC_idx_1 = -rtb_Product2_p[2];
+      b_a21 = -rtb_MathFunction[2];
     }
 
-    rtb_Product2_p[2] = rtb_YMDHMS_UTC_idx_1;
+    rtb_MathFunction[2] = b_a21;
 
     /* Update for Memory: '<S121>/Memory1' incorporates:
      *  Gain: '<S120>/Gain'
@@ -3105,9 +3113,9 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
     /* Outputs for IfAction SubSystem: '<S109>/If Action Subsystem1' incorporates:
      *  ActionPort: '<S119>/Action Port'
      */
-    rtb_Product2_p[0] = 0.0;
-    rtb_Product2_p[1] = 0.0;
-    rtb_Product2_p[2] = 0.0;
+    rtb_MathFunction[0] = 0.0;
+    rtb_MathFunction[1] = 0.0;
+    rtb_MathFunction[2] = 0.0;
 
     /* End of Outputs for SubSystem: '<S109>/If Action Subsystem1' */
   }
@@ -3115,12 +3123,12 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   /* End of If: '<S109>/If' */
 
   /* Sum: '<S6>/Add' */
-  rtb_Gain[0] = (rtb_Gain[0] + rtb_nT2T[0]) + rtb_Product2_p[0];
-  rtb_Gain[1] = (rtb_Gain[1] + rtb_nT2T[1]) + rtb_Product2_p[1];
-  rtb_Gain[2] = (rtb_Gain[2] + rtb_nT2T[2]) + rtb_Product2_p[2];
+  rtb_nT2T[0] = (rtb_nT2T[0] + rtb_Product2_p[0]) + rtb_MathFunction[0];
+  rtb_nT2T[1] = (rtb_nT2T[1] + rtb_Product2_p[1]) + rtb_MathFunction[1];
+  rtb_nT2T[2] = (rtb_nT2T[2] + rtb_Product2_p[2]) + rtb_MathFunction[2];
 
   /* Outputs for Atomic SubSystem: '<S6>/rwa_allocation_lib' */
-  rwa_allocation_lib(rtb_Gain, rtb_Transpose_o, RateTransition1, rtb_Multiply,
+  rwa_allocation_lib(rtb_nT2T, rtb_Transpose, RateTransition1, rtb_Multiply,
                      &rtDW.rwa_allocation_lib_o);
 
   /* End of Outputs for SubSystem: '<S6>/rwa_allocation_lib' */
@@ -3231,7 +3239,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   rEQ0 = false;
 
   /* Abs: '<S9>/Abs' */
-  rtb_Gain[0] = fabs(rtb_vel_teme_kmps[0]);
+  rtb_Product2_p[0] = fabs(rtb_vel_teme_kmps[0]);
 
   /* Gain: '<S7>/M2KM' */
   M[0] *= 0.001;
@@ -3240,7 +3248,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   rtb_pos_teme_km[0] *= 1.49598073E+8;
 
   /* Abs: '<S9>/Abs' */
-  rtb_Gain[1] = fabs(rtb_vel_teme_kmps[1]);
+  rtb_Product2_p[1] = fabs(rtb_vel_teme_kmps[1]);
 
   /* Gain: '<S7>/M2KM' */
   M[1] *= 0.001;
@@ -3249,7 +3257,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   rtb_pos_teme_km[1] *= 1.49598073E+8;
 
   /* Abs: '<S9>/Abs' */
-  rtb_Gain[2] = fabs(rtb_vel_teme_kmps[2]);
+  rtb_Product2_p[2] = fabs(rtb_vel_teme_kmps[2]);
 
   /* Gain: '<S7>/M2KM' */
   rtb_YMDHMS_UTC_idx_2 = 0.001 * M[2];
@@ -3280,14 +3288,15 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   rtb_VariableSelector3 = !rEQ0;
 
   /* MinMax: '<S9>/MinMax' */
-  if ((rtb_Gain[0] > rtb_Gain[1]) || rtIsNaN(rtb_Gain[1])) {
-    rtb_YMDHMS_UTC_idx_1 = rtb_Gain[0];
+  if ((rtb_Product2_p[0] > rtb_Product2_p[1]) || rtIsNaN(rtb_Product2_p[1])) {
+    rtb_YMDHMS_UTC_idx_1 = rtb_Product2_p[0];
   } else {
-    rtb_YMDHMS_UTC_idx_1 = rtb_Gain[1];
+    rtb_YMDHMS_UTC_idx_1 = rtb_Product2_p[1];
   }
 
-  if ((!(rtb_YMDHMS_UTC_idx_1 > rtb_Gain[2])) && (!rtIsNaN(rtb_Gain[2]))) {
-    rtb_YMDHMS_UTC_idx_1 = rtb_Gain[2];
+  if ((!(rtb_YMDHMS_UTC_idx_1 > rtb_Product2_p[2])) && (!rtIsNaN(rtb_Product2_p
+        [2]))) {
+    rtb_YMDHMS_UTC_idx_1 = rtb_Product2_p[2];
   }
 
   /* Relay: '<S9>/Relay' incorporates:
@@ -3307,19 +3316,19 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   /* MATLAB Function: '<S327>/desat_timer_logic' incorporates:
    *  Constant: '<S327>/Constant'
    *  Constant: '<S327>/Constant1'
-   *  Inport: '<Root>/MET_utc_s'
+   *  Inport: '<Root>/telecommands'
    *  UnitDelay: '<S327>/Unit Delay1'
    *  UnitDelay: '<S327>/Unit Delay2'
    */
   rtb_YMDHMS_UTC_idx_0 = rtDW.timer_start;
   rtb_YMDHMS_UTC_idx_1 = rtDW.UnitDelay2_DSTATE;
   if ((rtb_UnitDelay_f == 41) && (rtDW.UnitDelay1_DSTATE != 41)) {
-    rtb_YMDHMS_UTC_idx_0 = rtU.MET_utc_s;
+    rtb_YMDHMS_UTC_idx_0 = rtU.telecommands.MET_utc_s;
     rtb_YMDHMS_UTC_idx_1 = 1.0;
   }
 
   if (rtb_YMDHMS_UTC_idx_1 == 1.0) {
-    b_a21 = rtU.MET_utc_s - rtb_YMDHMS_UTC_idx_0;
+    b_a21 = rtU.telecommands.MET_utc_s - rtb_YMDHMS_UTC_idx_0;
     if ((!rtIsInf(b_a21)) && (!rtIsNaN(b_a21))) {
       if (b_a21 == 0.0) {
         num_dead_MTQ = 0.0;
@@ -3403,7 +3412,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   /* MATLAB Function: '<S9>/MATLAB Function' incorporates:
    *  Inport: '<Root>/act_meas'
    *  Inport: '<Root>/sensor_meas'
-   *  Inport: '<Root>/telecom'
+   *  Inport: '<Root>/telecommands'
    *  Logic: '<S4>/Logical Operator'
    *  Logic: '<S4>/Logical Operator1'
    *  Logic: '<S9>/Logical Operator'
@@ -3412,9 +3421,9 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
    *  Relay: '<S9>/Relay'
    */
   rtDW.sc_mode = rtb_UnitDelay_f;
-  if (rtU.telecom[3] == 1.0) {
+  if (rtU.telecommands.telecom[3] == 1.0) {
     rtDW.sc_mode = 1;
-  } else if (rtU.telecom[4] == 1.0) {
+  } else if (rtU.telecommands.telecom[4] == 1.0) {
     rtDW.sc_mode = 2;
   } else if ((!rtU.act_meas.mtq_valid[0]) || (!rtU.act_meas.mtq_valid[1]) ||
              (!rtU.act_meas.mtq_valid[2]) || (!rtU.act_meas.mtq_valid[3]) ||
@@ -3422,7 +3431,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
               (!rtU.act_meas.rwa_valid[1]) || (!rtU.act_meas.rwa_valid[2]) ||
               (!rtU.act_meas.rwa_valid[3]))) {
     rtDW.sc_mode = 2;
-  } else if (rtU.telecom[0] == 0.0) {
+  } else if (rtU.telecommands.telecom[0] == 0.0) {
     if (rtDW.Relay_Mode_o) {
       rtDW.sc_mode = 3;
       if (rtb_UnitDelay_f == 41) {
@@ -3439,21 +3448,21 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
         rtDW.sc_mode = 42;
       }
 
-      if (rtU.telecom[2] == 1.0) {
+      if (rtU.telecommands.telecom[2] == 1.0) {
         rtDW.sc_mode = 51;
-        if (rtb_LogicalOperator_l && rtb_VariableSelector3 && (rtU.telecom[5] ==
-             1.0)) {
+        if (rtb_LogicalOperator_l && rtb_VariableSelector3 &&
+            (rtU.telecommands.telecom[5] == 1.0)) {
           rtDW.sc_mode = 52;
         }
 
-        if (rtU.telecom[6] == 1.0) {
+        if (rtU.telecommands.telecom[6] == 1.0) {
           rtDW.sc_mode = 53;
         }
       }
     }
   } else {
-    if (rtU.telecom[0] != 0.0) {
-      api = rt_roundd_snf(rtU.telecom[0]);
+    if (rtU.telecommands.telecom[0] != 0.0) {
+      api = rt_roundd_snf(rtU.telecommands.telecom[0]);
       if (api < 128.0) {
         if (api >= -128.0) {
           rtDW.sc_mode = (int8_T)api;
@@ -3467,12 +3476,19 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0s, 0.0s] */
   }
 
   /* End of MATLAB Function: '<S9>/MATLAB Function' */
-  for (i = 0; i < 6; i++) {
-    /* Outport: '<Root>/gnc_telemetry' incorporates:
-     *  RateTransition: '<S1>/Rate Transition'
-     */
-    rtY.gnc_telemetry[i] = 0.0;
+
+  /* BusCreator: '<Root>/BusConversion_InsertedFor_fsw_out_at_inport_0' incorporates:
+   *  Outport: '<Root>/fsw_out'
+   */
+  for (i = 0; i < 5; i++) {
+    rtY.fsw_out_j.mtq_cmd_Am2[i] = rtb_Multiply1[i];
   }
+
+  for (i = 0; i < 6; i++) {
+    rtY.fsw_out_j.gnc_telemetry[i] = 0.0;
+  }
+
+  /* End of BusCreator: '<Root>/BusConversion_InsertedFor_fsw_out_at_inport_0' */
 
   /* Update for UnitDelay: '<S9>/Unit Delay' */
   rtDW.UnitDelay_DSTATE_j = rtDW.sc_mode;

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.225
+ * Model version                  : 1.232
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Sep  3 09:54:35 2020
+ * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -35,6 +35,19 @@ typedef struct {
   real_T gyro_body_radps[9];
   boolean_T gyro_meas_valid[3];
 } sensor_bus;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_cdh_data_
+#define DEFINED_TYPEDEF_FOR_cdh_data_
+
+typedef struct {
+  real_T orbit_tle[9];
+  real_T MET_utc_s;
+  real_T target_latlonalt[3];
+  real_T telecom[7];
+  boolean_T triad_override;
+} cdh_data;
 
 #endif
 
@@ -66,6 +79,17 @@ typedef struct {
   real_T g_facet[6];
   real_T inrm2[6];
 } RWA;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_fsw_out_
+#define DEFINED_TYPEDEF_FOR_fsw_out_
+
+typedef struct {
+  real_T rwa_cmd_rpm[4];
+  real_T mtq_cmd_Am2[5];
+  real_T gnc_telemetry[6];
+} fsw_out;
 
 #endif
 
