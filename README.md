@@ -1,7 +1,7 @@
 # soci-gnc
 Development of the on-board GNC software for the SOC-i mission.
 
-##General Team Pracitces:
+## General Team Pracitces:
 
 ### FSW Libraries
 - all code should be packaged into simulink libraries

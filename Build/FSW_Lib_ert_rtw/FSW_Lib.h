@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.225
+ * Model version                  : 1.232
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Sep  3 09:54:35 2020
+ * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -198,26 +198,21 @@ typedef struct {
    */
   real_T pooled24[15];
 
-  /* Pooled Parameter (Expression: fswParams.controllers.desaturation.ht)
+  /* Pooled Parameter (Mixed Expressions)
    * Referenced by:
    *   '<S107>/Constant1'
+   *   '<S157>/Discrete-Time Integrator'
+   *   '<S164>/h_wheel_targ_Nms'
    *   '<S145>/wheel_momentum_target'
    */
   real_T pooled26[4];
 
   /* Pooled Parameter (Mixed Expressions)
    * Referenced by:
-   *   '<S157>/Discrete-Time Integrator'
-   *   '<S164>/h_wheel_targ_Nms'
-   */
-  real_T pooled28[4];
-
-  /* Pooled Parameter (Mixed Expressions)
-   * Referenced by:
    *   '<S5>/Constant'
    *   '<S165>/Constant'
    */
-  real_T pooled30[12];
+  real_T pooled29[12];
 
   /* Expression: fswParams.rwa.inv_inertia
    * Referenced by: '<S157>/Constant'
@@ -238,19 +233,13 @@ typedef struct {
 /* External inputs (root inport signals with default storage) */
 typedef struct {
   sensor_bus sensor_meas;              /* '<Root>/sensor_meas' */
-  real_T orbit_tle[9];                 /* '<Root>/orbit_tle' */
-  real_T MET_utc_s;                    /* '<Root>/MET_utc_s' */
-  real_T target_latlonalt[3];          /* '<Root>/target_latlonalt' */
-  real_T telecom[7];                   /* '<Root>/telecom' */
-  boolean_T TRIAD_override;            /* '<Root>/TRIAD_override' */
+  cdh_data telecommands;               /* '<Root>/telecommands' */
   actuator_meas act_meas;              /* '<Root>/act_meas' */
 } ExtU;
 
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
-  real_T RWA_cmd_rpm[4];               /* '<Root>/RWA_cmd_rpm' */
-  real_T MTQ_cmd_Am2[5];               /* '<Root>/MTQ_cmd_Am2' */
-  real_T gnc_telemetry[6];             /* '<Root>/gnc_telemetry' */
+  fsw_out fsw_out_j;                   /* '<Root>/fsw_out' */
 } ExtY;
 
 /* Real-time Model Data Structure */
@@ -363,6 +352,7 @@ extern RT_MODEL *const rtM;
  * Block '<S3>/mag_body_t_rt1' : Eliminated since input and output rates are identical
  * Block '<S3>/mag_valid_rt1' : Eliminated since input and output rates are identical
  * Block '<S3>/sun_valid_rt1' : Eliminated since input and output rates are identical
+ * Block '<S1>/Rate Transition' : Eliminated since input and output rates are identical
  * Block '<S4>/Rate Transition4' : Eliminated since input and output rates are identical
  * Block '<S5>/Rate Transition' : Eliminated since input and output rates are identical
  * Block '<S5>/Rate Transition3' : Eliminated since input and output rates are identical
@@ -409,7 +399,7 @@ extern RT_MODEL *const rtM;
  * '<S5>'   : 'Main_Sim/FSW_Lib/allocation_lib'
  * '<S6>'   : 'Main_Sim/FSW_Lib/control_command_generation_lib'
  * '<S7>'   : 'Main_Sim/FSW_Lib/environmentEstimation_lib'
- * '<S8>'   : 'Main_Sim/FSW_Lib/fsw_bus'
+ * '<S8>'   : 'Main_Sim/FSW_Lib/fsw_out_bus'
  * '<S9>'   : 'Main_Sim/FSW_Lib/mode_select_lib'
  * '<S10>'  : 'Main_Sim/FSW_Lib/target_generation_lib_nadir'
  * '<S11>'  : 'Main_Sim/FSW_Lib/Conversion_lib/sunsensor_body_deg2rad'

@@ -42,6 +42,7 @@
 // #elif (defined __APPLE__)
 
 #include <mach/mach_time.h>
+#include <stdint.h>
 
 /* Use MAC OSX  mach_time for timing */
 typedef struct timer{

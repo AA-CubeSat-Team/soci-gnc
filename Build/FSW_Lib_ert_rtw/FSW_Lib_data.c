@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.225
+ * Model version                  : 1.232
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Sep  3 09:54:35 2020
+ * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -179,17 +179,12 @@ const ConstP rtConstP = {
   { 0.5, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0
   },
 
-  /* Pooled Parameter (Expression: fswParams.controllers.desaturation.ht)
-   * Referenced by:
-   *   '<S107>/Constant1'
-   *   '<S145>/wheel_momentum_target'
-   */
-  { 0.029526, -0.029526, 0.029526, -0.029526 },
-
   /* Pooled Parameter (Mixed Expressions)
    * Referenced by:
+   *   '<S107>/Constant1'
    *   '<S157>/Discrete-Time Integrator'
    *   '<S164>/h_wheel_targ_Nms'
+   *   '<S145>/wheel_momentum_target'
    */
   { 0.0030919554896630744, -0.0030919554896630744, 0.0030919554896630744,
     -0.0030919554896630744 },

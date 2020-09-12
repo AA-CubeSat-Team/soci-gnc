@@ -25,7 +25,7 @@ estimation.ic.B_eci_unit_rt         = [0;0;0];
 estimation.ic.sunsensor_body_rad_rt = [0;0;0];
 estimation.ic.mag_body_rt           = [0;0;0];
 estimation.ic.gyro_meas_rt          = [0;0;0];
-estimation.ic.triad_input_rt        = 0;
+estimation.ic.triad_input_rt        = 1; % activate this on the first iteration
 
 % Create covariance matrix for estimate %
 P_0_a = 10e-10;     % attitude
