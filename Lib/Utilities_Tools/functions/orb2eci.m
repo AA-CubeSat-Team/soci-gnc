@@ -1,73 +1,53 @@
-function [r, v] = orb2eci(oev)
-
-% convert classical orbital elements to eci state vector for Earth
+function [r_km, v_kmps] = orb2eci(coe)
+%ORB2ECI
+%
+% Convert classical orbital elements to inertial position and velocity.
+% Inertial frame matches that which is defined by the incoming orbital
+% elements.
+%
+% Inputs: 
+%   - coe [6x1] : set of classical orbital elements with
+%            coe(1) = semimajor axis [km]
+%            coe(2) = eccentricity [-] in [0,1)
+%            coe(3) = inclination [rad] in [0,pi]
+%            coe(5) = right ascension of ascending node [rad] in [0,2*pi]
+%            coe(4) = argument of perigee [rad] in [0,2*pi]
+%            coe(6) = true anomaly [rad] in [0,2*pi]
+%
+% Outputs:
+%   - r [3x1] : inertial position [km]
+%   - v [3x1] : inertial velocity [km/s]
+%
+% T. P. Reynolds
 
 % constants
-mu = 398600.4418; %  Standard gravitational parameter for the earth
+mu = 398600.4418; % [km3/s2] standard gravitational parameter for the earth
 
-% input
+% unload orbital elements array  
+a       = coe(1);
+ECC     = coe(2);
+INC     = coe(3);
+RAAN    = coe(4);
+AOP     = coe(5);
+TRA     = coe(6);
 
-%  oev(1) = semimajor axis (kilometers)
-%  oev(2) = orbital eccentricity (non-dimensional)
-%           (0 <= eccentricity < 1)
-%  oev(3) = orbital inclination (radians)
-%           (0 <= inclination <= pi)
-%  oev(4) = argument of perigee (radians)
-%           (0 <= argument of perigee <= 2 pi)
-%  oev(5) = right ascension of ascending node (radians)
-%           (0 <= raan <= 2 pi)
-%  oev(6) = true anomaly (radians)
-%           (0 <= true anomaly <= 2 pi)
+sTRA = sin(TRA);
+cTRA = cos(TRA);
 
-% output
+% compute semiparameter
+p = a * (1 - ECC * ECC);
 
-%  r = eci position vector (meters)
-%  v = eci velocity vector (meters/second)
+% compute position and velocity in perifocal frame
+den  = 1 + ECC * cos(TRA);
+temp = sqrt(mu/p); 
+r_PQW = [ p*cTRA/den; p*sTRA/den; 0.0 ];
+v_PQW = [ -temp*sTRA; temp*(ECC+cTRA); 0.0 ];
 
-% Orbital Mechanics with Matlab
+% compute rotation from perifocal to inertial frame
+R = rot(-RAAN,'z') * rot(-INC,'x') * rot(-AOP,'z');
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% rotate into the inertial frame
+r_km    = R * r_PQW;
+v_kmps  = R * v_PQW;
 
-r = zeros(3, 1);
-v = zeros(3, 1);
-
-% unload orbital elements array
-   
-sma = oev(1);
-ecc = oev(2);
-inc = oev(3) * pi/180;
-argper = oev(4) * pi/180;
-raan = oev(5) * pi/180;
-tanom = oev(6) * pi/180;
-
-slr = sma * (1 - ecc * ecc);
-
-rm = slr / (1 + ecc * cos(tanom));
-   
-arglat = argper + tanom;
-
-sarglat = sin(arglat);
-carglat = cos(arglat);
-   
-c4 = sqrt(mu / slr);
-c5 = ecc * cos(argper) + carglat;
-c6 = ecc * sin(argper) + sarglat;
-
-sinc = sin(inc);
-cinc = cos(inc);
-
-sraan = sin(raan);
-craan = cos(raan);
-
-% position vector
-
-r(1) = rm * (craan * carglat - sraan * cinc * sarglat) * 1e3;
-r(2) = rm * (sraan * carglat + cinc * sarglat * craan) * 1e3;
-r(3) = rm * sinc * sarglat * 1e3;
-
-% velocity vector
-
-v(1) = -c4 * (craan * c6 + sraan * cinc * c5) * 1e3;
-v(2) = -c4 * (sraan * c6 - craan * cinc * c5) * 1e3;
-v(3) = c4 * c5 * sinc * 1e3;
-
+end

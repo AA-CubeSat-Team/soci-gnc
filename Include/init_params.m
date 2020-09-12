@@ -23,9 +23,6 @@ load('busDefinitions.mat')
 % Create initial conditions such or Orbital elements and q0/w0
 [fswParams,simParams] = intitialConditions_init(fswParams,simParams,TLE);
 
-% Constants associated with the time conversions
-[fswParams,simParams] = time_init(fswParams,simParams);
-
 % sets up the constants for the atmospheric drag model
 % [fswParams,simParams] = atmoDrag_init(fswParams,simParams);
 
