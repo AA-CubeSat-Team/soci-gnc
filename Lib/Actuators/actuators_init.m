@@ -120,10 +120,15 @@ mtq.id_z = find(mtq.normals(:,3));
 mtq.max_dipoles_Am2 = [0.0515;0.0515;0.131]; % per axis
 
 % electric characteristics (per axis)
-mtq.voltage     = [5;5;3.3];                        % V
-mtq.max_current = [0.216;0.216;0.078];              % A
-mtq.P_max_W     = mtq.voltage .* mtq.max_current;   % W
+mtq.voltage     = [ 5; 5; 3.3 ];                        % V
+mtq.max_current = [ 0.216; 0.216; 0.078 ];              % A
+mtq.P_max_W     = mtq.voltage .* mtq.max_current;       % W
 mtq.dipole_to_power = mtq.P_max_W./mtq.max_dipoles_Am2; % map dipole to power
+
+% noise characteristics
+mtq.noise       = 1;                            % 0 = no noise, 1 = added noise
+mtq.variance    = 0.001 .* mtq.max_dipoles_Am2; % variance of cmd is 0.1%
+mtq.seed        = [ 101; 102; 103 ];            % seeds for RNG
 
 % add mtq to actuators struct
 actuators.mtq = mtq;

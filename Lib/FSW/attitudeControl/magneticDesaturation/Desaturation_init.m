@@ -44,10 +44,10 @@ Jw = fswParams.rwa.inertia(1,1); % [kgm2] inertia of the individual wheels.
 desaturation.Jw = Jw;
 
 % make this steady-state wheel speed dependent on allocation null space?
-ss_rate_rpm = 1000*[1, -1, 1, -1]; 
+ss_rate_rpm = 1000*[ 1; -1; 1; -1 ]; 
 ss_rate_radps = simParams.constants.convert.RPM2RPS * ss_rate_rpm;
 % create an angular momentum target
-desaturation.ht = Jw*ss_rate_radps; % [Nms] 
+desaturation.ht_Nms = Jw*ss_rate_radps; % [Nms] 
 
 % limits how quickly spindown happens. limits power consumption
 % and limits oscillations once at nominal rpm but not out of desat.
