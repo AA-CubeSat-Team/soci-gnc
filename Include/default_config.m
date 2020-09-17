@@ -39,25 +39,22 @@ target_alt_m.set('Value','44.0');
 override_autonomy = cdh.Parameters(4);
 override_autonomy.set('Value','0');
 %
-recent_reboot = cdh.Parameters(5);
-recent_reboot.set('Type','checkbox','Value','off');
-%
-enable_pointing = cdh.Parameters(6);
+enable_pointing = cdh.Parameters(5);
 enable_pointing.set('Type','checkbox','Value','off');
 %
-force_clpm = cdh.Parameters(7);
+force_clpm = cdh.Parameters(6);
 force_clpm.set('Type','checkbox','Value','off');
 %
-force_lpm = cdh.Parameters(8);
+force_lpm = cdh.Parameters(7);
 force_lpm.set('Type','checkbox','Value','off');
 %
-enable_img = cdh.Parameters(9);
+enable_img = cdh.Parameters(8);
 enable_img.set('Type','checkbox','Value','off');
 %
-enable_soar = cdh.Parameters(10);
+enable_soar = cdh.Parameters(9);
 enable_soar.set('Type','checkbox','Value','off');
 %
-triad_override = cdh.Parameters(11);
+triad_override = cdh.Parameters(10);
 triad_override.set('Type','checkbox','Value','off');
 
 end

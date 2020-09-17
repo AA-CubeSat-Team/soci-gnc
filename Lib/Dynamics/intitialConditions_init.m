@@ -46,6 +46,12 @@ ic.w_body_radps = [ 0.0; 0.0; 0.0 ];
 % convert to ECI pos/vel
 ic.r_eci_km     = teme_to_eci * r0_teme_km;
 ic.v_eci_kmps	= teme_to_eci * v0_teme_kmps;
+% compute initial LLA
+r_ecef_m = simParams.constants.convert.KM2M * ( ecef_2_eci' * ic.r_eci_km );
+lla = ecef2lla(r_ecef_m');
+ic.lat_deg = lla(1);
+ic.lon_deg = lla(2);
+ic.alt_m   = lla(3);
 % collect state into one signal
 ic.all = [ ic.r_eci_km; 
            ic.v_eci_kmps; 
