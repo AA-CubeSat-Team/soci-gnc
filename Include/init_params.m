@@ -51,7 +51,7 @@ load('busDefinitions.mat')
 [fswParams,simParams] = MEKF_init(fswParams,simParams);
 
 % sets up constants associated with environmental estimation
-[fswParams,simParams] = environmentEstimation_init(fswParams,simParams);
+[fswParams,simParams] = groundpass_predict_init(fswParams,simParams);
 
 % sets up constants associated with the operating mode selection
 [fswParams,simParams] = modeSelect_init(fswParams,simParams);
