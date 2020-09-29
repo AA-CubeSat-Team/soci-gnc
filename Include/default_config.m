@@ -28,34 +28,34 @@ simParams.sample_time_s = 0.1; % sample at 200Hz
 % Set initial CDH commands
 cdh = Simulink.Mask.get('Main_Sim/CDH_command_lib');
 target_lat_deg = cdh.Parameters(1);
-target_lat_deg.set('Value','47.0');
+target_lat_deg.set('Value','44.0');
 %
 target_lon_deg = cdh.Parameters(2);
-target_lon_deg.set('Value','-122.0');
+target_lon_deg.set('Value','-76.5');
 %
 target_alt_m = cdh.Parameters(3);
-target_alt_m.set('Value','44.0');
+target_alt_m.set('Value','0.0');
 %
 override_autonomy = cdh.Parameters(4);
 override_autonomy.set('Value','0');
 %
 enable_pointing = cdh.Parameters(5);
-enable_pointing.set('Type','checkbox','Value','off');
+enable_pointing.set('Value','off');
 %
 force_clpm = cdh.Parameters(6);
-force_clpm.set('Type','checkbox','Value','off');
+force_clpm.set('Value','off');
 %
 force_lpm = cdh.Parameters(7);
-force_lpm.set('Type','checkbox','Value','off');
+force_lpm.set('Value','off');
 %
 enable_img = cdh.Parameters(8);
-enable_img.set('Type','checkbox','Value','off');
+enable_img.set('Value','off');
 %
 enable_soar = cdh.Parameters(9);
-enable_soar.set('Type','checkbox','Value','off');
+enable_soar.set('Value','off');
 %
 triad_override = cdh.Parameters(10);
-triad_override.set('Type','checkbox','Value','off');
+triad_override.set('Value','off');
 
 end
 
