@@ -39,6 +39,9 @@ scParams.Az = scParams.x_len * scParams.y_len;
 % Residual dipole moment
 scParams.res_dipole_Am2 = [ 0.0; 0.0; 0.0 ];
 
+% Offset about +Z axis to maximize solar incidence in solar panel arrays
+scParams.ss_offset_rad = fswParams.constants.convert.DEG2RAD * 40;
+
 % Initialize battery model
 % battery_init;
 
