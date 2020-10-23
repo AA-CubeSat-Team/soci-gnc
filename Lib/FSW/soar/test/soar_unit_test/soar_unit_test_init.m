@@ -10,7 +10,7 @@
 
 soar_params = fswParams.soar;
 
-N = 10; % number of discretization nodes
+N     = 10; % number of discretization nodes
 w_max = 0.1;
 T_max = 2.3e-3;
 Jw    = diag([2.9382e-5,2.9382e-5,2.9382e-5]);

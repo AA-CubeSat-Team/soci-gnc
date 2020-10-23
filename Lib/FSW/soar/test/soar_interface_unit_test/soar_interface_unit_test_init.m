@@ -14,15 +14,15 @@ Jw      = simParams.actuators.rwa.inertia;
 Aw      = simParams.actuators.rwa.Aw;
 J       = soar_params.inertia;
 RPM2RADPS = fswParams.constants.convert.RPM2RPS;
-sc_mode   = 33;
-GPS_epoch = simParams.environment.sgp4.gps_time; % epoch and GPS time
+sc_mode   = 8;
+MET_epoch = simParams.time.epoch_utc_s; % MET epoch
 
 % initial conditions
 ax       = [0.72756;0.027687;0.68549];
 ax       = ax./norm(ax);
-ang      = 38.667;
-quat_in  = [0.92608;0.20851;-0.0048867;-0.31446];%[ cosd(ang/2); sind(ang/2).*ax ];
-omega_in = [0.00012082;0.00014607;0.021011];
+ang      = 68.667;
+quat_in  = [ cosd(ang/2); sind(ang/2).*ax ]; %[0.92608;0.20851;-0.0048867;-0.31446];
+omega_in = [0.00012082;0.00014607;0.021011]; 
 Om0      = [ 905.63; -1062.5; 988.37; -992 ];    % initial wheel RPM
 hw0      = Aw * Jw * (RPM2RADPS * Om0);     % initial wheel momentum
 hw_in    = [2.1259e-6;5.8341e-6;-8.6055e-7];%horzcat(eye(3),zeros(3,1)) * hw0;
@@ -35,7 +35,7 @@ fswParams.control.cmd_processing.ic.momentum   = hw0;
 
 % final conditions
 q_err       = [ cosd(2/2); sind(2/2).*ax ];
-quat_cmd    = [1.0;0.0;0.0;0.0];%quatmultiply(q_err',quat_in')';%[ 1.0; 0.0; 0.0; 0.0 ];
+quat_cmd    = [ 1.0; 0.0; 0.0; 0.0 ];%quatmultiply(q_err',quat_in')';%[ 1.0; 0.0; 0.0; 0.0 ];
 omega_cmd   = [ 0.0; 0.0; 0.0 ];
 
 % inertial sun vector
@@ -57,7 +57,7 @@ filename = strcat('soar_interface_test_inputs','_',num2str(1/soar_params.sample_
 flag = write_testinput_file(filename,...
             sc_mode_.Data,quat_in_.Data,omega_in_.Data,hw_in_.Data,...
             quat_cmd_.Data,omega_cmd_.Data,sI_unit_.Data,...
-            GPS_epoch_.Data,GPS_time_.Data);
+            MET_epoch_.Data,MET_time_.Data);
 
 u_opt = command_torque;
 x_opt = command_state;
@@ -92,12 +92,5 @@ plot(tout,u_opt,'LineWidth',1)
 xlabel('Time [s]')
 title('Feedforward Control Signal')
 
-for k = 1:length(x_opt)
-    qk = x_opt(k,1:4);
-    q_err = quatmultiply(quatconj(qk),quat_cmd')';
-    deg_err(k) = real(2*acosd(q_err(1)));
-end
 figure, hold on, grid on, box on
-plot(tout,deg_err,'LineWidth',1)
-
-
+plot(tout,err_deg,'LineWidth',1)

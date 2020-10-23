@@ -11,7 +11,7 @@ asm   = struct;
 J     = fswParams.scParams.J;
 wn    = 0.5;
 zeta  = sqrt(2)/2;
-asm.C = 2*zeta*wn*J;
+asm.C = -2*zeta*wn*J;
 
 fswParams.controllers.asm = asm;
 
