@@ -11,7 +11,7 @@ reorientation   = struct;
 reorientation.J = simParams.scParams.J;
 
 % mappings from body torques to wheel torques
-reorientation.A   = simParams.actuators.rwa.Aw(1:3,:);
+reorientation.A   = simParams.actuators.rwa.A_wheel2body;
 reorientation.Phi = pinv(reorientation.A);
 % reorientation.Phi = simParams.actuators.rwa.iAw(:,1:3);
 

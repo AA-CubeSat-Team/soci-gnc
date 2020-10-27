@@ -10,7 +10,8 @@ q0 = q0/norm(q0);     % initial orientation
 simParams.initialConditions.q_eci2body = q0;
 
 w0 = rand(3, 1);
-w0 = (20*pi/180)*w0/norm(w0);
+w0 = (12*pi/180)*w0/norm(w0);
 simParams.initialConditions.w_body_radps = w0;
 
-% fswParams.controllers.asm.C = 100 * fswParams.controllers.asm.C;
+rwa_rpm = simParams.initialConditions.rwa.radps ...
+            * simParams.constants.convert.RPS2RPM;
