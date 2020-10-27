@@ -9,8 +9,9 @@ function [fswParams,simParams] = asmController_init(fswParams,simParams)
 
 asm   = struct;
 J     = fswParams.scParams.J;
-wn    = 0.5;
+wn    = 0.25;
 zeta  = sqrt(2)/2;
+% keep this value positive
 asm.C = 2*zeta*wn*J;
 
 fswParams.controllers.asm = asm;

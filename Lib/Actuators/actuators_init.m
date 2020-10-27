@@ -29,9 +29,9 @@ rwa.cant_angle = 23 * simParams.constants.convert.DEG2RAD; % rad
 % mapping from wheel frame to body frame ( body = Aw * wheel )
 cb = cos(rwa.cant_angle);
 sb = sin(rwa.cant_angle);
-rwa.Aw = [ cb    0   -cb    0;
-            0   cb     0  -cb;
-           sb   sb    sb   sb ];
+rwa.A_wheel2body = [ cb    0   -cb    0;
+                      0   cb     0  -cb;
+                     sb   sb    sb   sb ];
 
 % motor transfer functions
 num1         = [ rwa.inertia(1,1), 0 ];
@@ -76,23 +76,14 @@ simParams.initialConditions.rwa.radps = simParams.constants.convert.RPM2RPS ...
                                     * simParams.initialConditions.rwa.rpm;
 simParams.initialConditions.rwa.h_wheel_Nms = rwa.inertia ...
                                     * simParams.initialConditions.rwa.radps;
-h_body_Nms = rwa.Aw * simParams.initialConditions.rwa.h_wheel_Nms; 
+h_body_Nms = rwa.A_wheel2body * simParams.initialConditions.rwa.h_wheel_Nms; 
 simParams.initialConditions.rwa.h_body_Nms = h_body_Nms(1:3);
 simParams.initialConditions.rwa.power_W  = zeros(rwa.num_wheels,1);
 simParams.initialConditions.rwa.torque_wheel_Nm = zeros(rwa.num_wheels,1); 
-torque_body_Nm = rwa.Aw * simParams.initialConditions.rwa.torque_wheel_Nm;
+torque_body_Nm = rwa.A_wheel2body * simParams.initialConditions.rwa.torque_wheel_Nm;
 simParams.initialConditions.rwa.torque_body_Nm = torque_body_Nm(1:3); 
 simParams.initialConditions.rwa.rt1     = 0;
 simParams.initialConditions.rwa.deriv1  = 0;
-
-% Add minimal stuff required for FSW version of the rwa struct
-rwa_fsw = struct;
-rwa_fsw.inertia         = rwa.inertia;
-rwa_fsw.inv_inertia     = eye(rwa.num_wheels)/rwa.inertia;
-rwa_fsw.max_torque_Nm   = rwa.max_torque_Nm;
-rwa_fsw.max_RPM         = rwa.max_RPM;
-rwa_fsw.A               = rwa.Aw(1:3,:);
-rwa_fsw.targ_rpm        = [ 1000; -1000; 1000; -1000 ];
 
 % add to actuators struct
 actuators.rwa = rwa;
@@ -133,8 +124,7 @@ mtq.seed        = [ 101; 102; 103 ];            % seeds for RNG
 % add mtq to actuators struct
 actuators.mtq = mtq;
 
-% add actuators struct to both fsw and sim params
+%% Add to main struct
 simParams.actuators = actuators; 
-fswParams.rwa = rwa_fsw;
 
 end

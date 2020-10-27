@@ -40,7 +40,7 @@ desaturation.B_vec = B*B_vec/norm(B_vec);
 m = simParams.actuators.mtq.max_dipoles_Am2(1);
 desaturation.maxDipole = m; % [Am2] max dipole our magtorquers can generate. 
 desaturation.T         = diag([1/m; 1/m; 1/m; 1/m; 1/(2*m)]);
-Jw = fswParams.rwa.inertia(1,1); % [kgm2] inertia of the individual wheels.
+Jw = simParams.actuators.rwa.inertia(1,1); % [kgm2] inertia of the individual wheels.
 desaturation.Jw = Jw;
 
 % make this steady-state wheel speed dependent on allocation null space?
