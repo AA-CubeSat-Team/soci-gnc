@@ -84,7 +84,10 @@ sun_sensor.ss2body = sun_sensor.body2ss';
 sun_sensor.noise = true;
                        
 % degree variance: 0.5 is total 3sigma bound, split between two angles
-sun_sensor.deg_var = 0.5/(sqrt(2)*3.0);
+% after some trial and error, this value of variance gives the right
+% statistics on the *error angle*, which is the thing that should have a
+% 3-sigma variance of 0.5 degrees. See Test/Sensors/sunsensor_error_test.slx
+sun_sensor.deg_var = 0.02357;
 
 % set (arbitrarily chosen) noise seeds
 sun_sensor.seed = [ 101; 102 ];

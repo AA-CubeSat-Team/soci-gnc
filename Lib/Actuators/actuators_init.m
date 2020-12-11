@@ -68,7 +68,7 @@ rwa.mech_eff       = 1.452; %.182; % 18 percent efficient.
                             % eff = .182
                            
 % variance to simulate wheel jitter
-rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
+rwa.rpm_variance   = 0.0;% (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
 
 % initial conditions
 simParams.initialConditions.rwa.rpm = [ 1000; -1000; 1000; -1000 ];
