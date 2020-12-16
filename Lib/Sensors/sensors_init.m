@@ -23,7 +23,11 @@ mag.sample_time_s = simParams.sample_time_s;
 mag.ic.B_eci_T = [1e-9;0;0];
 
 % toggle sensor noise
-mag.noise = [ true; true; true ];
+if (simParams.opts.sensor_noise)
+    mag.noise = [ true; true; true ];
+else
+    mag.noise = [ false; false; false ];
+end
 
 % loop through each sensor to set sensor specific values
 for k = 1:mag.N_mag
@@ -54,12 +58,19 @@ for k = 1:gyro.N_gyro
    gyro.seed_arw(:,k) = (11*(k-1)+(1:gyro.N_gyro))';
    gyro.seed_rrw(:,k) = (10*(k+2)+(1:gyro.N_gyro))';
    % set noise characterisitics 
-   gyro.arw(k) = sqrt(10)*1e-7;     % angle random walk
-   gyro.rrw(k) = sqrt(10)*1e-10;    % rate random walk
+   if (simParams.opts.sensor_noise)
+       gyro.arw(k) = sqrt(10)*1e-7;     % angle random walk
+       gyro.rrw(k) = sqrt(10)*1e-10;    % rate random walk
+       % set initial bias
+       gyro.bias_init(:,k) = 0.1*(1/3600)*(pi/180)*[1; 1; 1];
+   else
+       gyro.arw(k) = 0.0;
+       gyro.rrw(k) = 0.0;
+       % set initial bias
+       gyro.bias_init(:,k) = zeros(3,1);
+   end
    % set sensor resolution (Bosch BMI055)
    gyro.resolution(k) = simParams.constants.convert.DEG2RAD * 0.004;
-   % set initial bias
-   gyro.bias_init(:,k) = 0.1*(1/3600)*(pi/180)*[1; 1; 1]; 
    % set range of sensor
    gyro.w_min(k) = -simParams.constants.convert.DEG2RAD * 125;   % rad/s
    gyro.w_max(k) =  simParams.constants.convert.DEG2RAD * 125;   % rad/s
@@ -81,7 +92,11 @@ sun_sensor.body2ss = [ -1.0, 0.0, 0.0;
 sun_sensor.ss2body = sun_sensor.body2ss';
 
 % toggle sensor noise
-sun_sensor.noise = true;
+if (simParams.opts.sensor_noise)
+    sun_sensor.noise = true;
+else
+    sun_sensor.noise = false;
+end
                        
 % degree variance: 0.5 is total 3sigma bound, split between two angles
 % after some trial and error, this value of variance gives the right
