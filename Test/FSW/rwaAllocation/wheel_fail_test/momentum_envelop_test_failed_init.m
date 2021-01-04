@@ -1,5 +1,5 @@
 % fail a wheel
-id_failed = 4;
+id_failed = 1;
 
 % parameters for the sim
 rwa_valid = [ true; true; true; true ];

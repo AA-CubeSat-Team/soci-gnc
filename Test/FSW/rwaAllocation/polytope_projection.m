@@ -10,7 +10,7 @@ W = [  cb,   0, -cb,  0;
        sb,  sb,  sb,  sb ];
        
 n = 4;
-H_max = 3.2e-3;
+H_max = 3.2;
 
 % generate points from 4D hypercube
 HI4 = H_max * eye(n);
@@ -30,9 +30,11 @@ P(:,3) = P(:,3) - 2*sb*H_max;
 
 figure(2), clf, hold on, grid on, box on
 K = convhull(P(:,1),P(:,2),P(:,3),'simplify',true);
-trisurf(K,P(:,1),P(:,2),P(:,3),'FaceColor','cyan','FaceAlpha',0.2,'EdgeColor','cyan')
-plot3(P(:,1),P(:,2),P(:,3),'r*','MarkerSize',5,'MarkerFaceColor','r')
-xlabel('x'), ylabel('y'), zlabel('z')
+trisurf(K,P(:,1),P(:,2),P(:,3),'FaceColor','cyan','FaceAlpha',0.75,'EdgeColor','b')
+plot3(P(:,1),P(:,2),P(:,3),'b*','MarkerSize',5,'MarkerFaceColor','b')
+xlabel('$x_{\mathcal{B}}$ [mNm]','FontSize',16,'Interpreter','latex'), 
+ylabel('$y_{\mathcal{B}}$ [mNm]','FontSize',16,'Interpreter','latex'), 
+zlabel('$z_{\mathcal{B}}$ [mNm]','FontSize',16,'Interpreter','latex'), 
 
 n_pair = 1:n;
 pairs = combnk(1:n,2);
@@ -63,7 +65,7 @@ for p = 1:size(pairs,1)
 end
 
 % Generate/project some random vectors for verification
-for k = 1:10
+for k = 1:1
     v = 1.25*H_max * randn(3,1);
     quiver3(0,0,0,v(1),v(2),v(3),'r','LineWidth',1)
 
@@ -79,5 +81,5 @@ for k = 1:10
     else
         x = v;
     end
-    quiver3(0,0,0,x(1),x(2),x(3),'b','LineWidth',1)
+    quiver3(0,0,0,x(1),x(2),x(3),'k','LineWidth',2)
 end

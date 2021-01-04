@@ -68,7 +68,13 @@ rwa.mech_eff       = 1.452; %.182; % 18 percent efficient.
                             % eff = .182
                            
 % variance to simulate wheel jitter
-rwa.rpm_variance   = (1/3)^2;   % amounts to 3sigma about +- 1 rpm 
+if (simParams.opts.actuator_model > 0)
+    % amounts to 3sigma about +- 1 rpm 
+    rwa.rpm_variance = (1/3)^2 .* ones(rwa.num_wheels,1); 
+else
+    rwa.rpm_variance = zeros(rwa.num_wheels,1);
+end
+rwa.seed = [ 345; 346; 347; 348 ];
 
 % initial conditions
 simParams.initialConditions.rwa.rpm = [ 1000; -1000; 1000; -1000 ];
@@ -117,8 +123,13 @@ mtq.P_max_W     = mtq.voltage .* mtq.max_current;       % W
 mtq.dipole_to_power = mtq.P_max_W./mtq.max_dipoles_Am2; % map dipole to power
 
 % noise characteristics
-mtq.noise       = 1;                            % 0 = no noise, 1 = added noise
-mtq.variance    = 0.001 .* mtq.max_dipoles_Am2; % variance of cmd is 0.1%
+if ( simParams.opts.actuator_model == 0 ) 
+    mtq.noise       = 0;                           
+    mtq.variance    = 0; 
+else
+    mtq.noise       = 1;                            
+    mtq.variance    = 0.001 .* mtq.max_dipoles_Am2; % variance of cmd is 0.1%
+end
 mtq.seed        = [ 101; 102; 103 ];            % seeds for RNG
 
 % add mtq to actuators struct

@@ -3,21 +3,15 @@
 %
 % Author: Cole Morgan
 
-clc;
-% controller1 = struct;
+q0 = simParams.initialConditions.q_eci2body;
 
-q0 = [0.6157; 0.265; 0.265; -.6930]; % cannot be qd;
-q0 = q0/norm(q0);     % initial orientation
-simParams.initialConditions.q0 = q0;
+a = deg2rad(60);
+n = randn(3,1);
+n = n./norm(n);
 
-qd = [-0.6157; 0.265; -0.265; -.6930];
-qd = qd/norm(qd);
+q_err = [ cos(a/2); sin(a/2).*n ];
 
-w0 = [0;0;0]; %rest to rest reorientation
-simParams.initialConditions.w0 = w0;
+quat_cmd = quatmultiply( q0', quatconj(q_err') )';
+quat_cmd = quat_cmd/norm(quat_cmd);
 
-% fswParams.controllers.controller1 = controller1;
-
-% clear controller1 
-% clear alpha A K w_max i q0 qd w0 m
-% clearvars -except fswParams simParams TLE
+w_cmd_radps = zeros(3,1);

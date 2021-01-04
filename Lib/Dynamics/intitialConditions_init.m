@@ -35,7 +35,8 @@ ic.ecef_2_eci = ecef_2_eci;
 
 %%   Attitude dynamics   
 
-ic.q_eci2body   = [ 1; 0; 0; 0 ];
+ic.q_eci2body   = [ 0.12; -0.31; 0.9; 0.28 ];
+ic.q_eci2body   = ic.q_eci2body./norm(ic.q_eci2body);
 ic.w_body_radps = [ 0.0; 0.0; 0.0 ];
  
 %%   Orbital  dynamics   
