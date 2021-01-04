@@ -15,9 +15,9 @@ fswParams = struct;
 simParams = struct;
 
 % simlation options
-simParams.opts.SP_ON   = 0;
+simParams.opts.SP_ON   = 1;
 simParams.opts.GG_ON   = 1;
-simParams.opts.ATMO_ON = 0;
+simParams.opts.ATMO_ON = 1;
 simParams.opts.sensor_noise = 0;
 simParams.opts.actuator_model = 0;
 
