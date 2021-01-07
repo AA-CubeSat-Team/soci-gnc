@@ -42,7 +42,7 @@ override_autonomy = cdh.Parameters(4);
 override_autonomy.set('Value','0');
 %
 enable_pointing = cdh.Parameters(5);
-enable_pointing.set('Value','off');
+enable_pointing.set('Value','on');
 %
 force_clpm = cdh.Parameters(6);
 force_clpm.set('Value','off');
@@ -57,7 +57,7 @@ enable_soar = cdh.Parameters(9);
 enable_soar.set('Value','off');
 %
 triad_override = cdh.Parameters(10);
-triad_override.set('Value','on');
+triad_override.set('Value','off');
 
 end
 
