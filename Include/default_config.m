@@ -22,10 +22,10 @@ simParams.opts.sensor_noise = 0;
 simParams.opts.actuator_model = 0;
 
 % FSW Parameters 
-fswParams.sample_time_s = 0.1; % sample at 10Hz
+fswParams.sample_time_s = 1/10;     % sample at 10Hz
 
 % Sim Parameters s
-simParams.sample_time_s = 1/200; % sample at 200Hz
+simParams.sample_time_s = 1/200;    % sample at 200Hz
 
 % Set initial CDH commands
 cdh = Simulink.Mask.get('Main_Sim/CDH_command_lib');
@@ -42,7 +42,7 @@ override_autonomy = cdh.Parameters(4);
 override_autonomy.set('Value','0');
 %
 enable_pointing = cdh.Parameters(5);
-enable_pointing.set('Value','off');
+enable_pointing.set('Value','on');
 %
 force_clpm = cdh.Parameters(6);
 force_clpm.set('Value','off');
@@ -57,7 +57,7 @@ enable_soar = cdh.Parameters(9);
 enable_soar.set('Value','off');
 %
 triad_override = cdh.Parameters(10);
-triad_override.set('Value','on');
+triad_override.set('Value','off');
 
 end
 

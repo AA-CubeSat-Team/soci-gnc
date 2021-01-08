@@ -4,7 +4,7 @@ Development of the on-board GNC software for the SOC-i mission.
 ## General Team Pracitces:
 
 ### FSW Libraries
-- all code should be packaged into simulink libraries
+All code should be packaged into simulink libraries. Whenever and as much as possible, native Simulink blocks should be used to carry out basic algebraic manipulations (as opposed to user-defined Matlab blocks). This will help ensure better C code when we autocode.
   - these should be "atomic" libraries, with code reuse enabled if the library gets used more than once
 - all math happens inside the libraries
   - avoid operations "just outside" the libraries (eg, don't transpose a matrix on the outside, pass it in, and transpose on the inside if needed)
