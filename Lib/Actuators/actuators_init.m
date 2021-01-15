@@ -114,11 +114,11 @@ mtq.id_y = find(mtq.normals(:,2));
 mtq.id_z = find(mtq.normals(:,3));
 
 % max dipoles
-mtq.max_dipoles_Am2 = [0.0515;0.0515;0.131]; % per axis
+mtq.max_dipoles_Am2 = [0.28;0.28;0.131]; % per axis
 
 % electric characteristics (per axis)
 mtq.voltage     = [ 5; 5; 3.3 ];                        % V
-mtq.max_current = [ 0.216; 0.216; 0.078 ];              % A
+mtq.max_current = [ 1.14; 1.14; 0.078 ];              % A
 mtq.P_max_W     = mtq.voltage .* mtq.max_current;       % W
 mtq.dipole_to_power = mtq.P_max_W./mtq.max_dipoles_Am2; % map dipole to power
 
