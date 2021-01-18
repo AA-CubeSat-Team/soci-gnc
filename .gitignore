@@ -9,9 +9,7 @@
 # Matlab
 *.m~
 *.mat
-!/Include/busDefinitions.mat
-!/Include/IOBusDefinitions.mat
-!/Include/pdController.mat
+!/Include/*.mat
 *.l
 
 # Other
