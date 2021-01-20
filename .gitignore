@@ -9,8 +9,7 @@
 # Matlab
 *.m~
 *.mat
-!/Include/busDefinitions.mat
-!/Include/IOBusDefinitions.mat
+!/Include/*.mat
 *.l
 
 # Other
