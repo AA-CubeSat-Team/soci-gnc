@@ -63,6 +63,7 @@ estimation.Rchol = chol(R,'lower');
 
 %% TRIAD Data %%
 estimation.triad_parallel_tol_deg = 1e-5;
+estimation.triad_cycles           = 10;
 
 %% Add to main struct %%
 fswParams.estimation = estimation;
