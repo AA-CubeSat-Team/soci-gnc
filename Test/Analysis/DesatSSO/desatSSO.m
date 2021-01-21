@@ -36,7 +36,7 @@ disturb_Nm = 2e-8;  % average disturbance magnitude
 
 % maximize the wheel spins in the nominal directions
 nomRPS  = diag([1,1,-1,-1]) * simParams.initialConditions.rwa.radps; % rad/s
-initRPS = 0.75 * maxRPS .* (nomRPS./norm(nomRPS,inf));               % rad/s
+initRPS = 0.25 * maxRPS .* (nomRPS./norm(nomRPS,inf));               % rad/s
 
 % compute required change in momentum
 nomHw   = A_w2b * Jw * nomRPS;      % body, Nms
