@@ -1,7 +1,7 @@
 # soci-gnc
 Development of the on-board GNC software for the SOC-i mission.
 
-## General Team Pracitces:
+## General Team Practices:
 
 ### FSW Libraries
 All code should be packaged into simulink libraries. Whenever and as much as possible, native Simulink blocks should be used to carry out basic algebraic manipulations (as opposed to user-defined Matlab blocks). This will help ensure better C code when we autocode.
