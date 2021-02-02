@@ -51,7 +51,7 @@ force_lpm = cdh.Parameters(7);
 force_lpm.set('Value','off');
 %
 enable_img = cdh.Parameters(8);
-enable_img.set('Value','off');
+enable_img.set('Value','on');
 %
 enable_soar = cdh.Parameters(9);
 enable_soar.set('Value','off');
