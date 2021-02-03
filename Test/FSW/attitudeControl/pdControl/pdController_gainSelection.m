@@ -24,10 +24,10 @@ pdController.Kd = zeros(3,1);
 pdController.bw = zeros(3,1);
 
 % design each axis to have the same damping ratio (not perfect SOS)
-zeta = 0.707;
+zeta = 1.0;
 % compute the value of wn s.t. the proportional gain will not use more
 % than u_max amount of torque for an error of e_max.
-wn = 1.0 * sqrt(u_max/(e_max * max(diag(simParams.scParams.J))));
+wn = 0.9 * sqrt(u_max/(e_max * max(diag(simParams.scParams.J))));
 
 opts = bodeoptions;
 opts.grid = 'on';

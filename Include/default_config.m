@@ -22,10 +22,10 @@ simParams.opts.sensor_noise = 0;
 simParams.opts.actuator_model = 0;
 
 % FSW Parameters 
-fswParams.sample_time_s = 1/10;     % sample at 10Hz
+fswParams.sample_time_s = 1/4;     % flight software sample rate
 
 % Sim Parameters s
-simParams.sample_time_s = 1/200;    % sample at 200Hz
+simParams.sample_time_s = (1/20) * fswParams.sample_time_s; % sample 20x faster
 
 % Set initial CDH commands
 cdh = Simulink.Mask.get('Main_Sim/CDH_command_lib');
