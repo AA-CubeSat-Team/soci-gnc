@@ -3,7 +3,7 @@
 % This file is always the first thing that should be run when doing
 % anything with this repository
 
-clear; clc; close all;
+clear; close all;
 
 % ~~~~~~~~~~~~~~~~~~~~~
 % Add Paths

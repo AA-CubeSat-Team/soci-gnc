@@ -10,9 +10,9 @@ targ = struct;
 DEG2RAD = fswParams.constants.convert.DEG2RAD;
 
 %% For the prediction of the UW AERB ground station
-targ(1).lat_gd_deg   = 47.653975;   % deg
-targ(1).lon_deg      = -122.305736; % deg
-targ(1).alt_m        = 44;          % meters altitude
+targ(1).lat_gd_deg   = 47.655548;   % deg
+targ(1).lon_deg      = -122.3032;   % deg
+targ(1).alt_m        = 0;           % meters altitude
 targ(1).ll_deg       = [ targ(1).lat_gd_deg, targ(1).lon_deg ];
 
 % compute the rotation matrix from COM frame to ECEF
