@@ -11,7 +11,7 @@ w_max   = soar_params.w_max;
 T_max   = soar_params.T_max;
 hw_max  = [ 37; 37; 31.3 ] * 1e-3; % Nms
 Jw      = simParams.actuators.rwa.inertia;
-Aw      = simParams.actuators.rwa.Aw;
+Aw      = simParams.actuators.rwa.A_wheel2body;
 J       = soar_params.inertia;
 RPM2RADPS = fswParams.constants.convert.RPM2RPS;
 sc_mode   = 8;
@@ -53,11 +53,11 @@ sim(mdl);
 %% analyze results
 
 % write input file
-filename = strcat('soar_interface_test_inputs','_',num2str(1/soar_params.sample_time_s),'Hz','.txt');
-flag = write_testinput_file(filename,...
-            sc_mode_.Data,quat_in_.Data,omega_in_.Data,hw_in_.Data,...
-            quat_cmd_.Data,omega_cmd_.Data,sI_unit_.Data,...
-            MET_epoch_.Data,MET_time_.Data);
+% filename = strcat('soar_interface_test_inputs','_',num2str(1/soar_params.sample_time_s),'Hz','.txt');
+% flag = write_testinput_file(filename,...
+%             sc_mode_.Data,quat_in_.Data,omega_in_.Data,hw_in_.Data,...
+%             quat_cmd_.Data,omega_cmd_.Data,sI_unit_.Data,...
+%             MET_epoch_.Data,MET_time_.Data);
 
 u_opt = command_torque;
 x_opt = command_state;

@@ -40,8 +40,8 @@ soar.dt = 1/(soar.N-1);
 % defined configuration dependent parameters
 switch soar.config
     case 'b'
-        soar.sample_time_s = (1/10); % sample time [s]
-        soar.interp_sample_time_s = (1/10); % interp sample time [s]
+        soar.sample_time_s = fswParams.sample_time_s;        % sample time [s]
+        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soac.m)
         soar.c_size   = 332;
         soar.Air_size = 1278;
@@ -58,8 +58,8 @@ switch soar.config
         soar.l_dim    = 322;
         soar.soc_dim  = 32;
     case 'bi'
-        soar.sample_time_s = (1/10); % sample time [s]
-        soar.interp_sample_time_s = (1/10); % interp sample time [s]
+        soar.sample_time_s = fswParams.sample_time_s;        % sample time [s]
+        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soac.m)
         soar.c_size   = 332;
         soar.Air_size = 1278;
@@ -76,8 +76,8 @@ switch soar.config
         soar.l_dim    = 322;
         soar.soc_dim  = [32;6;6;6;6;6;6;6;6;6;6];
     case 'bie'
-        soar.sample_time_s = (1/10); % sample time [s]
-        soar.interp_sample_time_s = (1/10); % interp sample time [s]
+        soar.sample_time_s = (1/4)*fswParams.sample_time_s;        % sample time [s]
+        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soac.m)
         soar.c_size   = 332;
         soar.Air_size = 1278;
