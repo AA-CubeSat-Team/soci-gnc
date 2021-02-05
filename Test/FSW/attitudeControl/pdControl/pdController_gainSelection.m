@@ -4,6 +4,7 @@
 clear;
 init_params;
 s = tf('s');
+RPS2HZ = 1/(2*pi);
 
 % this is the maximum capability about one axis should one wheel fail. 
 u_max = cos(simParams.actuators.rwa.cant_angle) ...
@@ -13,7 +14,7 @@ u_max = cos(simParams.actuators.rwa.cant_angle) ...
 % goal will be to align sun vector & sun sensor boresight.
 e_max = deg2rad(simParams.sensors.sun_sensor.range_deg);
 % the desired steady-state error
-e_ss = deg2rad(1);
+e_ss = deg2rad(1.0);
 % maximum expected disturbance 
 dist = 1e-7;
 
@@ -23,10 +24,10 @@ pdController.Kd = zeros(3,1);
 pdController.bw = zeros(3,1);
 
 % design each axis to have the same damping ratio (not perfect SOS)
-zeta = 0.8;
+zeta = 1.0;
 % compute the value of wn s.t. the proportional gain will not use more
 % than u_max amount of torque for an error of e_max.
-wn = 0.5 * sqrt(u_max/(e_max * max(diag(simParams.scParams.J))));
+wn = 0.9 * sqrt(u_max/(e_max * max(diag(simParams.scParams.J))));
 
 opts = bodeoptions;
 opts.grid = 'on';
@@ -71,7 +72,7 @@ for k = 1:3
 end
 
 % display approximate controller sample time
-fprintf('Estimated controller sample time of %4.2f Hz\n',20*max(pdController.bw))
+fprintf('Estimated controller sample time of %4.2f Hz\n',20*RPS2HZ*max(pdController.bw))
 
 % save the gains in a mat file
 save('../Include/pdController.mat','pdController')
