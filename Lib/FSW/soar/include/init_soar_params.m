@@ -1,7 +1,7 @@
 function soarParams = init_soar_params(fswParams,~)
-%INIT_SOAR_PARAMS   AACT SOCi Optimal Attitude Reorientation Init File
+%INIT_SOAR_PARAMS   SOCi's Optimal Attitude Reorientation Init File
 %
-% Syntax: [fswParams,simParams] = init_soar_params(fswParams,simParams)
+% Syntax: soarParams = init_soar_params(fswParams,simParams)
 %
 %  Load parameters for SOCi's constraint attitude reorientation (SOAR).
 %  These are both parameters used in the interface library and variables
@@ -10,128 +10,133 @@ function soarParams = init_soar_params(fswParams,~)
 %  functions of the library.
 %
 %  The build configuration reflects the constraints that are imposed, and
-%  any changes to its value must be followed by re-running build_SOAR.m
-%  from the `adcs_oac/build/` directory.
+%  any changes to its value must be followed by re-running build_soar.m
+%  from the `soar/build/` directory.
 %
 % T. P. Reynolds
 
-soar = struct;
+soarParams = struct;
 % Initial Conditions
-soar.ic.sc_mode             = 0.0;
-soar.ic.quat_in             = [1;0;0;0];
-soar.ic.w_body_radps        = zeros(3,1);
-soar.ic.hw_Nms              = zeros(3,1);
-soar.ic.quat_cmd            = [0.86603;0.28868;0.28868;0.28868];
-soar.ic.w_body_cmd_radps    = zeros(3,1);
-soar.ic.sun_inertial_unit   = zeros(3,1);
-soar.ic.met_epoch_s         = 0.0;
-soar.ic.met_time_s          = 0.0;
-soar.ic.cmd_torque          = zeros(3,1);
-soar.ic.cmd_state           = [ soar.ic.quat_cmd; soar.ic.w_body_cmd_radps;
-                                soar.ic.hw_Nms ];
+% soarParams.ic.sc_mode             = 0.0;
+soarParams.ic.quat_in               = [1;0;0;0];
+% soarParams.ic.w_body_radps        = zeros(3,1);
+% soarParams.ic.hw_Nms              = zeros(3,1);
+soarParams.ic.quat_cmd              = [0.86603;0.28868;0.28868;0.28868];
+% soarParams.ic.w_body_cmd_radps    = zeros(3,1);
+% soarParams.ic.sun_inertial_unit   = zeros(3,1);
+% soarParams.ic.met_epoch_s         = 0.0;
+% soarParams.ic.met_time_s          = 0.0;
+% soarParams.ic.cmd_torque          = zeros(3,1);
+soarParams.ic.cmd_state             = [ soarParams.ic.quat_cmd; 
+                                        zeros(3,1); %soar.ic.w_body_cmd_radps;
+                                        zeros(3,1); %soar.ic.hw_Nms 
+                                      ];
 
-% SOAC configuration
-soar.config = 'bie'; % b = baseline, bi = b+inclusion, bie = bi+exclusion
+% SOAC configuration %
+soarParams.config = 'bie'; % b = baseline, bi = b+inclusion, bie = bi+exclusion
                             
 % Number of discretization points
-soar.N  = 10;
-soar.dt = 1/(soar.N-1);
+soarParams.N  = 10;
+soarParams.dt = 1/(soarParams.N-1);
 
 % defined configuration dependent parameters
-switch soar.config
+switch soarParams.config
     case 'b'
-        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
-        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
+        soarParams.sample_time_s = (1/1)*fswParams.sample_time_s;  % sample time [s]
+        soarParams.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soar.m)
-        soar.c_size   = int32(332);
-        soar.Air_size = int32(1278);
-        soar.Ajc_size = int32(333);
-        soar.Apr_size = int32(1278);
-        soar.b_size   = int32(117);
-        soar.Gir_size = int32(674);
-        soar.Gjc_size = int32(333);
-        soar.Gpr_size = int32(674);
-        soar.h_size   = int32(354);
-        soar.q_size   = int32(1);
-        soar.y_size   = int32(334);
+        soarParams.c_size   = int32(332);
+        soarParams.Air_size = int32(1278);
+        soarParams.Ajc_size = int32(333);
+        soarParams.Apr_size = int32(1278);
+        soarParams.b_size   = int32(117);
+        soarParams.Gir_size = int32(674);
+        soarParams.Gjc_size = int32(333);
+        soarParams.Gpr_size = int32(674);
+        soarParams.h_size   = int32(354);
+        soarParams.q_size   = int32(1);
+        soarParams.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = int32(322);
-        soar.soc_dim  = int32(32);
+        soarParams.l_dim    = int32(322);
+        soarParams.soc_dim  = int32(32);
     case 'bi'
-        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
-        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
+        soarParams.sample_time_s = (1/1)*fswParams.sample_time_s;  % sample time [s]
+        soarParams.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soar.m)
-        soar.c_size   = int32(332);
-        soar.Air_size = int32(1278);
-        soar.Ajc_size = int32(333);
-        soar.Apr_size = int32(1278);
-        soar.b_size   = int32(117);
-        soar.Gir_size = int32(754);
-        soar.Gjc_size = int32(333);
-        soar.Gpr_size = int32(754);
-        soar.h_size   = int32(414);
-        soar.q_size   = int32(11);
-        soar.y_size   = int32(334);
+        soarParams.c_size   = int32(332);
+        soarParams.Air_size = int32(1278);
+        soarParams.Ajc_size = int32(333);
+        soarParams.Apr_size = int32(1278);
+        soarParams.b_size   = int32(117);
+        soarParams.Gir_size = int32(754);
+        soarParams.Gjc_size = int32(333);
+        soarParams.Gpr_size = int32(754);
+        soarParams.h_size   = int32(414);
+        soarParams.q_size   = int32(11);
+        soarParams.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = int32(322);
-        soar.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6]);
+        soarParams.l_dim    = int32(322);
+        soarParams.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6]);
     case 'bie'
-        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
-        soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
+        soarParams.sample_time_s = (1/1)*fswParams.sample_time_s;  % sample time [s]
+        soarParams.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
         % problem sizes (must match build_soar.m)
-        soar.c_size   = int32(332);
-        soar.Air_size = int32(1278);
-        soar.Ajc_size = int32(333);
-        soar.Apr_size = int32(1278);
-        soar.b_size   = int32(117);
-        soar.Gir_size = int32(834);
-        soar.Gjc_size = int32(333);
-        soar.Gpr_size = int32(834);
-        soar.h_size   = int32(474);
-        soar.q_size   = int32(21);
-        soar.y_size   = int32(334);
+        soarParams.c_size   = int32(332);
+        soarParams.Air_size = int32(1278);
+        soarParams.Ajc_size = int32(333);
+        soarParams.Apr_size = int32(1278);
+        soarParams.b_size   = int32(117);
+        soarParams.Gir_size = int32(834);
+        soarParams.Gjc_size = int32(333);
+        soarParams.Gpr_size = int32(834);
+        soarParams.h_size   = int32(474);
+        soarParams.q_size   = int32(21);
+        soarParams.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = int32(322);
-        soar.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6]);
+        soarParams.l_dim    = int32(322);
+        soarParams.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6]);
     otherwise
         error('INIT_SOAC: undefined configuration')
 end
 
-% Parameters
-soar.inertia = fswParams.scParams.J;
-soar.w_max  = 0.1;
-soar.T_max  = 3.2e-3;
-soar.s_min  = 15;
-soar.s_max  = 25;
-soar.w_v    = 1e2;
+% Parameters %
+soarParams.inertia = fswParams.scParams.J;
+soarParams.w_max  = 0.1;
+soarParams.T_max  = 3.2e-3;
+soarParams.s_min  = 15;
+soarParams.s_max  = 25;
+soarParams.w_v    = 1e2;
 
-% Scalings
+% Scalings %
 % In MC testing, some issues noticed with these scalings. Omitting them
 % until further testing finds the issue.
-% soac.Dq = eye(4);
-% soac.Dw = soac.w_max * eye(3);
-% soac.Dh = 1e-3 * eye(3);
-% soac.Dx = blkdiag(soac.Dq,soac.Dw,soac.Dh);
-% soac.iDx = inv(soac.Dx);
-% soac.Du = soac.T_max * eye(3);
-% soac.Ds = soac.s_max - soac.s_min;
-% soac.Dg = 1.0;
-% soac.DX = kron(eye(soac.N),soac.Dx);
-% soac.DU = kron(eye(soac.N),soac.Du);
+%
+% Commented out scaling matrices as these are now hardcoded in as simple
+% identities/zeros. The problem appears to be quite well-scaled naturally
+% and does not suffer from a lack of scalings. Also including them
+% significantly inflates the number of bytes that soarParams will take up
+% in memory.
 
-soar.Dq = eye(4);
-soar.Dw = eye(3);
-soar.Dh = eye(3);
-soar.Dx = blkdiag(soar.Dq,soar.Dw,soar.Dh);
-soar.iDx = inv(soar.Dx);
-soar.Du = eye(3);
-soar.Ds = 1.0;
-soar.Dg = 1.0;
-soar.DX = kron(eye(soar.N),soar.Dx);
-soar.DU = kron(eye(soar.N),soar.Du);
+% soarParams.Dq = eye(4);
+% soarParams.Dw = soac.w_max * eye(3);
+% soarParams.Dh = 1e-3 * eye(3);
+% soarParams.Dx = blkdiag(soac.Dq,soac.Dw,soac.Dh);
+% soarParams.iDx = inv(soac.Dx);
+% soarParams.Du = soac.T_max * eye(3);
+% soarParams.Ds = soac.s_max - soac.s_min;
+% soarParams.Dg = 1.0;
+% soarParams.DX = kron(eye(soac.N),soac.Dx);
+% soarParams.DU = kron(eye(soac.N),soac.Du);
 
-% add to main struct
-% fswParams.soar = soar;
-soarParams = soar;
+% Dq = eye(4);
+% Dw = eye(3);
+% Dh = eye(3);
+% soarParams.Dx = blkdiag(Dq,Dw,Dh);
+% soarParams.iDx = inv(soarParams.Dx);
+% soarParams.Du = eye(3);
+% soarParams.Ds = 1.0;
+% soarParams.Dg = 1.0;
+% soarParams.DX = kron(eye(soarParams.N),soarParams.Dx);
+% soarParams.DU = kron(eye(soarParams.N),soarParams.Du);
 
 end
