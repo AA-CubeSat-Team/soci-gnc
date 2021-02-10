@@ -11,7 +11,7 @@
 %% Compilation parameters
 
 % These must match what is in init_soar_params
-switch  fswParams.soar.config
+switch soarParams.config
     case 'b'
         c_size      = 332;
         Air_size    = 1278;

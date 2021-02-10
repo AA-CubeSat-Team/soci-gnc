@@ -51,13 +51,19 @@ force_lpm = cdh.Parameters(7);
 force_lpm.set('Value','off');
 %
 enable_img = cdh.Parameters(8);
-enable_img.set('Value','on');
+enable_img.set('Value','off');
 %
 enable_soar = cdh.Parameters(9);
 enable_soar.set('Value','off');
 %
 triad_override = cdh.Parameters(10);
 triad_override.set('Value','off');
+%
+MET_soar_utc_s = cdh.Parameters(11);
+MET_soar_utc_s.set('Value','simParams.time.epoch_utc_s+500');
+%
+quat_soar_cmd = cdh.Parameters(12);
+quat_soar_cmd.set('Value','[0.200869388727445;-0.603600311719593;-0.740781711514794;-0.215779072779279]');
 
 end
 

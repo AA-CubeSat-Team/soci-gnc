@@ -4,15 +4,13 @@
 
 rng(2) % for repeatability of random IC
 
-soar_params = fswParams.soar;
-
 % constants
-w_max   = soar_params.w_max;
-T_max   = soar_params.T_max;
+w_max   = soarParams.w_max;
+T_max   = soarParams.T_max;
 hw_max  = [ 37; 37; 31.3 ] * 1e-3; % Nms
 Jw      = simParams.actuators.rwa.inertia;
 Aw      = simParams.actuators.rwa.A_wheel2body;
-J       = soar_params.inertia;
+J       = soarParams.inertia;
 RPM2RADPS = fswParams.constants.convert.RPM2RPS;
 sc_mode   = 8;
 MET_epoch = simParams.time.epoch_utc_s; % MET epoch

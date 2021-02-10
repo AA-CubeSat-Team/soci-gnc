@@ -57,4 +57,4 @@ load('busDefinitions.mat')
 [fswParams,simParams] = modeSelect_init(fswParams,simParams);
 
 % initialize the SOAR payload
-[fswParams,simParams] = init_soar_params(fswParams,simParams);
+soarParams = init_soar_params(fswParams,simParams);

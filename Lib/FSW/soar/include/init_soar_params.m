@@ -1,4 +1,4 @@
-function [fswParams,simParams] = init_soar_params(fswParams,simParams)
+function soarParams = init_soar_params(fswParams,~)
 %INIT_SOAR_PARAMS   AACT SOCi Optimal Attitude Reorientation Init File
 %
 % Syntax: [fswParams,simParams] = init_soar_params(fswParams,simParams)
@@ -40,59 +40,59 @@ soar.dt = 1/(soar.N-1);
 % defined configuration dependent parameters
 switch soar.config
     case 'b'
-        soar.sample_time_s = fswParams.sample_time_s;        % sample time [s]
+        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
         soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
-        % problem sizes (must match build_soac.m)
-        soar.c_size   = 332;
-        soar.Air_size = 1278;
-        soar.Ajc_size = 333;
-        soar.Apr_size = 1278;
-        soar.b_size   = 117;
-        soar.Gir_size = 674;
-        soar.Gjc_size = 333;
-        soar.Gpr_size = 674;
-        soar.h_size   = 354;
-        soar.q_size   = 1;
-        soar.y_size   = 334;
+        % problem sizes (must match build_soar.m)
+        soar.c_size   = int32(332);
+        soar.Air_size = int32(1278);
+        soar.Ajc_size = int32(333);
+        soar.Apr_size = int32(1278);
+        soar.b_size   = int32(117);
+        soar.Gir_size = int32(674);
+        soar.Gjc_size = int32(333);
+        soar.Gpr_size = int32(674);
+        soar.h_size   = int32(354);
+        soar.q_size   = int32(1);
+        soar.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = 322;
-        soar.soc_dim  = 32;
+        soar.l_dim    = int32(322);
+        soar.soc_dim  = int32(32);
     case 'bi'
-        soar.sample_time_s = fswParams.sample_time_s;        % sample time [s]
+        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
         soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
-        % problem sizes (must match build_soac.m)
-        soar.c_size   = 332;
-        soar.Air_size = 1278;
-        soar.Ajc_size = 333;
-        soar.Apr_size = 1278;
-        soar.b_size   = 117;
-        soar.Gir_size = 754;
-        soar.Gjc_size = 333;
-        soar.Gpr_size = 754;
-        soar.h_size   = 414;
-        soar.q_size   = 11;
-        soar.y_size   = 334;
+        % problem sizes (must match build_soar.m)
+        soar.c_size   = int32(332);
+        soar.Air_size = int32(1278);
+        soar.Ajc_size = int32(333);
+        soar.Apr_size = int32(1278);
+        soar.b_size   = int32(117);
+        soar.Gir_size = int32(754);
+        soar.Gjc_size = int32(333);
+        soar.Gpr_size = int32(754);
+        soar.h_size   = int32(414);
+        soar.q_size   = int32(11);
+        soar.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = 322;
-        soar.soc_dim  = [32;6;6;6;6;6;6;6;6;6;6];
+        soar.l_dim    = int32(322);
+        soar.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6]);
     case 'bie'
-        soar.sample_time_s = (1/4)*fswParams.sample_time_s;        % sample time [s]
+        soar.sample_time_s = (1/1)*fswParams.sample_time_s;        % sample time [s]
         soar.interp_sample_time_s = fswParams.sample_time_s; % interp sample time [s]
-        % problem sizes (must match build_soac.m)
-        soar.c_size   = 332;
-        soar.Air_size = 1278;
-        soar.Ajc_size = 333;
-        soar.Apr_size = 1278;
-        soar.b_size   = 117;
-        soar.Gir_size = 834;
-        soar.Gjc_size = 333;
-        soar.Gpr_size = 834;
-        soar.h_size   = 474;
-        soar.q_size   = 21;
-        soar.y_size   = 334;
+        % problem sizes (must match build_soar.m)
+        soar.c_size   = int32(332);
+        soar.Air_size = int32(1278);
+        soar.Ajc_size = int32(333);
+        soar.Apr_size = int32(1278);
+        soar.b_size   = int32(117);
+        soar.Gir_size = int32(834);
+        soar.Gjc_size = int32(333);
+        soar.Gpr_size = int32(834);
+        soar.h_size   = int32(474);
+        soar.q_size   = int32(21);
+        soar.y_size   = int32(334);
         % dimensions of cones
-        soar.l_dim    = 322;
-        soar.soc_dim  = [32;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6];
+        soar.l_dim    = int32(322);
+        soar.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6]);
     otherwise
         error('INIT_SOAC: undefined configuration')
 end
@@ -131,6 +131,7 @@ soar.DX = kron(eye(soar.N),soar.Dx);
 soar.DU = kron(eye(soar.N),soar.Du);
 
 % add to main struct
-fswParams.soar = soar;
+% fswParams.soar = soar;
+soarParams = soar;
 
 end
