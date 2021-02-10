@@ -8,8 +8,6 @@
 %
 % T. Reynolds -- RAIN Lab
 
-soar_params = fswParams.soar;
-
 N     = 10; % number of discretization nodes
 w_max = 0.1;
 T_max = 2.3e-3;
@@ -69,7 +67,7 @@ xopt    = reshape(full(xopt),10,N);
 uopt    = reshape(full(uopt),3,N);
 ut      = linspace(0,sopt,N);
 P.method  = 'linear';
-P.inertia = soar_params.inertia;
+P.inertia = soarParams.inertia;
 
 % integrate solution through nonlinear dynamics
 X = rk4(@(t,y)Q_ode_p(P,t,y,uopt,ut),T,full(xopt(1:10)));
