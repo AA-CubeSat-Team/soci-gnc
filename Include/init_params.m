@@ -41,7 +41,10 @@ load('busDefinitions.mat')
 % sets up constants associated with the allocator
 [fswParams,simParams] = allocator_init(fswParams,simParams);
 
-% sets up constants associated with the sesnors
+% sets up constants associated with the magnetometer processing library
+[fswParams,simParams] = maglib_init(fswParams,simParams);
+
+% sets up constants associated with the sensors
 [fswParams,simParams] = sensors_init(fswParams,simParams);
 
 % sets up constants associated with the controllers
