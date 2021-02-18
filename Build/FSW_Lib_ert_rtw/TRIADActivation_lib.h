@@ -3,7 +3,7 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: L_inf_allocation_lib.h
+ * File: TRIADActivation_lib.h
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
@@ -19,9 +19,8 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_L_inf_allocation_lib_h_
-#define RTW_HEADER_L_inf_allocation_lib_h_
-#include <math.h>
+#ifndef RTW_HEADER_TRIADActivation_lib_h_
+#define RTW_HEADER_TRIADActivation_lib_h_
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
 #include "rtwtypes.h"
@@ -30,13 +29,18 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-#include "rtGetNaN.h"
-#include "rt_nonfinite.h"
 
-extern void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
-  rty_output_wheel[4]);
+/* Block signals and states (default storage) for system '<S3>/TRIADActivation_lib' */
+typedef struct {
+  boolean_T Delay_DSTATE[10];          /* '<S54>/Delay' */
+} DW_TRIADActivation_lib;
 
-#endif                                 /* RTW_HEADER_L_inf_allocation_lib_h_ */
+extern void TRIADActivation_lib_Init(DW_TRIADActivation_lib *localDW);
+extern boolean_T TRIADActivation_lib(boolean_T rtu_TriadGroundCmd, boolean_T
+  rtu_gyro_valid, boolean_T rtu_sunsensor_valid, boolean_T rtu_mag_valid,
+  DW_TRIADActivation_lib *localDW);
+
+#endif                                 /* RTW_HEADER_TRIADActivation_lib_h_ */
 
 /*
  * File trailer for generated code.

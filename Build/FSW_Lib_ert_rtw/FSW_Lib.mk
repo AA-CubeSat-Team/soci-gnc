@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'FSW_Lib'. 
 ## 
 ## Makefile     : FSW_Lib.mk
-## Generated on : Thu Sep 03 09:55:20 2020
+## Generated on : Wed Feb 17 22:43:22 2021
 ## MATLAB Coder version: 4.1 (R2018b)
 ## 
 ## Build Info:
@@ -21,6 +21,7 @@
 # PRODUCT_NAME            Name of the system to build
 # MAKEFILE                Name of this makefile
 # COMPUTER                Computer type. See the MATLAB "computer" command.
+# SHARED_OBJS             Shared Object Names
 
 PRODUCT_NAME              = FSW_Lib
 MAKEFILE                  = FSW_Lib.mk
@@ -29,7 +30,7 @@ MATLAB_ROOT               = /Applications/MATLAB_R2018b.app
 MATLAB_BIN                = /Applications/MATLAB_R2018b.app/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/maci64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /Users/taylorreynolds/SOCI/soci-gnc/Build
+START_DIR                 = /Users/Taylor/SOCI/soci-gnc/Build
 ARCH                      = maci64
 SOLVER                    = 
 SOLVER_OBJ                = 
@@ -39,6 +40,12 @@ MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 0
 RELATIVE_PATH_TO_ANCHOR   = ..
 C_STANDARD_OPTS           = -fno-common -fexceptions
 CPP_STANDARD_OPTS         = -fno-common -fexceptions
+SHARED_SRC_DIR            = ../slprj/ert/_sharedutils
+SHARED_SRC                = $(SHARED_SRC_DIR)/*.c
+SHARED_BIN_DIR            = ../slprj/ert/_sharedutils
+SHARED_LIB                = $(SHARED_BIN_DIR)/rtwshared.a
+SHARED_OBJS               =  \
+$(addprefix $(join $(SHARED_BIN_DIR),/), $(addsuffix .o, $(basename $(notdir $(wildcard $(SHARED_SRC_DIR)/*.c)))))
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
@@ -190,7 +197,7 @@ BUILD_TYPE = "Top-Level Standalone Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR) -I$(START_DIR)/FSW_Lib_ert_rtw -I/Users/taylorreynolds/SOCI/soci-gnc/Src -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include
+INCLUDES_BUILDINFO = -I$(START_DIR) -I$(START_DIR)/FSW_Lib_ert_rtw -I/Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/include -I/Users/Taylor/SOCI/soci-gnc/Src -I/Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include -I$(START_DIR)/slprj/ert/_sharedutils
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -199,16 +206,16 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ###########################################################################
 
 DEFINES_BUILD_ARGS = -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DTERMFCN=0 -DONESTEPFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=1
-DEFINES_OPTS = -DTID01EQ=1
-DEFINES_STANDARD = -DMODEL=FSW_Lib -DNUMST=3 -DNCSTATES=0 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0 -DUNIX
+DEFINES_IMPLIED = -DTID01EQ=0
+DEFINES_STANDARD = -DMODEL=FSW_Lib -DNUMST=2 -DNCSTATES=0 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0 -DUNIX
 
-DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_OPTS) $(DEFINES_STANDARD)
+DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_IMPLIED) $(DEFINES_STANDARD)
 
 ###########################################################################
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/FSW_Lib_ert_rtw/CrossProdMatrix_lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib_data.c $(START_DIR)/FSW_Lib_ert_rtw/L_inf_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/MEKF_lib.c $(START_DIR)/FSW_Lib_ert_rtw/rtGetInf.c $(START_DIR)/FSW_Lib_ert_rtw/rtGetNaN.c $(START_DIR)/FSW_Lib_ert_rtw/rt_nonfinite.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_1.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_12.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_5.c $(START_DIR)/FSW_Lib_ert_rtw/rwa_allocation_lib.c
+SRCS = $(START_DIR)/FSW_Lib_ert_rtw/CrossProdMatrix_lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib_data.c $(START_DIR)/FSW_Lib_ert_rtw/L_inf_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/MEKF_lib.c $(START_DIR)/FSW_Lib_ert_rtw/PD_Controller_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/TRIADActivation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/asmController_lib.c $(START_DIR)/FSW_Lib_ert_rtw/mode_select_lib.c $(START_DIR)/FSW_Lib_ert_rtw/parallel_protection_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_err_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_rectify_lib.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_10.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_14.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_21.c $(START_DIR)/FSW_Lib_ert_rtw/rwa_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/sunSeek_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_generation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_groundpass_lib.c $(START_DIR)/FSW_Lib_ert_rtw/twonorm.c expcone.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_1.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_2.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_aat.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_control.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_defaults.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_dump.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_global.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_info.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_order.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_post_tree.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_postorder.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_preprocess.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_valid.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/cone.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ctrlc.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ecos.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/equil.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/kkt.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ldl.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/matlab_main.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/preproc.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/runecos.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/spla.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/splamm.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/timer.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/wright_omega.c
 
 MAIN_SRC = $(START_DIR)/FSW_Lib_ert_rtw/ert_main.c
 
@@ -218,7 +225,7 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = CrossProdMatrix_lib.o FSW_Lib.o FSW_Lib_data.o L_inf_allocation_lib.o MEKF_lib.o rtGetInf.o rtGetNaN.o rt_nonfinite.o rt_sys_MEKF_lib_1.o rt_sys_MEKF_lib_12.o rt_sys_MEKF_lib_5.o rwa_allocation_lib.o
+OBJS = CrossProdMatrix_lib.o FSW_Lib.o FSW_Lib_data.o L_inf_allocation_lib.o MEKF_lib.o PD_Controller_Lib.o TRIADActivation_lib.o asmController_lib.o mode_select_lib.o parallel_protection_lib.o quat_err_lib.o quat_rectify_lib.o rt_sys_MEKF_lib_10.o rt_sys_MEKF_lib_14.o rt_sys_MEKF_lib_21.o rwa_allocation_lib.o sunSeek_lib.o target_generation_lib.o target_groundpass_lib.o twonorm.o expcone.o amd_1.o amd_2.o amd_aat.o amd_control.o amd_defaults.o amd_dump.o amd_global.o amd_info.o amd_order.o amd_post_tree.o amd_postorder.o amd_preprocess.o amd_valid.o cone.o ctrlc.o ecos.o equil.o kkt.o ldl.o matlab_main.o preproc.o runecos.o spla.o splamm.o timer.o wright_omega.o
 
 MAIN_OBJ = ert_main.o
 
@@ -234,7 +241,7 @@ PREBUILT_OBJS =
 ## LIBRARIES
 ###########################################################################
 
-LIBS = 
+LIBS = $(SHARED_LIB)
 
 ###########################################################################
 ## SYSTEM LIBRARIES
@@ -280,7 +287,7 @@ all : build
 build : prebuild $(PRODUCT)
 
 
-buildobj : prebuild $(OBJS) $(PREBUILT_OBJS)
+buildobj : prebuild $(OBJS) $(PREBUILT_OBJS) $(LIBS)
 	@echo "### Successfully generated all binary outputs."
 
 
@@ -304,9 +311,9 @@ execute : download
 # Create a standalone executable            
 #-------------------------------------------
 
-$(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(MAIN_OBJ)
+$(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 	@echo "### Creating standalone executable "$(PRODUCT)" ..."
-	$(LD) $(LDFLAGS) -o $(PRODUCT) $(OBJS) $(MAIN_OBJ) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
+	$(LD) $(LDFLAGS) -o $(PRODUCT) $(OBJS) $(MAIN_OBJ) $(LIBS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
 	@echo "### Created: $(PRODUCT)"
 
 
@@ -364,6 +371,37 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(MAIN_OBJ)
 
 %.o : $(START_DIR)/FSW_Lib_ert_rtw/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/build/%.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
+
+
+%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/build/%.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/%.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
+
+
+%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/%.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+$(SHARED_BIN_DIR)/%.o : $(SHARED_SRC_DIR)/%.c
+	@echo "### Compiling "$<" ..."
+	$(CC) $(CFLAGS) -o "$@" "$<"
+
+
+#---------------------------
+# SHARED UTILITY LIBRARY
+#---------------------------
+
+$(SHARED_LIB) : $(SHARED_OBJS)
+	@echo "### Creating shared utilities library "$(SHARED_LIB)" ..."
+	$(AR) $(ARFLAGS)  $(SHARED_LIB) $(SHARED_OBJS)
+	@echo "### Created: $(SHARED_LIB)"
 
 
 ###########################################################################

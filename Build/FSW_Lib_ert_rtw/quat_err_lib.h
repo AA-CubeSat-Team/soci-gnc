@@ -3,7 +3,7 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: L_inf_allocation_lib.h
+ * File: quat_err_lib.h
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
@@ -19,9 +19,8 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_L_inf_allocation_lib_h_
-#define RTW_HEADER_L_inf_allocation_lib_h_
-#include <math.h>
+#ifndef RTW_HEADER_quat_err_lib_h_
+#define RTW_HEADER_quat_err_lib_h_
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
 #include "rtwtypes.h"
@@ -30,13 +29,14 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-#include "rtGetNaN.h"
-#include "rt_nonfinite.h"
 
-extern void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
-  rty_output_wheel[4]);
+/* Child system includes */
+#include "quat_rectify_lib.h"
 
-#endif                                 /* RTW_HEADER_L_inf_allocation_lib_h_ */
+extern void quat_err_lib(const real_T rtu_quat_cmd[4], const real_T rtu_quat_sc
+  [4], real_T rty_quat_err[4]);
+
+#endif                                 /* RTW_HEADER_quat_err_lib_h_ */
 
 /*
  * File trailer for generated code.

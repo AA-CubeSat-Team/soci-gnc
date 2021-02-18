@@ -3,7 +3,7 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: L_inf_allocation_lib.h
+ * File: PD_Controller_Lib.h
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
@@ -19,9 +19,8 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_L_inf_allocation_lib_h_
-#define RTW_HEADER_L_inf_allocation_lib_h_
-#include <math.h>
+#ifndef RTW_HEADER_PD_Controller_Lib_h_
+#define RTW_HEADER_PD_Controller_Lib_h_
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
 #include "rtwtypes.h"
@@ -30,13 +29,11 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-#include "rtGetNaN.h"
-#include "rt_nonfinite.h"
 
-extern void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
-  rty_output_wheel[4]);
+extern void PD_Controller_Lib(const real_T rtu_quat_err[4], const real_T
+  rtu_w_err_radps[3], real_T rty_cmd_Nm[3]);
 
-#endif                                 /* RTW_HEADER_L_inf_allocation_lib_h_ */
+#endif                                 /* RTW_HEADER_PD_Controller_Lib_h_ */
 
 /*
  * File trailer for generated code.

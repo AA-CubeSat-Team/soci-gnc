@@ -18,7 +18,7 @@
 *scv
 *.mexmaci64
 
-#autocoded build stuff
+# Autocoded build stuff
 *.o
 *.log
 *.html
@@ -31,3 +31,10 @@
 *.tlh
 *.dmr
 *Build/*/*.txt
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
