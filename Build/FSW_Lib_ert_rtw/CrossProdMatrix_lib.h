@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.232
+ * Model version                  : 1.319
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Sep  9 13:53:00 2020
+ * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -24,16 +24,16 @@
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
 #include "rtwtypes.h"
-#include "rtw_continuous.h"
-#include "rtw_solver.h"
+#include "zero_crossing_types.h"
+#include "ecos.h"
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
 
-extern void CrossProdMatrix_lib(real_T rtu_Vector, real_T rtu_Vector_p, real_T
-  rtu_Vector_j, real_T rty_XProdMat[9]);
-extern void CrossProdMatrix_lib_d(const real_T rtu_Vector[3], real_T
-  rty_XProdMat[9]);
+extern void CrossProdMatrix_lib(real_T rtu_vector, real_T rtu_vector_p, real_T
+  rtu_vector_j, real_T rty_skew_mat[9]);
+extern void CrossProdMatrix_lib_d(const real_T rtu_vector[3], real_T
+  rty_skew_mat[9]);
 
 #endif                                 /* RTW_HEADER_CrossProdMatrix_lib_h_ */
 

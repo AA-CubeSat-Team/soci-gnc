@@ -11,13 +11,13 @@ function [fswParams,simParams] = asmController_init(fswParams,simParams)
 %
 % C. Morgan | T. P. Reynolds
 
-asm   = struct;
+asmc   = struct;
 J     = fswParams.scParams.J;
 wn    = 0.25;
 zeta  = sqrt(2)/2;
 % keep this value negative
-asm.C = -2*zeta*wn*J;
+asmc.C = -2*zeta*wn*J;
 
-fswParams.controllers.asm = asm;
+fswParams.controllers.asmc = asmc;
 
 end

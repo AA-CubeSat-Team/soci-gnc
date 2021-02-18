@@ -3,7 +3,7 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: L_inf_allocation_lib.h
+ * File: null_control_lib.h
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
@@ -19,9 +19,8 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_L_inf_allocation_lib_h_
-#define RTW_HEADER_L_inf_allocation_lib_h_
-#include <math.h>
+#ifndef RTW_HEADER_null_control_lib_h_
+#define RTW_HEADER_null_control_lib_h_
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
 #include "rtwtypes.h"
@@ -30,13 +29,13 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-#include "rtGetNaN.h"
-#include "rt_nonfinite.h"
 
-extern void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
-  rty_output_wheel[4]);
+/* Invariant block signals for system '<S130>/null_control_lib1' */
+typedef struct {
+  const real_T null_control_input[3];  /* '<S147>/null_control_input' */
+} ConstB_null_control_lib;
 
-#endif                                 /* RTW_HEADER_L_inf_allocation_lib_h_ */
+#endif                                 /* RTW_HEADER_null_control_lib_h_ */
 
 /*
  * File trailer for generated code.

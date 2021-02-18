@@ -3,7 +3,7 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: L_inf_allocation_lib.h
+ * File: target_groundpass_lib.h
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
@@ -19,8 +19,8 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_L_inf_allocation_lib_h_
-#define RTW_HEADER_L_inf_allocation_lib_h_
+#ifndef RTW_HEADER_target_groundpass_lib_h_
+#define RTW_HEADER_target_groundpass_lib_h_
 #include <math.h>
 #ifndef FSW_Lib_COMMON_INCLUDES_
 # define FSW_Lib_COMMON_INCLUDES_
@@ -30,13 +30,24 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-#include "rtGetNaN.h"
-#include "rt_nonfinite.h"
 
-extern void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
-  rty_output_wheel[4]);
+/* Child system includes */
+#include "twonorm.h"
 
-#endif                                 /* RTW_HEADER_L_inf_allocation_lib_h_ */
+/* Invariant block signals for system '<S169>/target_groundpass_lib' */
+typedef struct {
+  const real_T VectorConcatenate[9];   /* '<S222>/Vector Concatenate' */
+} ConstB_target_groundpass_lib;
+
+extern void target_groundpass_lib(const real_T rtu_r_ecef_m[3], const real_T
+  rtu_targ_ecef_m[3], boolean_T *rty_sc_above_target, real_T *rty_elev_sez_rad,
+  real_T rty_sc2target_ecef_unit[3], const ConstB_target_groundpass_lib *localC);
+extern void target_groundpass_lib1(const real_T rtu_r_ecef_m[3], const real_T
+  rtu_targ_ecef_m[3], real_T rtu_targ_gd_lat_deg, real_T rtu_targ_lon_deg,
+  boolean_T *rty_sc_above_target, real_T *rty_elev_sez_rad, real_T
+  rty_sc2target_ecef_unit[3]);
+
+#endif                                 /* RTW_HEADER_target_groundpass_lib_h_ */
 
 /*
  * File trailer for generated code.
