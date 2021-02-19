@@ -19,11 +19,11 @@ mag_offset = Mag2Body_Matrix*HIB_offset_Matrix;
 
 mag_max_err = 0.1;
 
-mag_static_range = 1;
+mag_static_range_uT = 75; % Micro Teslas
 
 sensors.mag_rotate = mag_rotate;
 sensors.mag_offset = mag_offset;
-sensors.mag_static_range = mag_static_range;
+sensors.mag_static_range_uT = mag_static_range_uT;
 sensors.mag_max_err = mag_max_err;
 fswParams.sensors = sensors; 
 
