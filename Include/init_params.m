@@ -42,7 +42,7 @@ load('busDefinitions.mat')
 [fswParams,simParams] = allocator_init(fswParams,simParams);
 
 % sets up constants associated with the magnetometer processing library
-[fswParams,simParams] = maglib_init(fswParams,simParams);
+[fswParams,simParams] = maggyrolib_init(fswParams,simParams);
 
 % sets up constants associated with the sensors
 [fswParams,simParams] = sensors_init(fswParams,simParams);
