@@ -1,4 +1,4 @@
-% SOC-i Simulation Initialization 
+ % SOC-i Simulation Initialization 
 %
 % This file is always the first thing that should be run when doing
 % anything with this repository
