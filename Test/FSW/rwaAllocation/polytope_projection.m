@@ -65,7 +65,7 @@ for p = 1:size(pairs,1)
 end
 
 % Generate/project some random vectors for verification
-for k = 1:1
+for k = 1:10
     v = 1.25*H_max * randn(3,1);
     quiver3(0,0,0,v(1),v(2),v(3),'r','LineWidth',1)
 
@@ -81,5 +81,5 @@ for k = 1:1
     else
         x = v;
     end
-    quiver3(0,0,0,x(1),x(2),x(3),'k','LineWidth',2)
+    quiver3(0,0,0,x(1),x(2),x(3),'b','LineWidth',1)
 end
