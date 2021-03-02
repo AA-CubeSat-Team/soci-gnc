@@ -14,6 +14,10 @@ SIB_cal_Matrix=[1,0,0;0,1,0;0,0,1];
 HIB_offset_Matrix=[0;0;0];
 
 % Converts magnetometer sensor frame to satellite body frame
+%Mag2Body_Matrix1=[0,-1,0;0,1,0;0,0,1];
+%Mag2Body_Matrix2=[sqrt(2)/2,-sqrt(2)/2,0;sqrt(2)/2,sqrt(2)/2,0;0,0,1];
+%Mag2Body_Matrix3=[1,0,0;0,1,0;0,0,1];
+
 Mag2Body_Matrix1=[1,0,0;0,1,0;0,0,1];
 Mag2Body_Matrix2=[1,0,0;0,1,0;0,0,1];
 Mag2Body_Matrix3=[1,0,0;0,1,0;0,0,1];
@@ -52,6 +56,10 @@ sensors.mag_max_err = mag_max_err;
 % Nick Melville
 
 % Converts gyroscope sensor frame to satellite body frame
+%gyro2Body_Matrix1=[0,-1,0;1,0,0;0,0,1];
+%gyro2Body_Matrix2=[0,-1,0;1,0,0;0,0,1];
+%gyro2Body_Matrix3=[0,-1,0;1,0,0;0,0,1];
+
 gyro2Body_Matrix1=[1,0,0;0,1,0;0,0,1];
 gyro2Body_Matrix2=[1,0,0;0,1,0;0,0,1];
 gyro2Body_Matrix3=[1,0,0;0,1,0;0,0,1];
