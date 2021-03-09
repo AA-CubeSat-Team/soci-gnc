@@ -68,11 +68,56 @@ for k = 1:3
     
     pdController.bw(k) = bandwidth(T);
     pdController.Kp(k) = kp;
-    pdController.Kd(k) = kd;  
+    pdController.Kd(k) = kd; 
+    % margins calculated at plant input
+    pdController = update_margins(pdController,L,k);
 end
 
+% display minimum margins
+if ( pdController.margins.GM_dB < eps )
+    pdController.margins.GM_dB = Inf;
+end
+fprintf('Minimum Gain Margin: %4.2f dB at w = %4.2f rad/s \n',...
+            pdController.margins.GM_dB,pdController.margins.GM_freq_radps);
+fprintf('Minimum Phase Margin: %4.2f deg at w = %4.2f rad/s \n',...
+            pdController.margins.PM_deg,pdController.margins.PM_freq_radps);
+fprintf('Minimum Delay Margin: %4.2f s at w = %4.2f rad/s \n',...
+            pdController.margins.DM_s,pdController.margins.DM_freq_radps);
+        
 % display approximate controller sample time
-fprintf('Estimated controller sample time of %4.2f Hz\n',20*RPS2HZ*max(pdController.bw))
+fprintf('Estimated controller sample time of %4.2f Hz\n',...
+            20*RPS2HZ*max(pdController.bw))
 
 % save the gains in a mat file
 save('../Include/pdController.mat','pdController')
+
+function ctrlr = update_margins(ctrlr,L,k)
+    S = allmargin(L);
+    % add margins directly if on the first TF
+    if (k==1)
+        [ctrlr.margins.GM_dB,id] = min(abs(S.GainMargin));
+        ctrlr.margins.GM_freq_radps = S.GMFrequency(id);
+        [ctrlr.margins.PM_deg,id] = min(abs(S.PhaseMargin));
+        ctrlr.margins.PM_freq_radps = S.PMFrequency(id);
+        ctrlr.margins.DM_s = S.DelayMargin;
+        ctrlr.margins.DM_freq_radps = S.DMFrequency;
+    else
+        % check gain margin
+        [GM_dB,id] = min(abs(S.GainMargin));
+        if (GM_dB < ctrlr.margins.GM_dB)
+            ctrlr.margins.GM_dB = GM_dB;
+            ctrlr.margins.GM_freq_radps = S.GMFrequency(id);
+        end
+        % check phase margin
+        [PM_deg,id] = min(abs(S.PhaseMargin));
+        if (PM_deg < ctrlr.margins.PM_deg)
+            ctrlr.margins.PM_deg = S.PhaseMargin(id);
+            ctrlr.margins.PM_freq_radps = S.PMFrequency;
+        end
+        % check delay margin
+        if (S.DelayMargin < ctrlr.margins.DM_s)
+            ctrlr.margins.DM_s = S.DelayMargin;
+            ctrlr.margins.DM_freq_radps = S.DMFrequency;
+        end
+    end
+end

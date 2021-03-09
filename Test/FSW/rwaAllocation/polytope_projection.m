@@ -1,36 +1,31 @@
-% clear
+clear
+init_params;
 
-% momentum distribution matrix
-beta = deg2rad(26);
-sb = sin(beta);
-cb = cos(beta);
-
-W = [  cb,   0, -cb,  0;
-        0,  cb,   0, -cb;
-       sb,  sb,  sb,  sb ];
-       
+% momentum distribution matrix      
+W = fswParams.allocator.A_wheel2body;
+T_max = fswParams.allocator.max_torque_Nm;
 n = 4;
-H_max = 3.2;
 
 % generate points from 4D hypercube
-HI4 = H_max * eye(n);
+TI4 = T_max * eye(n);
 U   = zeros(n,2^n);
 id  = 1;
 for k = 0:n
     pairs = combnk(1:n,k);
     for p = 1:size(pairs,1)
-        U(:,id) = HI4(:,pairs(p,:)) * ones(numel(pairs(p,:)),1);
+        U(:,id) = TI4(:,pairs(p,:)) * ones(numel(pairs(p,:)),1);
         id = id + 1;
     end
 end
 
 P = (W * U)';
+% P = cleanup(P);
 P = unique( P, 'rows');
-P(:,3) = P(:,3) - 2*sb*H_max;
+P(:,3) = P(:,3) - 2*sind(23)*T_max;
 
 figure(2), clf, hold on, grid on, box on
 K = convhull(P(:,1),P(:,2),P(:,3),'simplify',true);
-trisurf(K,P(:,1),P(:,2),P(:,3),'FaceColor','cyan','FaceAlpha',0.75,'EdgeColor','b')
+trisurf(K,P(:,1),P(:,2),P(:,3),'FaceColor','cyan','FaceAlpha',0.25,'EdgeColor','b')
 plot3(P(:,1),P(:,2),P(:,3),'b*','MarkerSize',5,'MarkerFaceColor','b')
 xlabel('$x_{\mathcal{B}}$ [mNm]','FontSize',16,'Interpreter','latex'), 
 ylabel('$y_{\mathcal{B}}$ [mNm]','FontSize',16,'Interpreter','latex'), 
@@ -59,27 +54,61 @@ for p = 1:size(pairs,1)
    
    d_ij = dot(v_ij,n_hat_ij);
    
-   A_(p,:) = (1/d_ij) * n_hat_ij';
-   b_(p)   = H_max * max(abs(n_hat_ij));
-   
 end
 
+[A,B,~,~]=vert2lcon(P);
+A = cleanup(A);
+B = cleanup(B);
+
 % Generate/project some random vectors for verification
-for k = 1:1
-    v = 1.25*H_max * randn(3,1);
-    quiver3(0,0,0,v(1),v(2),v(3),'r','LineWidth',1)
+allocator = fswParams.allocator;
+for k = 1:10
+    v = 1.25*T_max * randn(3,1);
+    quiver3(0,0,0,v(1),v(2),v(3),'r','LineWidth',2)
+        
+    val = 0.0;
+    w_facet = allocator.w_facet;
+    for ff = 1:allocator.num_facet
+        w_ff = w_facet(:,ff);
+        vh = v;
+       temp = abs( dot(w_ff,vh) );
+       if (temp > val)
+           val = temp;
+           idd = ff;
+           sgn = sign(dot(w_ff,vh));
+       end
+    end
+    a = sgn * w_facet(:,idd)./norm(w_facet(:,idd));
+    switch idd
+        case {2,5}
+            b = B(1);
+        case {1,3,4,6}
+            b = B(3);
+    end 
 
-    
-    temp = A_*v;
-    [~,id] = max(abs(temp));
-
-    a = A_(id,:)./norm(A_(id,:));
-    b = sign(temp(id)) * H_max * max(abs(a));
     c = dot(a,v);
     if ( (-abs(b) > c) || (c > abs(b)) )
         x = (b/c).*v;
     else
         x = v;
     end
-    quiver3(0,0,0,x(1),x(2),x(3),'k','LineWidth',2)
+
+    quiver3(0,0,0,x(1),x(2),x(3),'b','LineWidth',2)
+    try
+        assert(all(A*x-B<=sqrt(eps)))
+    catch me
+%         ang_btwn
+        throw(me)
+    end
+end
+
+function M = cleanup(M)
+    [n,m] = size(M);
+    for row = 1:n
+        for col = 1:m
+            if (abs(M(row,col)) < 1e-12)
+                M(row,col) = 0.0;
+            end
+        end
+    end
 end

@@ -26,11 +26,20 @@ alloc = struct;
 alloc.A_wheel2body        = simParams.actuators.rwa.A_wheel2body;
 alloc.inertia             = diag(Jw);
 alloc.inv_inertia         = diag(eye(rwa_sim.num_wheels)/Jw);
-alloc.max_torque_Nm       = 0.8 * rwa_sim.max_torque_Nm;
+alloc.max_torque_Nm       = rwa_sim.max_torque_Nm;
 alloc.max_RPM             = rwa_sim.max_RPM;
 alloc.num_facet           = uint8(6);
 alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
+
+%%%%
+% THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
+% TETRAHEDRAL WHEEL CONFIG WITH 3.2mNm TORQUE PER WHEEL. ANY CHANGES MUST
+% TO WHEEL GEOMETRY OR TORQUE LIMITS MUST RERUN THE POLYTOPE_PROJECTION FILE 
+% TO UPDATE THESE NUMBERS. USE THE 2nd AND 3rd ENTRIES IN B TO DO SO.
+alloc.b_sat   = [ 0.00294561553104781;
+                  0.00214403277419873 ];
+%%%%%
 
 n = 4;
 n_pair = 1:n;
@@ -46,12 +55,13 @@ alloc.w_facet = zeros(3,size(pairs,1));
 alloc.g_facet = zeros(1,size(pairs,1));
 alloc.inrm2   = zeros(1,size(pairs,1));
 
+W = alloc.A_wheel2body;
 for p = 1:size(pairs,1)
    ii = pairs(p,1);
    jj = pairs(p,2);
    
-   a_hat_i = alloc.A_wheel2body(:,ii);
-   a_hat_j = alloc.A_wheel2body(:,jj);
+   a_hat_i = W(:,ii);
+   a_hat_j = W(:,jj);
    
    temp = cross(a_hat_i,a_hat_j);
    n_hat_ij = temp./norm(temp);
@@ -61,8 +71,7 @@ for p = 1:size(pairs,1)
    
    v_ij = zeros(3,1);
    for k = id_saturated
-       v_ij = v_ij ...
-           + sign(dot(alloc.A_wheel2body(:,k),n_hat_ij)) .* alloc.A_wheel2body(:,k);
+       v_ij = v_ij + sign(dot(W(:,k),n_hat_ij)) .* W(:,k);
    end
    
    d_ij = dot(v_ij,n_hat_ij);
