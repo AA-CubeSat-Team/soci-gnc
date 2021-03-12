@@ -34,7 +34,7 @@ for k = 1:mag.N_mag
    % set different seeds so that each sensor has different noise values
    mag.seed(k) = 10*(k-1)+1;
    % set noise characterisitics (assumed from HMC5993 for now)
-   mag.err_T(:,k) = 10^-6*[0.403053;0.240996;0.173209]; % T
+   mag.err_T(:,k) = 10^-6*[2.8058;5.2032;3.7329]; % T
    % set linear range of sensor
    mag.B_min_T(k) = -2e-4;   % T
    mag.B_max_T(k) =  2e-4;   % T
