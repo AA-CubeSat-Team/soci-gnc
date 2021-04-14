@@ -34,10 +34,10 @@ for k = 1:mag.N_mag
    % set different seeds so that each sensor has different noise values
    mag.seed(k) = 10*(k-1)+1;
    % set noise characterisitics (assumed from HMC5993 for now)
-   mag.err_T(:,k) = 10^-6*[2.8058;5.2032;3.7329]; % T
+   mag.err_uT(:,k) = [ 2.8058e-3; 5.2032e-3; 3.7329e-3 ]; % uT
    % set linear range of sensor
-   mag.B_min_T(k) = -2e-4;   % T
-   mag.B_max_T(k) =  2e-4;   % T
+   mag.B_min_uT(k) = - simParams.constants.convert.T2uT * 2e-4;   % uT
+   mag.B_max_uT(k) =   simParams.constants.convert.T2uT * 2e-4;   % uT
 end
 
 sensors.mag = mag;
@@ -129,13 +129,14 @@ sensors.solar_panels = solar_panels;
 photodiodes = struct;
 
 % maximum output current as a function of incident solar power
-photodiodes.I_out_ApW = 0.55; % A/W
+photodiodes.max_current_uA = 170;
+photodiodes.I_out_uApW     = photodiodes.max_current_uA./solar_panels.maxPower;
 
 % define cutoff above which we say there is incidence. Take 50% of maximum
 % output current -- this says that unless the photodiode is outputting more
 % than 50% of its max current, we ignore the reading when deciding sun
 % direction using this sensor
-photodiodes.I_cutoff_A = (0.5*photodiodes.I_out_ApW).*sensors.solar_panels.maxPower;
+photodiodes.I_cutoff_uA = (0.5.*photodiodes.max_current_uA);
 
 sensors.photodiodes = photodiodes;
 
