@@ -61,3 +61,6 @@ load('busDefinitions.mat')
 
 % initialize the SOAR payload
 soarParams = init_soar_params(fswParams,simParams);
+
+% initialize the EPS model
+simParams = eps_model_init(simParams,fswParams);
