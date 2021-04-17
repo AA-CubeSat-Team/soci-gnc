@@ -10,6 +10,7 @@
 *.m~
 *.mat
 !/Include/*.mat
+!/Test/Analysis/DesatSSO/B_eci_T.mat
 *.l
 
 # Other
