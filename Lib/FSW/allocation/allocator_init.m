@@ -20,7 +20,11 @@ rwa_sim     = simParams.actuators.rwa;
 Jw          = rwa_sim.inertia;
 RPM2RPS     = fswParams.constants.convert.RPM2RPS;
 targ_rpm    = [ 1000; -1000; 1000; -1000 ];
+<<<<<<< HEAD
 nullvec     = [1;-1;1;-1];
+=======
+rwa_nullvec = [1;-1;1;-1];
+>>>>>>> 40d7965 (Added alloc_null)
 
 alloc = struct;
 
@@ -32,8 +36,12 @@ alloc.max_RPM             = rwa_sim.max_RPM;
 alloc.num_facet           = uint8(6);
 alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
+<<<<<<< HEAD
 alloc.nullvec             = nullvec;
 
+=======
+alloc.rwa_nullvec         = rwa_nullvec
+>>>>>>> 40d7965 (Added alloc_null)
 
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
