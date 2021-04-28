@@ -61,11 +61,19 @@ rwa.max_RADPS      = simParams.constants.convert.RPM2RPS * rwa.max_RPM;
 rwa.max_torque_Nm  = 3.2e-3; % max torque per wheel
 
 % power calculation parameters
-rwa.visc_fric_coef = rwa.max_torque_Nm / rwa.max_RADPS; % [N-m-s/rad]
-rwa.stall_torque   = rwa.max_torque_Nm;
-rwa.mech_eff       = 1.452; %.182; % 18 percent efficient. 
+power_mdl = struct;
+power_mdl.rps_lo   = 100 * simParams.constants.convert.RPM2RPS;
+% these coefficients are computed from zero-torque data from NanoAvionics
+% by the Test/Analysis/rwa_power_model.m script. Do not change here.
+power_mdl.coeff_lo = [ 0.04; 0.007162 ];
+power_mdl.coeff_hi = [ 0.11274; 0.0001773; 5.1858e-7; -2.1908e-10 ];
+power_mdl.visc_fric_coef = rwa.max_torque_Nm / rwa.max_RADPS; % [N-m-s/rad]
+power_mdl.account_for_fric = false;
+power_mdl.stall_torque   = rwa.max_torque_Nm;
+power_mdl.mech_eff       = 1.452; %.182; % 18 percent efficient. 
                             % (1/4)*stall_torque*Max_Rpm = 3 Watts*eff
                             % eff = .182
+rwa.power_mdl = power_mdl;
                            
 % variance to simulate wheel jitter
 if (simParams.opts.actuator_model > 0)
