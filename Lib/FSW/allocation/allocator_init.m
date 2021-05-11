@@ -32,7 +32,7 @@ alloc.max_RPM             = rwa_sim.max_RPM;
 alloc.num_facet           = uint8(6);
 alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
-alloc.rwa_nullvec         = rwa_nullvec
+alloc.rwa_nullvec         = rwa_nullvec;
 
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
