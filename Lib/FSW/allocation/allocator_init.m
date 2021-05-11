@@ -48,6 +48,7 @@ alloc.feedback_gain       = 0.01;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 alloc.nullvec             = nullvec;
 
 =======
@@ -63,6 +64,9 @@ alloc.nullvec             = nullvec;
 =======
 alloc.rwa_nullvec         = rwa_nullvec
 >>>>>>> 40d7965 (Added alloc_null)
+=======
+alloc.rwa_nullvec         = rwa_nullvec;
+>>>>>>> cab5b1b (Added some new tests)
 
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
