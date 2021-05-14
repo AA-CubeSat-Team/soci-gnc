@@ -95,6 +95,38 @@ sensors.gyro_offset         = gyro_offset;
 sensors.gyro_static_range   = gyro_static_range_radps;
 sensors.gyro_max_err        = gyro_max_err_radps;
 
+%% Magnetometer and magnetorquer duty cycling
+% this will setup a duty cycle that covers <supercycle_length> FSW sample
+% times. The MTQs will be active for the first <mtq_cycles_on_before>
+% cycles of each supercycle. The magnetometers will be used only after this
+% number of cycles *plus* an additional <mag_delay_cycles>. This lets any
+% transients in the MTQ-induced magnetic field settle before we consume a
+% new measurement. 
+% For <supercycle_length>    = 10
+%     <mtq_cycles_on_before> = 4
+%     <mag_delay_cycles>     = 1
+% the expected output looks like:
+%
+% MTQs "On"
+%      ______      ______
+%     |      |    |      |
+%     |      |    |      | 
+% ____|      |____|      |
+%
+% MAGs "On"
+% ____         ___
+%     |       |   |       |
+%     |       |   |       |
+%     |_______|   |_______|
+%
+% Note: The magnetometer readings are latched when this duty cycle reads
+% "off", we *do not* mark the measurements as invalid.
+sensors.duty_cycle.supercycle_length    = 10;
+sensors.duty_cycle.mtq_cycles_on_before = 4;
+mag_delay_cycles     = 1;
+sensors.duty_cycle.mag_cycles_on_after  = ...
+                    sensors.duty_cycle.mtq_cycles_on_before + mag_delay_cycles;
+
 %% Add sensors struct to the main structs
 fswParams.sensors = sensors;
 end
