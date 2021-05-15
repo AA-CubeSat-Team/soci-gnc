@@ -32,7 +32,7 @@
 *.tlh
 *.dmr
 *Build/*/*.txt
-
+!Build/wiki_figs/*.png
 # LaTeX
 *.aux
 *.fdb_latexmk
