@@ -1,5 +1,14 @@
-# soci-gnc
-Development of the on-board GNC software for the SOC-i mission.
+# SOC-i GNC Flightsoftware
+This repository contains the on-board GNC flight software for the SOC-i mission.
+
+## System Requirements
+The software is built using Matlab 2018b. If you plan to develop/push any code, you need to use this version of Matlab. **Do not use newer versions**, this will make it so that everybody else with 2018b cannot open the libraries.
+
+Before doing anything with this repository, you need to read through the wiki. At a minimum, you need to read through:
+- [Start here](https://github.com/AA-CubeSat-Team/soci-gnc/wiki)
+- [Getting started with sim](https://github.com/AA-CubeSat-Team/soci-gnc/wiki/Getting-Started-With-the-Sim)
+
+There are some parameters that you need to set in order to configure Simulink properly to run the sim.  
 
 ## General Team Practices:
 
@@ -19,4 +28,4 @@ All code should be packaged into simulink libraries. Whenever and as much as pos
 ### Data Types in FSW
 - all data types should be clearly defined
 - do not default to using doubles for everything; think about what data type is required for the job. 
-  - But do use 64-bits for floating point numbers (ie double, not single, precision).
+  - But do use 64-bits for floating point numbers (i.e., double, not single, precision).
