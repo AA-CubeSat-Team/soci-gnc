@@ -47,6 +47,7 @@ alloc.rwa_nullvec         = rwa_nullvec
 alloc.rwa_nullvec         = rwa_nullvec;
 >>>>>>> cab5b1b (Added some new tests)
 
+
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
 % TETRAHEDRAL WHEEL CONFIG WITH 3.2mNm TORQUE PER WHEEL. ANY CHANGES MUST
