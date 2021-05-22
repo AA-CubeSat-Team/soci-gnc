@@ -34,6 +34,7 @@ alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
 alloc.rwa_nullvec         = rwa_nullvec;
 
+
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
 % TETRAHEDRAL WHEEL CONFIG WITH 3.2mNm TORQUE PER WHEEL. ANY CHANGES MUST
