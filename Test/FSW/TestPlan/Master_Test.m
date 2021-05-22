@@ -13,6 +13,7 @@
 %   velocity limits are not exceeded, maneuver is finished in predetermined
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 %   amount of time. (SOCI-SYS-002 4.9)
 =======
 %   amount of time. 
@@ -20,6 +21,9 @@
 =======
 %   amount of time. (SOCI-SYS-002 4.9)
 >>>>>>> 96c8442 (Updates to Tests)
+=======
+%   amount of time. 
+>>>>>>> f035040 (Added null_vec to the RWA bus, which is needed for the rwa null allocator to work. Added some test plan tests, which are still in progress. Added a max rate test and a allocator simulator, which are still in progress.)
 % - Actuator Failure Test - Checks that if a reaction wheel fails, the
 %   satellite only allocates rpm's to the working reaction wheels, and the
 %   ACE is still within requirements. 
@@ -30,6 +34,7 @@
 %   switches GNC modes when it should, that the satellite handles
 %   disturbances, maintains desired RWA momentum, and that the solar panel 
 %   effective area is maximized.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -90,3 +95,17 @@ fclose(fileID);
 >>>>>>> f035040 (Added null_vec to the RWA bus, which is needed for the rwa null allocator to work. Added some test plan tests, which are still in progress. Added a max rate test and a allocator simulator, which are still in progress.)
 =======
 >>>>>>> 96c8442 (Updates to Tests)
+=======
+
+ASM_Test
+
+x = 0:.1:1;
+A = [x; exp(x)];
+
+fileID = fopen('Test_Plan_Results','w');
+fprintf(fileID,'SOC-I Flight Software Master Test Results\n\n');
+
+fprintf(fileID,'%6s %12s\n','x','exp(x)');
+fprintf(fileID,'%6.2f %12.8f\n',A);
+fclose(fileID);
+>>>>>>> f035040 (Added null_vec to the RWA bus, which is needed for the rwa null allocator to work. Added some test plan tests, which are still in progress. Added a max rate test and a allocator simulator, which are still in progress.)
