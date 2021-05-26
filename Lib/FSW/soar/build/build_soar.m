@@ -23,7 +23,7 @@ switch soarParams.config
         Gpr_size    = 674;
         h_size      = 354;
         q_size      = 1;
-        y_size      = 334;
+        y_size      = 333;
     case 'bi'
         c_size      = 332;
         Air_size    = 1278;
@@ -35,7 +35,7 @@ switch soarParams.config
         Gpr_size    = 754;
         h_size      = 414;
         q_size      = 11;
-        y_size      = 334;       
+        y_size      = 333;       
     case 'bie'
         c_size      = 332;
         Air_size    = 1278;
@@ -47,7 +47,7 @@ switch soarParams.config
         Gpr_size    = 834;
         h_size      = 474;
         q_size      = 21;
-        y_size      = 334;
+        y_size      = 333;
     otherwise
         error('BUILD_SOAR: Undefined build configuration')
 end
@@ -58,7 +58,7 @@ def.IncPaths = {'../include/ecos/include'};
 def.SrcPaths = {'../include/ecos/src'};
 def.SourceFiles = {'matlab_main.c','cone.c','ctrlc.c','ecos.c',...
                    'equil.c','expcone.c','kkt.c','preproc.c','spla.c',...
-                   'splamm.c','timer.c','wright_omega.c','ldl.c','amd_1.c',...
+                   'splamm.c','wright_omega.c','ldl.c','amd_1.c',...
                    'amd_2.c','amd_aat.c','amd_control.c','amd_defaults.c',...
                    'amd_dump.c','amd_global.c','amd_info.c','amd_order.c',...
                    'amd_post_tree.c','amd_postorder.c','amd_preprocess.c','amd_valid.c'};

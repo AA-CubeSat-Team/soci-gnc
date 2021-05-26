@@ -4,8 +4,6 @@
 %
 % T. Reynolds -- RAIN Lab
 
-soar_params = fswParams.soar;
-
 load('soar_test_data.mat')
 
 % initial conditions

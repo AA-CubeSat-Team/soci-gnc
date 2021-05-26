@@ -55,7 +55,7 @@ switch soarParams.config
         soarParams.Gpr_size = int32(674);
         soarParams.h_size   = int32(354);
         soarParams.q_size   = int32(1);
-        soarParams.y_size   = int32(334);
+        soarParams.y_size   = int32(333);
         % dimensions of cones
         soarParams.l_dim    = int32(322);
         soarParams.soc_dim  = int32(32);
@@ -73,7 +73,7 @@ switch soarParams.config
         soarParams.Gpr_size = int32(754);
         soarParams.h_size   = int32(414);
         soarParams.q_size   = int32(11);
-        soarParams.y_size   = int32(334);
+        soarParams.y_size   = int32(333);
         % dimensions of cones
         soarParams.l_dim    = int32(322);
         soarParams.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6]);
@@ -91,7 +91,7 @@ switch soarParams.config
         soarParams.Gpr_size = int32(834);
         soarParams.h_size   = int32(474);
         soarParams.q_size   = int32(21);
-        soarParams.y_size   = int32(334);
+        soarParams.y_size   = int32(333);
         % dimensions of cones
         soarParams.l_dim    = int32(322);
         soarParams.soc_dim  = int32([32;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;6]);
