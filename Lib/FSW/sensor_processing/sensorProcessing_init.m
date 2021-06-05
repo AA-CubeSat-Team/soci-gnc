@@ -7,6 +7,10 @@ function [fswParams,simParams] = sensorProcessing_init(fswParams,simParams)
 
 sensors = struct;
 
+%% Sunsensor Processing
+sensors.sunseek_hysteresis_deg = 10;
+sensors.sun_sensor_range_deg = simParams.sensors.sun_sensor.range_deg;
+
 %% Magnetometer Processing
 % Soft Iron Bias Calibration
 SIB_cal_Matrix = [ 1, 0, 0;

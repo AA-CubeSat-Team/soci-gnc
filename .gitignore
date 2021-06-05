@@ -3,6 +3,7 @@
 *.slx.r2016a
 *.slx.r2016b
 *.slx.autosave
+*.slx.original
 *Build/cache/
 *Build/slprj/
 
