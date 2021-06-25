@@ -14,6 +14,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 %   amount of time. (SOCI-SYS-002 4.9)
 =======
 %   amount of time. 
@@ -24,6 +25,9 @@
 =======
 %   amount of time. 
 >>>>>>> f035040 (Added null_vec to the RWA bus, which is needed for the rwa null allocator to work. Added some test plan tests, which are still in progress. Added a max rate test and a allocator simulator, which are still in progress.)
+=======
+%   amount of time. (SOCI-SYS-002 4.9)
+>>>>>>> 96c8442 (Updates to Tests)
 % - Actuator Failure Test - Checks that if a reaction wheel fails, the
 %   satellite only allocates rpm's to the working reaction wheels, and the
 %   ACE is still within requirements. 
@@ -37,6 +41,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96c8442 (Updates to Tests)
 =======
 >>>>>>> 96c8442 (Updates to Tests)
 % - Desaturation Test - Checks that the reaction wheel rotation rates stay
@@ -45,6 +52,7 @@
 %   Solar Test - Checks that solar panel effective area is maximized
 %   and that the sun sensor points at the sun over different GNC mode. 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 testParams_init
@@ -96,16 +104,32 @@ fclose(fileID);
 =======
 >>>>>>> 96c8442 (Updates to Tests)
 =======
-
-ASM_Test
-
-x = 0:.1:1;
-A = [x; exp(x)];
-
+=======
 fileID = fopen('Test_Plan_Results','w');
 fprintf(fileID,'SOC-I Flight Software Master Test Results\n\n');
 
+testParams.save_figs = false;
+testParams.save_data = false;
+testParams.fildID = fileID;
+
+master_test = 1;
+>>>>>>> 96c8442 (Updates to Tests)
+
+ASM_Test
+
+Imaging_Test
+
+fclose(fileID);
+
+master_test = 0;
+
+fclose(fileID);
+
+
+<<<<<<< HEAD
 fprintf(fileID,'%6s %12s\n','x','exp(x)');
 fprintf(fileID,'%6.2f %12.8f\n',A);
 fclose(fileID);
 >>>>>>> f035040 (Added null_vec to the RWA bus, which is needed for the rwa null allocator to work. Added some test plan tests, which are still in progress. Added a max rate test and a allocator simulator, which are still in progress.)
+=======
+>>>>>>> 96c8442 (Updates to Tests)
