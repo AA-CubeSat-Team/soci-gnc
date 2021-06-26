@@ -23,6 +23,7 @@ targ_rpm    = [ 1000; -1000; 1000; -1000 ];
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 nullvec     = [1;-1;1;-1];
 =======
 rwa_nullvec = [1;-1;1;-1];
@@ -33,6 +34,9 @@ nullvec     = [1;-1;1;-1];
 =======
 rwa_nullvec = [1;-1;1;-1];
 >>>>>>> 40d7965 (Added alloc_null)
+=======
+nullvec     = [1;-1;1;-1];
+>>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
 
 alloc = struct;
 
@@ -49,6 +53,7 @@ alloc.feedback_gain       = 0.01;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 alloc.nullvec             = nullvec;
 
 =======
@@ -67,6 +72,9 @@ alloc.rwa_nullvec         = rwa_nullvec
 =======
 alloc.rwa_nullvec         = rwa_nullvec;
 >>>>>>> cab5b1b (Added some new tests)
+=======
+alloc.nullvec             = nullvec;
+>>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
 
 
 %%%%
