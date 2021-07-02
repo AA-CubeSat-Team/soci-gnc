@@ -1,7 +1,7 @@
 function [fswParams,simParams] = sensorProcessing_init(fswParams,simParams)
 %sensorProcessing_init
 %
-% Initialization of the sensor processing library parameters.
+% Initialization of the sensor processing library parameters. 
 %
 % Nick Melville
 
@@ -130,6 +130,12 @@ sensors.duty_cycle.mtq_cycles_on_before = 4;
 mag_delay_cycles     = 1;
 sensors.duty_cycle.mag_cycles_on_after  = ...
                     sensors.duty_cycle.mtq_cycles_on_before + mag_delay_cycles;
+
+%% Defines the time offset parameter
+% This will initially be 0, but will be updated to accountfor  drift in the
+% onboard clock. This value is added to the clock's time. This ensures that
+% environment estimation is accurate. 
+sensors.time_offset = 0; % seconds
 
 %% Add sensors struct to the main structs
 fswParams.sensors = sensors;
