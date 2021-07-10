@@ -41,6 +41,7 @@
 %   and that the sun sensor points at the sun over different GNC mode. 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 testParams_init
 
 fprintf(testParams.fileID,'SOC-I Flight Software Master Test Results\n\n');
@@ -58,23 +59,24 @@ fclose(testParams.fileID);
 =======
 fileID = fopen('Test_Plan_Results','w');
 fprintf(fileID,'SOC-I Flight Software Master Test Results\n\n');
+=======
+testParams_init
+>>>>>>> 99f7254 (From bottom to top: Added a bunch of code to ASM_Test, Imaging_Test, and Master_Test as part of implementing the fsw test plan. Deleted some extraneous files. Fixed an obvious mistake in target_gen_lib that caused the camera to be the secondary pointing objective, and to point nadir during img mode. Changed the detumble mode select to be triggered by the 2-norm rather than the inf-norm of the rotation rate. I think this makes more sense. Fixed a couple sign errors in the groundpass_predict library which caused the camera to point 180 degrees from the target. Added a testParams_init file.)
 
-testParams.save_figs = false;
-testParams.save_data = false;
-testParams.fildID = fileID;
+fprintf(testParams.fileID,'SOC-I Flight Software Master Test Results\n\n');
 
+<<<<<<< HEAD
 master_test = 1;
 >>>>>>> 96c8442 (Updates to Tests)
+=======
+asm_results = ASM_Test(testParams, fswParams)
+>>>>>>> 99f7254 (From bottom to top: Added a bunch of code to ASM_Test, Imaging_Test, and Master_Test as part of implementing the fsw test plan. Deleted some extraneous files. Fixed an obvious mistake in target_gen_lib that caused the camera to be the secondary pointing objective, and to point nadir during img mode. Changed the detumble mode select to be triggered by the 2-norm rather than the inf-norm of the rotation rate. I think this makes more sense. Fixed a couple sign errors in the groundpass_predict library which caused the camera to point 180 degrees from the target. Added a testParams_init file.)
 
-ASM_Test
+%imaging_results = Imaging_Test(testParams, fswParams)
 
-Imaging_Test
 
-fclose(fileID);
+fclose(testParams.fileID);
 
-master_test = 0;
-
-fclose(fileID);
 
 
 <<<<<<< HEAD
