@@ -1,57 +1,242 @@
-% Imaging Test
+function asm_results = Imaging_Test(testParams, fswParams)
 
+%% Initialize the parameters
 init_params; 
+imaging_results = struct;
 
-% READ THIS: Run Sim_init if you haven't already. For this test to work, 
-% you must change the target lat, long, and alt to 60,120,0. This ensures 
-% satellite flies over the ground target in a timely manner. You must also 
-% enable imaging. 
+%% Initializes boolean variables for pass/fail.
+entered_img_mode = false;
+camera_aligned = false;
+sc_above_targ = false;
+left_img_mode = false;
+ake_acceptable = true;
+ace_acceptable = true;
+timely_sunseek = false;
+new_gnc = nan;
 
-% Sim_init
+%% Modify parameters for this specific test
+% Imaging target set so that satellite will fly over target soon after
+% sim start. Works for ourTLE.txt. 
+cdh = Simulink.Mask.get('Main_Sim/CDH_command_lib');
+target_lat_deg = cdh.Parameters(1);
+target_lat_deg.set('Value','60.0');
+target_lon_deg = cdh.Parameters(2);
+target_lon_deg.set('Value','120.0');
+target_alt_m = cdh.Parameters(3);
+target_alt_m.set('Value','0.0');
+enable_img = cdh.Parameters(8);
+enable_img.set('Value','on');
 
-fprintf(fileID,'Imaging Test\n\n');
+lla = [60,120,0];
+img_body = [0.0;0.0;-1.0];
 
-a = sim('Main_Sim', 'StartTime','0','StopTime','500');
-gnc_mode = a.get('gnc_mode');
-ace_err = a.get('ace_err');
+% Temporary
+fswParams.mode_select.body_rate_threshold_max = 0.262;
+%% Start the simulation
+data = sim('Main_Sim', 'StartTime','0','StopTime','600');
 
+%% Get the relevant data from the simulation
+gnc_mode = data.get('gnc_mode');
+rwa_cmd_rpm = data.get('rwa_cmd_rpm');
+r_eci_km = data.get('r_eci_km');
+MET_utc_s = data.get('MET_utc_s');
+ake_deg = data.get('ake_deg');
+ace_deg = data.get('ace_deg');
+sc_quat = data.get('sc_quat');
+w_body_radps = data.get('w_body_radps');
+
+%% Checks that the data meets requirements
+
+
+% Calculates position of ground target in ECEF coordinates:
+targ_ecef = 0.001*lla2ecef(lla).';
+
+% Enters img mode for atleast 45 seconds? What time?
+for i = 1 : length(gnc_mode.Data) - testParams.maneuver_time/fswParams.sample_time_s
+    if (gnc_mode.Data(i) == 7 && gnc_mode.Data(i + testParams.maneuver_time/fswParams.sample_time_s) == 7) 
+        entered_img_mode = true;
+        time_entered_img = gnc_mode.time(i);
+        break
+    end  
+end 
+
+% Checks that the camera is aligned (within 7 degrees)
+for i = testParams.maneuver_time/fswParams.sample_time_s + 1 : length(gnc_mode.Data)
+    if (gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 7 && gnc_mode.Data(i) == 7)
+        deg = (360.9856123035484 * (MET_utc_s.data(i)/86400) + 280.46)*pi/180;
+        dcm_ecef = [cos(deg),-sin(deg),0;sin(deg),cos(deg),0;0,0,1];
+        sat_ecef = dcm_ecef * r_eci_km.data(i,:).';
+        sc2targ = targ_ecef - sat_ecef;
+        dcm_attitude = quat2dcm(sc_quat.data(i,:));
+        
+        img_vec =  dcm_ecef * dcm_attitude.' * img_body;
+        deg_err = (180/pi) * acos(dot(sc2targ,img_vec)/(norm(sc2targ)*norm(img_vec)));
+        if (deg_err < 7)
+            camera_aligned = true;
+        end
+        % Checks that the satellite is actually above the target:
+        if (dot(sc2targ, targ_ecef) < 0)
+            sc_above_targ = true;
+        end
+        break
+    end   
+end
+
+deg_err
+
+% % Checks AKE
+% for i = 1 : length(gnc_mode.Data)
+%     if (gnc_mode.Data(i) == 6 || gnc_mode.Data(i) == 7 || gnc_mode.Data(i) == 8) 
+%         if (ake_deg.data(i) > 3.5)
+%         ake_acceptable = false;
+%         ake_fault = ake_deg.data(i);
+%         ake_fault_time = gnc_mode.time(i);
+%         ake_fault_mode = gnc_mode.data(i);
+%         break
+%         end 
+%     end  
+% end
+% 
+% % Checks ACE
+% for i = testParams.maneuver_time/fswParams.sample_time_s + 1 : length(gnc_mode.Data)
+%     if (gnc_mode.Data(i) == 5 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 5) 
+%         if (ace_deg.data(i) > 7)
+%         ace_acceptable = false;
+%         ace_fault = ace_deg.data(i);
+%         ace_fault_time = gnc_mode.time(i);
+%         ace_fault_mode = gnc_mode.data(i);
+%         break
+%         end 
+%     end
+%     if (gnc_mode.Data(i) == 6 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 6) 
+%         if (ace_deg.data(i) > 7)
+%         ace_acceptable = false;
+%         ace_fault = ace_deg.data(i);
+%         ace_fault_time = gnc_mode.time(i);
+%         ace_fault_mode = gnc_mode.data(i);
+%         break
+%         end 
+%     end 
+%     if (gnc_mode.Data(i) == 7 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 7) 
+%         if (ace_deg.data(i) > 7)
+%         ace_acceptable = false;
+%         ace_fault = ace_deg.data(i);
+%         ace_fault_time = gnc_mode.time(i);
+%         ace_fault_mode = gnc_mode.data(i);
+%         break
+%         end 
+%     end 
+%     if (gnc_mode.Data(i) == 8 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 8) 
+%         if (ace_deg.data(i) > 7)
+%         ace_acceptable = false;
+%         ace_fault = ace_deg.data(i);
+%         ace_fault_time = gnc_mode.time(i);
+%         ace_fault_mode = gnc_mode.data(i);
+%         break
+%         end 
+%     end 
+% end
+% 
+% % Checks that the satellite leaves imaging mode and goes into nominal mode
+% % when it is no longer over the target: 
+% for i = 2 : length(gnc_mode.Data)
+%     if (gnc_mode.Data(i-1) == 7 && gnc_mode.Data(i) == 6)
+%         deg = ((1/86400) * 360.9856123035484 * MET_utc_s.data(i) + 280.46)*pi/180;
+%         deg = deg + 0*pi/180;
+%         dcm_ecef = [cos(deg),sin(deg),0;-sin(deg),cos(deg),0;0,0,1];
+%         sat_ecef = dcm_ecef * r_eci_km.data(i,:).';
+%         sc2targ = targ_ecef - sat_ecef;
+%         elevation = pi/2 - acos(dot(-sc2targ, targ_ecef)/(norm(sc2targ)*norm(targ_ecef)));
+%         if (elevation < fswParams.ground_targs(2).min_elev_rad)
+%             left_img_mode = true;
+%             left_img_elevation = elevation * 180/pi;
+%         end
+%     end
+% end
+
+        
+%% Plots the data
 figure(1)
-subplot(2,1,1)
+subplot(3,1,1)
 plot(gnc_mode.Time,gnc_mode.Data,'LineWidth',3')
-title('SOC-I Imaging Mode')
+title('SOC-I Attitude Stabilization Mode')
 ylabel('GNC Mode')
 
-subplot(2,1,2)
-plot(ace_err.Time,ace_err.Data,'LineWidth',2')
+subplot(3,1,2)
+plot(w_body_radps.Time,w_body_radps.Data,'LineWidth',2')
 xlabel('Time (s)')
-ylabel('Attitude Error (degrees)')
+ylabel('Body Rates (rad/s)')
+legend('x','y','z')
 
-if master_test == 0
-    fileID = fopen('Test_Plan_Results','w');
+subplot(3,1,3)
+plot(rwa_cmd_rpm.Time,rwa_cmd_rpm.Data,'LineWidth',2')
+xlabel('Time (s)')
+ylabel('RPM')
+legend('1','2','3','4')
+
+if (testParams.save_figs)
+    savefig('asmTest.fig')
 end
 
-% The satellite has 30 seconds to orient its camera. There is no time requirements,
-% but this should be easily met. 
-dt = 30/simParams.sample_time_s;
+%% Prints results to "Test_Plan_Results"
+fprintf(testParams.fileID,'//////////ASM (Detumble) Test//////////\n\n');
 
-timestep_into_imaging = find(gnc_mode.Data == 7,  1, 'first')
-
-ace_imaging = ace_err.Data(timestep_into_imaging + dt)
-
-if (ace_imaging<=1)
-    
-    fprintf(fileID,'Pass\n');
-    formatSpec = 'The attitude control error after 30 seconds in imaging mode is %1.4f degrees\n\n';
-    fprintf(fileID,formatSpec,ace_imaging)
-    
-else
-    
-    fprintf(fileID,'Fail\n');  
-    formatSpec = 'The attitude control error after 30 seconds in imaging mode is %1.4f degrees\n\n';
-    fprintf(fileID,formatSpec,ace_imaging)
-    
+fprintf(testParams.fileID,'Enters IMG mode?\n');
+if (entered_img_mode == true)
+    fprintf(testParams.fileID,'Pass\n');
+    formatSpec = 'Time entered IMG mode: %1.4f rad/s\n\n';
+    fprintf(testParams.fileID,formatSpec,time_entered_img)
+else 
+    fprintf(testParams.fileID,'Fail\n\n'); 
 end
 
-if (master_test == 0)
-    fclose(fileID);
+fprintf(testParams.fileID,'Leaves ASM mode and enters some other nominal mode (5,6,7,8) after the rotation rate is below min threshold?\n');
+if (left_asm_mode == true)
+    fprintf(testParams.fileID,'Pass\n');
+    formatSpec = 'Subsequent GNC Mode: %1.0f\n\n';
+    fprintf(testParams.fileID,formatSpec,new_gnc)
+else 
+    fprintf(testParams.fileID,'Fail\n'); 
+    formatSpec = 'Subsequent GNC Mode: %1.0f \n\n';
+    fprintf(testParams.fileID,formatSpec,new_gnc)
+end
+
+fprintf(testParams.fileID,'Leaves ASM mode only after rate is below the min threshold?\n');
+if (correct_rate == true)
+    fprintf(testParams.fileID,'Pass\n');
+    formatSpec = 'Rate: %1.4f rad/s\n\n';
+    fprintf(testParams.fileID,formatSpec,rate_crit)
+else 
+    fprintf(testParams.fileID,'Fail\n'); 
+    formatSpec = 'Rate: %1.4f rad/s\n\n';
+    fprintf(testParams.fileID,formatSpec,rate_crit)
+end
+
+fprintf(testParams.fileID,'After 30 seconds, does the satellite have a low rotation rate?\n');
+if (timely_detumble == true)
+    fprintf(testParams.fileID,'Pass\n');
+    formatSpec = 'Final rate: %1.4f rad/s\n\n';
+    fprintf(testParams.fileID,formatSpec,final_rate)
+else 
+    fprintf(testParams.fileID,'Fail\n');
+    formatSpec = 'Final rate: %1.4f rad/s\n\n';
+    fprintf(testParams.fileID,formatSpec,final_rate) 
+end
+
+fprintf(testParams.fileID,'Does the satellite avoid tumbling again?\n');
+if (nomore_tumble == true)
+    fprintf(testParams.fileID,'Pass\n');
+else 
+    fprintf(testParams.fileID,'Fail\n'); 
+end
+
+%% Output relevant data
+asm_results.entered_asm_mode = entered_asm_mode;
+asm_results.left_asm_mode = left_asm_mode;
+asm_results.correct_rate = correct_rate;
+asm_results.timely_detumble = timely_detumble;
+asm_results.nomore_tumble = nomore_tumble; 
+asm_results.rate_crit = rate_crit;
+%asm_results.new_gnc = new_gnc;
+
 end

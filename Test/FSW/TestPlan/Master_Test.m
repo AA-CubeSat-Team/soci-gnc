@@ -28,23 +28,16 @@
 %   Solar Test - Checks that solar panel effective area is maximized
 %   and that the sun sensor points at the sun over different GNC mode. 
 
-fileID = fopen('Test_Plan_Results','w');
-fprintf(fileID,'SOC-I Flight Software Master Test Results\n\n');
+testParams_init
 
-testParams.save_figs = false;
-testParams.save_data = false;
-testParams.fildID = fileID;
+fprintf(testParams.fileID,'SOC-I Flight Software Master Test Results\n\n');
 
-master_test = 1;
+asm_results = ASM_Test(testParams, fswParams)
 
-ASM_Test
+%imaging_results = Imaging_Test(testParams, fswParams)
 
-Imaging_Test
 
-fclose(fileID);
+fclose(testParams.fileID);
 
-master_test = 0;
-
-fclose(fileID);
 
 
