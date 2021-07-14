@@ -32,9 +32,9 @@ testParams_init
 
 fprintf(testParams.fileID,'SOC-I Flight Software Master Test Results\n\n');
 
-asm_results = ASM_Test(testParams, fswParams)
+%asm_results = ASM_Test(testParams, fswParams)
 
-%imaging_results = Imaging_Test(testParams, fswParams)
+imaging_results = Imaging_Test(testParams, fswParams)
 
 
 fclose(testParams.fileID);
