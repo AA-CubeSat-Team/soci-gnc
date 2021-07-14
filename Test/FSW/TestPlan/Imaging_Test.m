@@ -33,6 +33,7 @@ enable_img.set('Value','on');
 
 lla = [0,51.7,0];
 <<<<<<< HEAD
+<<<<<<< HEAD
 img_body = [0.0;0.0;-1.0];
 
 % Temporary
@@ -609,12 +610,14 @@ enable_img = cdh.Parameters(8);
 enable_img.set('Value','on');
 
 lla = [60,120,0];
+=======
+>>>>>>> 94a60c7 (Added gs_above_targ to the fsw_telemetry bus so that I can use it for testing. Put default_config back in the right place. Added another output to FSW_Lib so that I can use it as part of testing. Fixed an error in the eci to ecef conversion which was causing the Earth to rotate in the wrong direction. Fixed a sign error in groundpass_predict_lib. Fixed an obvious bug in mode_select_lib which made img mode have the wrong attitude targets. Added a bunch of new code to Imaging_Test and Master_Test and testParams_init.)
 img_body = [0.0;0.0;-1.0];
 
 % Temporary
 fswParams.mode_select.body_rate_threshold_max = 0.262;
 %% Start the simulation
-data = sim('Main_Sim', 'StartTime','0','StopTime','600');
+data = sim('Main_Sim', 'StartTime','0','StopTime','1800');
 
 %% Get the relevant data from the simulation
 gnc_mode = data.get('gnc_mode');
@@ -625,6 +628,7 @@ ake_deg = data.get('ake_deg');
 ace_deg = data.get('ace_deg');
 sc_quat = data.get('sc_quat');
 w_body_radps = data.get('w_body_radps');
+ss_valid = data.get('ss_valid');
 
 %% Checks that the data meets requirements
 
@@ -649,150 +653,168 @@ for i = testParams.maneuver_time/fswParams.sample_time_s + 1 : length(gnc_mode.D
         sat_ecef = dcm_ecef * r_eci_km.data(i,:).';
         sc2targ = targ_ecef - sat_ecef;
         dcm_attitude = quat2dcm(sc_quat.data(i,:));
-        
         img_vec =  dcm_ecef * dcm_attitude.' * img_body;
         deg_err = (180/pi) * acos(dot(sc2targ,img_vec)/(norm(sc2targ)*norm(img_vec)));
+      
         if (deg_err < 7)
             camera_aligned = true;
         end
         % Checks that the satellite is actually above the target:
         if (dot(sc2targ, targ_ecef) < 0)
             sc_above_targ = true;
+            img_elevation = (pi/2 - acos(dot(-sc2targ, targ_ecef)/(norm(sc2targ)*norm(targ_ecef)))) * 180/pi;
         end
         break
     end   
 end
 
 deg_err
+ace_deg.data(i)
 
-% % Checks AKE
-% for i = 1 : length(gnc_mode.Data)
-%     if (gnc_mode.Data(i) == 6 || gnc_mode.Data(i) == 7 || gnc_mode.Data(i) == 8) 
-%         if (ake_deg.data(i) > 3.5)
-%         ake_acceptable = false;
-%         ake_fault = ake_deg.data(i);
-%         ake_fault_time = gnc_mode.time(i);
-%         ake_fault_mode = gnc_mode.data(i);
-%         break
-%         end 
-%     end  
-% end
-% 
-% % Checks ACE
-% for i = testParams.maneuver_time/fswParams.sample_time_s + 1 : length(gnc_mode.Data)
-%     if (gnc_mode.Data(i) == 5 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 5) 
-%         if (ace_deg.data(i) > 7)
-%         ace_acceptable = false;
-%         ace_fault = ace_deg.data(i);
-%         ace_fault_time = gnc_mode.time(i);
-%         ace_fault_mode = gnc_mode.data(i);
-%         break
-%         end 
-%     end
-%     if (gnc_mode.Data(i) == 6 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 6) 
-%         if (ace_deg.data(i) > 7)
-%         ace_acceptable = false;
-%         ace_fault = ace_deg.data(i);
-%         ace_fault_time = gnc_mode.time(i);
-%         ace_fault_mode = gnc_mode.data(i);
-%         break
-%         end 
-%     end 
-%     if (gnc_mode.Data(i) == 7 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 7) 
-%         if (ace_deg.data(i) > 7)
-%         ace_acceptable = false;
-%         ace_fault = ace_deg.data(i);
-%         ace_fault_time = gnc_mode.time(i);
-%         ace_fault_mode = gnc_mode.data(i);
-%         break
-%         end 
-%     end 
-%     if (gnc_mode.Data(i) == 8 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 8) 
-%         if (ace_deg.data(i) > 7)
-%         ace_acceptable = false;
-%         ace_fault = ace_deg.data(i);
-%         ace_fault_time = gnc_mode.time(i);
-%         ace_fault_mode = gnc_mode.data(i);
-%         break
-%         end 
-%     end 
-% end
-% 
-% % Checks that the satellite leaves imaging mode and goes into nominal mode
-% % when it is no longer over the target: 
-% for i = 2 : length(gnc_mode.Data)
-%     if (gnc_mode.Data(i-1) == 7 && gnc_mode.Data(i) == 6)
-%         deg = ((1/86400) * 360.9856123035484 * MET_utc_s.data(i) + 280.46)*pi/180;
-%         deg = deg + 0*pi/180;
-%         dcm_ecef = [cos(deg),sin(deg),0;-sin(deg),cos(deg),0;0,0,1];
-%         sat_ecef = dcm_ecef * r_eci_km.data(i,:).';
-%         sc2targ = targ_ecef - sat_ecef;
-%         elevation = pi/2 - acos(dot(-sc2targ, targ_ecef)/(norm(sc2targ)*norm(targ_ecef)));
-%         if (elevation < fswParams.ground_targs(2).min_elev_rad)
-%             left_img_mode = true;
-%             left_img_elevation = elevation * 180/pi;
-%         end
-%     end
-% end
+% Checks AKE
+for i = testParams.attitude_acq_time/fswParams.sample_time_s + 1 : length(gnc_mode.Data)
+    if (ss_valid.data(i) && ss_valid.data(i - testParams.attitude_acq_time/fswParams.sample_time_s) && ake_deg.data(i) > 3.5 && ss_valid.data(i)) 
+      ake_acceptable = false;
+      ake_fault = ake_deg.data(i);
+      ake_fault_time = gnc_mode.time(i);
+      ake_fault_mode = gnc_mode.data(i);
+      break
+    end 
+end
+
+
+
+% Checks ACE
+for i = testParams.maneuver_time/fswParams.sample_time_s + 1 : length(gnc_mode.Data)
+    if (gnc_mode.Data(i) == 5 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 5) 
+        if (ace_deg.data(i) > 3.5)
+        ace_acceptable = false;
+        ace_fault = ace_deg.data(i);
+        ace_fault_time = gnc_mode.time(i);
+        ace_fault_mode = gnc_mode.data(i);
+        break
+        end 
+    end
+    if (gnc_mode.Data(i) == 6 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 6) 
+        if (ace_deg.data(i) > 3.5)
+        ace_acceptable = false;
+        ace_fault = ace_deg.data(i);
+        ace_fault_time = gnc_mode.time(i);
+        ace_fault_mode = gnc_mode.data(i);
+        break
+        end 
+    end 
+    if (gnc_mode.Data(i) == 7 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 7) 
+        if (ace_deg.data(i) > 3.5)
+        ace_acceptable = false;
+        ace_fault = ace_deg.data(i);
+        ace_fault_time = gnc_mode.time(i);
+        ace_fault_mode = gnc_mode.data(i);
+        break
+        end 
+    end 
+    if (gnc_mode.Data(i) == 8 && gnc_mode.Data(i - testParams.maneuver_time/fswParams.sample_time_s) == 8) 
+        if (ace_deg.data(i) > 3.5)
+        ace_acceptable = false;
+        ace_fault = ace_deg.data(i);
+        ace_fault_time = gnc_mode.time(i);
+        ace_fault_mode = gnc_mode.data(i);
+        break
+        end 
+    end 
+end
+
+% Checks that the satellite leaves imaging mode and goes into nominal mode
+% when it is no longer over the target: 
+for i = 2 : length(gnc_mode.Data)
+    if (gnc_mode.Data(i-1) == 7 && (gnc_mode.Data(i) == 6 || gnc_mode.Data(i) == 5))
+        deg = ((1/86400) * 360.9856123035484 * MET_utc_s.data(i) + 280.46)*pi/180;
+        deg = deg + 0*pi/180;
+        dcm_ecef = [cos(deg),sin(deg),0;-sin(deg),cos(deg),0;0,0,1];
+        sat_ecef = dcm_ecef * r_eci_km.data(i,:).';
+        sc2targ = targ_ecef - sat_ecef;
+        elevation = pi/2 - acos(dot(-sc2targ, targ_ecef)/(norm(sc2targ)*norm(targ_ecef)));
+        if (elevation < 1.5*fswParams.ground_targs(2).min_elev_rad)
+            left_img_mode = true;
+            left_img_elevation = elevation * 180/pi;
+        end
+        break
+    end
+end
 
         
 %% Plots the data
 figure(1)
-subplot(3,1,1)
+subplot(3,2,1)
 plot(gnc_mode.Time,gnc_mode.Data,'LineWidth',3')
 title('SOC-I Attitude Stabilization Mode')
 ylabel('GNC Mode')
 
-subplot(3,1,2)
+subplot(3,2,2)
 plot(w_body_radps.Time,w_body_radps.Data,'LineWidth',2')
 xlabel('Time (s)')
 ylabel('Body Rates (rad/s)')
 legend('x','y','z')
 
-subplot(3,1,3)
+subplot(3,2,3)
+plot(ake_deg.Time,ake_deg.Data,'LineWidth',2')
+ylabel('Attitude Knowledge Error (deg)')
+
+subplot(3,2,4)
 plot(rwa_cmd_rpm.Time,rwa_cmd_rpm.Data,'LineWidth',2')
 xlabel('Time (s)')
 ylabel('RPM')
 legend('1','2','3','4')
+
+subplot(3,2,5)
+plot(ace_deg.Time,ace_deg.Data,'LineWidth',2')
+ylabel('Attitude Control Error (deg)')
+
+subplot(3,2,6)
+plot(ss_valid.Time,ss_valid.Data,'LineWidth',2')
+xlabel('Time (s)')
+ylabel('SS Valid')
+
 
 if (testParams.save_figs)
     savefig('asmTest.fig')
 end
 
 %% Prints results to "Test_Plan_Results"
-fprintf(testParams.fileID,'//////////ASM (Detumble) Test//////////\n\n');
+fprintf(testParams.fileID,'//////////Imaging Test//////////\n\n');
 
 fprintf(testParams.fileID,'Enters IMG mode?\n');
 if (entered_img_mode == true)
     fprintf(testParams.fileID,'Pass\n');
-    formatSpec = 'Time entered IMG mode: %1.4f rad/s\n\n';
-    fprintf(testParams.fileID,formatSpec,time_entered_img)
+    formatSpec = 'Time entered IMG mode: %1.4f seconds\n\n';
+    fprintf(testParams.fileID,formatSpec,time_entered_img);
 else 
     fprintf(testParams.fileID,'Fail\n\n'); 
 end
 
-fprintf(testParams.fileID,'Leaves ASM mode and enters some other nominal mode (5,6,7,8) after the rotation rate is below min threshold?\n');
-if (left_asm_mode == true)
+fprintf(testParams.fileID,'Is the camera aligned with the target 45 seconds into img mode?\n');
+if (camera_aligned == true)
     fprintf(testParams.fileID,'Pass\n');
-    formatSpec = 'Subsequent GNC Mode: %1.0f\n\n';
-    fprintf(testParams.fileID,formatSpec,new_gnc)
+    formatSpec = 'Degree error: %1.4f\n\n';
+    fprintf(testParams.fileID,formatSpec,deg_err);
 else 
     fprintf(testParams.fileID,'Fail\n'); 
-    formatSpec = 'Subsequent GNC Mode: %1.0f \n\n';
-    fprintf(testParams.fileID,formatSpec,new_gnc)
+    formatSpec = 'Error: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,deg_err);
 end
 
-fprintf(testParams.fileID,'Leaves ASM mode only after rate is below the min threshold?\n');
-if (correct_rate == true)
+fprintf(testParams.fileID,'Is the satellite actually above the ground target?\n');
+if (sc_above_targ == true)
     fprintf(testParams.fileID,'Pass\n');
-    formatSpec = 'Rate: %1.4f rad/s\n\n';
-    fprintf(testParams.fileID,formatSpec,rate_crit)
+    formatSpec = 'Elevation: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,img_elevation);
 else 
     fprintf(testParams.fileID,'Fail\n'); 
-    formatSpec = 'Rate: %1.4f rad/s\n\n';
-    fprintf(testParams.fileID,formatSpec,rate_crit)
+    formatSpec = 'Rate: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,img_elevation);
 end
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 if (master_test == 0)
     fclose(fileID);
@@ -803,17 +825,41 @@ if (timely_detumble == true)
     fprintf(testParams.fileID,'Pass\n');
     formatSpec = 'Final rate: %1.4f rad/s\n\n';
     fprintf(testParams.fileID,formatSpec,final_rate)
+=======
+fprintf(testParams.fileID,'Does the AKE meet requirements?\n');
+if (ake_acceptable == true)
+    fprintf(testParams.fileID,'Pass\n\n');
+>>>>>>> 94a60c7 (Added gs_above_targ to the fsw_telemetry bus so that I can use it for testing. Put default_config back in the right place. Added another output to FSW_Lib so that I can use it as part of testing. Fixed an error in the eci to ecef conversion which was causing the Earth to rotate in the wrong direction. Fixed a sign error in groundpass_predict_lib. Fixed an obvious bug in mode_select_lib which made img mode have the wrong attitude targets. Added a bunch of new code to Imaging_Test and Master_Test and testParams_init.)
 else 
     fprintf(testParams.fileID,'Fail\n');
-    formatSpec = 'Final rate: %1.4f rad/s\n\n';
-    fprintf(testParams.fileID,formatSpec,final_rate) 
+    formatSpec = 'AKE Fault Degrees: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,ake_deg);
+    formatSpec = 'AKE Fault GNC Mode: %1.0f\n\n';
+    fprintf(testParams.fileID,formatSpec,ake_fault_mode);
+    formatSpec = 'AKE Fault Time: %1.0f\n\n';
+    fprintf(testParams.fileID,formatSpec,ake_fault_time);
 end
 
-fprintf(testParams.fileID,'Does the satellite avoid tumbling again?\n');
-if (nomore_tumble == true)
-    fprintf(testParams.fileID,'Pass\n');
+fprintf(testParams.fileID,'Does the ACE meet requirements?\n');
+if (ace_acceptable == true)
+    fprintf(testParams.fileID,'Pass\n\n');
 else 
-    fprintf(testParams.fileID,'Fail\n'); 
+    fprintf(testParams.fileID,'Fail\n');
+    formatSpec = 'ACE Fault Degrees: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,ace_deg);
+    formatSpec = 'ACE Fault GNC Mode: %1.0f\n\n';
+    fprintf(testParams.fileID,formatSpec,ace_fault_mode);
+    formatSpec = 'ACE Fault Time: %1.0f\n\n';
+    fprintf(testParams.fileID,formatSpec,ace_fault_time);
+end
+
+fprintf(testParams.fileID,'Does the satellite leave img mode?\n');
+if (left_img_mode == true)
+    fprintf(testParams.fileID,'Pass\n');
+    formatSpec = 'Elevation: %1.4f deg\n\n';
+    fprintf(testParams.fileID,formatSpec,left_img_elevation);
+else 
+    fprintf(testParams.fileID,'Fail\n\n'); 
 end
 
 %% Output relevant data

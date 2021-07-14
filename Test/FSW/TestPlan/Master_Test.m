@@ -115,13 +115,17 @@ testParams_init
 fprintf(testParams.fileID,'SOC-I Flight Software Master Test Results\n\n');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 master_test = 1;
 >>>>>>> 96c8442 (Updates to Tests)
 =======
 asm_results = ASM_Test(testParams, fswParams)
 >>>>>>> 99f7254 (From bottom to top: Added a bunch of code to ASM_Test, Imaging_Test, and Master_Test as part of implementing the fsw test plan. Deleted some extraneous files. Fixed an obvious mistake in target_gen_lib that caused the camera to be the secondary pointing objective, and to point nadir during img mode. Changed the detumble mode select to be triggered by the 2-norm rather than the inf-norm of the rotation rate. I think this makes more sense. Fixed a couple sign errors in the groundpass_predict library which caused the camera to point 180 degrees from the target. Added a testParams_init file.)
+=======
+%asm_results = ASM_Test(testParams, fswParams)
+>>>>>>> 94a60c7 (Added gs_above_targ to the fsw_telemetry bus so that I can use it for testing. Put default_config back in the right place. Added another output to FSW_Lib so that I can use it as part of testing. Fixed an error in the eci to ecef conversion which was causing the Earth to rotate in the wrong direction. Fixed a sign error in groundpass_predict_lib. Fixed an obvious bug in mode_select_lib which made img mode have the wrong attitude targets. Added a bunch of new code to Imaging_Test and Master_Test and testParams_init.)
 
-%imaging_results = Imaging_Test(testParams, fswParams)
+imaging_results = Imaging_Test(testParams, fswParams)
 
 
 fclose(testParams.fileID);
