@@ -13,11 +13,13 @@
 !/Include/*.mat
 !/Test/Analysis/DesatSSO/B_eci_T.mat
 *.l
+*.asv
 
 # Other
 *.xml
 *tr
 *scv
+*.mexw64
 *.mexmaci64
 
 # Autocoded build stuff
