@@ -19,6 +19,7 @@
 *tr
 *scv
 *.mexmaci64
+*.DS_Store
 
 # Autocoded build stuff
 *.o
