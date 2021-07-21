@@ -20,26 +20,7 @@ rwa_sim     = simParams.actuators.rwa;
 Jw          = rwa_sim.inertia;
 RPM2RPS     = fswParams.constants.convert.RPM2RPS;
 targ_rpm    = [ 1000; -1000; 1000; -1000 ];
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 71fe71e (Removed redundant variables from allocator_init, which came from a rebase.)
 nullvec     = [1;-1;1;-1];
-rwa_nullvec = [1;-1;1;-1];
-nullvec     = [1;-1;1;-1];
-<<<<<<< HEAD
->>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
-=======
-rwa_nullvec = [1;-1;1;-1];
->>>>>>> 40d7965 (Added alloc_null)
-=======
-nullvec     = [1;-1;1;-1];
->>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
-=======
->>>>>>> 71fe71e (Removed redundant variables from allocator_init, which came from a rebase.)
 
 alloc = struct;
 
@@ -51,39 +32,7 @@ alloc.max_RPM             = rwa_sim.max_RPM;
 alloc.num_facet           = uint8(6);
 alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 alloc.nullvec             = nullvec;
-
-=======
-alloc.rwa_nullvec         = rwa_nullvec
->>>>>>> 40d7965 (Added alloc_null)
-=======
-alloc.rwa_nullvec         = rwa_nullvec;
->>>>>>> cab5b1b (Added some new tests)
-=======
-alloc.nullvec             = nullvec;
->>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
-
-=======
-alloc.rwa_nullvec         = rwa_nullvec
->>>>>>> 40d7965 (Added alloc_null)
-=======
-alloc.rwa_nullvec         = rwa_nullvec;
->>>>>>> cab5b1b (Added some new tests)
-=======
-alloc.nullvec             = nullvec;
->>>>>>> b3933fd (Hopefully this will allow me to make a pull request.)
-
-=======
-alloc.nullvec             = nullvec;
-
->>>>>>> 71fe71e (Removed redundant variables from allocator_init, which came from a rebase.)
 
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE
