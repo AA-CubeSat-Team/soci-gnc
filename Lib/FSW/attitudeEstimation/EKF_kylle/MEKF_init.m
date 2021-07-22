@@ -34,10 +34,13 @@ P_init = blkdiag(P_0_a*eye(3),P_0_b*eye(3));
 estimation.ic.Pchol_init = chol(P_init,'lower');
 
 %% Sensor Standard Deviations %%
+% mvs - describes how the standard deviation of the gyro and 
+% mag measurements is reduced by the use of mid value selection. 
+mvs = 0.67;
 % sun sensor measurement std deviation (radians)
-sun_sensor_std = 0.5/(sqrt(3)*3.0)*pi/180; 
+sun_sensor_std = mvs*(0.5/(sqrt(3)*3.0)*pi/180); 
 % magnetometer std deviation (micro tesla)
-mag_sens_std   = ([4.0305e-07;2.4100e-07;1.7321e-07]);
+mag_sens_std   = mvs*([4.0305e-07;2.4100e-07;1.7321e-07]);
 
 % Time step that the MEKF is ran at %
 dt                       = fswParams.sample_time_s;
@@ -64,6 +67,9 @@ estimation.Rchol = chol(R,'lower');
 %% TRIAD Data %%
 estimation.triad_parallel_tol_deg = 1e-5;
 estimation.triad_cycles           = 10;
+
+% Triad Smoother Parameter
+estimation.slerp_parameter        = 0.5;
 
 %% Add to main struct %%
 fswParams.estimation = estimation;

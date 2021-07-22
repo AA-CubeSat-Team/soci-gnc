@@ -44,7 +44,7 @@ load('busDefinitions.mat')
 % sets up constants associated with the sensors
 [fswParams,simParams] = sensors_init(fswParams,simParams);
 
-% sets up constants associated with the magnetometer processing library
+% sets up constants associated with the sensor processing libraries
 [fswParams,simParams] = sensorProcessing_init(fswParams,simParams);
 
 % sets up constants associated with the controllers
