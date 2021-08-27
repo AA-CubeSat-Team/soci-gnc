@@ -130,7 +130,7 @@ else
     mtq.noise       = 1;                            
     mtq.variance    = 0.001 .* mtq.max_dipoles_Am2; % variance of cmd is 0.1%
 end
-mtq.seed        = [ 101; 102; 103 ];            % seeds for RNG
+mtq.seed        = [ 101; 102; 103; 104; 105 ];          % seeds for RNG
 
 % add mtq to actuators struct
 actuators.mtq = mtq;

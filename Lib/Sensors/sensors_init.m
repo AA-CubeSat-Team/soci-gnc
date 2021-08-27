@@ -108,7 +108,7 @@ sun_sensor.deg_var = 0.02357;
 sun_sensor.seed = [ 101; 102 ];
 
 % set field of view
-sun_sensor.range_deg = 60;
+sun_sensor.range_deg = 72;
 
 sensors.sun_sensor = sun_sensor;
 
