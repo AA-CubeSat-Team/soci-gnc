@@ -64,3 +64,6 @@ soarParams = init_soar_params(fswParams,simParams);
 
 %set up constants associated with desat controller gains
 [fswParams, simParams]=desatcontrollerParams_init(fswParams,simParams);
+
+%set up constants associated with the power model
+[fswParams, simParams]=power_model_init(fswParams,simParams);

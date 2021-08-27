@@ -11,7 +11,7 @@ WorldInfo {
 DEF Earth Transform {
   scaleOrientation 0 0 0 0
   scale 6378 6357 6378
-  rotation 1 1 1 2
+  rotation -0.643485 0.540609 0.541912 4.28672
   children Shape {
     appearance Appearance {
       texture ImageTexture {
@@ -4068,22 +4068,124 @@ DEF Earth Transform {
     }
   }
 }
-DEF SOCI Transform {
-  translation 0 6928 0
-  scale 0.1 0.1 0.2
+DEF Camera Transform {
+  translation 149.392 -1936.37 6643.03
+  rotation -0.99967 0.00384935 -0.0253895 1.29104
   children [
     Shape {
       appearance Appearance {
         material Material {
+          specularColor 0.984314 0.984314 0.984314
+          diffuseColor 1 0.0408163 0.0408163
+        }
+      }
+      geometry Cylinder {
+        radius 0.1
+        height 0.2
+      }
+    }
+    DEF camera_view Viewpoint {
+      description "camera_view"
+      position 0 -3 4.54747e-13
+      orientation -1 -1.73471e-18 5.20416e-18 1.5708
+      fieldOfView 0.5236
+    }
+  ]
+}
+DEF Antenna Transform {
+  translation 149.435 -1935.82 6641.11
+  rotation -0.99967 0.00384935 -0.0253895 1.29104
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          specularColor 1 1 1
+          diffuseColor 0.9 0.55237 0.00733938
+        }
+      }
+      geometry Cylinder {
+        radius 0.1
+        height 0.2
+      }
+    }
+    DEF antenna_view Viewpoint {
+      description "antenna_view"
+      position 0 3 0
+      orientation 1 -6.93888e-18 -1.25593e-23 1.5708
+      fieldOfView 0.5236
+    }
+  ]
+}
+DEF SOCI Transform {
+  translation 149.413 -1936.1 6642.07
+  rotation -0.711929 -0.694264 -0.105616 2.95691
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.796642 0.8 0.0102278
         }
       }
       geometry Box {
+        size 1 1 2
       }
     }
-    Viewpoint {
-      position 0 1 3
-      orientation 1 0 0 0
+    DEF SOCI_view Viewpoint {
+      description "SOCI_view"
+      position -9.09495e-13 2 5
+      orientation -1 -6.21027e-16 4.14597e-16 0.25
       fieldOfView 1
     }
   ]
+}
+DEF Sun Transform {
+  translation 5054.29 -1045.41 7027.9
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.796642 0.8 0.0102278
+        }
+      }
+      geometry Sphere {
+        radius 100
+      }
+    }
+    PointLight {
+      intensity 50
+      ambientIntensity 0.5
+    }
+  ]
+}
+DEF Sun_Sensor Transform {
+  translation 149.913 -1936.11 6642.08
+  rotation 0.124791 -0.980899 -0.149211 1.60858
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          specularColor 1 1 1
+          diffuseColor 0.0223017 0.8 0.139417
+        }
+      }
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    DEF sunsensor_view Viewpoint {
+      description "sunsensor_view"
+      position 0 -4.54747e-13 -1
+      orientation -7.97975e-17 -1.97758e-16 1 1.5708
+      fieldOfView 1.05
+    }
+  ]
+}
+DEF Follow_Camera Transform {
+  translation 153.181 -1929.04 6647.16
+  rotation 0.149342 0.425451 0.892574 2.83962
+  children DEF follow_view Viewpoint {
+    description "follow_view"
+    position 0 0 0
+    orientation 0 1 0 0
+  }
 }
