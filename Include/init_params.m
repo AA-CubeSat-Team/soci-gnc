@@ -8,7 +8,7 @@
 % Devan Tormey | T. P. Reynolds
 
 % TLE 
-TLE = 'ourTLE2.txt';
+TLE = 'ourTLE.txt';
 load('busDefinitions.mat')
 
 % main structs defined by default config file
