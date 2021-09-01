@@ -44,7 +44,7 @@ load('busDefinitions.mat')
 % sets up constants associated with the sensors
 [fswParams,simParams] = sensors_init(fswParams,simParams);
 
-% sets up constants associated with the magnetometer processing library
+% sets up constants associated with the sensor processing libraries
 [fswParams,simParams] = sensorProcessing_init(fswParams,simParams);
 
 % sets up constants associated with the controllers
@@ -61,3 +61,9 @@ load('busDefinitions.mat')
 
 % initialize the SOAR payload
 soarParams = init_soar_params(fswParams,simParams);
+
+%set up constants associated with desat controller gains
+[fswParams, simParams]=desatcontrollerParams_init(fswParams,simParams);
+
+%set up constants associated with the power model
+[fswParams, simParams]=power_model_init(fswParams,simParams);

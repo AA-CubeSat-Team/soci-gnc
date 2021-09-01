@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -25,22 +25,23 @@
 #include "FSW_Lib.h"
 #include "FSW_Lib_private.h"
 
-/* Output and update for atomic system: '<S128>/asmController_lib' */
-void asmController_lib(void)
+/* Output and update for atomic system: '<S231>/asmController_lib' */
+void asmController_lib(const real_T rtu_w_err_radps[3], real_T
+  rty_torque_cmd_Nm[3])
 {
   int32_T i;
 
-  /* Product: '<S133>/Matrix Multiply' incorporates:
-   *  Constant: '<S133>/Constant'
+  /* Product: '<S236>/Matrix Multiply' incorporates:
+   *  Constant: '<S236>/Constant'
    */
   for (i = 0; i < 3; i++) {
-    rtDW.Merge[i] = 0.0;
-    rtDW.Merge[i] += rtCP_Constant_Value_c[i] * rtDW.w_err_radps[0];
-    rtDW.Merge[i] += rtCP_Constant_Value_c[i + 3] * rtDW.w_err_radps[1];
-    rtDW.Merge[i] += rtCP_Constant_Value_c[i + 6] * rtDW.w_err_radps[2];
+    rty_torque_cmd_Nm[i] = 0.0;
+    rty_torque_cmd_Nm[i] += rtCP_Constant_Value_c[i] * rtu_w_err_radps[0];
+    rty_torque_cmd_Nm[i] += rtCP_Constant_Value_c[i + 3] * rtu_w_err_radps[1];
+    rty_torque_cmd_Nm[i] += rtCP_Constant_Value_c[i + 6] * rtu_w_err_radps[2];
   }
 
-  /* End of Product: '<S133>/Matrix Multiply' */
+  /* End of Product: '<S236>/Matrix Multiply' */
 }
 
 /*

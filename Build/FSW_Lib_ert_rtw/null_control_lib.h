@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -29,12 +29,6 @@
 #endif                                 /* FSW_Lib_COMMON_INCLUDES_ */
 
 #include "FSW_Lib_types.h"
-
-/* Invariant block signals for system '<S130>/null_control_lib1' */
-typedef struct {
-  const real_T null_control_input[3];  /* '<S147>/null_control_input' */
-} ConstB_null_control_lib;
-
 #endif                                 /* RTW_HEADER_null_control_lib_h_ */
 
 /*

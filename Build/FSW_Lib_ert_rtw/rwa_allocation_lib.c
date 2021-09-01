@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -31,70 +31,159 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
   rtu_rwa_rpm[4], const boolean_T rtu_rwa_valid[4], real_T rty_torque_wheel_Nm[4],
   DW_rwa_allocation_lib *localDW)
 {
+  real_T temp[8];
+  static const int8_T a[32] = { 1, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0,
+    0, 0, 1, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -1 };
+
+  real_T h_err_null_norm[4];
+  int32_T idx;
   real_T id_good[3];
   int32_T n_whl;
   uint8_T n_whl_0;
   real_T rtb_output_wheel[4];
   real_T rtb_output_wheel_b[4];
+  real_T localProduct;
+  real_T localProduct_0;
   real_T rtb_A_out[9];
   real_T tmp[9];
-  int32_T rtb_A_out_tmp;
+  boolean_T tmp_0;
+  boolean_T exitg1;
 
-  /* If: '<S126>/If' incorporates:
-   *  Logic: '<S126>/Logical Operator'
+  /* If: '<S229>/If' incorporates:
+   *  Gain: '<S258>/feedback_gain'
+   *  Gain: '<S258>/wheel_inertia_kgm2'
+   *  Logic: '<S229>/Logical Operator'
+   *  Sum: '<S258>/Sum1'
+   *  Sum: '<S258>/Sum2'
    */
   if (rtu_rwa_valid[0] && rtu_rwa_valid[1] && rtu_rwa_valid[2] && rtu_rwa_valid
       [3]) {
-    /* Outputs for IfAction SubSystem: '<S126>/If Action Subsystem' incorporates:
-     *  ActionPort: '<S159>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S229>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S258>/Action Port'
      */
-    /* Outputs for Atomic SubSystem: '<S159>/L_inf_allocation_lib' */
+    /* Outputs for Atomic SubSystem: '<S258>/L_inf_allocation_lib' */
     L_inf_allocation_lib(rtu_torque_body_Nm, rtb_output_wheel_b);
 
-    /* End of Outputs for SubSystem: '<S159>/L_inf_allocation_lib' */
+    /* End of Outputs for SubSystem: '<S258>/L_inf_allocation_lib' */
 
-    /* DiscreteIntegrator: '<S159>/Discrete-Time Integrator' */
+    /* DiscreteIntegrator: '<S258>/Discrete-Time Integrator' */
     id_good[0] = localDW->DiscreteTimeIntegrator_DSTATE[0];
     id_good[1] = localDW->DiscreteTimeIntegrator_DSTATE[1];
     id_good[2] = localDW->DiscreteTimeIntegrator_DSTATE[2];
 
-    /* Outputs for Atomic SubSystem: '<S159>/L_inf_allocation_lib1' */
+    /* Outputs for Atomic SubSystem: '<S258>/L_inf_allocation_lib1' */
     L_inf_allocation_lib(id_good, rtb_output_wheel);
 
-    /* End of Outputs for SubSystem: '<S159>/L_inf_allocation_lib1' */
+    /* End of Outputs for SubSystem: '<S258>/L_inf_allocation_lib1' */
 
-    /* Sum: '<S159>/Sum2' incorporates:
-     *  Gain: '<S159>/feedback_gain'
-     *  Gain: '<S159>/rpm_2_radps'
-     *  Gain: '<S159>/wheel_inertia_kgm2'
-     *  Sum: '<S159>/Sum'
-     *  Sum: '<S159>/Sum1'
+    /* MATLAB Function: '<S263>/MATLAB Function' */
+    h_err_null_norm[0] = 0.0030919554896630744 - rtu_rwa_rpm[0] *
+      0.10471975511965977 * 2.9526E-5;
+    h_err_null_norm[1] = (-0.0030919554896630744 - rtu_rwa_rpm[1] *
+                          0.10471975511965977 * 2.9526E-5) / -1.0;
+    h_err_null_norm[2] = 0.0030919554896630744 - rtu_rwa_rpm[2] *
+      0.10471975511965977 * 2.9526E-5;
+    h_err_null_norm[3] = (-0.0030919554896630744 - rtu_rwa_rpm[3] *
+                          0.10471975511965977 * 2.9526E-5) / -1.0;
+    tmp_0 = rtIsNaN(h_err_null_norm[0]);
+    if (!tmp_0) {
+      idx = 1;
+    } else {
+      idx = 0;
+      n_whl = 2;
+      exitg1 = false;
+      while ((!exitg1) && (n_whl < 5)) {
+        if (!rtIsNaN(h_err_null_norm[n_whl - 1])) {
+          idx = n_whl;
+          exitg1 = true;
+        } else {
+          n_whl++;
+        }
+      }
+    }
+
+    if (idx == 0) {
+      localProduct_0 = h_err_null_norm[0];
+    } else {
+      localProduct_0 = h_err_null_norm[idx - 1];
+      while (idx + 1 < 5) {
+        if (localProduct_0 < h_err_null_norm[idx]) {
+          localProduct_0 = h_err_null_norm[idx];
+        }
+
+        idx++;
+      }
+    }
+
+    if (!tmp_0) {
+      idx = 1;
+    } else {
+      idx = 0;
+      n_whl = 2;
+      exitg1 = false;
+      while ((!exitg1) && (n_whl < 5)) {
+        if (!rtIsNaN(h_err_null_norm[n_whl - 1])) {
+          idx = n_whl;
+          exitg1 = true;
+        } else {
+          n_whl++;
+        }
+      }
+    }
+
+    if (idx == 0) {
+      localProduct = h_err_null_norm[0];
+    } else {
+      localProduct = h_err_null_norm[idx - 1];
+      while (idx + 1 < 5) {
+        if (localProduct > h_err_null_norm[idx]) {
+          localProduct = h_err_null_norm[idx];
+        }
+
+        idx++;
+      }
+    }
+
+    localProduct_0 = -((localProduct_0 + localProduct) / 2.0);
+
+    /* Gain: '<S258>/wheel_inertia_kgm2' incorporates:
+     *  Gain: '<S258>/rpm_2_radps'
+     *  MATLAB Function: '<S263>/MATLAB Function'
      */
-    rty_torque_wheel_Nm[0] = (rtb_output_wheel[0] - (0.10471975511965977 *
-      rtu_rwa_rpm[0] * 2.9526E-5 - 0.0030919554896630744)) * 0.01 +
-      rtb_output_wheel_b[0];
-    rty_torque_wheel_Nm[1] = (rtb_output_wheel[1] - (0.10471975511965977 *
-      rtu_rwa_rpm[1] * 2.9526E-5 - -0.0030919554896630744)) * 0.01 +
-      rtb_output_wheel_b[1];
-    rty_torque_wheel_Nm[2] = (rtb_output_wheel[2] - (0.10471975511965977 *
-      rtu_rwa_rpm[2] * 2.9526E-5 - 0.0030919554896630744)) * 0.01 +
-      rtb_output_wheel_b[2];
-    rty_torque_wheel_Nm[3] = (rtb_output_wheel[3] - (0.10471975511965977 *
-      rtu_rwa_rpm[3] * 2.9526E-5 - -0.0030919554896630744)) * 0.01 +
-      rtb_output_wheel_b[3];
+    localProduct = localProduct_0 / 2.9526E-5 * 9.5492965855137211 *
+      0.10471975511965977 * 2.9526E-5;
+    rtb_output_wheel_b[0] += (rtb_output_wheel[0] - localProduct) * 0.01;
 
-    /* Update for DiscreteIntegrator: '<S159>/Discrete-Time Integrator' */
+    /* Gain: '<S258>/wheel_inertia_kgm2' incorporates:
+     *  Gain: '<S258>/feedback_gain'
+     *  Gain: '<S258>/rpm_2_radps'
+     *  MATLAB Function: '<S263>/MATLAB Function'
+     *  Sum: '<S258>/Sum1'
+     *  Sum: '<S258>/Sum2'
+     */
+    localProduct_0 = -localProduct_0 / 2.9526E-5 * 9.5492965855137211 *
+      0.10471975511965977 * 2.9526E-5;
+    rtb_output_wheel_b[1] += (rtb_output_wheel[1] - localProduct_0) * 0.01;
+    rtb_output_wheel_b[2] += (rtb_output_wheel[2] - localProduct) * 0.01;
+    rtb_output_wheel_b[3] += (rtb_output_wheel[3] - localProduct_0) * 0.01;
+
+    /* Update for DiscreteIntegrator: '<S258>/Discrete-Time Integrator' incorporates:
+     *  Gain: '<S258>/feedback_gain'
+     *  Gain: '<S258>/wheel_inertia_kgm2'
+     *  Sum: '<S258>/Sum1'
+     *  Sum: '<S258>/Sum2'
+     */
     localDW->DiscreteTimeIntegrator_DSTATE[0] += 0.25 * rtu_torque_body_Nm[0];
     localDW->DiscreteTimeIntegrator_DSTATE[1] += 0.25 * rtu_torque_body_Nm[1];
     localDW->DiscreteTimeIntegrator_DSTATE[2] += 0.25 * rtu_torque_body_Nm[2];
 
-    /* End of Outputs for SubSystem: '<S126>/If Action Subsystem' */
+    /* End of Outputs for SubSystem: '<S229>/If Action Subsystem' */
   } else {
-    /* Outputs for IfAction SubSystem: '<S126>/If Action Subsystem1' incorporates:
-     *  ActionPort: '<S160>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S229>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S259>/Action Port'
      */
-    /* MATLAB Function: '<S160>/MATLAB Function' incorporates:
-     *  Constant: '<S160>/Constant'
+    /* MATLAB Function: '<S259>/MATLAB Function' incorporates:
+     *  Constant: '<S259>/Constant'
      */
     switch ((uint8_T)(((rtu_rwa_valid[0] + rtu_rwa_valid[1]) + rtu_rwa_valid[2])
                       + rtu_rwa_valid[3])) {
@@ -132,10 +221,10 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
       }
 
       for (n_whl = 0; n_whl < 3; n_whl++) {
-        rtb_A_out_tmp = ((int32_T)id_good[n_whl] - 1) * 3;
-        rtb_A_out[3 * n_whl] = rtCP_Constant_Value_dp[rtb_A_out_tmp];
-        rtb_A_out[1 + 3 * n_whl] = rtCP_Constant_Value_dp[rtb_A_out_tmp + 1];
-        rtb_A_out[2 + 3 * n_whl] = rtCP_Constant_Value_dp[rtb_A_out_tmp + 2];
+        idx = ((int32_T)id_good[n_whl] - 1) * 3;
+        rtb_A_out[3 * n_whl] = rtCP_Constant_Value_dp[idx];
+        rtb_A_out[1 + 3 * n_whl] = rtCP_Constant_Value_dp[idx + 1];
+        rtb_A_out[2 + 3 * n_whl] = rtCP_Constant_Value_dp[idx + 2];
       }
       break;
 
@@ -155,85 +244,85 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
       break;
     }
 
-    /* End of MATLAB Function: '<S160>/MATLAB Function' */
+    /* End of MATLAB Function: '<S259>/MATLAB Function' */
 
-    /* Product: '<S165>/Product' */
+    /* Product: '<S267>/Product' */
     rt_invd3x3_snf(rtb_A_out, tmp);
 
-    /* Product: '<S160>/Product' */
+    /* Product: '<S259>/Product' */
     for (n_whl = 0; n_whl < 3; n_whl++) {
       id_good[n_whl] = tmp[n_whl + 6] * rtu_torque_body_Nm[2] + (tmp[n_whl + 3] *
         rtu_torque_body_Nm[1] + tmp[n_whl] * rtu_torque_body_Nm[0]);
     }
 
-    /* MATLAB Function: '<S160>/MATLAB Function1' */
+    /* MATLAB Function: '<S259>/MATLAB Function1' */
     n_whl_0 = 0U;
 
-    /* SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm' incorporates:
-     *  MATLAB Function: '<S160>/MATLAB Function1'
+    /* SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm' incorporates:
+     *  MATLAB Function: '<S259>/MATLAB Function1'
      */
-    rty_torque_wheel_Nm[0] = 0.0;
+    rtb_output_wheel_b[0] = 0.0;
 
-    /* MATLAB Function: '<S160>/MATLAB Function1' incorporates:
-     *  Product: '<S160>/Product'
-     *  SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm'
+    /* MATLAB Function: '<S259>/MATLAB Function1' incorporates:
+     *  Product: '<S259>/Product'
+     *  SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm'
      */
     if (rtu_rwa_valid[0]) {
       n_whl_0 = 1U;
-      rty_torque_wheel_Nm[0] = id_good[0];
+      rtb_output_wheel_b[0] = id_good[0];
     }
 
-    /* SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm' incorporates:
-     *  MATLAB Function: '<S160>/MATLAB Function1'
+    /* SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm' incorporates:
+     *  MATLAB Function: '<S259>/MATLAB Function1'
      */
-    rty_torque_wheel_Nm[1] = 0.0;
+    rtb_output_wheel_b[1] = 0.0;
 
-    /* MATLAB Function: '<S160>/MATLAB Function1' incorporates:
-     *  Product: '<S160>/Product'
-     *  SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm'
+    /* MATLAB Function: '<S259>/MATLAB Function1' incorporates:
+     *  Product: '<S259>/Product'
+     *  SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm'
      */
     if (rtu_rwa_valid[1]) {
       n_whl = (int32_T)(n_whl_0 + 1U);
       n_whl_0++;
-      rty_torque_wheel_Nm[1] = id_good[(uint8_T)n_whl - 1];
+      rtb_output_wheel_b[1] = id_good[(uint8_T)n_whl - 1];
     }
 
-    /* SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm' incorporates:
-     *  MATLAB Function: '<S160>/MATLAB Function1'
+    /* SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm' incorporates:
+     *  MATLAB Function: '<S259>/MATLAB Function1'
      */
-    rty_torque_wheel_Nm[2] = 0.0;
+    rtb_output_wheel_b[2] = 0.0;
 
-    /* MATLAB Function: '<S160>/MATLAB Function1' incorporates:
-     *  Product: '<S160>/Product'
-     *  SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm'
+    /* MATLAB Function: '<S259>/MATLAB Function1' incorporates:
+     *  Product: '<S259>/Product'
+     *  SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm'
      */
     if (rtu_rwa_valid[2]) {
       n_whl = (int32_T)(n_whl_0 + 1U);
       n_whl_0++;
-      rty_torque_wheel_Nm[2] = id_good[(uint8_T)n_whl - 1];
+      rtb_output_wheel_b[2] = id_good[(uint8_T)n_whl - 1];
     }
 
-    /* SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm' incorporates:
-     *  MATLAB Function: '<S160>/MATLAB Function1'
+    /* SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm' incorporates:
+     *  MATLAB Function: '<S259>/MATLAB Function1'
      */
-    rty_torque_wheel_Nm[3] = 0.0;
+    rtb_output_wheel_b[3] = 0.0;
 
-    /* MATLAB Function: '<S160>/MATLAB Function1' incorporates:
-     *  Product: '<S160>/Product'
-     *  SignalConversion: '<S160>/OutportBufferFortorque_wheel_Nm'
+    /* MATLAB Function: '<S259>/MATLAB Function1' incorporates:
+     *  Product: '<S259>/Product'
+     *  SignalConversion: '<S259>/OutportBufferFortorque_wheel_Nm'
      */
     if (rtu_rwa_valid[3]) {
-      rty_torque_wheel_Nm[3] = id_good[(uint8_T)(n_whl_0 + 1U) - 1];
+      rtb_output_wheel_b[3] = id_good[(uint8_T)(n_whl_0 + 1U) - 1];
     }
 
-    /* Assertion: '<S165>/Assertion' incorporates:
-     *  Product: '<S168>/Product'
-     *  Product: '<S168>/Product1'
-     *  Product: '<S168>/Product2'
-     *  Product: '<S168>/Product3'
-     *  Product: '<S168>/Product4'
-     *  Product: '<S168>/Product5'
-     *  Sum: '<S168>/Sum'
+    /* Assertion: '<S267>/Assertion' incorporates:
+     *  Product: '<S270>/Product'
+     *  Product: '<S270>/Product1'
+     *  Product: '<S270>/Product2'
+     *  Product: '<S270>/Product3'
+     *  Product: '<S270>/Product4'
+     *  Product: '<S270>/Product5'
+     *  Sum: '<S270>/Sum'
      */
     utAssert(((((rtb_A_out[0] * rtb_A_out[4] * rtb_A_out[8] - rtb_A_out[0] *
                  rtb_A_out[5] * rtb_A_out[7]) - rtb_A_out[1] * rtb_A_out[3] *
@@ -241,10 +330,67 @@ void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
               rtb_A_out[1] * rtb_A_out[5] * rtb_A_out[6]) - rtb_A_out[2] *
              rtb_A_out[4] * rtb_A_out[6] != 0.0);
 
-    /* End of Outputs for SubSystem: '<S126>/If Action Subsystem1' */
+    /* End of Outputs for SubSystem: '<S229>/If Action Subsystem1' */
   }
 
-  /* End of If: '<S126>/If' */
+  /* End of If: '<S229>/If' */
+
+  /* MATLAB Function: '<S257>/MATLAB Function' incorporates:
+   *  Constant: '<S257>/Constant'
+   */
+  for (n_whl = 0; n_whl < 8; n_whl++) {
+    temp[n_whl] = ((((real_T)a[n_whl + 8] * rtb_output_wheel_b[1] + (real_T)
+                     a[n_whl] * rtb_output_wheel_b[0]) + (real_T)a[n_whl + 16] *
+                    rtb_output_wheel_b[2]) + (real_T)a[n_whl + 24] *
+                   rtb_output_wheel_b[3]) - 0.0032;
+  }
+
+  if (!rtIsNaN(temp[0])) {
+    idx = 0;
+  } else {
+    idx = -1;
+    n_whl = 2;
+    exitg1 = false;
+    while ((!exitg1) && (n_whl < 9)) {
+      if (!rtIsNaN(temp[n_whl - 1])) {
+        idx = n_whl - 1;
+        exitg1 = true;
+      } else {
+        n_whl++;
+      }
+    }
+  }
+
+  if (idx + 1 == 0) {
+    localProduct_0 = temp[0];
+    idx = 0;
+  } else {
+    localProduct_0 = temp[idx];
+    for (n_whl = idx + 1; n_whl + 1 < 9; n_whl++) {
+      if (localProduct_0 < temp[n_whl]) {
+        localProduct_0 = temp[n_whl];
+        idx = n_whl;
+      }
+    }
+  }
+
+  localProduct = (((real_T)a[idx + 8] * rtb_output_wheel_b[1] + (real_T)a[idx] *
+                   rtb_output_wheel_b[0]) + (real_T)a[idx + 16] *
+                  rtb_output_wheel_b[2]) + (real_T)a[idx + 24] *
+    rtb_output_wheel_b[3];
+  if (localProduct_0 > 0.0) {
+    rty_torque_wheel_Nm[0] = 0.0032 / localProduct * rtb_output_wheel_b[0];
+    rty_torque_wheel_Nm[1] = 0.0032 / localProduct * rtb_output_wheel_b[1];
+    rty_torque_wheel_Nm[2] = 0.0032 / localProduct * rtb_output_wheel_b[2];
+    rty_torque_wheel_Nm[3] = 0.0032 / localProduct * rtb_output_wheel_b[3];
+  } else {
+    rty_torque_wheel_Nm[0] = rtb_output_wheel_b[0];
+    rty_torque_wheel_Nm[1] = rtb_output_wheel_b[1];
+    rty_torque_wheel_Nm[2] = rtb_output_wheel_b[2];
+    rty_torque_wheel_Nm[3] = rtb_output_wheel_b[3];
+  }
+
+  /* End of MATLAB Function: '<S257>/MATLAB Function' */
 }
 
 /*

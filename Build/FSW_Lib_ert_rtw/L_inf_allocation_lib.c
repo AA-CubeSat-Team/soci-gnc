@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -27,8 +27,8 @@
 
 /*
  * Output and update for atomic system:
- *    '<S159>/L_inf_allocation_lib'
- *    '<S159>/L_inf_allocation_lib1'
+ *    '<S258>/L_inf_allocation_lib'
+ *    '<S258>/L_inf_allocation_lib1'
  */
 void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
   rty_output_wheel[4])
@@ -48,8 +48,8 @@ void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
   real_T val_tmp_0;
   real_T val_tmp_1;
 
-  /* MATLAB Function: '<S161>/MATLAB Function' incorporates:
-   *  Constant: '<S161>/Constant'
+  /* MATLAB Function: '<S261>/MATLAB Function' incorporates:
+   *  Constant: '<S261>/Constant'
    */
   val = 0.0;
   id = 1U;
@@ -121,7 +121,7 @@ void L_inf_allocation_lib(const real_T rtu_input_body[3], real_T
       1] - 1] = val * w_i_H;
   }
 
-  /* End of MATLAB Function: '<S161>/MATLAB Function' */
+  /* End of MATLAB Function: '<S261>/MATLAB Function' */
 }
 
 /*

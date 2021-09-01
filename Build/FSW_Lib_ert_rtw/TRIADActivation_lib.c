@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -30,12 +30,12 @@ void TRIADActivation_lib_Init(DW_TRIADActivation_lib *localDW)
 {
   int32_T i;
 
-  /* InitializeConditions for Delay: '<S54>/Delay' */
+  /* InitializeConditions for Delay: '<S157>/Delay' */
   for (i = 0; i < 10; i++) {
     localDW->Delay_DSTATE[i] = true;
   }
 
-  /* End of InitializeConditions for Delay: '<S54>/Delay' */
+  /* End of InitializeConditions for Delay: '<S157>/Delay' */
 }
 
 /* Output and update for atomic system: '<S3>/TRIADActivation_lib' */
@@ -47,27 +47,28 @@ boolean_T TRIADActivation_lib(boolean_T rtu_TriadGroundCmd, boolean_T
   int_T idxDelay;
   boolean_T rtb_NAND2;
 
-  /* Logic: '<S20>/NAND2' */
+  /* Logic: '<S121>/NAND2' */
   rtb_NAND2 = (rtu_sunsensor_valid && rtu_mag_valid);
 
-  /* Logic: '<S20>/OR4' incorporates:
-   *  Delay: '<S54>/Delay'
-   *  Logic: '<S20>/Logical Operator'
-   *  Logic: '<S20>/Logical Operator1'
-   *  Logic: '<S54>/AND'
-   *  Logic: '<S54>/NOT2'
+  /* Logic: '<S121>/OR4' incorporates:
+   *  Delay: '<S157>/Delay'
+   *  Logic: '<S121>/Logical Operator'
+   *  Logic: '<S121>/Logical Operator1'
+   *  Logic: '<S157>/AND'
    */
   rty_TriadActivate_0 = (rtu_TriadGroundCmd || (!rtu_gyro_valid) || (rtb_NAND2 &&
-    (!localDW->Delay_DSTATE[0])));
+    localDW->Delay_DSTATE[0]));
 
-  /* Update for Delay: '<S54>/Delay' */
+  /* Update for Delay: '<S157>/Delay' incorporates:
+   *  Logic: '<S157>/NOT'
+   */
   for (idxDelay = 0; idxDelay < 9; idxDelay++) {
     localDW->Delay_DSTATE[idxDelay] = localDW->Delay_DSTATE[idxDelay + 1];
   }
 
-  localDW->Delay_DSTATE[9] = rtb_NAND2;
+  localDW->Delay_DSTATE[9] = !rtb_NAND2;
 
-  /* End of Update for Delay: '<S54>/Delay' */
+  /* End of Update for Delay: '<S157>/Delay' */
   return rty_TriadActivate_0;
 }
 

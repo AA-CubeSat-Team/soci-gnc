@@ -16,8 +16,8 @@ function [fswParams,simParams] = controllers_init(fswParams,simParams)
 [fswParams,simParams] = pdController_init(fswParams,simParams);
 
 % desaturation controller. MTQ desats RWA
-[fswParams,simParams] = desaturation_init(fswParams,simParams);
-
+%[fswParams,simParams] = desaturation_init(fswParams,simParams);
+[fswParams,simParams] = desatcontrollerParams_init(fswParams,simParams);
 % sun seeking controller
 [fswParams,simParams] = sunSeek_init(fswParams,simParams);
 

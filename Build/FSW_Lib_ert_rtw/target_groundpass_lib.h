@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -34,9 +34,9 @@
 /* Child system includes */
 #include "twonorm.h"
 
-/* Invariant block signals for system '<S169>/target_groundpass_lib' */
+/* Invariant block signals for system '<S271>/target_groundpass_lib' */
 typedef struct {
-  const real_T VectorConcatenate[9];   /* '<S222>/Vector Concatenate' */
+  const real_T VectorConcatenate[9];   /* '<S324>/Vector Concatenate' */
 } ConstB_target_groundpass_lib;
 
 extern void target_groundpass_lib(const real_T rtu_r_ecef_m[3], const real_T

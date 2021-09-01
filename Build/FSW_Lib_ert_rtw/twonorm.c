@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -27,22 +27,45 @@
 
 /*
  * Output and update for atomic system:
- *    '<S175>/twonorm'
- *    '<S176>/twonorm'
+ *    '<S26>/twonorm'
+ *    '<S26>/twonorm1'
+ *    '<S26>/twonorm2'
+ *    '<S53>/twonorm'
+ *    '<S52>/twonorm'
+ *    '<S54>/twonorm'
+ *    '<S25>/twonorm1'
+ *    '<S25>/twonorm2'
+ *    '<S25>/twonorm3'
+ *    '<S68>/twonorm'
+ *    ...
  */
-real_T twonorm(const real_T rtu_vec[2])
+real_T twonorm(const real_T rtu_vec[3])
 {
-  /* Sqrt: '<S221>/Sqrt' incorporates:
-   *  DotProduct: '<S221>/Dot Product'
+  /* Sqrt: '<S49>/Sqrt' incorporates:
+   *  DotProduct: '<S49>/Dot Product'
+   */
+  return sqrt((rtu_vec[0] * rtu_vec[0] + rtu_vec[1] * rtu_vec[1]) + rtu_vec[2] *
+              rtu_vec[2]);
+}
+
+/*
+ * Output and update for atomic system:
+ *    '<S277>/twonorm'
+ *    '<S278>/twonorm'
+ */
+real_T twonorm_h(const real_T rtu_vec[2])
+{
+  /* Sqrt: '<S323>/Sqrt' incorporates:
+   *  DotProduct: '<S323>/Dot Product'
    */
   return sqrt(rtu_vec[0] * rtu_vec[0] + rtu_vec[1] * rtu_vec[1]);
 }
 
-/* Output and update for atomic system: '<S263>/twonorm' */
+/* Output and update for atomic system: '<S365>/twonorm' */
 real_T twonorm_o(const real_T rtu_vec[4])
 {
-  /* Sqrt: '<S267>/Sqrt' incorporates:
-   *  DotProduct: '<S267>/Dot Product'
+  /* Sqrt: '<S370>/Sqrt' incorporates:
+   *  DotProduct: '<S370>/Dot Product'
    */
   return sqrt(((rtu_vec[0] * rtu_vec[0] + rtu_vec[1] * rtu_vec[1]) + rtu_vec[2] *
                rtu_vec[2]) + rtu_vec[3] * rtu_vec[3]);

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -38,21 +38,20 @@
 
 /* Block signals and states (default storage) for system '<S1>/mode_select_lib' */
 typedef struct {
-  real_T UnitDelay_DSTATE;             /* '<S265>/Unit Delay' */
-  real_T UnitDelay2_DSTATE;            /* '<S265>/Unit Delay2' */
+  real_T UnitDelay_DSTATE;             /* '<S367>/Unit Delay' */
+  real_T UnitDelay2_DSTATE;            /* '<S367>/Unit Delay2' */
   uint8_T UnitDelay_DSTATE_i;          /* '<S9>/Unit Delay' */
-  uint8_T UnitDelay1_DSTATE;           /* '<S265>/Unit Delay1' */
+  uint8_T UnitDelay1_DSTATE;           /* '<S367>/Unit Delay1' */
+  boolean_T Relay1_Mode;               /* '<S365>/Relay1' */
+  boolean_T Relay2_Mode;               /* '<S365>/Relay2' */
   boolean_T Relay_Mode;                /* '<S9>/Relay' */
-  boolean_T Relay2_Mode;               /* '<S263>/Relay2' */
-  boolean_T Relay1_Mode;               /* '<S263>/Relay1' */
 } DW_mode_select_lib;
 
 extern void mode_select_lib_Init(DW_mode_select_lib *localDW);
-extern void mode_select_lib(const real_T rtu_telecom[6], boolean_T rtu_eclipse,
-  boolean_T rtu_ss_valid, boolean_T rtu_sc_above_targ, const real_T
+extern uint8_T mode_select_lib(const real_T rtu_telecom[6], boolean_T
+  rtu_eclipse, uint8_T rtu_ss_valid, boolean_T rtu_sc_above_targ, const real_T
   rtu_body_rates_radps[3], real_T rtu_MET_utc_s, real_T rtu_MET_soar_utc_s,
-  const real_T rtu_RWA_rpm[4], uint8_T *rty_gnc_mode, DW_mode_select_lib
-  *localDW);
+  const real_T rtu_RWA_rpm[4], DW_mode_select_lib *localDW);
 
 #endif                                 /* RTW_HEADER_mode_select_lib_h_ */
 

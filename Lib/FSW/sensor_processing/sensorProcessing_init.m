@@ -1,11 +1,15 @@
 function [fswParams,simParams] = sensorProcessing_init(fswParams,simParams)
 %sensorProcessing_init
 %
-% Initialization of the sensor processing library parameters.
+% Initialization of the sensor processing library parameters. 
 %
 % Nick Melville
 
 sensors = struct;
+
+%% Sunsensor Processing
+sensors.sunseek_hysteresis_deg = 10;
+sensors.sun_sensor_range_deg = simParams.sensors.sun_sensor.range_deg - 12;
 
 %% Magnetometer Processing
 % Soft Iron Bias Calibration
@@ -94,6 +98,44 @@ sensors.gyro_rotate         = gyro_rotate;
 sensors.gyro_offset         = gyro_offset;
 sensors.gyro_static_range   = gyro_static_range_radps;
 sensors.gyro_max_err        = gyro_max_err_radps;
+
+%% Magnetometer and magnetorquer duty cycling
+% this will setup a duty cycle that covers <supercycle_length> FSW sample
+% times. The MTQs will be active for the first <mtq_cycles_on_before>
+% cycles of each supercycle. The magnetometers will be used only after this
+% number of cycles *plus* an additional <mag_delay_cycles>. This lets any
+% transients in the MTQ-induced magnetic field settle before we consume a
+% new measurement. 
+% For <supercycle_length>    = 10
+%     <mtq_cycles_on_before> = 4
+%     <mag_delay_cycles>     = 1
+% the expected output looks like:
+%
+% MTQs "On"
+%      ______      ______
+%     |      |    |      |
+%     |      |    |      | 
+% ____|      |____|      |
+%
+% MAGs "On"
+% ____         ___
+%     |       |   |       |
+%     |       |   |       |
+%     |_______|   |_______|
+%
+% Note: The magnetometer readings are latched when this duty cycle reads
+% "off", we *do not* mark the measurements as invalid.
+sensors.duty_cycle.supercycle_length    = 10;
+sensors.duty_cycle.mtq_cycles_on_before = 4;
+mag_delay_cycles     = 1;
+sensors.duty_cycle.mag_cycles_on_after  = ...
+                    sensors.duty_cycle.mtq_cycles_on_before + mag_delay_cycles;
+
+%% Defines the time offset parameter
+% This will initially be 0, but will be updated to accountfor  drift in the
+% onboard clock. This value is added to the clock's time. This ensures that
+% environment estimation is accurate. 
+sensors.time_offset = 0; % seconds
 
 %% Add sensors struct to the main structs
 fswParams.sensors = sensors;

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -34,12 +34,13 @@
 /* Child system includes */
 #include "L_inf_allocation_lib.h"
 #include "rt_assert.h"
+#include "rt_nonfinite.h"
 
 /* Block signals and states (default storage) for system '<S5>/rwa_allocation_lib' */
 typedef struct {
-  real_T DiscreteTimeIntegrator_DSTATE[3];/* '<S159>/Discrete-Time Integrator' */
-  real_T Product_DWORK4[9];            /* '<S165>/Product' */
-  void* Assertion_slioAccessor;        /* '<S165>/Assertion' */
+  real_T DiscreteTimeIntegrator_DSTATE[3];/* '<S258>/Discrete-Time Integrator' */
+  real_T Product_DWORK4[9];            /* '<S267>/Product' */
+  void* Assertion_slioAccessor;        /* '<S267>/Assertion' */
 } DW_rwa_allocation_lib;
 
 extern void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T

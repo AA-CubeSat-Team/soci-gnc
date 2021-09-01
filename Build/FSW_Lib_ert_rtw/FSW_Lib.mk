@@ -2,12 +2,12 @@
 ## Makefile generated for Simulink model 'FSW_Lib'. 
 ## 
 ## Makefile     : FSW_Lib.mk
-## Generated on : Wed Feb 17 22:43:22 2021
+## Generated on : Thu Jul 22 19:15:06 2021
 ## MATLAB Coder version: 4.1 (R2018b)
 ## 
 ## Build Info:
 ## 
-## Final product: $(RELATIVE_PATH_TO_ANCHOR)/FSW_Lib
+## Final product: $(RELATIVE_PATH_TO_ANCHOR)/FSW_Lib.exe
 ## Product type : executable
 ## Build type   : Top-Level Standalone Executable
 ## 
@@ -21,38 +21,42 @@
 # PRODUCT_NAME            Name of the system to build
 # MAKEFILE                Name of this makefile
 # COMPUTER                Computer type. See the MATLAB "computer" command.
+# COMPILER_COMMAND_FILE   Compiler command listing model reference header paths
+# CMD_FILE                Command file
 # SHARED_OBJS             Shared Object Names
 
 PRODUCT_NAME              = FSW_Lib
 MAKEFILE                  = FSW_Lib.mk
-COMPUTER                  = MACI64
-MATLAB_ROOT               = /Applications/MATLAB_R2018b.app
-MATLAB_BIN                = /Applications/MATLAB_R2018b.app/bin
-MATLAB_ARCH_BIN           = $(MATLAB_BIN)/maci64
+COMPUTER                  = PCWIN64
+MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2018b
+MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2018b/bin
+MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /Users/Taylor/SOCI/soci-gnc/Build
-ARCH                      = maci64
+START_DIR                 = C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Build
+ARCH                      = win64
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 TGT_FCN_LIB               = None
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 0
 RELATIVE_PATH_TO_ANCHOR   = ..
-C_STANDARD_OPTS           = -fno-common -fexceptions
-CPP_STANDARD_OPTS         = -fno-common -fexceptions
+COMPILER_COMMAND_FILE     = FSW_Lib_comp.rsp
+CMD_FILE                  = FSW_Lib.rsp
+C_STANDARD_OPTS           = -ansi -pedantic -Wno-long-long -fwrapv
+CPP_STANDARD_OPTS         = -std=c++98 -pedantic -Wno-long-long -fwrapv
 SHARED_SRC_DIR            = ../slprj/ert/_sharedutils
 SHARED_SRC                = $(SHARED_SRC_DIR)/*.c
 SHARED_BIN_DIR            = ../slprj/ert/_sharedutils
-SHARED_LIB                = $(SHARED_BIN_DIR)/rtwshared.a
+SHARED_LIB                = $(SHARED_BIN_DIR)/rtwshared.lib
 SHARED_OBJS               =  \
-$(addprefix $(join $(SHARED_BIN_DIR),/), $(addsuffix .o, $(basename $(notdir $(wildcard $(SHARED_SRC_DIR)/*.c)))))
+$(addprefix $(join $(SHARED_BIN_DIR),/), $(addsuffix .obj, $(basename $(notdir $(wildcard $(SHARED_SRC_DIR)/*.c)))))
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          Clang v3.1 | gmake (64-bit Mac)
-# Supported Version(s):    3.1
+# Toolchain Name:          MinGW64 | gmake (64-bit Windows)
+# Supported Version(s):    5.x
 # ToolchainInfo Version:   R2018b
 # Specification Revision:  1.0
 # 
@@ -62,42 +66,52 @@ $(addprefix $(join $(SHARED_BIN_DIR),/), $(addsuffix .o, $(basename $(notdir $(w
 
 # C_STANDARD_OPTS
 # CPP_STANDARD_OPTS
+# MINGW_ROOT
+# MINGW_C_STANDARD_OPTS
 
 #-----------
 # MACROS
 #-----------
 
-ARCHS             = x86_64
-XCODE_SDK_VER     = $(shell perl $(MATLAB_ROOT)/rtw/c/tools/macsdkver.pl)
-XCODE_SDK         = MacOSX$(XCODE_SDK_VER).sdk
-XCODE_DEVEL_DIR   = $(shell xcode-select -print-path)
-XCODE_SDK_ROOT    = $(XCODE_DEVEL_DIR)/Platforms/MacOSX.platform/Developer/SDKs/$(XCODE_SDK)
+WARN_FLAGS            = -Wall -W -Wwrite-strings -Winline -Wstrict-prototypes -Wnested-externs -Wpointer-arith -Wcast-align
+WARN_FLAGS_MAX        = $(WARN_FLAGS) -Wcast-qual -Wshadow
+CPP_WARN_FLAGS        = -Wall -W -Wwrite-strings -Winline -Wpointer-arith -Wcast-align
+CPP_WARN_FLAGS_MAX    = $(CPP_WARN_FLAGS) -Wcast-qual -Wshadow
+MEX_OPTS_FILE         = $(MATLAB_ROOT)/bin/win64/mexopts/mingw64.xml
+MEX_CPP_OPTS_FILE     = $(MATLAB_ROOT)/bin/win64/mexopts/mingw64_g++.xml
+MW_EXTERNLIB_DIR      = $(MATLAB_ROOT)/extern/lib/win64/mingw64
+SHELL                 = %SystemRoot%/system32/cmd.exe
 
 TOOLCHAIN_SRCS = 
 TOOLCHAIN_INCS = 
-TOOLCHAIN_LIBS = 
+TOOLCHAIN_LIBS = -lws2_32
 
 #------------------------
 # BUILD TOOL COMMANDS
 #------------------------
 
-# C Compiler: Clang C Compiler
-CC = xcrun clang
+# C Compiler: GNU C Compiler
+CC_PATH = $(MINGW_ROOT)
+CC = "$(CC_PATH)/gcc"
 
-# Linker: Clang Linker
-LD = xcrun clang++
+# Linker: GNU Linker
+LD_PATH = $(MINGW_ROOT)
+LD = "$(LD_PATH)/g++"
 
-# C++ Compiler: Clang C++ Compiler
-CPP = xcrun clang++
+# C++ Compiler: GNU C++ Compiler
+CPP_PATH = $(MINGW_ROOT)
+CPP = "$(CPP_PATH)/g++"
 
-# C++ Linker: Clang C++ Linker
-CPP_LD = xcrun clang++
+# C++ Linker: GNU C++ Linker
+CPP_LD_PATH = $(MINGW_ROOT)
+CPP_LD = "$(CPP_LD_PATH)/g++"
 
-# Archiver: Clang Archiver
-AR = xcrun ar
+# Archiver: GNU Archiver
+AR_PATH = $(MINGW_ROOT)
+AR = "$(AR_PATH)/ar"
 
 # MEX Tool: MEX Tool
-MEX_PATH = $(MATLAB_ARCH_BIN)
+MEX_PATH = $(MATLAB_BIN)/win64
 MEX = "$(MEX_PATH)/mex"
 
 # Download: Download
@@ -107,7 +121,7 @@ DOWNLOAD =
 EXECUTE = $(PRODUCT)
 
 # Builder: GMAKE Utility
-MAKE_PATH = %MATLAB%/bin/maci64
+MAKE_PATH = %MATLAB%/bin/win64
 MAKE = "$(MAKE_PATH)/gmake"
 
 
@@ -126,9 +140,9 @@ OUTPUT_FLAG         = -o
 ARDEBUG             =
 STATICLIB_OUTPUT_FLAG =
 MEX_DEBUG           = -g
-RM                  = @rm -f
+RM                  = @del
 ECHO                = @echo
-MV                  = @mv
+MV                  = @move
 RUN                 =
 
 #----------------------------------------
@@ -136,52 +150,52 @@ RUN                 =
 #----------------------------------------
 
 ARFLAGS              = ruvs
-CFLAGS               = -c -isysroot $(XCODE_SDK_ROOT) -arch $(ARCHS) $(C_STANDARD_OPTS) \
+CFLAGS               = -c $(MINGW_C_STANDARD_OPTS) -m64 \
                        -O0
-CPPFLAGS             = -c -isysroot $(XCODE_SDK_ROOT) -arch $(ARCHS) $(CPP_STANDARD_OPTS) \
+CPPFLAGS             = -c $(CPP_STANDARD_OPTS) -m64 \
                        -O0
-CPP_LDFLAGS          = -arch $(ARCHS) -isysroot $(XCODE_SDK_ROOT) -Wl,-rpath,$(MATLAB_ARCH_BIN) -Wl,-rpath,@executable_path -Wl,-rpath,@executable_path/$(RELATIVE_PATH_TO_ANCHOR) -L"$(MATLAB_ARCH_BIN)"
-CPP_SHAREDLIB_LDFLAGS  = -dynamiclib -install_name @rpath/$(notdir $(PRODUCT)) -isysroot $(XCODE_SDK_ROOT) -L"$(MATLAB_ARCH_BIN)" \
-                         -Wl,$(LD_NAMESPACE) $(LD_UNDEFS)
+CPP_LDFLAGS          = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -static -m64
+CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined \
+                         -Wl,--out-implib,$(basename $(PRODUCT))$(STATICLIB_EXT)
 DOWNLOAD_FLAGS       =
 EXECUTE_FLAGS        =
-LDFLAGS              = -arch $(ARCHS) -isysroot $(XCODE_SDK_ROOT) -Wl,-rpath,$(MATLAB_ARCH_BIN) -Wl,-rpath,@executable_path -Wl,-rpath,@executable_path/$(RELATIVE_PATH_TO_ANCHOR) -L"$(MATLAB_ARCH_BIN)"
+LDFLAGS              = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -static -m64
 MEX_CPPFLAGS         = -R2018a -MATLAB_ARCH=$(ARCH) $(INCLUDES) \
                          \
-                       CXXOPTIMFLAGS="$(C_STANDARD_OPTS)  \
+                       CXXOPTIMFLAGS="$(MINGW_C_STANDARD_OPTS)  \
                        -O0 \
                         $(DEFINES)" \
                          \
                        -silent
-MEX_CPPLDFLAGS       =
+MEX_CPPLDFLAGS       = LDFLAGS=='$$LDFLAGS'
 MEX_CFLAGS           = -R2018a -MATLAB_ARCH=$(ARCH) $(INCLUDES) \
                          \
-                       COPTIMFLAGS="$(C_STANDARD_OPTS)  \
+                       COPTIMFLAGS="$(MINGW_C_STANDARD_OPTS)  \
                        -O0 \
                         $(DEFINES)" \
                          \
                        -silent
 MEX_LDFLAGS          = LDFLAGS=='$$LDFLAGS'
 MAKE_FLAGS           = -f $(MAKEFILE)
-SHAREDLIB_LDFLAGS    = -dynamiclib -install_name @rpath/$(notdir $(PRODUCT)) -isysroot $(XCODE_SDK_ROOT) -L"$(MATLAB_ARCH_BIN)" \
-                       -Wl,$(LD_NAMESPACE) $(LD_UNDEFS)
+SHAREDLIB_LDFLAGS    = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined \
+                       -Wl,--out-implib,$(basename $(PRODUCT))$(STATICLIB_EXT)
 
 #--------------------
 # File extensions
 #--------------------
 
 H_EXT               = .h
-OBJ_EXT             = .o
+OBJ_EXT             = .obj
 C_EXT               = .c
-EXE_EXT             =
-SHAREDLIB_EXT       = .dylib
+EXE_EXT             = .exe
+SHAREDLIB_EXT       = .dll
 HPP_EXT             = .hpp
-OBJ_EXT             = .o
+OBJ_EXT             = .obj
 CPP_EXT             = .cpp
-EXE_EXT             =
-SHAREDLIB_EXT       = .dylib
-STATICLIB_EXT       = .a
-MEX_EXT             = .mexmaci64
+EXE_EXT             = .exe
+SHAREDLIB_EXT       = .dll
+STATICLIB_EXT       = .lib
+MEX_EXT             = .mexw64
 MAKE_EXT            = .mk
 
 
@@ -189,7 +203,7 @@ MAKE_EXT            = .mk
 ## OUTPUT INFO
 ###########################################################################
 
-PRODUCT = $(RELATIVE_PATH_TO_ANCHOR)/FSW_Lib
+PRODUCT = $(RELATIVE_PATH_TO_ANCHOR)/FSW_Lib.exe
 PRODUCT_TYPE = "executable"
 BUILD_TYPE = "Top-Level Standalone Executable"
 
@@ -197,7 +211,7 @@ BUILD_TYPE = "Top-Level Standalone Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR) -I$(START_DIR)/FSW_Lib_ert_rtw -I/Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/include -I/Users/Taylor/SOCI/soci-gnc/Src -I/Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include -I$(START_DIR)/slprj/ert/_sharedutils
+INCLUDES_BUILDINFO = -I$(START_DIR) -I$(START_DIR)/FSW_Lib_ert_rtw -IC:/Users/Nick's PC/Documents/GitHub/soci-gnc/Src/Lib/FSW/soar/include/ecos/include -IC:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Src -IC:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include -I$(START_DIR)/slprj/ert/_sharedutils
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -207,7 +221,7 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 
 DEFINES_BUILD_ARGS = -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DTERMFCN=0 -DONESTEPFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=1
 DEFINES_IMPLIED = -DTID01EQ=0
-DEFINES_STANDARD = -DMODEL=FSW_Lib -DNUMST=2 -DNCSTATES=0 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0 -DUNIX
+DEFINES_STANDARD = -DMODEL=FSW_Lib -DNUMST=2 -DNCSTATES=0 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0
 
 DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_IMPLIED) $(DEFINES_STANDARD)
 
@@ -215,7 +229,7 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_IMPLIED) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/FSW_Lib_ert_rtw/CrossProdMatrix_lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib_data.c $(START_DIR)/FSW_Lib_ert_rtw/L_inf_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/MEKF_lib.c $(START_DIR)/FSW_Lib_ert_rtw/PD_Controller_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/TRIADActivation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/asmController_lib.c $(START_DIR)/FSW_Lib_ert_rtw/mode_select_lib.c $(START_DIR)/FSW_Lib_ert_rtw/parallel_protection_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_err_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_rectify_lib.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_10.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_14.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_21.c $(START_DIR)/FSW_Lib_ert_rtw/rwa_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/sunSeek_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_generation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_groundpass_lib.c $(START_DIR)/FSW_Lib_ert_rtw/twonorm.c expcone.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_1.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_2.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_aat.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_control.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_defaults.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_dump.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_global.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_info.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_order.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_post_tree.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_postorder.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_preprocess.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_valid.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/cone.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ctrlc.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ecos.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/equil.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/kkt.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/ldl.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/matlab_main.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/preproc.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/runecos.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/spla.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/splamm.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/timer.c /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/wright_omega.c
+SRCS = $(START_DIR)/FSW_Lib_ert_rtw/CrossProdMatrix_lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/FSW_Lib_data.c $(START_DIR)/FSW_Lib_ert_rtw/L_inf_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/MEKF_lib.c $(START_DIR)/FSW_Lib_ert_rtw/PD_Controller_Lib.c $(START_DIR)/FSW_Lib_ert_rtw/TRIADActivation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/asmController_lib.c $(START_DIR)/FSW_Lib_ert_rtw/maggyroProcessing_lib.c $(START_DIR)/FSW_Lib_ert_rtw/mode_select_lib.c $(START_DIR)/FSW_Lib_ert_rtw/parallel_protection_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_err_lib.c $(START_DIR)/FSW_Lib_ert_rtw/quat_rectify_lib.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_36.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_40.c $(START_DIR)/FSW_Lib_ert_rtw/rt_sys_MEKF_lib_47.c $(START_DIR)/FSW_Lib_ert_rtw/rwa_allocation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/sunSeek_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_generation_lib.c $(START_DIR)/FSW_Lib_ert_rtw/target_groundpass_lib.c $(START_DIR)/FSW_Lib_ert_rtw/twonorm.c expcone.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_1.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_2.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_aat.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_CO~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_DE~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_dump.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_GL~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/amd_info.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_OR~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_PO~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_PO~2.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_PR~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/AMD_VA~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/cone.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/ctrlc.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/ecos.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/equil.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/kkt.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/ldl.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/MATLAB~1.C C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/preproc.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/runecos.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/spla.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/splamm.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/timer.c C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/WRIGHT~1.C
 
 MAIN_SRC = $(START_DIR)/FSW_Lib_ert_rtw/ert_main.c
 
@@ -225,9 +239,9 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = CrossProdMatrix_lib.o FSW_Lib.o FSW_Lib_data.o L_inf_allocation_lib.o MEKF_lib.o PD_Controller_Lib.o TRIADActivation_lib.o asmController_lib.o mode_select_lib.o parallel_protection_lib.o quat_err_lib.o quat_rectify_lib.o rt_sys_MEKF_lib_10.o rt_sys_MEKF_lib_14.o rt_sys_MEKF_lib_21.o rwa_allocation_lib.o sunSeek_lib.o target_generation_lib.o target_groundpass_lib.o twonorm.o expcone.o amd_1.o amd_2.o amd_aat.o amd_control.o amd_defaults.o amd_dump.o amd_global.o amd_info.o amd_order.o amd_post_tree.o amd_postorder.o amd_preprocess.o amd_valid.o cone.o ctrlc.o ecos.o equil.o kkt.o ldl.o matlab_main.o preproc.o runecos.o spla.o splamm.o timer.o wright_omega.o
+OBJS = CrossProdMatrix_lib.obj FSW_Lib.obj FSW_Lib_data.obj L_inf_allocation_lib.obj MEKF_lib.obj PD_Controller_Lib.obj TRIADActivation_lib.obj asmController_lib.obj maggyroProcessing_lib.obj mode_select_lib.obj parallel_protection_lib.obj quat_err_lib.obj quat_rectify_lib.obj rt_sys_MEKF_lib_36.obj rt_sys_MEKF_lib_40.obj rt_sys_MEKF_lib_47.obj rwa_allocation_lib.obj sunSeek_lib.obj target_generation_lib.obj target_groundpass_lib.obj twonorm.obj expcone.obj amd_1.obj amd_2.obj amd_aat.obj amd_control.obj amd_defaults.obj amd_dump.obj amd_global.obj amd_info.obj amd_order.obj amd_post_tree.obj amd_postorder.obj amd_preprocess.obj amd_valid.obj cone.obj ctrlc.obj ecos.obj equil.obj kkt.obj ldl.obj matlab_main.obj preproc.obj runecos.obj spla.obj splamm.obj timer.obj wright_omega.obj
 
-MAIN_OBJ = ert_main.o
+MAIN_OBJ = ert_main.obj
 
 ALL_OBJS = $(OBJS) $(MAIN_OBJ)
 
@@ -257,7 +271,7 @@ SYSTEM_LIBS =
 # C Compiler
 #---------------
 
-CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
+CFLAGS_BASIC = $(DEFINES) $(INCLUDES) @$(COMPILER_COMMAND_FILE)
 
 CFLAGS += $(CFLAGS_BASIC)
 
@@ -265,13 +279,37 @@ CFLAGS += $(CFLAGS_BASIC)
 # C++ Compiler
 #-----------------
 
-CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
+CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES) @$(COMPILER_COMMAND_FILE)
 
 CPPFLAGS += $(CPPFLAGS_BASIC)
+
+#---------------------
+# MEX C++ Compiler
+#---------------------
+
+MEX_CPP_Compiler_BASIC =  @$(COMPILER_COMMAND_FILE)
+
+MEX_CPPFLAGS += $(MEX_CPP_Compiler_BASIC)
+
+#-----------------
+# MEX Compiler
+#-----------------
+
+MEX_Compiler_BASIC =  @$(COMPILER_COMMAND_FILE)
+
+MEX_CFLAGS += $(MEX_Compiler_BASIC)
 
 ###########################################################################
 ## INLINED COMMANDS
 ###########################################################################
+
+
+ifdef SIM_TARGET_BUILD
+MINGW_C_STANDARD_OPTS = $(filter-out -ansi, $(C_STANDARD_OPTS))
+else
+MINGW_C_STANDARD_OPTS = $(C_STANDARD_OPTS)
+endif
+
 
 ###########################################################################
 ## PHONY TARGETS
@@ -313,7 +351,7 @@ execute : download
 
 $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 	@echo "### Creating standalone executable "$(PRODUCT)" ..."
-	$(LD) $(LDFLAGS) -o $(PRODUCT) $(OBJS) $(MAIN_OBJ) $(LIBS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
+	$(LD) $(LDFLAGS) -o $(PRODUCT) @$(CMD_FILE) $(LIBS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
 	@echo "### Created: $(PRODUCT)"
 
 
@@ -325,71 +363,71 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 # SOURCE-TO-OBJECT
 #---------------------
 
-%.o : %.c
+%.obj : %.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : %.cpp
+%.obj : %.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c
+%.obj : $(RELATIVE_PATH_TO_ANCHOR)/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
+%.obj : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.c
+%.obj : C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.cpp
+%.obj : C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/simulink/src/%.c
+%.obj : $(START_DIR)/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/simulink/src/%.cpp
+%.obj : $(START_DIR)/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.c
+%.obj : $(START_DIR)/FSW_Lib_ert_rtw/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.cpp
+%.obj : $(START_DIR)/FSW_Lib_ert_rtw/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/FSW_Lib_ert_rtw/%.c
+%.obj : C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/FSW_Lib_ert_rtw/%.cpp
+%.obj : C:/Users/NICK'S~1/DOCUME~1/GitHub/soci-gnc/Lib/FSW/soar/include/ecos/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/build/%.c
+%.obj : $(MATLAB_ROOT)/rtw/c/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/build/%.cpp
+%.obj : $(MATLAB_ROOT)/rtw/c/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/%.c
+%.obj : $(MATLAB_ROOT)/simulink/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : /Users/Taylor/SOCI/soci-gnc/Lib/FSW/soar/include/ecos/src/%.cpp
+%.obj : $(MATLAB_ROOT)/simulink/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-$(SHARED_BIN_DIR)/%.o : $(SHARED_SRC_DIR)/%.c
+$(SHARED_BIN_DIR)/%.obj : $(SHARED_SRC_DIR)/%.c
 	@echo "### Compiling "$<" ..."
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
@@ -400,7 +438,7 @@ $(SHARED_BIN_DIR)/%.o : $(SHARED_SRC_DIR)/%.c
 
 $(SHARED_LIB) : $(SHARED_OBJS)
 	@echo "### Creating shared utilities library "$(SHARED_LIB)" ..."
-	$(AR) $(ARFLAGS)  $(SHARED_LIB) $(SHARED_OBJS)
+	$(AR) $(ARFLAGS)  $(SHARED_LIB) @../slprj/ert/_sharedutils/rtwshared_archiver.rsp
 	@echo "### Created: $(SHARED_LIB)"
 
 
@@ -445,8 +483,8 @@ info :
 
 clean : 
 	$(ECHO) "### Deleting all derived files..."
-	$(RM) $(PRODUCT)
-	$(RM) $(ALL_OBJS)
+	$(RM) $(subst /,\,$(PRODUCT))
+	$(RM) $(subst /,\,$(ALL_OBJS))
 	$(ECHO) "### Deleted all derived files."
 
 

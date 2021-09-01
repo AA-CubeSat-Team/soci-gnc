@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -25,8 +25,10 @@
 #include "FSW_Lib.h"
 #include "FSW_Lib_private.h"
 
-/* Output and update for atomic system: '<S132>/sunSeek_lib' */
-void sunSeek_lib(void)
+/* Output and update for atomic system: '<S235>/sunSeek_lib' */
+void sunSeek_lib(uint8_T rtu_ss_valid, const real_T rtu_sc2sun_pd_body_unit[3],
+                 const real_T rtu_sc2sun_ss_body_unit[3], const real_T
+                 rtu_w_err_radps[3], real_T rty_torque_cmd_body_Nm[3])
 {
   real_T rtb_Sin;
   real_T u0;
@@ -35,24 +37,24 @@ void sunSeek_lib(void)
   real_T rtb_Kp_idx_2;
   real_T rtb_Kp_idx_0;
 
-  /* Switch: '<S149>/Switch' */
-  if (rtDW.Reshape4) {
-    rtb_Kp_idx_0 = rtDW.ss_2_body[0];
-    rtb_Kp_idx_1 = rtDW.ss_2_body[1];
-    rtb_Kp_idx_2 = rtDW.ss_2_body[2];
+  /* Switch: '<S247>/Switch' */
+  if (rtu_ss_valid != 0) {
+    rtb_Kp_idx_0 = rtu_sc2sun_ss_body_unit[0];
+    rtb_Kp_idx_1 = rtu_sc2sun_ss_body_unit[1];
+    rtb_Kp_idx_2 = rtu_sc2sun_ss_body_unit[2];
   } else {
-    rtb_Kp_idx_0 = rtDW.sun_body_unit[0];
-    rtb_Kp_idx_1 = rtDW.sun_body_unit[1];
-    rtb_Kp_idx_2 = rtDW.sun_body_unit[2];
+    rtb_Kp_idx_0 = rtu_sc2sun_pd_body_unit[0];
+    rtb_Kp_idx_1 = rtu_sc2sun_pd_body_unit[1];
+    rtb_Kp_idx_2 = rtu_sc2sun_pd_body_unit[2];
   }
 
-  /* End of Switch: '<S149>/Switch' */
+  /* End of Switch: '<S247>/Switch' */
 
-  /* DotProduct: '<S150>/Dot Product' */
+  /* DotProduct: '<S248>/Dot Product' */
   u0 = (0.0 * rtb_Kp_idx_0 + rtb_Kp_idx_1) + 0.0 * rtb_Kp_idx_2;
 
-  /* Saturate: '<S150>/sat_pm1' incorporates:
-   *  DotProduct: '<S150>/Dot Product'
+  /* Saturate: '<S248>/sat_pm1' incorporates:
+   *  DotProduct: '<S248>/Dot Product'
    */
   if (u0 > 1.0) {
     u0 = 1.0;
@@ -62,30 +64,30 @@ void sunSeek_lib(void)
     }
   }
 
-  /* End of Saturate: '<S150>/sat_pm1' */
+  /* End of Saturate: '<S248>/sat_pm1' */
 
-  /* Trigonometry: '<S150>/Sin' incorporates:
-   *  Gain: '<S150>/Gain'
-   *  Trigonometry: '<S150>/Acos'
+  /* Trigonometry: '<S248>/Sin' incorporates:
+   *  Gain: '<S248>/Gain'
+   *  Trigonometry: '<S248>/Acos'
    */
   rtb_Sin = sin(0.5 * acos(u0));
 
-  /* Product: '<S150>/Product' incorporates:
-   *  Product: '<S151>/Element product'
-   *  Sum: '<S151>/Add3'
+  /* Product: '<S248>/Product' incorporates:
+   *  Product: '<S249>/Element product'
+   *  Sum: '<S249>/Add3'
    */
   u0 = (rtb_Kp_idx_1 * 0.0 - rtb_Kp_idx_2) * rtb_Sin;
   rtb_Kp_idx_2 = (rtb_Kp_idx_2 * 0.0 - rtb_Kp_idx_0 * 0.0) * rtb_Sin;
   rtb_Kp_idx_0 = (rtb_Kp_idx_0 - rtb_Kp_idx_1 * 0.0) * rtb_Sin;
   for (i = 0; i < 3; i++) {
-    /* Sum: '<S149>/Sum' incorporates:
-     *  Gain: '<S149>/Kd'
-     *  Gain: '<S149>/Kp'
+    /* Sum: '<S247>/Sum' incorporates:
+     *  Gain: '<S247>/Kd'
+     *  Gain: '<S247>/Kp'
      */
-    rtDW.Merge[i] = (rtCP_Kp_Gain[i + 6] * rtb_Kp_idx_0 + (rtCP_Kp_Gain[i + 3] *
-      rtb_Kp_idx_2 + rtCP_Kp_Gain[i] * u0)) - (rtCP_Kd_Gain[i + 6] *
-      rtDW.w_err_radps[2] + (rtCP_Kd_Gain[i + 3] * rtDW.w_err_radps[1] +
-      rtCP_Kd_Gain[i] * rtDW.w_err_radps[0]));
+    rty_torque_cmd_body_Nm[i] = (rtCP_Kp_Gain[i + 6] * rtb_Kp_idx_0 +
+      (rtCP_Kp_Gain[i + 3] * rtb_Kp_idx_2 + rtCP_Kp_Gain[i] * u0)) -
+      (rtCP_Kd_Gain[i + 6] * rtu_w_err_radps[2] + (rtCP_Kd_Gain[i + 3] *
+        rtu_w_err_radps[1] + rtCP_Kd_Gain[i] * rtu_w_err_radps[0]));
   }
 }
 

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -27,12 +27,12 @@
 #define DEFINED_TYPEDEF_FOR_sensor_bus_
 
 typedef struct {
-  real_T photodiodes_A[6];
-  real_T mag_body_T[9];
+  real_T photodiodes_uA[6];
+  real_T mag_mag_uT[9];
   boolean_T mag_meas_valid[3];
   real_T sun_meas_ss_deg[2];
   boolean_T sun_meas_valid;
-  real_T gyro_body_radps[9];
+  real_T gyro_gyro_radps[9];
   boolean_T gyro_meas_valid[3];
 } sensor_bus;
 
@@ -76,6 +76,8 @@ typedef struct {
   uint8_T num_facet;
   real_T h_targ_wheel_Nms[4];
   real_T feedback_gain;
+  real_T nullvec[4];
+  real_T b_sat[2];
   uint8_T id_facet[12];
   uint8_T id_facet_complement[12];
   real_T w_facet[18];
@@ -103,7 +105,6 @@ typedef struct {
   real_T opt_ctrl_Nm[30];
   real_T final_time_s;
   real_T exitcode[17];
-  real_T slv_time_s[15];
   uint32_T soar_count;
 } soar_telemetry;
 
@@ -130,13 +131,14 @@ typedef struct {
   uint8_T target_gen_flag;
   real_T elev_gs_rad;
   real_T elev_targ_rad;
+  uint8_T ss_valid;
   soar_telemetry soar_telemetry;
 } fsw_telemetry;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_5hkPKMa0FDcFxgrgxJgfyF_
-#define DEFINED_TYPEDEF_FOR_struct_5hkPKMa0FDcFxgrgxJgfyF_
+#ifndef DEFINED_TYPEDEF_FOR_struct_uC8Xc175cGBtSSOvSj41EH_
+#define DEFINED_TYPEDEF_FOR_struct_uC8Xc175cGBtSSOvSj41EH_
 
 typedef struct {
   real_T M2KM;
@@ -149,11 +151,13 @@ typedef struct {
   real_T RPM2RPS;
   real_T AU2KM;
   real_T nT2T;
+  real_T T2uT;
+  real_T uT2T;
   real_T HR2SEC;
   real_T SEC2HR;
   real_T MIN2SEC;
   real_T SEC2MIN;
-} struct_5hkPKMa0FDcFxgrgxJgfyF;
+} struct_uC8Xc175cGBtSSOvSj41EH;
 
 #endif
 
@@ -172,13 +176,13 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_sBnKn22Hqg8SkfywUX92c_
-#define DEFINED_TYPEDEF_FOR_struct_sBnKn22Hqg8SkfywUX92c_
+#ifndef DEFINED_TYPEDEF_FOR_struct_GZOflLxJTmjoWqiNgReVGF_
+#define DEFINED_TYPEDEF_FOR_struct_GZOflLxJTmjoWqiNgReVGF_
 
 typedef struct {
-  struct_5hkPKMa0FDcFxgrgxJgfyF convert;
+  struct_uC8Xc175cGBtSSOvSj41EH convert;
   struct_LsbUp1xYs692VVhI5UzbQ global;
-} struct_sBnKn22Hqg8SkfywUX92c;
+} struct_GZOflLxJTmjoWqiNgReVGF;
 
 #endif
 
@@ -202,6 +206,37 @@ typedef struct {
   real_T res_dipole_Am2[3];
   real_T ss_offset_rad;
 } struct_hcMqPYcWPjLMA5nqS4HlhF;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_struct_lN2YsXjCVtoPVWe7cEOXXE_
+#define DEFINED_TYPEDEF_FOR_struct_lN2YsXjCVtoPVWe7cEOXXE_
+
+typedef struct {
+  real_T supercycle_length;
+  real_T mtq_cycles_on_before;
+  real_T mag_cycles_on_after;
+} struct_lN2YsXjCVtoPVWe7cEOXXE;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_struct_NCcOMvCWlps7sCVHML6Az_
+#define DEFINED_TYPEDEF_FOR_struct_NCcOMvCWlps7sCVHML6Az_
+
+typedef struct {
+  real_T sunseek_hysteresis_deg;
+  real_T sun_sensor_range_deg;
+  real_T mag_rotate[27];
+  real_T mag_offset[9];
+  real_T mag_static_range;
+  real_T mag_max_err;
+  real_T gyro_rotate[27];
+  real_T gyro_offset[9];
+  real_T gyro_static_range;
+  real_T gyro_max_err;
+  struct_lN2YsXjCVtoPVWe7cEOXXE duty_cycle;
+  real_T time_offset;
+} struct_NCcOMvCWlps7sCVHML6Az;
 
 #endif
 
@@ -251,47 +286,36 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_fNaRzVs7tldK54a1kNVrp_
-#define DEFINED_TYPEDEF_FOR_struct_fNaRzVs7tldK54a1kNVrp_
+#ifndef DEFINED_TYPEDEF_FOR_struct_KQTbCxf2e6F8dqBxCYNd3B_
+#define DEFINED_TYPEDEF_FOR_struct_KQTbCxf2e6F8dqBxCYNd3B_
 
 typedef struct {
-  real_T k;
-  real_T gain_tol;
-  real_T k2;
-  real_T B;
-  real_T B_vec[3];
-  real_T maxDipole;
-  real_T T[25];
-  real_T Jw;
-  real_T ht_Nms[4];
-  real_T spindown_torque_Nm;
-  real_T spindown_tol;
-} struct_fNaRzVs7tldK54a1kNVrp;
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_struct_2XPAZWfg9oLVe8np3girRH_
-#define DEFINED_TYPEDEF_FOR_struct_2XPAZWfg9oLVe8np3girRH_
-
-typedef struct {
-  real_T I_max_A[6];
-  real_T I_thresh_A[6];
+  real_T I_max_uA;
+  real_T I_thresh_uA;
   real_T Kp[9];
   real_T Kd[9];
-} struct_2XPAZWfg9oLVe8np3girRH;
+} struct_KQTbCxf2e6F8dqBxCYNd3B;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_gIzAAeLjPY0mT6FpiovTwE_
-#define DEFINED_TYPEDEF_FOR_struct_gIzAAeLjPY0mT6FpiovTwE_
+#ifndef DEFINED_TYPEDEF_FOR_struct_ygRvE79kyQHuDo9YHub4pE_
+#define DEFINED_TYPEDEF_FOR_struct_ygRvE79kyQHuDo9YHub4pE_
 
 typedef struct {
   struct_J2UklKDOwboHskfNE7JQOD asmc;
   struct_4mAysgmjVCepNgQ3iGFExC reorientation;
   struct_E7pklKk8fUDfDlISOX4J2E tracking;
-  struct_fNaRzVs7tldK54a1kNVrp desaturation;
-  struct_2XPAZWfg9oLVe8np3girRH sunseek;
-} struct_gIzAAeLjPY0mT6FpiovTwE;
+  struct_KQTbCxf2e6F8dqBxCYNd3B sunseek;
+} struct_ygRvE79kyQHuDo9YHub4pE;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_struct_ALaTLbFFdrOQfrpiCzt8RC_
+#define DEFINED_TYPEDEF_FOR_struct_ALaTLbFFdrOQfrpiCzt8RC_
+
+typedef struct {
+  real_T gain[9];
+} struct_ALaTLbFFdrOQfrpiCzt8RC;
 
 #endif
 
@@ -316,8 +340,8 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_lz0fPaz3Z8TTtZHs2W9TdG_
-#define DEFINED_TYPEDEF_FOR_struct_lz0fPaz3Z8TTtZHs2W9TdG_
+#ifndef DEFINED_TYPEDEF_FOR_struct_kLZdejOynGZWI6kIKfN9eB_
+#define DEFINED_TYPEDEF_FOR_struct_kLZdejOynGZWI6kIKfN9eB_
 
 typedef struct {
   struct_sjGR4uJoghqpNi58kA44jH ic;
@@ -327,7 +351,8 @@ typedef struct {
   real_T Rchol[36];
   real_T triad_parallel_tol_deg;
   real_T triad_cycles;
-} struct_lz0fPaz3Z8TTtZHs2W9TdG;
+  real_T slerp_parameter;
+} struct_kLZdejOynGZWI6kIKfN9eB;
 
 #endif
 
@@ -363,19 +388,21 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_8mf3xToKJnyppB5pwGzpM_
-#define DEFINED_TYPEDEF_FOR_struct_8mf3xToKJnyppB5pwGzpM_
+#ifndef DEFINED_TYPEDEF_FOR_struct_5GL5RdvpONewJN4gDe1hAB_
+#define DEFINED_TYPEDEF_FOR_struct_5GL5RdvpONewJN4gDe1hAB_
 
 typedef struct {
   real_T sample_time_s;
-  struct_sBnKn22Hqg8SkfywUX92c constants;
+  struct_GZOflLxJTmjoWqiNgReVGF constants;
   struct_hcMqPYcWPjLMA5nqS4HlhF scParams;
   RWA allocator;
-  struct_gIzAAeLjPY0mT6FpiovTwE controllers;
-  struct_lz0fPaz3Z8TTtZHs2W9TdG estimation;
+  struct_NCcOMvCWlps7sCVHML6Az sensors;
+  struct_ygRvE79kyQHuDo9YHub4pE controllers;
+  struct_ALaTLbFFdrOQfrpiCzt8RC desatcontrollerParams;
+  struct_kLZdejOynGZWI6kIKfN9eB estimation;
   struct_uvZZXEmcGmqC8NnG7wMTaF ground_targs[2];
   struct_hx0U0gkXPDexOeaCkvdAhE mode_select;
-} struct_8mf3xToKJnyppB5pwGzpM;
+} struct_5GL5RdvpONewJN4gDe1hAB;
 
 #endif
 
@@ -532,8 +559,8 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_erUuItUhpKAMZI8uGpZzOE_
-#define DEFINED_TYPEDEF_FOR_struct_erUuItUhpKAMZI8uGpZzOE_
+#ifndef DEFINED_TYPEDEF_FOR_struct_uosaFTaL3hHze9ZZePOqMC_
+#define DEFINED_TYPEDEF_FOR_struct_uosaFTaL3hHze9ZZePOqMC_
 
 typedef struct {
   real_T N_mag;
@@ -541,10 +568,10 @@ typedef struct {
   struct_XgREHZ6dPIxctYstc2hl9G ic;
   boolean_T noise[3];
   real_T seed[3];
-  real_T err_T[9];
-  real_T B_min_T[3];
-  real_T B_max_T[3];
-} struct_erUuItUhpKAMZI8uGpZzOE;
+  real_T err_uT[9];
+  real_T B_min_uT[3];
+  real_T B_max_uT[3];
+} struct_uosaFTaL3hHze9ZZePOqMC;
 
 #endif
 
@@ -593,49 +620,50 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_vntiZsCO5pd7AmjHqO57CH_
-#define DEFINED_TYPEDEF_FOR_struct_vntiZsCO5pd7AmjHqO57CH_
+#ifndef DEFINED_TYPEDEF_FOR_struct_Y0TIJL31xiJD9Bgi4VXdrD_
+#define DEFINED_TYPEDEF_FOR_struct_Y0TIJL31xiJD9Bgi4VXdrD_
 
 typedef struct {
-  real_T I_out_ApW;
-  real_T I_cutoff_A[6];
-} struct_vntiZsCO5pd7AmjHqO57CH;
+  real_T max_current_uA;
+  real_T I_out_uApW[6];
+  real_T I_cutoff_uA;
+} struct_Y0TIJL31xiJD9Bgi4VXdrD;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_eonpuErkY5TLFvayma83kB_
-#define DEFINED_TYPEDEF_FOR_struct_eonpuErkY5TLFvayma83kB_
+#ifndef DEFINED_TYPEDEF_FOR_struct_TWBC1APWq7re2OKy9fLYQH_
+#define DEFINED_TYPEDEF_FOR_struct_TWBC1APWq7re2OKy9fLYQH_
 
 typedef struct {
   real_T sample_time_s;
-  struct_erUuItUhpKAMZI8uGpZzOE mag;
+  struct_uosaFTaL3hHze9ZZePOqMC mag;
   struct_hznt7ii3Hz9dAKRGeTMWFD gyro;
   struct_OlzxbWXdu0RMoiuBpgmlWB sun_sensor;
   struct_TF30b7bHfAybXZ0xOs5Si solar_panels;
-  struct_vntiZsCO5pd7AmjHqO57CH photodiodes;
-} struct_eonpuErkY5TLFvayma83kB;
+  struct_Y0TIJL31xiJD9Bgi4VXdrD photodiodes;
+} struct_TWBC1APWq7re2OKy9fLYQH;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_ekk7PRFrO5tcwjOzq3M2kH_
-#define DEFINED_TYPEDEF_FOR_struct_ekk7PRFrO5tcwjOzq3M2kH_
+#ifndef DEFINED_TYPEDEF_FOR_struct_qBzSdtcOILZKAWZMviEJZH_
+#define DEFINED_TYPEDEF_FOR_struct_qBzSdtcOILZKAWZMviEJZH_
 
 typedef struct {
   struct_mXHmnFZbCKtZPydMLAMkZ opts;
   real_T sample_time_s;
-  struct_sBnKn22Hqg8SkfywUX92c constants;
+  struct_GZOflLxJTmjoWqiNgReVGF constants;
   struct_hcMqPYcWPjLMA5nqS4HlhF scParams;
   struct_JbgCpa8V0l2Kc8SnhaB5PB time;
   struct_apbxn7DeDmDM4RVkXhXRyD initialConditions;
   real_T orbit_tle[9];
   struct_UeVLhi9OFruBZjlrfb864 solarPressure;
   struct_STJWXKDSLcFpk2Piq0wdm actuators;
-  struct_eonpuErkY5TLFvayma83kB sensors;
-} struct_ekk7PRFrO5tcwjOzq3M2kH;
+  struct_TWBC1APWq7re2OKy9fLYQH sensors;
+} struct_qBzSdtcOILZKAWZMviEJZH;
 
 #endif
 
-/* Custom Type definition for MATLAB Function: '<S320>/SOLVE' */
+/* Custom Type definition for MATLAB Function: '<S423>/SOLVE' */
 #ifndef struct_tag_spK1YOgs4pY8UFC2YcSXAaD
 #define struct_tag_spK1YOgs4pY8UFC2YcSXAaD
 
@@ -696,11 +724,11 @@ typedef struct tag_sMmiHugone66OG2OjltJFsG sMmiHugone66OG2OjltJFsG;
 
 #endif                                 /*typedef_sMmiHugone66OG2OjltJFsG*/
 
-/* Custom Type definition for MATLAB Function: '<S173>/MATLAB Function3' */
-#ifndef struct_tag_sDhqqHSaWgekpUC3I3OzHlF
-#define struct_tag_sDhqqHSaWgekpUC3I3OzHlF
+/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
+#ifndef struct_tag_sdlGDp4tlGndSwspcAWkcJF
+#define struct_tag_sdlGDp4tlGndSwspcAWkcJF
 
-struct tag_sDhqqHSaWgekpUC3I3OzHlF
+struct tag_sdlGDp4tlGndSwspcAWkcJF
 {
   real_T M2KM;
   real_T KM2M;
@@ -712,22 +740,43 @@ struct tag_sDhqqHSaWgekpUC3I3OzHlF
   real_T RPM2RPS;
   real_T AU2KM;
   real_T nT2T;
+  real_T T2uT;
+  real_T uT2T;
   real_T HR2SEC;
   real_T SEC2HR;
   real_T MIN2SEC;
   real_T SEC2MIN;
 };
 
-#endif                                 /*struct_tag_sDhqqHSaWgekpUC3I3OzHlF*/
+#endif                                 /*struct_tag_sdlGDp4tlGndSwspcAWkcJF*/
 
-#ifndef typedef_sDhqqHSaWgekpUC3I3OzHlF
-#define typedef_sDhqqHSaWgekpUC3I3OzHlF
+#ifndef typedef_sdlGDp4tlGndSwspcAWkcJF
+#define typedef_sdlGDp4tlGndSwspcAWkcJF
 
-typedef struct tag_sDhqqHSaWgekpUC3I3OzHlF sDhqqHSaWgekpUC3I3OzHlF;
+typedef struct tag_sdlGDp4tlGndSwspcAWkcJF sdlGDp4tlGndSwspcAWkcJF;
 
-#endif                                 /*typedef_sDhqqHSaWgekpUC3I3OzHlF*/
+#endif                                 /*typedef_sdlGDp4tlGndSwspcAWkcJF*/
 
-/* Custom Type definition for MATLAB Function: '<S11>/MATLAB Function' */
+/* Custom Type definition for MATLAB Function: '<S14>/MATLAB Function' */
+#ifndef struct_tag_sKcCMs1uioYq9rfpRDTzCN
+#define struct_tag_sKcCMs1uioYq9rfpRDTzCN
+
+struct tag_sKcCMs1uioYq9rfpRDTzCN
+{
+  real_T supercycle_length;
+  real_T mtq_cycles_on_before;
+  real_T mag_cycles_on_after;
+};
+
+#endif                                 /*struct_tag_sKcCMs1uioYq9rfpRDTzCN*/
+
+#ifndef typedef_sKcCMs1uioYq9rfpRDTzCN
+#define typedef_sKcCMs1uioYq9rfpRDTzCN
+
+typedef struct tag_sKcCMs1uioYq9rfpRDTzCN sKcCMs1uioYq9rfpRDTzCN;
+
+#endif                                 /*typedef_sKcCMs1uioYq9rfpRDTzCN*/
+
 #ifndef struct_tag_sGQM4myGiYiBxOQ9ywaOf1B
 #define struct_tag_sGQM4myGiYiBxOQ9ywaOf1B
 
@@ -790,7 +839,7 @@ typedef struct tag_spGKsvEVm7uA89hv31XX4LH spGKsvEVm7uA89hv31XX4LH;
 
 #endif                                 /*typedef_spGKsvEVm7uA89hv31XX4LH*/
 
-/* Custom Type definition for MATLAB Function: '<S173>/MATLAB Function3' */
+/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
 #ifndef struct_tag_sNSv6TMNL0MdS2T7gRyN8lD
 #define struct_tag_sNSv6TMNL0MdS2T7gRyN8lD
 
@@ -814,23 +863,23 @@ typedef struct tag_sNSv6TMNL0MdS2T7gRyN8lD sNSv6TMNL0MdS2T7gRyN8lD;
 
 #endif                                 /*typedef_sNSv6TMNL0MdS2T7gRyN8lD*/
 
-#ifndef struct_tag_sX4S3ZufBB2jGJFwPj3TpCE
-#define struct_tag_sX4S3ZufBB2jGJFwPj3TpCE
+#ifndef struct_tag_sdmXjJoaSt2nVqqVAdgX7hG
+#define struct_tag_sdmXjJoaSt2nVqqVAdgX7hG
 
-struct tag_sX4S3ZufBB2jGJFwPj3TpCE
+struct tag_sdmXjJoaSt2nVqqVAdgX7hG
 {
-  sDhqqHSaWgekpUC3I3OzHlF convert;
+  sdlGDp4tlGndSwspcAWkcJF convert;
   sNSv6TMNL0MdS2T7gRyN8lD global;
 };
 
-#endif                                 /*struct_tag_sX4S3ZufBB2jGJFwPj3TpCE*/
+#endif                                 /*struct_tag_sdmXjJoaSt2nVqqVAdgX7hG*/
 
-#ifndef typedef_sX4S3ZufBB2jGJFwPj3TpCE
-#define typedef_sX4S3ZufBB2jGJFwPj3TpCE
+#ifndef typedef_sdmXjJoaSt2nVqqVAdgX7hG
+#define typedef_sdmXjJoaSt2nVqqVAdgX7hG
 
-typedef struct tag_sX4S3ZufBB2jGJFwPj3TpCE sX4S3ZufBB2jGJFwPj3TpCE;
+typedef struct tag_sdmXjJoaSt2nVqqVAdgX7hG sdmXjJoaSt2nVqqVAdgX7hG;
 
-#endif                                 /*typedef_sX4S3ZufBB2jGJFwPj3TpCE*/
+#endif                                 /*typedef_sdmXjJoaSt2nVqqVAdgX7hG*/
 
 #ifndef struct_tag_s5tYIlxQip0ggvIGvthlXkD
 #define struct_tag_s5tYIlxQip0ggvIGvthlXkD
@@ -955,23 +1004,24 @@ typedef struct tag_sPlirOq7zE6BnsbUaorrKU sPlirOq7zE6BnsbUaorrKU;
 
 #endif                                 /*typedef_sPlirOq7zE6BnsbUaorrKU*/
 
-#ifndef struct_tag_sceQFFiSPmohIdeDgtFqdpE
-#define struct_tag_sceQFFiSPmohIdeDgtFqdpE
+#ifndef struct_tag_sDucowpxqlB5DUe8ejlJ74G
+#define struct_tag_sDucowpxqlB5DUe8ejlJ74G
 
-struct tag_sceQFFiSPmohIdeDgtFqdpE
+struct tag_sDucowpxqlB5DUe8ejlJ74G
 {
-  real_T I_out_ApW;
-  real_T I_cutoff_A[6];
+  real_T max_current_uA;
+  real_T I_out_uApW[6];
+  real_T I_cutoff_uA;
 };
 
-#endif                                 /*struct_tag_sceQFFiSPmohIdeDgtFqdpE*/
+#endif                                 /*struct_tag_sDucowpxqlB5DUe8ejlJ74G*/
 
-#ifndef typedef_sceQFFiSPmohIdeDgtFqdpE
-#define typedef_sceQFFiSPmohIdeDgtFqdpE
+#ifndef typedef_sDucowpxqlB5DUe8ejlJ74G
+#define typedef_sDucowpxqlB5DUe8ejlJ74G
 
-typedef struct tag_sceQFFiSPmohIdeDgtFqdpE sceQFFiSPmohIdeDgtFqdpE;
+typedef struct tag_sDucowpxqlB5DUe8ejlJ74G sDucowpxqlB5DUe8ejlJ74G;
 
-#endif                                 /*typedef_sceQFFiSPmohIdeDgtFqdpE*/
+#endif                                 /*typedef_sDucowpxqlB5DUe8ejlJ74G*/
 
 #ifndef struct_tag_sIIsAqBdfUcnX36HXXlqwpE
 #define struct_tag_sIIsAqBdfUcnX36HXXlqwpE
@@ -1004,11 +1054,11 @@ typedef struct tag_sIIsAqBdfUcnX36HXXlqwpE sIIsAqBdfUcnX36HXXlqwpE;
 
 #endif                                 /*typedef_sIIsAqBdfUcnX36HXXlqwpE*/
 
-/* Custom Type definition for MATLAB Function: '<S11>/MATLAB Function' */
-#ifndef struct_tag_shLwpDRaC1Zw3TVrzQq09JH
-#define struct_tag_shLwpDRaC1Zw3TVrzQq09JH
+/* Custom Type definition for MATLAB Function: '<S14>/MATLAB Function' */
+#ifndef struct_tag_sTrGJsuc3DKnGCyDY2w84GG
+#define struct_tag_sTrGJsuc3DKnGCyDY2w84GG
 
-struct tag_shLwpDRaC1Zw3TVrzQq09JH
+struct tag_sTrGJsuc3DKnGCyDY2w84GG
 {
   real_T A_wheel2body[12];
   real_T inertia[4];
@@ -1018,6 +1068,8 @@ struct tag_shLwpDRaC1Zw3TVrzQq09JH
   uint8_T num_facet;
   real_T h_targ_wheel_Nms[4];
   real_T feedback_gain;
+  real_T nullvec[4];
+  real_T b_sat[2];
   uint8_T id_facet[12];
   uint8_T id_facet_complement[12];
   real_T w_facet[18];
@@ -1025,14 +1077,42 @@ struct tag_shLwpDRaC1Zw3TVrzQq09JH
   real_T inrm2[6];
 };
 
-#endif                                 /*struct_tag_shLwpDRaC1Zw3TVrzQq09JH*/
+#endif                                 /*struct_tag_sTrGJsuc3DKnGCyDY2w84GG*/
 
-#ifndef typedef_shLwpDRaC1Zw3TVrzQq09JH
-#define typedef_shLwpDRaC1Zw3TVrzQq09JH
+#ifndef typedef_sTrGJsuc3DKnGCyDY2w84GG
+#define typedef_sTrGJsuc3DKnGCyDY2w84GG
 
-typedef struct tag_shLwpDRaC1Zw3TVrzQq09JH shLwpDRaC1Zw3TVrzQq09JH;
+typedef struct tag_sTrGJsuc3DKnGCyDY2w84GG sTrGJsuc3DKnGCyDY2w84GG;
 
-#endif                                 /*typedef_shLwpDRaC1Zw3TVrzQq09JH*/
+#endif                                 /*typedef_sTrGJsuc3DKnGCyDY2w84GG*/
+
+#ifndef struct_tag_sj6pP1GMgfHL5A3aVWCfeW
+#define struct_tag_sj6pP1GMgfHL5A3aVWCfeW
+
+struct tag_sj6pP1GMgfHL5A3aVWCfeW
+{
+  real_T sunseek_hysteresis_deg;
+  real_T sun_sensor_range_deg;
+  real_T mag_rotate[27];
+  real_T mag_offset[9];
+  real_T mag_static_range;
+  real_T mag_max_err;
+  real_T gyro_rotate[27];
+  real_T gyro_offset[9];
+  real_T gyro_static_range;
+  real_T gyro_max_err;
+  sKcCMs1uioYq9rfpRDTzCN duty_cycle;
+  real_T time_offset;
+};
+
+#endif                                 /*struct_tag_sj6pP1GMgfHL5A3aVWCfeW*/
+
+#ifndef typedef_sj6pP1GMgfHL5A3aVWCfeW
+#define typedef_sj6pP1GMgfHL5A3aVWCfeW
+
+typedef struct tag_sj6pP1GMgfHL5A3aVWCfeW sj6pP1GMgfHL5A3aVWCfeW;
+
+#endif                                 /*typedef_sj6pP1GMgfHL5A3aVWCfeW*/
 
 #ifndef struct_tag_s9WykccdPGX0bqXWeAbrqdG
 #define struct_tag_s9WykccdPGX0bqXWeAbrqdG
@@ -1085,73 +1165,62 @@ typedef struct tag_s2J2oLRGiuyx0bH5TSh3byB s2J2oLRGiuyx0bH5TSh3byB;
 
 #endif                                 /*typedef_s2J2oLRGiuyx0bH5TSh3byB*/
 
-#ifndef struct_tag_sHlnVihx3qQ0PmoTWhfayQE
-#define struct_tag_sHlnVihx3qQ0PmoTWhfayQE
+#ifndef struct_tag_sZdRDXFu6i7o3zsuzlN8YhB
+#define struct_tag_sZdRDXFu6i7o3zsuzlN8YhB
 
-struct tag_sHlnVihx3qQ0PmoTWhfayQE
+struct tag_sZdRDXFu6i7o3zsuzlN8YhB
 {
-  real_T k;
-  real_T gain_tol;
-  real_T k2;
-  real_T B;
-  real_T B_vec[3];
-  real_T maxDipole;
-  real_T T[25];
-  real_T Jw;
-  real_T ht_Nms[4];
-  real_T spindown_torque_Nm;
-  real_T spindown_tol;
-};
-
-#endif                                 /*struct_tag_sHlnVihx3qQ0PmoTWhfayQE*/
-
-#ifndef typedef_sHlnVihx3qQ0PmoTWhfayQE
-#define typedef_sHlnVihx3qQ0PmoTWhfayQE
-
-typedef struct tag_sHlnVihx3qQ0PmoTWhfayQE sHlnVihx3qQ0PmoTWhfayQE;
-
-#endif                                 /*typedef_sHlnVihx3qQ0PmoTWhfayQE*/
-
-#ifndef struct_tag_sZV0ePCFGwwPB6DzTOdFxM
-#define struct_tag_sZV0ePCFGwwPB6DzTOdFxM
-
-struct tag_sZV0ePCFGwwPB6DzTOdFxM
-{
-  real_T I_max_A[6];
-  real_T I_thresh_A[6];
+  real_T I_max_uA;
+  real_T I_thresh_uA;
   real_T Kp[9];
   real_T Kd[9];
 };
 
-#endif                                 /*struct_tag_sZV0ePCFGwwPB6DzTOdFxM*/
+#endif                                 /*struct_tag_sZdRDXFu6i7o3zsuzlN8YhB*/
 
-#ifndef typedef_sZV0ePCFGwwPB6DzTOdFxM
-#define typedef_sZV0ePCFGwwPB6DzTOdFxM
+#ifndef typedef_sZdRDXFu6i7o3zsuzlN8YhB
+#define typedef_sZdRDXFu6i7o3zsuzlN8YhB
 
-typedef struct tag_sZV0ePCFGwwPB6DzTOdFxM sZV0ePCFGwwPB6DzTOdFxM;
+typedef struct tag_sZdRDXFu6i7o3zsuzlN8YhB sZdRDXFu6i7o3zsuzlN8YhB;
 
-#endif                                 /*typedef_sZV0ePCFGwwPB6DzTOdFxM*/
+#endif                                 /*typedef_sZdRDXFu6i7o3zsuzlN8YhB*/
 
-#ifndef struct_tag_stdB3pfuAB5xNY4S7jL5ONC
-#define struct_tag_stdB3pfuAB5xNY4S7jL5ONC
+#ifndef struct_tag_spwiWNa4Y4GztNUaU109sHG
+#define struct_tag_spwiWNa4Y4GztNUaU109sHG
 
-struct tag_stdB3pfuAB5xNY4S7jL5ONC
+struct tag_spwiWNa4Y4GztNUaU109sHG
 {
   s9WykccdPGX0bqXWeAbrqdG asmc;
   s2J2oLRGiuyx0bH5TSh3byB reorientation;
   sGQM4myGiYiBxOQ9ywaOf1B tracking;
-  sHlnVihx3qQ0PmoTWhfayQE desaturation;
-  sZV0ePCFGwwPB6DzTOdFxM sunseek;
+  sZdRDXFu6i7o3zsuzlN8YhB sunseek;
 };
 
-#endif                                 /*struct_tag_stdB3pfuAB5xNY4S7jL5ONC*/
+#endif                                 /*struct_tag_spwiWNa4Y4GztNUaU109sHG*/
 
-#ifndef typedef_stdB3pfuAB5xNY4S7jL5ONC
-#define typedef_stdB3pfuAB5xNY4S7jL5ONC
+#ifndef typedef_spwiWNa4Y4GztNUaU109sHG
+#define typedef_spwiWNa4Y4GztNUaU109sHG
 
-typedef struct tag_stdB3pfuAB5xNY4S7jL5ONC stdB3pfuAB5xNY4S7jL5ONC;
+typedef struct tag_spwiWNa4Y4GztNUaU109sHG spwiWNa4Y4GztNUaU109sHG;
 
-#endif                                 /*typedef_stdB3pfuAB5xNY4S7jL5ONC*/
+#endif                                 /*typedef_spwiWNa4Y4GztNUaU109sHG*/
+
+#ifndef struct_tag_scJKliufQEEtVzpQP9TDynD
+#define struct_tag_scJKliufQEEtVzpQP9TDynD
+
+struct tag_scJKliufQEEtVzpQP9TDynD
+{
+  real_T gain[9];
+};
+
+#endif                                 /*struct_tag_scJKliufQEEtVzpQP9TDynD*/
+
+#ifndef typedef_scJKliufQEEtVzpQP9TDynD
+#define typedef_scJKliufQEEtVzpQP9TDynD
+
+typedef struct tag_scJKliufQEEtVzpQP9TDynD scJKliufQEEtVzpQP9TDynD;
+
+#endif                                 /*typedef_scJKliufQEEtVzpQP9TDynD*/
 
 #ifndef struct_tag_sNa8bVLO2Wc0cuWeHZ2pbKD
 #define struct_tag_sNa8bVLO2Wc0cuWeHZ2pbKD
@@ -1182,10 +1251,10 @@ typedef struct tag_sNa8bVLO2Wc0cuWeHZ2pbKD sNa8bVLO2Wc0cuWeHZ2pbKD;
 
 #endif                                 /*typedef_sNa8bVLO2Wc0cuWeHZ2pbKD*/
 
-#ifndef struct_tag_sSQ7EYW1PaOrHAfjwrslAuE
-#define struct_tag_sSQ7EYW1PaOrHAfjwrslAuE
+#ifndef struct_tag_srfrrefaN8YeKJgvQkZR6zG
+#define struct_tag_srfrrefaN8YeKJgvQkZR6zG
 
-struct tag_sSQ7EYW1PaOrHAfjwrslAuE
+struct tag_srfrrefaN8YeKJgvQkZR6zG
 {
   sNa8bVLO2Wc0cuWeHZ2pbKD ic;
   real_T dt;
@@ -1194,16 +1263,17 @@ struct tag_sSQ7EYW1PaOrHAfjwrslAuE
   real_T Rchol[36];
   real_T triad_parallel_tol_deg;
   real_T triad_cycles;
+  real_T slerp_parameter;
 };
 
-#endif                                 /*struct_tag_sSQ7EYW1PaOrHAfjwrslAuE*/
+#endif                                 /*struct_tag_srfrrefaN8YeKJgvQkZR6zG*/
 
-#ifndef typedef_sSQ7EYW1PaOrHAfjwrslAuE
-#define typedef_sSQ7EYW1PaOrHAfjwrslAuE
+#ifndef typedef_srfrrefaN8YeKJgvQkZR6zG
+#define typedef_srfrrefaN8YeKJgvQkZR6zG
 
-typedef struct tag_sSQ7EYW1PaOrHAfjwrslAuE sSQ7EYW1PaOrHAfjwrslAuE;
+typedef struct tag_srfrrefaN8YeKJgvQkZR6zG srfrrefaN8YeKJgvQkZR6zG;
 
-#endif                                 /*typedef_sSQ7EYW1PaOrHAfjwrslAuE*/
+#endif                                 /*typedef_srfrrefaN8YeKJgvQkZR6zG*/
 
 #ifndef struct_tag_s4UGWrK5T4vXCYuUQmez9lD
 #define struct_tag_s4UGWrK5T4vXCYuUQmez9lD
@@ -1248,31 +1318,33 @@ typedef struct tag_sJCxfmxS8gBOONUZjbjUd9E sJCxfmxS8gBOONUZjbjUd9E;
 
 #endif                                 /*typedef_sJCxfmxS8gBOONUZjbjUd9E*/
 
-#ifndef struct_tag_somWgQ2sydVuuNGkq028sMC
-#define struct_tag_somWgQ2sydVuuNGkq028sMC
+#ifndef struct_tag_skGChLhlCP1MSDD78rsjENE
+#define struct_tag_skGChLhlCP1MSDD78rsjENE
 
-struct tag_somWgQ2sydVuuNGkq028sMC
+struct tag_skGChLhlCP1MSDD78rsjENE
 {
   real_T sample_time_s;
-  sX4S3ZufBB2jGJFwPj3TpCE constants;
+  sdmXjJoaSt2nVqqVAdgX7hG constants;
   sIIsAqBdfUcnX36HXXlqwpE scParams;
-  shLwpDRaC1Zw3TVrzQq09JH allocator;
-  stdB3pfuAB5xNY4S7jL5ONC controllers;
-  sSQ7EYW1PaOrHAfjwrslAuE estimation;
+  sTrGJsuc3DKnGCyDY2w84GG allocator;
+  sj6pP1GMgfHL5A3aVWCfeW sensors;
+  spwiWNa4Y4GztNUaU109sHG controllers;
+  scJKliufQEEtVzpQP9TDynD desatcontrollerParams;
+  srfrrefaN8YeKJgvQkZR6zG estimation;
   s4UGWrK5T4vXCYuUQmez9lD ground_targs[2];
   sZcxJKWLgD1dFbRZRCJVkmD mode_select;
 };
 
-#endif                                 /*struct_tag_somWgQ2sydVuuNGkq028sMC*/
+#endif                                 /*struct_tag_skGChLhlCP1MSDD78rsjENE*/
 
-#ifndef typedef_somWgQ2sydVuuNGkq028sMC
-#define typedef_somWgQ2sydVuuNGkq028sMC
+#ifndef typedef_skGChLhlCP1MSDD78rsjENE
+#define typedef_skGChLhlCP1MSDD78rsjENE
 
-typedef struct tag_somWgQ2sydVuuNGkq028sMC somWgQ2sydVuuNGkq028sMC;
+typedef struct tag_skGChLhlCP1MSDD78rsjENE skGChLhlCP1MSDD78rsjENE;
 
-#endif                                 /*typedef_somWgQ2sydVuuNGkq028sMC*/
+#endif                                 /*typedef_skGChLhlCP1MSDD78rsjENE*/
 
-/* Custom Type definition for MATLAB Function: '<S173>/MATLAB Function3' */
+/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
 #ifndef struct_tag_sOnLmDaoKki9WcDzElHkUHH
 #define struct_tag_sOnLmDaoKki9WcDzElHkUHH
 
@@ -1383,29 +1455,29 @@ typedef struct tag_s6jBSbfCvEiWdJOI06rDacG s6jBSbfCvEiWdJOI06rDacG;
 
 #endif                                 /*typedef_s6jBSbfCvEiWdJOI06rDacG*/
 
-#ifndef struct_tag_sdfmESDU8nWUj0aVGrXOJRB
-#define struct_tag_sdfmESDU8nWUj0aVGrXOJRB
+#ifndef struct_tag_seQMgXRlOAkdlwxpz3kjSk
+#define struct_tag_seQMgXRlOAkdlwxpz3kjSk
 
-struct tag_sdfmESDU8nWUj0aVGrXOJRB
+struct tag_seQMgXRlOAkdlwxpz3kjSk
 {
   real_T N_mag;
   real_T sample_time_s;
   sPlirOq7zE6BnsbUaorrKU ic;
   boolean_T noise[3];
   real_T seed[3];
-  real_T err_T[9];
-  real_T B_min_T[3];
-  real_T B_max_T[3];
+  real_T err_uT[9];
+  real_T B_min_uT[3];
+  real_T B_max_uT[3];
 };
 
-#endif                                 /*struct_tag_sdfmESDU8nWUj0aVGrXOJRB*/
+#endif                                 /*struct_tag_seQMgXRlOAkdlwxpz3kjSk*/
 
-#ifndef typedef_sdfmESDU8nWUj0aVGrXOJRB
-#define typedef_sdfmESDU8nWUj0aVGrXOJRB
+#ifndef typedef_seQMgXRlOAkdlwxpz3kjSk
+#define typedef_seQMgXRlOAkdlwxpz3kjSk
 
-typedef struct tag_sdfmESDU8nWUj0aVGrXOJRB sdfmESDU8nWUj0aVGrXOJRB;
+typedef struct tag_seQMgXRlOAkdlwxpz3kjSk seQMgXRlOAkdlwxpz3kjSk;
 
-#endif                                 /*typedef_sdfmESDU8nWUj0aVGrXOJRB*/
+#endif                                 /*typedef_seQMgXRlOAkdlwxpz3kjSk*/
 
 #ifndef struct_tag_s60st6OZWiHigQ1rQ8UhjTF
 #define struct_tag_s60st6OZWiHigQ1rQ8UhjTF
@@ -1476,53 +1548,53 @@ typedef struct tag_sA20pgyLLIq8SfspJg8FOE sA20pgyLLIq8SfspJg8FOE;
 
 #endif                                 /*typedef_sA20pgyLLIq8SfspJg8FOE*/
 
-#ifndef struct_tag_sDmwOs0lGDH5shSkZ89cj2F
-#define struct_tag_sDmwOs0lGDH5shSkZ89cj2F
+#ifndef struct_tag_spY15XNUI8Fubs56G6MzOQD
+#define struct_tag_spY15XNUI8Fubs56G6MzOQD
 
-struct tag_sDmwOs0lGDH5shSkZ89cj2F
+struct tag_spY15XNUI8Fubs56G6MzOQD
 {
   real_T sample_time_s;
-  sdfmESDU8nWUj0aVGrXOJRB mag;
+  seQMgXRlOAkdlwxpz3kjSk mag;
   s60st6OZWiHigQ1rQ8UhjTF gyro;
   s9P56hx7Cs4V9mVm7uB788B sun_sensor;
   sA20pgyLLIq8SfspJg8FOE solar_panels;
-  sceQFFiSPmohIdeDgtFqdpE photodiodes;
+  sDucowpxqlB5DUe8ejlJ74G photodiodes;
 };
 
-#endif                                 /*struct_tag_sDmwOs0lGDH5shSkZ89cj2F*/
+#endif                                 /*struct_tag_spY15XNUI8Fubs56G6MzOQD*/
 
-#ifndef typedef_sDmwOs0lGDH5shSkZ89cj2F
-#define typedef_sDmwOs0lGDH5shSkZ89cj2F
+#ifndef typedef_spY15XNUI8Fubs56G6MzOQD
+#define typedef_spY15XNUI8Fubs56G6MzOQD
 
-typedef struct tag_sDmwOs0lGDH5shSkZ89cj2F sDmwOs0lGDH5shSkZ89cj2F;
+typedef struct tag_spY15XNUI8Fubs56G6MzOQD spY15XNUI8Fubs56G6MzOQD;
 
-#endif                                 /*typedef_sDmwOs0lGDH5shSkZ89cj2F*/
+#endif                                 /*typedef_spY15XNUI8Fubs56G6MzOQD*/
 
-#ifndef struct_tag_sBfAH4ICESoccsNqeUsMEP
-#define struct_tag_sBfAH4ICESoccsNqeUsMEP
+#ifndef struct_tag_snCEoEJPgxB2gRBqAufQ1yD
+#define struct_tag_snCEoEJPgxB2gRBqAufQ1yD
 
-struct tag_sBfAH4ICESoccsNqeUsMEP
+struct tag_snCEoEJPgxB2gRBqAufQ1yD
 {
   s5tYIlxQip0ggvIGvthlXkD opts;
   real_T sample_time_s;
-  sX4S3ZufBB2jGJFwPj3TpCE constants;
+  sdmXjJoaSt2nVqqVAdgX7hG constants;
   sIIsAqBdfUcnX36HXXlqwpE scParams;
   sqSqGNn3gUTKt4KSSCrpoWF time;
   sOnLmDaoKki9WcDzElHkUHH initialConditions;
   real_T orbit_tle[9];
   sB337z0fL6GYO7sKWdgRIbD solarPressure;
   s6jBSbfCvEiWdJOI06rDacG actuators;
-  sDmwOs0lGDH5shSkZ89cj2F sensors;
+  spY15XNUI8Fubs56G6MzOQD sensors;
 };
 
-#endif                                 /*struct_tag_sBfAH4ICESoccsNqeUsMEP*/
+#endif                                 /*struct_tag_snCEoEJPgxB2gRBqAufQ1yD*/
 
-#ifndef typedef_sBfAH4ICESoccsNqeUsMEP
-#define typedef_sBfAH4ICESoccsNqeUsMEP
+#ifndef typedef_snCEoEJPgxB2gRBqAufQ1yD
+#define typedef_snCEoEJPgxB2gRBqAufQ1yD
 
-typedef struct tag_sBfAH4ICESoccsNqeUsMEP sBfAH4ICESoccsNqeUsMEP;
+typedef struct tag_snCEoEJPgxB2gRBqAufQ1yD snCEoEJPgxB2gRBqAufQ1yD;
 
-#endif                                 /*typedef_sBfAH4ICESoccsNqeUsMEP*/
+#endif                                 /*typedef_snCEoEJPgxB2gRBqAufQ1yD*/
 
 /* Forward declaration for rtModel */
 typedef struct tag_RTM RT_MODEL;

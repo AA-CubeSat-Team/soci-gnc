@@ -108,7 +108,7 @@ sun_sensor.deg_var = 0.02357;
 sun_sensor.seed = [ 101; 102 ];
 
 % set field of view
-sun_sensor.range_deg = 60;
+sun_sensor.range_deg = 72;
 
 sensors.sun_sensor = sun_sensor;
 
@@ -131,6 +131,11 @@ photodiodes = struct;
 % maximum output current as a function of incident solar power
 photodiodes.max_current_uA = 170;
 photodiodes.I_out_uApW     = photodiodes.max_current_uA./solar_panels.maxPower;
+for k = 1:numel(photodiodes.I_out_uApW)
+    if ( isnan(photodiodes.I_out_uApW(k)) || isinf(photodiodes.I_out_uApW(k)) )
+        photodiodes.I_out_uApW(k) = 0.0;
+    end
+end
 
 % define cutoff above which we say there is incidence. Take 50% of maximum
 % output current -- this says that unless the photodiode is outputting more

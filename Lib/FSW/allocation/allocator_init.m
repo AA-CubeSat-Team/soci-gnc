@@ -19,7 +19,9 @@ function [fswParams,simParams] = allocator_init(fswParams,simParams)
 rwa_sim     = simParams.actuators.rwa;
 Jw          = rwa_sim.inertia;
 RPM2RPS     = fswParams.constants.convert.RPM2RPS;
-targ_rpm    = [ 1000; -1000; 1000; -1000 ];
+targ_rpm    = [ 970; -990; 1010; -1030 ];
+%targ_rpm    = [ 1000; -1000; 1000; -1000 ];
+nullvec     = [1;-1;1;-1];
 
 alloc = struct;
 
@@ -31,6 +33,7 @@ alloc.max_RPM             = rwa_sim.max_RPM;
 alloc.num_facet           = uint8(6);
 alloc.h_targ_wheel_Nms    = RPM2RPS .* ( Jw * targ_rpm );
 alloc.feedback_gain       = 0.01;
+alloc.nullvec             = nullvec;
 
 %%%%
 % THIS QUANTITY IS HARD CODED IN AND PARTICULAR TO THE 23 DEGREE

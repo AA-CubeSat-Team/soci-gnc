@@ -7,7 +7,7 @@
 set(0,'defaulttextinterpreter','latex','defaultAxesFontSize',12)
 
 % Monte Carlo parameters
-seed    = 4;
+seed    = 2;
 rng(seed)                           % for repeatability of random ICs
 N_mc    = 10;                       % number of monte carlo trials
 var_ang = 90;                       % variance of Euler angle error at init
@@ -34,12 +34,12 @@ mc.tot_slv_time = zeros(1,N_mc);
 mc.iters = zeros(1,N_mc);
 
 % constants
-w_max   = soar_params.w_max;
-T_max   = soar_params.T_max;
+w_max   = soarParams.w_max;
+T_max   = soarParams.T_max;
 hw_max  = [ 37; 37; 31.3 ] * 1e-3; % Nms
 Jw      = simParams.actuators.rwa.inertia;
-Aw      = simParams.actuators.rwa.Aw;
-J       = soar_params.inertia;
+Aw      = simParams.actuators.rwa.A_wheel2body;
+J       = soarParams.inertia;
 RPM2RADPS = fswParams.constants.convert.RPM2RPS;
 sc_mode   = 8;
 MET_epoch = simParams.time.epoch_utc_s;
@@ -89,7 +89,7 @@ set(gcf,'Position',[1,51,560,754])
 
 %% loop through test cases
 fprintf('========================================\n')
-fprintf('soar MONTE CARLO TEST : %d TRIALS\n\n',mc.info.N_mc)
+fprintf('SOAR MONTE CARLO TEST : %d TRIALS\n\n',mc.info.N_mc)
 % Load sim and set run time
 run_time    = 60;              % must be larger than soar_params.s_max;
 mdl         = 'soar_interface_unit_test';
@@ -106,20 +106,19 @@ for mc_iter = 1:N_mc
     omega_in = zeros(3,1) + var_w.*randn(3,1);
     Om0      = [ 1000; -1000; 1000; -1000 ] + var_hw.*randn(4,1);  % initial wheel RPM
     hw_in    = Aw * Jw * (RPM2RADPS * Om0); % initial wheel momentum
-%     hw_in    = horzcat(eye(3),zeros(3,1)) * hw0;
   
     % overwrite internal parameters for the simulation
     simParams.dynamics.ic.quat_init                = quat_in;
     simParams.dynamics.ic.rate_init                = omega_in;
     simParams.actuators.reaction_wheel.ic.rpm      = Om0;
-    fswParams.control.cmd_processing.ic.momentum   = hw0;
+    fswParams.control.cmd_processing.ic.momentum   = hw_in;
 
     % run test case
     sim(mdl);
 
     % extract desired results
     slv_itr = find(trigger,1);
-    soar_end_itr = slv_itr + soar_params.s_max / soar_params.sample_time_s;
+    soar_end_itr = slv_itr + soarParams.s_max / fswParams.sample_time_s;
     xf      = command_state(end,:);
     qf      = xf(1:4);
     qerr    = quatmultiply(quatconj(qf),quat_cmd');
@@ -127,17 +126,15 @@ for mc_iter = 1:N_mc
     hwf     = xf(8:10);
     
     mc.x_ic{mc_iter} = [ quat_in; omega_in; hw_in ];
-    mc.exitcode{mc_iter} = soar_telemetry.exitcode.Data(slv_itr,:);
-    mc.success(mc_iter) = (soar_telemetry.exitcode.Data(slv_itr,17)==0);
-    mc.slv_time{mc_iter} = soar_telemetry.time.Data(slv_itr,:);
-    mc.tot_slv_time(mc_iter) = sum(soar_telemetry.time.Data(slv_itr,:));
+    mc.exitcode{mc_iter} = soar_telemetry_out.exitcode.Data(slv_itr,:);
+    mc.success(mc_iter) = (soar_telemetry_out.exitcode.Data(slv_itr,17)==0);
     % mc.x_opt{mc_iter} = command_state;
     % mc.u_opt{mc_iter} = command_torque;
     % mc.s_opt{mc_iter} = soar_telemetry.s.Data(1);
     mc.deg_err{mc_iter} = err_deg;
     mc.ic_err(mc_iter)  = ang;
     mc.fc_err(mc_iter)  = err_deg(soar_end_itr);
-    mc.iters(mc_iter)   = soar_telemetry.exitcode.Data(slv_itr,16);
+    mc.iters(mc_iter)   = soar_telemetry_out.exitcode.Data(slv_itr,16);
 
     % update plots
     figure(1)
@@ -164,19 +161,17 @@ end
 %% post process 
 
 N_fail = N_mc - nnz(mc.success);
-mean_slv_time = mean(mc.tot_slv_time);
 
 fprintf('\n========================================\n')
 fprintf('RESULTS\n\n')
 fprintf('Number of successful trials: %04d / %04d\n',sum(mc.success),N_mc)
 fprintf('Number of failed trials:     %04d / %04d\n',N_fail,N_mc)
-fprintf('Mean solver time:            %7.5f s\n',mean_slv_time)
 fprintf('\n========================================\n')
 if (N_fail>0)
     fprintf(' Failed trials:\n')
     fld_itrs = find(~mc.success);
     for k = 1:N_fail
-        f_itr = slv_itr + soar_params.s_max / soar_params.sample_time_s;
+        f_itr = slv_itr + soarParams.s_max / fswParams.sample_time_s;
         fprintf(' trial: %02u | ic_err = %05.2f deg | fc_err = %05.2f deg | exitcode = %02d\n',...
             fld_itrs(k),mc.ic_err(fld_itrs(k)),...
             mc.fc_err(fld_iters(k)),mc.exitcode{fld_itrs(k)}(11))
@@ -189,27 +184,27 @@ end
 figure(1)
 subplot(3,2,[1 2]), hold on
 plot([tout(slv_itr) tout(slv_itr)],get(gca,'Ylim'),'k:','LineWidth',1)
-plot([tout(slv_itr)+soar_params.s_max tout(slv_itr)+soar_params.s_max],...
+plot([tout(slv_itr)+soarParams.s_max tout(slv_itr)+soarParams.s_max],...
     get(gca,'Ylim'),'k:','LineWidth',1)
 %
 subplot(3,2,[3 4]), hold on, grid on
 plot([tout(slv_itr) tout(slv_itr)],get(gca,'Ylim'),'k:','LineWidth',1)
-plot([tout(slv_itr)+soar_params.s_max tout(slv_itr)+soar_params.s_max],...
+plot([tout(slv_itr)+soarParams.s_max tout(slv_itr)+soarParams.s_max],...
     get(gca,'Ylim'),'k:','LineWidth',1)
 %
 subplot(3,2,5), hold on, grid on
 plot([tout(slv_itr) tout(slv_itr)],get(gca,'Ylim'),'k:','LineWidth',1)
-plot([tout(slv_itr)+soar_params.s_max tout(slv_itr)+soar_params.s_max],...
+plot([tout(slv_itr)+soarParams.s_max tout(slv_itr)+soarParams.s_max],...
     get(gca,'Ylim'),'k:','LineWidth',1)
 %
 subplot(3,2,6), hold on, grid on
 plot([tout(slv_itr) tout(slv_itr)],get(gca,'Ylim'),'k:','LineWidth',1)
-plot([tout(slv_itr)+soar_params.s_max tout(slv_itr)+soar_params.s_max],...
+plot([tout(slv_itr)+soarParams.s_max tout(slv_itr)+soarParams.s_max],...
     get(gca,'Ylim'),'k:','LineWidth',1)
 
 figure(2), hold on
 plot([tout(slv_itr) tout(slv_itr)],get(gca,'Ylim'),'k:','LineWidth',1)
-plot([tout(slv_itr)+soar_params.s_max tout(slv_itr)+soar_params.s_max],...
+plot([tout(slv_itr)+soarParams.s_max tout(slv_itr)+soarParams.s_max],...
     get(gca,'Ylim'),'k:','LineWidth',1)
 
 figure(3), clf

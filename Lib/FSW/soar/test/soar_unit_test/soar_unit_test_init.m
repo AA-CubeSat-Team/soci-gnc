@@ -43,22 +43,15 @@ uopt = u_star(end,:);
 sopt = s_star(end,:);
 exitcode = exitcode(end,:);
 
-total_time = zeros(num_sims,1);
-for k = 1:num_sims
-    total_time(k) = sum(sol_times(k,:));
+if (exitcode(end) ~=0 )
+    msg = sprintf('Did not converge with exitcode %d\n', exitcode(end));
+else
+    msg = sprintf('Converged in %d iterations.\n', exitcode(end-1));
 end
-mean_time       = mean(total_time);
-std_time        = std(total_time);
-max_time        = max(total_time);
-threesig_time   = 3*std_time;
-hertz           = 1/(mean_time+threesig_time);
 fprintf('========================\n')
 fprintf('SOAR UNIT TEST RESULTS:\n')
 fprintf('========================\n')
-fprintf('Over %d trials: \n',num_sims)
-fprintf('The mean total solution time is: %0.5f +/- %0.5f sec \n',...
-            mean_time,threesig_time)
-fprintf('Able to call the function at: %0.2f Hz \n\n',hertz)
+fprintf(msg)
 
 
 % Integrate through ODE

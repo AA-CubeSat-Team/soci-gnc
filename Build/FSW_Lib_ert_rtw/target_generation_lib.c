@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -29,9 +29,9 @@
 #include "bsearch_s1bfmSFP.h"
 #include "convert_to_CCS_TWUhmVkC.h"
 #include "convert_to_CCS_uvSSMF4Z.h"
-#include "deriv_AZ3NAdJG.h"
+#include "deriv_Idi6M3VL.h"
 #include "eye_bAKT5eRN.h"
-#include "foh_HcncvH72.h"
+#include "foh_OxYXiak1.h"
 #include "inv_v2jI2dX7.h"
 #include "kron_gzkpgh2R.h"
 #include "kron_mrguWHGo.h"
@@ -48,16 +48,16 @@ static void parse_ecos_VYvjNTb8_m(const real_T xi[10], const real_T xf[7], const
   T_max, real_T w_max, real_T s_max, real_T s_min, real_T w_v, real_T c[332],
   real_T G[157368], real_T h[474], real_T A[38844], real_T b[117]);
 
-/* Output and update for Simulink Function: '<S320>/call to ECOS SOCP solver (compiled C function)' */
+/* Output and update for Simulink Function: '<S423>/call to ECOS SOCP solver (compiled C function)' */
 void run_ecos(int32_T rtu_n, int32_T rtu_m, int32_T rtu_p, int32_T rtu_l,
               int32_T rtu_ncones, const real_T rtu_c[332], const int32_T
               rtu_Gjc[333], const int32_T rtu_Gir[834], const real_T rtu_Gpr[834],
               const real_T rtu_h[474], const int32_T rtu_q[21], const int32_T
               rtu_Ajc[333], const int32_T rtu_Air[1278], const real_T rtu_Apr
-              [1278], const real_T rtu_b[117], real_T rty_y[334])
+              [1278], const real_T rtu_b[117], real_T rty_y[333])
 {
   /* local block i/o variables */
-  real_T rtb_sfun_ecos[334];
+  real_T rtb_sfun_ecos[333];
   int32_T rtb_TmpSignalConversionAtGirOut[834];
   real_T rtb_TmpSignalConversionAthOutpo[474];
   int32_T rtb_TmpSignalConversionAtnOutpo;
@@ -66,60 +66,60 @@ void run_ecos(int32_T rtu_n, int32_T rtu_m, int32_T rtu_p, int32_T rtu_l,
   int32_T rtb_TmpSignalConversionAtlOutpo;
   int32_T rtb_TmpSignalConversionAtncones;
   real_T rtb_TmpSignalConversionAtcOutpo[332];
-  int32_T rtb_TmpSignalConversionAtGjcOut[333];
   int32_T rtb_TmpSignalConversionAtqOutpo[21];
-  int32_T rtb_TmpSignalConversionAtAjcOut[333];
   real_T rtb_TmpSignalConversionAtbOutpo[117];
+  int32_T rtb_TmpSignalConversionAtGjcOut[333];
+  int32_T rtb_TmpSignalConversionAtAjcOut[333];
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtAirOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtAirOutport1' */
   memcpy(&rtDW.rtb_TmpSignalConversionAtAirO_k[0], &rtu_Air[0], 1278U * sizeof
          (int32_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtAprOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtAprOutport1' */
   memcpy(&rtDW.rtb_TmpSignalConversionAtAprO_m[0], &rtu_Apr[0], 1278U * sizeof
          (real_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtGirOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtGirOutport1' */
   memcpy(&rtb_TmpSignalConversionAtGirOut[0], &rtu_Gir[0], 834U * sizeof(int32_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtGprOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtGprOutport1' */
   memcpy(&rtDW.rtb_TmpSignalConversionAtGprO_c[0], &rtu_Gpr[0], 834U * sizeof
          (real_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAthOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAthOutport1' */
   memcpy(&rtb_TmpSignalConversionAthOutpo[0], &rtu_h[0], 474U * sizeof(real_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtnOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtnOutport1' */
   rtb_TmpSignalConversionAtnOutpo = rtu_n;
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtmOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtmOutport1' */
   rtb_TmpSignalConversionAtmOutpo = rtu_m;
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtpOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtpOutport1' */
   rtb_TmpSignalConversionAtpOutpo = rtu_p;
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtlOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtlOutport1' */
   rtb_TmpSignalConversionAtlOutpo = rtu_l;
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtnconesOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtnconesOutport1' */
   rtb_TmpSignalConversionAtncones = rtu_ncones;
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtcOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtcOutport1' */
   memcpy(&rtb_TmpSignalConversionAtcOutpo[0], &rtu_c[0], 332U * sizeof(real_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtGjcOutport1' */
-  memcpy(&rtb_TmpSignalConversionAtGjcOut[0], &rtu_Gjc[0], 333U * sizeof(int32_T));
-
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtqOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtqOutport1' */
   memcpy(&rtb_TmpSignalConversionAtqOutpo[0], &rtu_q[0], 21U * sizeof(int32_T));
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtAjcOutport1' */
-  memcpy(&rtb_TmpSignalConversionAtAjcOut[0], &rtu_Ajc[0], 333U * sizeof(int32_T));
-
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtbOutport1' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtbOutport1' */
   memcpy(&rtb_TmpSignalConversionAtbOutpo[0], &rtu_b[0], 117U * sizeof(real_T));
 
-  /* S-Function (sfun_ecos): '<S325>/sfun_ecos' */
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtGjcOutport1' */
+  memcpy(&rtb_TmpSignalConversionAtGjcOut[0], &rtu_Gjc[0], 333U * sizeof(int32_T));
+
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtAjcOutport1' */
+  memcpy(&rtb_TmpSignalConversionAtAjcOut[0], &rtu_Ajc[0], 333U * sizeof(int32_T));
+
+  /* S-Function (sfun_ecos): '<S428>/sfun_ecos' */
   callecos(rtb_TmpSignalConversionAtnOutpo, rtb_TmpSignalConversionAtmOutpo,
            rtb_TmpSignalConversionAtpOutpo, rtb_TmpSignalConversionAtlOutpo,
            rtb_TmpSignalConversionAtncones, (real_T*)
@@ -134,11 +134,11 @@ void run_ecos(int32_T rtu_n, int32_T rtu_m, int32_T rtu_p, int32_T rtu_l,
            &rtDW.rtb_TmpSignalConversionAtAprO_m[0], (real_T*)
            &rtb_TmpSignalConversionAtbOutpo[0], &rtb_sfun_ecos[0]);
 
-  /* SignalConversion: '<S325>/TmpSignal ConversionAtyInport1' */
-  memcpy(&rty_y[0], &rtb_sfun_ecos[0], 334U * sizeof(real_T));
+  /* SignalConversion: '<S428>/TmpSignal ConversionAtyInport1' */
+  memcpy(&rty_y[0], &rtb_sfun_ecos[0], 333U * sizeof(real_T));
 }
 
-/* Function for MATLAB Function: '<S320>/SOLVE' */
+/* Function for MATLAB Function: '<S423>/SOLVE' */
 static void parse_ecos_VYvjNTb8_m(const real_T xi[10], const real_T xf[7], const
   real_T J[9], const real_T EH[10000], const real_T BE[3000], const real_T ES
   [100], const real_T AR[100], const real_T ME[16], const real_T MI[16], real_T
@@ -735,31 +735,40 @@ static void parse_ecos_VYvjNTb8_m(const real_T xi[10], const real_T xf[7], const
 /* System initialize for atomic system: '<S1>/target_generation_lib' */
 void target_generation_lib_Init(void)
 {
-  /* InitializeConditions for Delay: '<S319>/Resettable Delay' */
+  /* InitializeConditions for Delay: '<S422>/Resettable Delay' */
   rtDW.icLoad = 1U;
 
-  /* InitializeConditions for S-Function (sdspcount2): '<S277>/Counter' */
+  /* InitializeConditions for S-Function (sdspcount2): '<S379>/Counter' */
   rtDW.Counter_ClkEphState = 5U;
 
-  /* SystemInitialize for Merge: '<S272>/Merge' */
+  /* SystemInitialize for Merge: '<S375>/Merge' */
   rtDW.Merge_n[0] = 1.0;
   rtDW.Merge_n[1] = 0.0;
   rtDW.Merge_n[2] = 0.0;
   rtDW.Merge_n[3] = 0.0;
 
-  /* SystemInitialize for Triggered SubSystem: '<S277>/soar_lib' */
+  /* SystemInitialize for Triggered SubSystem: '<S379>/soar_lib' */
   rtPrevZCX.soar_lib_Trig_ZCE = ZERO_ZCSIG;
 
-  /* End of SystemInitialize for SubSystem: '<S277>/soar_lib' */
+  /* End of SystemInitialize for SubSystem: '<S379>/soar_lib' */
 }
 
 /* Output and update for atomic system: '<S1>/target_generation_lib' */
-void target_generation_lib(void)
+void target_generation_lib(uint8_T rtu_gnc_mode, const real_T
+  rtu_sc2sun_eci_unit[3], const real_T rtu_sc2targ_eci_unit[3], const real_T
+  rtu_r_eci_m[3], const real_T rtu_sc_quat_in[4], const real_T
+  rtu_body_rates_radps[3], const real_T rtu_RWA_rpm[4], const real_T
+  rtu_quat_soar_cmd[4], real_T rtu_MET_epoch, real_T rtu_MET_utc_s, real_T
+  rty_quat_cmd[4], real_T rty_body_rates_cmd[3], real_T rty_torque_body_ff[3],
+  uint8_T *rty_target_gen_flag, real_T rty_soar_telemetry[100], real_T
+  rty_soar_telemetry_f[30], real_T *rty_soar_telemetry_g, real_T
+  rty_soar_telemetry_a[17], uint32_T *rty_soar_telemetry_c)
 {
   real_T coff;
   real_T k1[10];
   real_T k2[10];
   real_T k3[10];
+  real_T k4[10];
   real_T xtmp;
   int32_T n;
   static const real_T J[9] = { 0.0118206435013, 0.00043170726620000006,
@@ -792,7 +801,7 @@ void target_generation_lib(void)
   real_T exitcode[17];
   real_T xi[10];
   real_T xf[7];
-  real_T y[334];
+  real_T y[333];
   real_T diff;
   real_T ES[100];
   real_T AR[100];
@@ -805,19 +814,18 @@ void target_generation_lib(void)
   static const int8_T d[21] = { 32, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
     6, 6, 6, 6, 6 };
 
-  real_T rtb_Switch_pv[4];
+  real_T rtb_Switch_k[4];
   real_T rtb_Product1[3];
-  real_T rtb_Gain_a[3];
+  real_T rtb_Gain[3];
   real_T rtb_MathFunction[3];
   real_T rtb_Sum;
   real_T rtb_Add;
   real_T rtb_Reshape[4];
-  boolean_T rtb_Compare_g;
+  boolean_T rtb_Compare_ll;
+  boolean_T rtb_AND;
   boolean_T rtb_FixPtRelationalOperator;
-  uint32_T rtb_soar_count;
-  uint8_T rtb_flag;
-  uint8_T rtb_Sum_g;
   real_T rtb_x_opt_t[10];
+  uint8_T rtb_flag;
   real_T rtb_C_cmd[9];
   real_T rtb_J[9];
   real_T rtb_ME[16];
@@ -826,61 +834,59 @@ void target_generation_lib(void)
     -7.3061275000000005E-6, 0.00043170726620000006, 0.0116363514485,
     -9.29219316E-5, -7.3061275000000005E-6, -9.29219316E-5, 0.0060345844268 };
 
-  real_T tmp_0[10];
   real_T rtb_x_opt_t_0[10];
   int32_T d_0[21];
   real_T d_y_0[16];
-  real_T tmp_1[3];
+  real_T rtu_sc2sun_eci_unit_0[3];
   real_T e[3];
-  real_T rtb_Gain_a_0[3];
-  real_T tmp_2[9];
-  real_T tmp_3[9];
-  real_T tmp_4[9];
+  real_T rtb_Gain_0[3];
+  real_T tmp_0[9];
+  real_T tmp_1[9];
+  real_T rtu_sc2sun_eci_unit_1[9];
   real_T b_b_0[9];
   real_T Mi_0[16];
-  boolean_T rtb_Sum_m;
   int32_T i;
+  int32_T rtu_sc2sun_eci_unit_tmp;
   int32_T rtb_MI_tmp;
   int32_T rtb_MI_tmp_0;
-  int32_T rtb_MI_tmp_1;
   real_T *V;
   boolean_T exitg1;
   int32_T exitg2;
 
-  /* Product: '<S273>/Product' */
-  rtb_Switch_pv[0] = 2.9526E-5 * rtDW.RateTransition1[0];
-  rtb_Switch_pv[1] = 2.9526E-5 * rtDW.RateTransition1[1];
-  rtb_Switch_pv[2] = 2.9526E-5 * rtDW.RateTransition1[2];
-  rtb_Switch_pv[3] = 2.9526E-5 * rtDW.RateTransition1[3];
+  /* Product: '<S376>/Product' */
+  rtb_Switch_k[0] = 2.9526E-5 * rtu_RWA_rpm[0];
+  rtb_Switch_k[1] = 2.9526E-5 * rtu_RWA_rpm[1];
+  rtb_Switch_k[2] = 2.9526E-5 * rtu_RWA_rpm[2];
+  rtb_Switch_k[3] = 2.9526E-5 * rtu_RWA_rpm[3];
   for (i = 0; i < 3; i++) {
-    /* Product: '<S273>/Product1' incorporates:
-     *  Constant: '<S273>/A_wheel2body'
+    /* Product: '<S376>/Product1' incorporates:
+     *  Constant: '<S376>/A_wheel2body'
      */
-    rtb_Add = rtCP_A_wheel2body_Value[i + 9] * rtb_Switch_pv[3] +
-      (rtCP_A_wheel2body_Value[i + 6] * rtb_Switch_pv[2] +
-       (rtCP_A_wheel2body_Value[i + 3] * rtb_Switch_pv[1] +
-        rtCP_A_wheel2body_Value[i] * rtb_Switch_pv[0]));
+    rtb_Add = rtCP_A_wheel2body_Value_m[i + 9] * rtb_Switch_k[3] +
+      (rtCP_A_wheel2body_Value_m[i + 6] * rtb_Switch_k[2] +
+       (rtCP_A_wheel2body_Value_m[i + 3] * rtb_Switch_k[1] +
+        rtCP_A_wheel2body_Value_m[i] * rtb_Switch_k[0]));
 
-    /* Math: '<S274>/Math Function' incorporates:
+    /* Math: '<S377>/Math Function' incorporates:
      *  Gain: '<S10>/Gain'
      */
-    rtb_MathFunction[i] = -rtDW.Gain[i] * -rtDW.Gain[i];
+    rtb_MathFunction[i] = -rtu_r_eci_m[i] * -rtu_r_eci_m[i];
 
     /* Gain: '<S10>/Gain' */
-    rtb_Gain_a[i] = -rtDW.Gain[i];
+    rtb_Gain[i] = -rtu_r_eci_m[i];
 
-    /* Product: '<S273>/Product1' incorporates:
-     *  Constant: '<S273>/A_wheel2body'
+    /* Product: '<S376>/Product1' incorporates:
+     *  Constant: '<S376>/A_wheel2body'
      */
     rtb_Product1[i] = rtb_Add;
   }
 
-  /* Sum: '<S274>/Sum of Elements' */
+  /* Sum: '<S377>/Sum of Elements' */
   rtb_Sum = (rtb_MathFunction[0] + rtb_MathFunction[1]) + rtb_MathFunction[2];
 
-  /* Math: '<S274>/Math Function1'
+  /* Math: '<S377>/Math Function1'
    *
-   * About '<S274>/Math Function1':
+   * About '<S377>/Math Function1':
    *  Operator: sqrt
    */
   if (rtb_Sum < 0.0) {
@@ -889,25 +895,25 @@ void target_generation_lib(void)
     rtb_Sum = sqrt(rtb_Sum);
   }
 
-  /* End of Math: '<S274>/Math Function1' */
+  /* End of Math: '<S377>/Math Function1' */
 
-  /* Switch: '<S274>/Switch' incorporates:
-   *  Constant: '<S274>/Constant'
-   *  Product: '<S274>/Product'
+  /* Switch: '<S377>/Switch' incorporates:
+   *  Constant: '<S377>/Constant'
+   *  Product: '<S377>/Product'
    */
   if (rtb_Sum > 0.0) {
-    rtb_Switch_pv[0] = rtb_Gain_a[0];
-    rtb_Switch_pv[1] = rtb_Gain_a[1];
-    rtb_Switch_pv[2] = rtb_Gain_a[2];
-    rtb_Switch_pv[3] = rtb_Sum;
+    rtb_Switch_k[0] = rtb_Gain[0];
+    rtb_Switch_k[1] = rtb_Gain[1];
+    rtb_Switch_k[2] = rtb_Gain[2];
+    rtb_Switch_k[3] = rtb_Sum;
   } else {
-    rtb_Switch_pv[0] = rtb_Gain_a[0] * 0.0;
-    rtb_Switch_pv[1] = rtb_Gain_a[1] * 0.0;
-    rtb_Switch_pv[2] = rtb_Gain_a[2] * 0.0;
-    rtb_Switch_pv[3] = 1.0;
+    rtb_Switch_k[0] = rtb_Gain[0] * 0.0;
+    rtb_Switch_k[1] = rtb_Gain[1] * 0.0;
+    rtb_Switch_k[2] = rtb_Gain[2] * 0.0;
+    rtb_Switch_k[3] = 1.0;
   }
 
-  /* End of Switch: '<S274>/Switch' */
+  /* End of Switch: '<S377>/Switch' */
 
   /* MATLAB Function: '<S10>/target_gen' */
   rtb_flag = 0U;
@@ -918,20 +924,20 @@ void target_generation_lib(void)
   rtb_C_cmd[4] = 0.766044443118978;
   rtb_C_cmd[7] = 0.0;
 
-  /* Product: '<S274>/Divide' */
-  rtb_Gain_a[0] = rtb_Switch_pv[0] / rtb_Switch_pv[3];
+  /* Product: '<S377>/Divide' */
+  rtb_Gain[0] = rtb_Switch_k[0] / rtb_Switch_k[3];
 
   /* MATLAB Function: '<S10>/target_gen' */
   rtb_C_cmd[2] = 0.0;
 
-  /* Product: '<S274>/Divide' */
-  rtb_Gain_a[1] = rtb_Switch_pv[1] / rtb_Switch_pv[3];
+  /* Product: '<S377>/Divide' */
+  rtb_Gain[1] = rtb_Switch_k[1] / rtb_Switch_k[3];
 
   /* MATLAB Function: '<S10>/target_gen' */
   rtb_C_cmd[5] = 0.0;
 
-  /* Product: '<S274>/Divide' */
-  rtb_Gain_a[2] = rtb_Switch_pv[2] / rtb_Switch_pv[3];
+  /* Product: '<S377>/Divide' */
+  rtb_Gain[2] = rtb_Switch_k[2] / rtb_Switch_k[3];
 
   /* MATLAB Function: '<S10>/target_gen' */
   rtb_C_cmd[8] = 1.0;
@@ -939,49 +945,50 @@ void target_generation_lib(void)
     rtb_MathFunction[i] = rtb_C_cmd[i + 3] + rtb_C_cmd[i] * 0.0;
   }
 
-  if (norm_2e9Xj4lM(rtDW.w_err_radps) < 0.001) {
+  if (norm_2e9Xj4lM(rtu_sc2sun_eci_unit) < 0.001) {
     memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
     rtb_C_cmd[0] = 1.0;
     rtb_C_cmd[4] = 1.0;
     rtb_C_cmd[8] = 1.0;
     rtb_flag = 1U;
-  } else if (norm_2e9Xj4lM(rtDW.Product1) < 0.001) {
+  } else if (norm_2e9Xj4lM(rtu_sc2targ_eci_unit) < 0.001) {
     memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
     rtb_C_cmd[0] = 1.0;
     rtb_C_cmd[4] = 1.0;
     rtb_C_cmd[8] = 1.0;
     rtb_flag = 2U;
-  } else if (norm_2e9Xj4lM(rtb_Gain_a) < 0.001) {
+  } else if (norm_2e9Xj4lM(rtb_Gain) < 0.001) {
     memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
     rtb_C_cmd[0] = 1.0;
     rtb_C_cmd[4] = 1.0;
     rtb_C_cmd[8] = 1.0;
     rtb_flag = 3U;
-  } else if ((rtDW.gnc_mode_b == 7) || (rtDW.gnc_mode_b == 8)) {
-    if (fabs((rtDW.w_err_radps[0] * rtDW.Product1[0] + rtDW.w_err_radps[1] *
-              rtDW.Product1[1]) + rtDW.w_err_radps[2] * rtDW.Product1[2]) >
-        0.999) {
+  } else if ((rtu_gnc_mode == 7) || (rtu_gnc_mode == 8)) {
+    if (fabs((rtu_sc2sun_eci_unit[0] * rtu_sc2targ_eci_unit[0] +
+              rtu_sc2sun_eci_unit[1] * rtu_sc2targ_eci_unit[1]) +
+             rtu_sc2sun_eci_unit[2] * rtu_sc2targ_eci_unit[2]) > 0.999) {
       memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
       rtb_C_cmd[0] = 1.0;
       rtb_C_cmd[4] = 1.0;
       rtb_C_cmd[8] = 1.0;
       rtb_flag = 4U;
     } else {
-      tmp_1[0] = rtDW.w_err_radps[0];
-      e[0] = 0.0;
-      rtb_Gain_a_0[0] = rtb_Gain_a[0];
-      tmp_1[1] = rtDW.w_err_radps[1];
-      e[1] = 0.0;
-      rtb_Gain_a_0[1] = rtb_Gain_a[1];
-      tmp_1[2] = rtDW.w_err_radps[2];
-      e[2] = -1.0;
-      rtb_Gain_a_0[2] = rtb_Gain_a[2];
-      align_vecs_GEQPakmX(rtb_MathFunction, tmp_1, e, rtb_Gain_a_0, rtb_C_cmd);
+      rtb_Gain[0] = 0.0;
+      e[0] = rtu_sc2targ_eci_unit[0];
+      rtu_sc2sun_eci_unit_0[0] = rtu_sc2sun_eci_unit[0];
+      rtb_Gain[1] = 0.0;
+      e[1] = rtu_sc2targ_eci_unit[1];
+      rtu_sc2sun_eci_unit_0[1] = rtu_sc2sun_eci_unit[1];
+      rtb_Gain[2] = -1.0;
+      e[2] = rtu_sc2targ_eci_unit[2];
+      rtu_sc2sun_eci_unit_0[2] = rtu_sc2sun_eci_unit[2];
+      align_vecs_GEQPakmX(rtb_Gain, e, rtb_MathFunction, rtu_sc2sun_eci_unit_0,
+                          rtb_C_cmd);
     }
-  } else if ((rtDW.gnc_mode_b == 4) || (rtDW.gnc_mode_b == 5) ||
-             (rtDW.gnc_mode_b == 6)) {
-    if (fabs((rtb_Gain_a[0] * rtDW.w_err_radps[0] + rtb_Gain_a[1] *
-              rtDW.w_err_radps[1]) + rtb_Gain_a[2] * rtDW.w_err_radps[2]) >
+  } else if ((rtu_gnc_mode == 4) || (rtu_gnc_mode == 5) || (rtu_gnc_mode == 6))
+  {
+    if (fabs((rtb_Gain[0] * rtu_sc2sun_eci_unit[0] + rtb_Gain[1] *
+              rtu_sc2sun_eci_unit[1]) + rtb_Gain[2] * rtu_sc2sun_eci_unit[2]) >
         0.999) {
       memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
       rtb_C_cmd[0] = 1.0;
@@ -989,16 +996,17 @@ void target_generation_lib(void)
       rtb_C_cmd[8] = 1.0;
       rtb_flag = 5U;
     } else {
-      tmp_1[0] = rtDW.w_err_radps[0];
+      rtu_sc2sun_eci_unit_0[0] = rtu_sc2sun_eci_unit[0];
       e[0] = 0.0;
-      rtb_Gain_a_0[0] = rtb_Gain_a[0];
-      tmp_1[1] = rtDW.w_err_radps[1];
+      rtb_Gain_0[0] = rtb_Gain[0];
+      rtu_sc2sun_eci_unit_0[1] = rtu_sc2sun_eci_unit[1];
       e[1] = 0.0;
-      rtb_Gain_a_0[1] = rtb_Gain_a[1];
-      tmp_1[2] = rtDW.w_err_radps[2];
+      rtb_Gain_0[1] = rtb_Gain[1];
+      rtu_sc2sun_eci_unit_0[2] = rtu_sc2sun_eci_unit[2];
       e[2] = 1.0;
-      rtb_Gain_a_0[2] = rtb_Gain_a[2];
-      align_vecs_GEQPakmX(rtb_MathFunction, tmp_1, e, rtb_Gain_a_0, rtb_C_cmd);
+      rtb_Gain_0[2] = rtb_Gain[2];
+      align_vecs_GEQPakmX(rtb_MathFunction, rtu_sc2sun_eci_unit_0, e, rtb_Gain_0,
+                          rtb_C_cmd);
     }
   } else {
     memset(&rtb_C_cmd[0], 0, 9U * sizeof(real_T));
@@ -1007,27 +1015,27 @@ void target_generation_lib(void)
     rtb_C_cmd[8] = 1.0;
   }
 
-  /* Sum: '<S282>/Add' */
+  /* Sum: '<S385>/Add' */
   rtb_Add = (rtb_C_cmd[0] + rtb_C_cmd[4]) + rtb_C_cmd[8];
 
-  /* If: '<S272>/If' */
+  /* If: '<S375>/If' */
   if (rtb_Add > 0.0) {
-    /* Outputs for IfAction SubSystem: '<S272>/Positive Trace' incorporates:
-     *  ActionPort: '<S280>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S375>/Positive Trace' incorporates:
+     *  ActionPort: '<S383>/Action Port'
      */
     PositiveTrace(rtb_Add, rtb_C_cmd, &rtDW.Merge_n[0], &rtDW.Merge_n[1]);
 
-    /* End of Outputs for SubSystem: '<S272>/Positive Trace' */
+    /* End of Outputs for SubSystem: '<S375>/Positive Trace' */
   } else {
-    /* Outputs for IfAction SubSystem: '<S272>/Negative Trace' incorporates:
-     *  ActionPort: '<S279>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S375>/Negative Trace' incorporates:
+     *  ActionPort: '<S382>/Action Port'
      */
     NegativeTrace(rtb_C_cmd, rtDW.Merge_n);
 
-    /* End of Outputs for SubSystem: '<S272>/Negative Trace' */
+    /* End of Outputs for SubSystem: '<S375>/Negative Trace' */
   }
 
-  /* End of If: '<S272>/If' */
+  /* End of If: '<S375>/If' */
 
   /* Reshape: '<S10>/Reshape' incorporates:
    *  Math: '<S10>/Transpose'
@@ -1035,7 +1043,7 @@ void target_generation_lib(void)
   rtb_Reshape[0] = rtDW.Merge_n[0];
 
   /* Math: '<S10>/Transpose' */
-  rtb_Switch_pv[0] = rtDW.Merge_n[0];
+  rtb_Switch_k[0] = rtDW.Merge_n[0];
 
   /* Reshape: '<S10>/Reshape' incorporates:
    *  Math: '<S10>/Transpose'
@@ -1043,7 +1051,7 @@ void target_generation_lib(void)
   rtb_Reshape[1] = rtDW.Merge_n[1];
 
   /* Math: '<S10>/Transpose' */
-  rtb_Switch_pv[1] = rtDW.Merge_n[1];
+  rtb_Switch_k[1] = rtDW.Merge_n[1];
 
   /* Reshape: '<S10>/Reshape' incorporates:
    *  Math: '<S10>/Transpose'
@@ -1051,7 +1059,7 @@ void target_generation_lib(void)
   rtb_Reshape[2] = rtDW.Merge_n[2];
 
   /* Math: '<S10>/Transpose' */
-  rtb_Switch_pv[2] = rtDW.Merge_n[2];
+  rtb_Switch_k[2] = rtDW.Merge_n[2];
 
   /* Reshape: '<S10>/Reshape' incorporates:
    *  Math: '<S10>/Transpose'
@@ -1059,97 +1067,99 @@ void target_generation_lib(void)
   rtb_Reshape[3] = rtDW.Merge_n[3];
 
   /* Math: '<S10>/Transpose' */
-  rtb_Switch_pv[3] = rtDW.Merge_n[3];
+  rtb_Switch_k[3] = rtDW.Merge_n[3];
 
   /* Outputs for Atomic SubSystem: '<S10>/quat_rectify_lib' */
-  quat_rectify_lib(rtb_Reshape, rtb_Switch_pv);
+  quat_rectify_lib(rtb_Reshape, rtb_Switch_k);
 
   /* End of Outputs for SubSystem: '<S10>/quat_rectify_lib' */
 
   /* Switch: '<S10>/Switch' */
-  if (rtDW.MET_soar_utc_s != 0.0) {
-    rtb_Reshape[0] = rtDW.quat_soar_cmd[0];
-    rtb_Reshape[1] = rtDW.quat_soar_cmd[1];
-    rtb_Reshape[2] = rtDW.quat_soar_cmd[2];
-    rtb_Reshape[3] = rtDW.quat_soar_cmd[3];
+  if (rtu_MET_epoch != 0.0) {
+    rtb_Reshape[0] = rtu_quat_soar_cmd[0];
+    rtb_Reshape[1] = rtu_quat_soar_cmd[1];
+    rtb_Reshape[2] = rtu_quat_soar_cmd[2];
+    rtb_Reshape[3] = rtu_quat_soar_cmd[3];
   } else {
-    rtb_Reshape[0] = rtb_Switch_pv[0];
-    rtb_Reshape[1] = rtb_Switch_pv[1];
-    rtb_Reshape[2] = rtb_Switch_pv[2];
-    rtb_Reshape[3] = rtb_Switch_pv[3];
+    rtb_Reshape[0] = rtb_Switch_k[0];
+    rtb_Reshape[1] = rtb_Switch_k[1];
+    rtb_Reshape[2] = rtb_Switch_k[2];
+    rtb_Reshape[3] = rtb_Switch_k[3];
   }
 
   /* End of Switch: '<S10>/Switch' */
 
-  /* RelationalOperator: '<S321>/Compare' incorporates:
-   *  Constant: '<S317>/Constant'
-   *  Constant: '<S321>/Constant'
-   *  RelationalOperator: '<S317>/Compare'
+  /* RelationalOperator: '<S424>/Compare' incorporates:
+   *  Constant: '<S420>/Constant'
+   *  Constant: '<S424>/Constant'
+   *  RelationalOperator: '<S420>/Compare'
    */
-  rtb_Compare_g = (rtDW.gnc_mode_b == 8);
+  rtb_Compare_ll = (rtu_gnc_mode == 8);
 
-  /* RelationalOperator: '<S318>/FixPt Relational Operator' incorporates:
-   *  UnitDelay: '<S318>/Delay Input1'
+  /* RelationalOperator: '<S421>/FixPt Relational Operator' incorporates:
+   *  UnitDelay: '<S421>/Delay Input1'
    *
-   * Block description for '<S318>/Delay Input1':
+   * Block description for '<S421>/Delay Input1':
    *
    *  Store in Global RAM
    */
-  rtb_FixPtRelationalOperator = ((int32_T)rtb_Compare_g > (int32_T)
+  rtb_FixPtRelationalOperator = ((int32_T)rtb_Compare_ll > (int32_T)
     rtDW.DelayInput1_DSTATE);
 
-  /* Outputs for Triggered SubSystem: '<S277>/soar_lib' incorporates:
-   *  TriggerPort: '<S320>/Trigger'
+  /* Outputs for Triggered SubSystem: '<S379>/soar_lib' incorporates:
+   *  TriggerPort: '<S423>/Trigger'
    */
   if (rtb_FixPtRelationalOperator && (rtPrevZCX.soar_lib_Trig_ZCE != POS_ZCSIG))
   {
-    /* MATLAB Function: '<S320>/INITIALIZE' */
+    /* MATLAB Function: '<S423>/INITIALIZE' */
     memcpy(&rtb_J[0], &tmp[0], 9U * sizeof(real_T));
-    rtb_Sum = (rtDW.w_err_radps[0] * 0.0 + rtDW.w_err_radps[1] * 0.0) +
-      -rtDW.w_err_radps[2];
-    rtb_Add = (rtDW.w_err_radps[0] * 0.0 + rtDW.w_err_radps[1]) +
-      rtDW.w_err_radps[2] * 0.0;
-    tmp_2[0] = 0.0;
-    tmp_2[3] = -rtDW.w_err_radps[2];
-    tmp_2[6] = rtDW.w_err_radps[1];
-    tmp_2[1] = rtDW.w_err_radps[2];
-    tmp_2[4] = 0.0;
-    tmp_2[7] = -rtDW.w_err_radps[0];
-    tmp_2[2] = -rtDW.w_err_radps[1];
-    tmp_2[5] = rtDW.w_err_radps[0];
-    tmp_2[8] = 0.0;
-    tmp_3[0] = 0.0;
-    tmp_3[3] = -rtDW.w_err_radps[2];
-    tmp_3[6] = rtDW.w_err_radps[1];
-    tmp_3[1] = rtDW.w_err_radps[2];
-    tmp_3[4] = 0.0;
-    tmp_3[7] = -rtDW.w_err_radps[0];
-    tmp_3[2] = -rtDW.w_err_radps[1];
-    tmp_3[5] = rtDW.w_err_radps[0];
-    tmp_3[8] = 0.0;
-    rtb_MI[0] = rtb_Sum;
+    rtb_Add = (rtu_sc2sun_eci_unit[0] * 0.0 + rtu_sc2sun_eci_unit[1] * 0.0) +
+      -rtu_sc2sun_eci_unit[2];
+    rtb_Sum = (rtu_sc2sun_eci_unit[0] * 0.0 + rtu_sc2sun_eci_unit[1]) +
+      rtu_sc2sun_eci_unit[2] * 0.0;
+    tmp_0[0] = 0.0;
+    tmp_0[3] = -rtu_sc2sun_eci_unit[2];
+    tmp_0[6] = rtu_sc2sun_eci_unit[1];
+    tmp_0[1] = rtu_sc2sun_eci_unit[2];
+    tmp_0[4] = 0.0;
+    tmp_0[7] = -rtu_sc2sun_eci_unit[0];
+    tmp_0[2] = -rtu_sc2sun_eci_unit[1];
+    tmp_0[5] = rtu_sc2sun_eci_unit[0];
+    tmp_0[8] = 0.0;
+    tmp_1[0] = 0.0;
+    tmp_1[3] = -rtu_sc2sun_eci_unit[2];
+    tmp_1[6] = rtu_sc2sun_eci_unit[1];
+    tmp_1[1] = rtu_sc2sun_eci_unit[2];
+    tmp_1[4] = 0.0;
+    tmp_1[7] = -rtu_sc2sun_eci_unit[0];
+    tmp_1[2] = -rtu_sc2sun_eci_unit[1];
+    tmp_1[5] = rtu_sc2sun_eci_unit[0];
+    tmp_1[8] = 0.0;
+    rtb_MI[0] = rtb_Add;
     for (i = 0; i < 3; i++) {
-      tmp_4[i] = rtDW.w_err_radps[i] * 0.0;
-      b_b_0[i] = (real_T)b_b[i] * rtDW.w_err_radps[0];
-      tmp_4[i + 3] = rtDW.w_err_radps[i] * 0.0;
-      b_b_0[i + 3] = (real_T)b_b[i] * rtDW.w_err_radps[1];
-      tmp_4[i + 6] = -rtDW.w_err_radps[i];
-      b_b_0[i + 6] = (real_T)b_b[i] * rtDW.w_err_radps[2];
-      rtb_MI[(i + 1) << 2] = -tmp_2[i + 6] + (tmp_2[i + 3] * 0.0 + tmp_2[i] *
+      rtu_sc2sun_eci_unit_1[i] = rtu_sc2sun_eci_unit[i] * 0.0;
+      b_b_0[i] = (real_T)b_b[i] * rtu_sc2sun_eci_unit[0];
+      rtu_sc2sun_eci_unit_1[i + 3] = rtu_sc2sun_eci_unit[i] * 0.0;
+      b_b_0[i + 3] = (real_T)b_b[i] * rtu_sc2sun_eci_unit[1];
+      rtu_sc2sun_eci_unit_1[i + 6] = -rtu_sc2sun_eci_unit[i];
+      b_b_0[i + 6] = (real_T)b_b[i] * rtu_sc2sun_eci_unit[2];
+      rtb_MI[(i + 1) << 2] = -tmp_0[i + 6] + (tmp_0[i + 3] * 0.0 + tmp_0[i] *
         0.0);
-      rtb_MI[i + 1] = -tmp_3[i + 6] + (tmp_3[i + 3] * 0.0 + tmp_3[i] * 0.0);
+      rtb_MI[i + 1] = -tmp_1[i + 6] + (tmp_1[i + 3] * 0.0 + tmp_1[i] * 0.0);
     }
 
     for (i = 0; i < 3; i++) {
       n = (i + 1) << 2;
-      rtb_MI[1 + n] = (tmp_4[3 * i] + b_b_0[3 * i]) - (real_T)d_b[3 * i] *
-        rtb_Sum;
-      rtb_MI_tmp = 3 * i + 1;
-      rtb_MI[2 + n] = (tmp_4[rtb_MI_tmp] + b_b_0[rtb_MI_tmp]) - (real_T)
-        d_b[rtb_MI_tmp] * rtb_Sum;
-      rtb_MI_tmp = 3 * i + 2;
-      rtb_MI[3 + n] = (tmp_4[rtb_MI_tmp] + b_b_0[rtb_MI_tmp]) - (real_T)
-        d_b[rtb_MI_tmp] * rtb_Sum;
+      rtb_MI[1 + n] = (rtu_sc2sun_eci_unit_1[3 * i] + b_b_0[3 * i]) - (real_T)
+        d_b[3 * i] * rtb_Add;
+      rtu_sc2sun_eci_unit_tmp = 3 * i + 1;
+      rtb_MI[2 + n] = (rtu_sc2sun_eci_unit_1[rtu_sc2sun_eci_unit_tmp] +
+                       b_b_0[rtu_sc2sun_eci_unit_tmp]) - (real_T)
+        d_b[rtu_sc2sun_eci_unit_tmp] * rtb_Add;
+      rtu_sc2sun_eci_unit_tmp = 3 * i + 2;
+      rtb_MI[3 + n] = (rtu_sc2sun_eci_unit_1[rtu_sc2sun_eci_unit_tmp] +
+                       b_b_0[rtu_sc2sun_eci_unit_tmp]) - (real_T)
+        d_b[rtu_sc2sun_eci_unit_tmp] * rtb_Add;
     }
 
     for (i = 0; i < 16; i++) {
@@ -1157,45 +1167,48 @@ void target_generation_lib(void)
     }
 
     schur_hD1lAh31(Mi, rtb_MI, De);
-    tmp_2[0] = 0.0;
-    tmp_2[3] = -rtDW.w_err_radps[2];
-    tmp_2[6] = rtDW.w_err_radps[1];
-    tmp_2[1] = rtDW.w_err_radps[2];
-    tmp_2[4] = 0.0;
-    tmp_2[7] = -rtDW.w_err_radps[0];
-    tmp_2[2] = -rtDW.w_err_radps[1];
-    tmp_2[5] = rtDW.w_err_radps[0];
-    tmp_2[8] = 0.0;
-    tmp_3[0] = 0.0;
-    tmp_3[3] = -rtDW.w_err_radps[2];
-    tmp_3[6] = rtDW.w_err_radps[1];
-    tmp_3[1] = rtDW.w_err_radps[2];
-    tmp_3[4] = 0.0;
-    tmp_3[7] = -rtDW.w_err_radps[0];
-    tmp_3[2] = -rtDW.w_err_radps[1];
-    tmp_3[5] = rtDW.w_err_radps[0];
-    tmp_3[8] = 0.0;
-    Mi[0] = rtb_Add;
+    tmp_0[0] = 0.0;
+    tmp_0[3] = -rtu_sc2sun_eci_unit[2];
+    tmp_0[6] = rtu_sc2sun_eci_unit[1];
+    tmp_0[1] = rtu_sc2sun_eci_unit[2];
+    tmp_0[4] = 0.0;
+    tmp_0[7] = -rtu_sc2sun_eci_unit[0];
+    tmp_0[2] = -rtu_sc2sun_eci_unit[1];
+    tmp_0[5] = rtu_sc2sun_eci_unit[0];
+    tmp_0[8] = 0.0;
+    tmp_1[0] = 0.0;
+    tmp_1[3] = -rtu_sc2sun_eci_unit[2];
+    tmp_1[6] = rtu_sc2sun_eci_unit[1];
+    tmp_1[1] = rtu_sc2sun_eci_unit[2];
+    tmp_1[4] = 0.0;
+    tmp_1[7] = -rtu_sc2sun_eci_unit[0];
+    tmp_1[2] = -rtu_sc2sun_eci_unit[1];
+    tmp_1[5] = rtu_sc2sun_eci_unit[0];
+    tmp_1[8] = 0.0;
+    Mi[0] = rtb_Sum;
     for (i = 0; i < 3; i++) {
-      tmp_4[i] = rtDW.w_err_radps[i] * 0.0;
-      b_b_0[i] = (real_T)b[i] * rtDW.w_err_radps[0];
-      tmp_4[i + 3] = rtDW.w_err_radps[i];
-      b_b_0[i + 3] = (real_T)b[i] * rtDW.w_err_radps[1];
-      tmp_4[i + 6] = rtDW.w_err_radps[i] * 0.0;
-      b_b_0[i + 6] = (real_T)b[i] * rtDW.w_err_radps[2];
-      Mi[(i + 1) << 2] = tmp_2[i + 6] * 0.0 + (tmp_2[i + 3] + tmp_2[i] * 0.0);
-      Mi[i + 1] = tmp_3[i + 6] * 0.0 + (tmp_3[i + 3] + tmp_3[i] * 0.0);
+      rtu_sc2sun_eci_unit_1[i] = rtu_sc2sun_eci_unit[i] * 0.0;
+      b_b_0[i] = (real_T)b[i] * rtu_sc2sun_eci_unit[0];
+      rtu_sc2sun_eci_unit_1[i + 3] = rtu_sc2sun_eci_unit[i];
+      b_b_0[i + 3] = (real_T)b[i] * rtu_sc2sun_eci_unit[1];
+      rtu_sc2sun_eci_unit_1[i + 6] = rtu_sc2sun_eci_unit[i] * 0.0;
+      b_b_0[i + 6] = (real_T)b[i] * rtu_sc2sun_eci_unit[2];
+      Mi[(i + 1) << 2] = tmp_0[i + 6] * 0.0 + (tmp_0[i + 3] + tmp_0[i] * 0.0);
+      Mi[i + 1] = tmp_1[i + 6] * 0.0 + (tmp_1[i + 3] + tmp_1[i] * 0.0);
     }
 
     for (i = 0; i < 3; i++) {
       n = (i + 1) << 2;
-      Mi[1 + n] = (tmp_4[3 * i] + b_b_0[3 * i]) - (real_T)d_b[3 * i] * rtb_Add;
-      rtb_MI_tmp = 3 * i + 1;
-      Mi[2 + n] = (tmp_4[rtb_MI_tmp] + b_b_0[rtb_MI_tmp]) - (real_T)
-        d_b[rtb_MI_tmp] * rtb_Add;
-      rtb_MI_tmp = 3 * i + 2;
-      Mi[3 + n] = (tmp_4[rtb_MI_tmp] + b_b_0[rtb_MI_tmp]) - (real_T)
-        d_b[rtb_MI_tmp] * rtb_Add;
+      Mi[1 + n] = (rtu_sc2sun_eci_unit_1[3 * i] + b_b_0[3 * i]) - (real_T)d_b[3 *
+        i] * rtb_Sum;
+      rtu_sc2sun_eci_unit_tmp = 3 * i + 1;
+      Mi[2 + n] = (rtu_sc2sun_eci_unit_1[rtu_sc2sun_eci_unit_tmp] +
+                   b_b_0[rtu_sc2sun_eci_unit_tmp]) - (real_T)
+        d_b[rtu_sc2sun_eci_unit_tmp] * rtb_Sum;
+      rtu_sc2sun_eci_unit_tmp = 3 * i + 2;
+      Mi[3 + n] = (rtu_sc2sun_eci_unit_1[rtu_sc2sun_eci_unit_tmp] +
+                   b_b_0[rtu_sc2sun_eci_unit_tmp]) - (real_T)
+        d_b[rtu_sc2sun_eci_unit_tmp] * rtb_Sum;
     }
 
     for (i = 0; i < 16; i++) {
@@ -1213,49 +1226,55 @@ void target_generation_lib(void)
     Di[15] = sqrt(Di[15]);
     for (i = 0; i < 4; i++) {
       for (n = 0; n < 4; n++) {
-        rtb_MI_tmp = n << 2;
-        rtb_MI_tmp_0 = i + rtb_MI_tmp;
-        d_y_0[rtb_MI_tmp_0] = 0.0;
-        rtb_MI_tmp_1 = rtb_MI_tmp + i;
-        d_y_0[rtb_MI_tmp_0] = d_y_0[rtb_MI_tmp_1] + De[rtb_MI_tmp] * rtb_MI[i];
-        d_y_0[rtb_MI_tmp_0] = De[rtb_MI_tmp + 1] * rtb_MI[i + 4] +
-          d_y_0[rtb_MI_tmp_1];
-        d_y_0[rtb_MI_tmp_0] = De[rtb_MI_tmp + 2] * rtb_MI[i + 8] +
-          d_y_0[rtb_MI_tmp_1];
-        d_y_0[rtb_MI_tmp_0] = De[rtb_MI_tmp + 3] * rtb_MI[i + 12] +
-          d_y_0[rtb_MI_tmp_1];
+        rtu_sc2sun_eci_unit_tmp = n << 2;
+        rtb_MI_tmp = i + rtu_sc2sun_eci_unit_tmp;
+        d_y_0[rtb_MI_tmp] = 0.0;
+        rtb_MI_tmp_0 = rtu_sc2sun_eci_unit_tmp + i;
+        d_y_0[rtb_MI_tmp] = d_y_0[rtb_MI_tmp_0] + De[rtu_sc2sun_eci_unit_tmp] *
+          rtb_MI[i];
+        d_y_0[rtb_MI_tmp] = De[rtu_sc2sun_eci_unit_tmp + 1] * rtb_MI[i + 4] +
+          d_y_0[rtb_MI_tmp_0];
+        d_y_0[rtb_MI_tmp] = De[rtu_sc2sun_eci_unit_tmp + 2] * rtb_MI[i + 8] +
+          d_y_0[rtb_MI_tmp_0];
+        d_y_0[rtb_MI_tmp] = De[rtu_sc2sun_eci_unit_tmp + 3] * rtb_MI[i + 12] +
+          d_y_0[rtb_MI_tmp_0];
       }
 
       for (n = 0; n < 4; n++) {
-        rtb_MI_tmp = n << 2;
-        rtb_MI_tmp_0 = i + rtb_MI_tmp;
-        rtb_ME[rtb_MI_tmp_0] = 0.0;
-        Mi_0[rtb_MI_tmp_0] = 0.0;
-        rtb_MI_tmp_1 = rtb_MI_tmp + i;
-        rtb_ME[rtb_MI_tmp_0] = rtb_ME[rtb_MI_tmp_1] + d_y_0[i] * rtb_MI[n];
-        Mi_0[rtb_MI_tmp_0] = Mi_0[rtb_MI_tmp_1] + Di[rtb_MI_tmp] * Mi[i];
-        rtb_ME[rtb_MI_tmp_0] = rtb_ME[rtb_MI_tmp_1] + d_y_0[i + 4] * rtb_MI[n +
-          4];
-        Mi_0[rtb_MI_tmp_0] = Di[rtb_MI_tmp + 1] * Mi[i + 4] + Mi_0[rtb_MI_tmp_1];
-        rtb_ME[rtb_MI_tmp_0] = rtb_ME[rtb_MI_tmp_1] + d_y_0[i + 8] * rtb_MI[n +
-          8];
-        Mi_0[rtb_MI_tmp_0] = Di[rtb_MI_tmp + 2] * Mi[i + 8] + Mi_0[rtb_MI_tmp_1];
-        rtb_ME[rtb_MI_tmp_0] = rtb_ME[rtb_MI_tmp_1] + d_y_0[i + 12] * rtb_MI[n +
+        rtu_sc2sun_eci_unit_tmp = n << 2;
+        rtb_MI_tmp = i + rtu_sc2sun_eci_unit_tmp;
+        rtb_ME[rtb_MI_tmp] = 0.0;
+        Mi_0[rtb_MI_tmp] = 0.0;
+        rtb_MI_tmp_0 = rtu_sc2sun_eci_unit_tmp + i;
+        rtb_ME[rtb_MI_tmp] = rtb_ME[rtb_MI_tmp_0] + d_y_0[i] * rtb_MI[n];
+        Mi_0[rtb_MI_tmp] = Mi_0[rtb_MI_tmp_0] + Di[rtu_sc2sun_eci_unit_tmp] *
+          Mi[i];
+        rtb_ME[rtb_MI_tmp] = rtb_ME[rtb_MI_tmp_0] + d_y_0[i + 4] * rtb_MI[n + 4];
+        Mi_0[rtb_MI_tmp] = Di[rtu_sc2sun_eci_unit_tmp + 1] * Mi[i + 4] +
+          Mi_0[rtb_MI_tmp_0];
+        rtb_ME[rtb_MI_tmp] = rtb_ME[rtb_MI_tmp_0] + d_y_0[i + 8] * rtb_MI[n + 8];
+        Mi_0[rtb_MI_tmp] = Di[rtu_sc2sun_eci_unit_tmp + 2] * Mi[i + 8] +
+          Mi_0[rtb_MI_tmp_0];
+        rtb_ME[rtb_MI_tmp] = rtb_ME[rtb_MI_tmp_0] + d_y_0[i + 12] * rtb_MI[n +
           12];
-        Mi_0[rtb_MI_tmp_0] = Di[rtb_MI_tmp + 3] * Mi[i + 12] + Mi_0[rtb_MI_tmp_1];
+        Mi_0[rtb_MI_tmp] = Di[rtu_sc2sun_eci_unit_tmp + 3] * Mi[i + 12] +
+          Mi_0[rtb_MI_tmp_0];
       }
     }
 
     for (i = 0; i < 4; i++) {
       for (n = 0; n < 4; n++) {
-        rtb_MI_tmp = n << 2;
-        rtb_MI_tmp_0 = i + rtb_MI_tmp;
-        rtb_MI[rtb_MI_tmp_0] = 0.0;
-        rtb_MI_tmp += i;
-        rtb_MI[rtb_MI_tmp_0] = rtb_MI[rtb_MI_tmp] + Mi_0[i] * Mi[n];
-        rtb_MI[rtb_MI_tmp_0] = rtb_MI[rtb_MI_tmp] + Mi_0[i + 4] * Mi[n + 4];
-        rtb_MI[rtb_MI_tmp_0] = rtb_MI[rtb_MI_tmp] + Mi_0[i + 8] * Mi[n + 8];
-        rtb_MI[rtb_MI_tmp_0] = rtb_MI[rtb_MI_tmp] + Mi_0[i + 12] * Mi[n + 12];
+        rtu_sc2sun_eci_unit_tmp = n << 2;
+        rtb_MI_tmp = i + rtu_sc2sun_eci_unit_tmp;
+        rtb_MI[rtb_MI_tmp] = 0.0;
+        rtu_sc2sun_eci_unit_tmp += i;
+        rtb_MI[rtb_MI_tmp] = rtb_MI[rtu_sc2sun_eci_unit_tmp] + Mi_0[i] * Mi[n];
+        rtb_MI[rtb_MI_tmp] = rtb_MI[rtu_sc2sun_eci_unit_tmp] + Mi_0[i + 4] *
+          Mi[n + 4];
+        rtb_MI[rtb_MI_tmp] = rtb_MI[rtu_sc2sun_eci_unit_tmp] + Mi_0[i + 8] *
+          Mi[n + 8];
+        rtb_MI[rtb_MI_tmp] = rtb_MI[rtu_sc2sun_eci_unit_tmp] + Mi_0[i + 12] *
+          Mi[n + 12];
       }
     }
 
@@ -1263,9 +1282,9 @@ void target_generation_lib(void)
     memset(&rtDW.U[0], 0, 30U * sizeof(real_T));
     rtDW.s = 25.0;
     flag = 0;
-    rtb_Add = ((rtDW.qmerge[0] * rtb_Reshape[0] + rtDW.qmerge[1] * rtb_Reshape[1])
-               + rtDW.qmerge[2] * rtb_Reshape[2]) + rtDW.qmerge[3] *
-      rtb_Reshape[3];
+    rtb_Add = ((rtu_sc_quat_in[0] * rtb_Reshape[0] + rtu_sc_quat_in[1] *
+                rtb_Reshape[1]) + rtu_sc_quat_in[2] * rtb_Reshape[2]) +
+      rtu_sc_quat_in[3] * rtb_Reshape[3];
     if (1.0 - rtb_Add < 0.0) {
       rtb_Add = 0.0;
     } else {
@@ -1286,10 +1305,10 @@ void target_generation_lib(void)
       if (rtb_Sum < 1.0E-8) {
         for (n = 0; n < 10; n++) {
           i = n << 2;
-          qb[i] = rtDW.qmerge[0];
-          qb[i + 1] = rtDW.qmerge[1];
-          qb[i + 2] = rtDW.qmerge[2];
-          qb[i + 3] = rtDW.qmerge[3];
+          qb[i] = rtu_sc_quat_in[0];
+          qb[i + 1] = rtu_sc_quat_in[1];
+          qb[i + 2] = rtu_sc_quat_in[2];
+          qb[i + 3] = rtu_sc_quat_in[3];
         }
       } else {
         for (n = 0; n < 10; n++) {
@@ -1299,10 +1318,10 @@ void target_generation_lib(void)
           coff /= rtb_Sum;
           t /= rtb_Sum;
           i = n << 2;
-          qb[i] = coff * rtDW.qmerge[0] + t * rtb_Reshape[0];
-          qb[1 + i] = coff * rtDW.qmerge[1] + t * rtb_Reshape[1];
-          qb[2 + i] = coff * rtDW.qmerge[2] + t * rtb_Reshape[2];
-          qb[3 + i] = coff * rtDW.qmerge[3] + t * rtb_Reshape[3];
+          qb[i] = coff * rtu_sc_quat_in[0] + t * rtb_Reshape[0];
+          qb[1 + i] = coff * rtu_sc_quat_in[1] + t * rtb_Reshape[1];
+          qb[2 + i] = coff * rtu_sc_quat_in[2] + t * rtb_Reshape[2];
+          qb[3 + i] = coff * rtu_sc_quat_in[3] + t * rtb_Reshape[3];
         }
       }
     }
@@ -1311,38 +1330,38 @@ void target_generation_lib(void)
       for (n = 0; n < 10; n++) {
         rtb_Add = 0.1111111111111111 * (real_T)n;
         if (rtb_Add == 0.0) {
-          rtb_Gain_a[0] = rtDW.Sum[0];
-          rtb_Gain_a[1] = rtDW.Sum[1];
-          rtb_Gain_a[2] = rtDW.Sum[2];
+          rtb_Gain[0] = rtu_body_rates_radps[0];
+          rtb_Gain[1] = rtu_body_rates_radps[1];
+          rtb_Gain[2] = rtu_body_rates_radps[2];
         } else {
           if (rtb_Add == 1.0) {
-            rtb_Gain_a[0] = 0.0;
-          } else if (rtDW.Sum[0] == 0.0) {
-            rtb_Gain_a[0] = rtDW.Sum[0];
+            rtb_Gain[0] = 0.0;
+          } else if (rtu_body_rates_radps[0] == 0.0) {
+            rtb_Gain[0] = rtu_body_rates_radps[0];
           } else {
-            rtb_Gain_a[0] = (1.0 - rtb_Add) * rtDW.Sum[0];
+            rtb_Gain[0] = (1.0 - rtb_Add) * rtu_body_rates_radps[0];
           }
 
           if (rtb_Add == 1.0) {
-            rtb_Gain_a[1] = 0.0;
-          } else if (rtDW.Sum[1] == 0.0) {
-            rtb_Gain_a[1] = rtDW.Sum[1];
+            rtb_Gain[1] = 0.0;
+          } else if (rtu_body_rates_radps[1] == 0.0) {
+            rtb_Gain[1] = rtu_body_rates_radps[1];
           } else {
-            rtb_Gain_a[1] = (1.0 - rtb_Add) * rtDW.Sum[1];
+            rtb_Gain[1] = (1.0 - rtb_Add) * rtu_body_rates_radps[1];
           }
 
           if (rtb_Add == 1.0) {
-            rtb_Gain_a[2] = 0.0;
-          } else if (rtDW.Sum[2] == 0.0) {
-            rtb_Gain_a[2] = rtDW.Sum[2];
+            rtb_Gain[2] = 0.0;
+          } else if (rtu_body_rates_radps[2] == 0.0) {
+            rtb_Gain[2] = rtu_body_rates_radps[2];
           } else {
-            rtb_Gain_a[2] = (1.0 - rtb_Add) * rtDW.Sum[2];
+            rtb_Gain[2] = (1.0 - rtb_Add) * rtu_body_rates_radps[2];
           }
         }
 
         for (i = 0; i < 3; i++) {
-          rtb_MathFunction[i] = rtb_J[i + 6] * rtb_Gain_a[2] + (rtb_J[i + 3] *
-            rtb_Gain_a[1] + rtb_J[i] * rtb_Gain_a[0]);
+          rtb_MathFunction[i] = rtb_J[i + 6] * rtb_Gain[2] + (rtb_J[i + 3] *
+            rtb_Gain[1] + rtb_J[i] * rtb_Gain[0]);
         }
 
         rtDW.X_f[10 * n] = qb[n << 2];
@@ -1361,25 +1380,37 @@ void target_generation_lib(void)
       }
     }
 
-    /* End of MATLAB Function: '<S320>/INITIALIZE' */
+    /* End of MATLAB Function: '<S423>/INITIALIZE' */
 
-    /* MATLAB Function: '<S320>/SOLVE' */
-    rtb_Add = rtDW.s;
-    memset(&exitcode[0], 0, 17U * sizeof(real_T));
-    memset(&rtDW.time[0], 0, 15U * sizeof(real_T));
-    memcpy(&xi[0], &rtDW.X_f[0], 10U * sizeof(real_T));
-    for (i = 0; i < 7; i++) {
-      xf[i] = rtDW.X_f[i + 90];
+    /* MATLAB Function: '<S423>/SOLVE' */
+    for (i = 0; i < 100; i++) {
+      rty_soar_telemetry[i] = rtDW.X_f[i];
     }
 
-    rtb_MI_tmp = 1;
+    for (i = 0; i < 30; i++) {
+      rty_soar_telemetry_f[i] = rtDW.U[i];
+    }
+
+    *rty_soar_telemetry_g = rtDW.s;
+    rtb_Add = *rty_soar_telemetry_g;
+    memset(&exitcode[0], 0, 17U * sizeof(real_T));
+    for (i = 0; i < 10; i++) {
+      xi[i] = rty_soar_telemetry[i];
+    }
+
+    for (i = 0; i < 7; i++) {
+      xf[i] = rty_soar_telemetry[i + 90];
+    }
+
+    rtu_sc2sun_eci_unit_tmp = 1;
     n = 0;
     exitg1 = false;
     while ((!exitg1) && (n < 15)) {
-      rtb_MI_tmp = n + 1;
-      foh_HcncvH72(rtDW.X_f, rtDW.U, rtb_Add, rtb_J, rtDW.EH, rtDW.BE, ES, AR);
+      rtu_sc2sun_eci_unit_tmp = n + 1;
+      foh_OxYXiak1(rty_soar_telemetry, rty_soar_telemetry_f, rtb_Add, rtb_J,
+                   rtDW.EH, rtDW.BE, ES, AR);
       parse_ecos_VYvjNTb8_m(xi, xf, rtb_J, rtDW.EH, rtDW.BE, ES, AR, rtb_ME,
-                            rtb_MI, 0.0032, 0.1, 25.0, 15.0, 100.0, c, rtDW.G, h,
+                            rtb_MI, 0.0028, 0.1, 25.0, 15.0, 100.0, c, rtDW.G, h,
                             rtDW.A, b_0);
       convert_to_CCS_TWUhmVkC(rtDW.A, rtDW.Air, Ajc, rtDW.Apr);
       convert_to_CCS_uvSSMF4Z(rtDW.G, Gir, Gjc, rtDW.Gpr);
@@ -1390,16 +1421,21 @@ void target_generation_lib(void)
       run_ecos(332, 474, 117, 322, 21, c, Gjc, Gir, rtDW.Gpr, h, d_0, Ajc,
                rtDW.Air, rtDW.Apr, b_0, y);
       for (i = 0; i < 100; i++) {
-        ES[i] = rtDW.X_f[i] - y[i];
-        rtDW.X_f[i] = y[i];
+        ES[i] = rty_soar_telemetry[i] - y[i];
       }
 
       diff = norm_ajWdQkav(ES);
-      memcpy(&rtDW.U[0], &y[100], 30U * sizeof(real_T));
+      for (i = 0; i < 100; i++) {
+        rty_soar_telemetry[i] = y[i];
+      }
+
+      for (i = 0; i < 30; i++) {
+        rty_soar_telemetry_f[i] = y[100 + i];
+      }
+
       rtb_Add = y[131];
       V = &y[132];
       exitcode[n] = y[332];
-      rtDW.time[n] = y[333];
       if (exitcode[n] != 0.0) {
         exitcode[16] = -1.0;
       }
@@ -1412,7 +1448,7 @@ void target_generation_lib(void)
       }
     }
 
-    if (rtb_MI_tmp == 15) {
+    if (rtu_sc2sun_eci_unit_tmp == 15) {
       exitcode[15] = 15.0;
       if (exitcode[16] != -1.0) {
         if (norm_UjNDAYVY(V) > 1.0E-5) {
@@ -1425,41 +1461,35 @@ void target_generation_lib(void)
       }
     }
 
-    rtDW.s = rtb_Add;
-    memcpy(&rtDW.exitcode_b[0], &exitcode[0], 17U * sizeof(real_T));
+    *rty_soar_telemetry_g = rtb_Add;
+    memcpy(&rty_soar_telemetry_a[0], &exitcode[0], 17U * sizeof(real_T));
 
-    /* End of MATLAB Function: '<S320>/SOLVE' */
+    /* End of MATLAB Function: '<S423>/SOLVE' */
   }
 
   rtPrevZCX.soar_lib_Trig_ZCE = rtb_FixPtRelationalOperator;
 
-  /* End of Outputs for SubSystem: '<S277>/soar_lib' */
+  /* End of Outputs for SubSystem: '<S379>/soar_lib' */
 
-  /* RateTransition: '<S277>/Rate Transition1' */
-  memcpy(&rtDW.opt_state[0], &rtDW.X_f[0], 100U * sizeof(real_T));
-  memcpy(&rtDW.opt_ctrl_Nm[0], &rtDW.U[0], 30U * sizeof(real_T));
-  memcpy(&rtDW.exitcode[0], &rtDW.exitcode_b[0], 17U * sizeof(real_T));
-  memcpy(&rtDW.slv_time_s[0], &rtDW.time[0], 15U * sizeof(real_T));
+  /* Sum: '<S379>/Sum' */
+  rtb_Sum = rtu_MET_utc_s - rtu_MET_epoch;
 
-  /* Sum: '<S277>/Sum' */
-  rtb_Sum = rtDW.MET_utc_s - rtDW.MET_soar_utc_s;
-
-  /* Switch: '<S319>/Switch' incorporates:
-   *  UnitDelay: '<S319>/Unit Delay'
+  /* Switch: '<S422>/Switch' incorporates:
+   *  UnitDelay: '<S422>/Unit Delay'
    */
   if (rtb_FixPtRelationalOperator) {
     diff = rtb_Sum;
   } else {
-    diff = rtDW.UnitDelay_DSTATE;
+    diff = rtDW.UnitDelay_DSTATE_a;
   }
 
-  /* End of Switch: '<S319>/Switch' */
+  /* End of Switch: '<S422>/Switch' */
 
-  /* Sum: '<S319>/Subtract' */
+  /* Sum: '<S422>/Subtract' */
   rtb_Add = rtb_Sum - diff;
 
-  /* Delay: '<S319>/Resettable Delay' incorporates:
-   *  SignalConversion: '<S319>/TmpSignal ConversionAtResettable DelayInport3'
+  /* Delay: '<S422>/Resettable Delay' incorporates:
+   *  SignalConversion: '<S422>/TmpSignal ConversionAtResettable DelayInport3'
    */
   if (rtb_FixPtRelationalOperator && (rtPrevZCX.ResettableDelay_Reset_ZCE !=
        POS_ZCSIG)) {
@@ -1468,81 +1498,90 @@ void target_generation_lib(void)
 
   rtPrevZCX.ResettableDelay_Reset_ZCE = rtb_FixPtRelationalOperator;
   if (rtDW.icLoad != 0) {
-    rtDW.ResettableDelay_DSTATE[0] = rtDW.qmerge[0];
-    rtDW.ResettableDelay_DSTATE[1] = rtDW.qmerge[1];
-    rtDW.ResettableDelay_DSTATE[2] = rtDW.qmerge[2];
-    rtDW.ResettableDelay_DSTATE[3] = rtDW.qmerge[3];
-    rtDW.ResettableDelay_DSTATE[4] = rtDW.Sum[0];
+    rtDW.ResettableDelay_DSTATE[0] = rtu_sc_quat_in[0];
+    rtDW.ResettableDelay_DSTATE[1] = rtu_sc_quat_in[1];
+    rtDW.ResettableDelay_DSTATE[2] = rtu_sc_quat_in[2];
+    rtDW.ResettableDelay_DSTATE[3] = rtu_sc_quat_in[3];
+    rtDW.ResettableDelay_DSTATE[4] = rtu_body_rates_radps[0];
     rtDW.ResettableDelay_DSTATE[7] = rtb_Product1[0];
-    rtDW.ResettableDelay_DSTATE[5] = rtDW.Sum[1];
+    rtDW.ResettableDelay_DSTATE[5] = rtu_body_rates_radps[1];
     rtDW.ResettableDelay_DSTATE[8] = rtb_Product1[1];
-    rtDW.ResettableDelay_DSTATE[6] = rtDW.Sum[2];
+    rtDW.ResettableDelay_DSTATE[6] = rtu_body_rates_radps[2];
     rtDW.ResettableDelay_DSTATE[9] = rtb_Product1[2];
   }
 
-  /* MATLAB Function: '<S319>/soar_INTERP' incorporates:
-   *  Delay: '<S319>/Resettable Delay'
+  /* MATLAB Function: '<S422>/soar_INTERP' incorporates:
+   *  Delay: '<S422>/Resettable Delay'
    */
-  xi[9] = rtDW.s;
+  xi[9] = *rty_soar_telemetry_g;
   xi[0] = 0.0;
-  if ((rtDW.s < 0.0) && (fabs(rtDW.s) > 8.9884656743115785E+307)) {
-    rtb_Sum = rtDW.s / 9.0;
-    for (rtb_MI_tmp = 0; rtb_MI_tmp < 8; rtb_MI_tmp++) {
-      xi[rtb_MI_tmp + 1] = (1.0 + (real_T)rtb_MI_tmp) * rtb_Sum;
+  if ((*rty_soar_telemetry_g < 0.0) && (fabs(*rty_soar_telemetry_g) >
+       8.9884656743115785E+307)) {
+    rtb_Sum = *rty_soar_telemetry_g / 9.0;
+    for (rtu_sc2sun_eci_unit_tmp = 0; rtu_sc2sun_eci_unit_tmp < 8;
+         rtu_sc2sun_eci_unit_tmp++) {
+      xi[rtu_sc2sun_eci_unit_tmp + 1] = (1.0 + (real_T)rtu_sc2sun_eci_unit_tmp) *
+        rtb_Sum;
     }
   } else {
-    rtb_Sum = rtDW.s / 9.0;
+    rtb_Sum = *rty_soar_telemetry_g / 9.0;
     for (n = 0; n < 8; n++) {
       xi[n + 1] = (1.0 + (real_T)n) * rtb_Sum;
     }
   }
 
-  if ((rtDW.s > 2.2204460492503131E-16) && (rtb_Add >= rtDW.s)) {
+  if ((*rty_soar_telemetry_g > 2.2204460492503131E-16) && (rtb_Add >=
+       *rty_soar_telemetry_g)) {
     rtb_Product1[0] = 0.0;
     rtb_Product1[1] = 0.0;
     rtb_Product1[2] = 0.0;
-    mldivide_FcIbHgdz(J, &rtDW.X_f[94], tmp_1);
-    rtb_x_opt_t[0] = rtDW.X_f[90];
-    rtb_x_opt_t[1] = rtDW.X_f[91];
-    rtb_x_opt_t[2] = rtDW.X_f[92];
-    rtb_x_opt_t[3] = rtDW.X_f[93];
-    rtb_x_opt_t[4] = tmp_1[0];
-    rtb_x_opt_t[7] = rtDW.X_f[97];
-    rtb_x_opt_t[5] = tmp_1[1];
-    rtb_x_opt_t[8] = rtDW.X_f[98];
-    rtb_x_opt_t[6] = tmp_1[2];
-    rtb_x_opt_t[9] = rtDW.X_f[99];
-  } else if (rtDW.s > 2.2204460492503131E-16) {
+    mldivide_FcIbHgdz(J, &rty_soar_telemetry[94], rtb_Gain);
+    rtb_x_opt_t[0] = rty_soar_telemetry[90];
+    rtb_x_opt_t[1] = rty_soar_telemetry[91];
+    rtb_x_opt_t[2] = rty_soar_telemetry[92];
+    rtb_x_opt_t[3] = rty_soar_telemetry[93];
+    rtb_x_opt_t[4] = rtb_Gain[0];
+    rtb_x_opt_t[5] = rtb_Gain[1];
+    rtb_x_opt_t[6] = rtb_Gain[2];
+    rtb_x_opt_t[7] = rty_soar_telemetry[97];
+    rtb_x_opt_t[8] = rty_soar_telemetry[98];
+    rtb_x_opt_t[9] = rty_soar_telemetry[99];
+  } else if (*rty_soar_telemetry_g > 2.2204460492503131E-16) {
     memcpy(&rtb_x_opt_t[0], &rtDW.ResettableDelay_DSTATE[0], 10U * sizeof(real_T));
-    for (rtb_MI_tmp = 0; rtb_MI_tmp < 10; rtb_MI_tmp++) {
-      deriv_AZ3NAdJG(rtb_Add, rtb_x_opt_t, rtDW.U, xi, J, k1);
+    for (rtu_sc2sun_eci_unit_tmp = 0; rtu_sc2sun_eci_unit_tmp < 10;
+         rtu_sc2sun_eci_unit_tmp++) {
+      deriv_Idi6M3VL(rtb_Add, rtb_x_opt_t, rty_soar_telemetry_f, xi, J, k1);
       for (i = 0; i < 10; i++) {
         rtb_x_opt_t_0[i] = 0.0125 * k1[i] + rtb_x_opt_t[i];
       }
 
-      deriv_AZ3NAdJG(rtb_Add + 0.0125, rtb_x_opt_t_0, rtDW.U, xi, J, k2);
+      deriv_Idi6M3VL(rtb_Add + 0.0125, rtb_x_opt_t_0, rty_soar_telemetry_f, xi,
+                     J, k2);
       for (i = 0; i < 10; i++) {
         rtb_x_opt_t_0[i] = 0.0125 * k2[i] + rtb_x_opt_t[i];
       }
 
-      deriv_AZ3NAdJG(rtb_Add + 0.0125, rtb_x_opt_t_0, rtDW.U, xi, J, k3);
+      deriv_Idi6M3VL(rtb_Add + 0.0125, rtb_x_opt_t_0, rty_soar_telemetry_f, xi,
+                     J, k3);
       for (i = 0; i < 10; i++) {
         rtb_x_opt_t_0[i] = 0.025 * k3[i] + rtb_x_opt_t[i];
       }
 
-      deriv_AZ3NAdJG(rtb_Add + 0.025, rtb_x_opt_t_0, rtDW.U, xi, J, tmp_0);
+      deriv_Idi6M3VL(rtb_Add + 0.025, rtb_x_opt_t_0, rty_soar_telemetry_f, xi, J,
+                     k4);
       for (i = 0; i < 10; i++) {
-        rtb_x_opt_t[i] += (((2.0 * k2[i] + k1[i]) + 2.0 * k3[i]) + tmp_0[i]) *
+        rtb_x_opt_t[i] += (((2.0 * k2[i] + k1[i]) + 2.0 * k3[i]) + k4[i]) *
           0.0041666666666666666;
       }
     }
 
-    for (rtb_MI_tmp = 0; rtb_MI_tmp < 3; rtb_MI_tmp++) {
-      memcpy(&k2[0], &xi[0], 10U * sizeof(real_T));
+    for (rtu_sc2sun_eci_unit_tmp = 0; rtu_sc2sun_eci_unit_tmp < 3;
+         rtu_sc2sun_eci_unit_tmp++) {
       for (i = 0; i < 10; i++) {
-        k1[i] = rtDW.U[3 * i + rtb_MI_tmp];
+        k1[i] = rty_soar_telemetry_f[3 * i + rtu_sc2sun_eci_unit_tmp];
       }
 
+      memcpy(&k2[0], &xi[0], 10U * sizeof(real_T));
       n = 0;
       do {
         exitg2 = 0;
@@ -1590,7 +1629,7 @@ void target_generation_lib(void)
         }
       } while (exitg2 == 0);
 
-      rtb_Product1[rtb_MI_tmp] = xtmp;
+      rtb_Product1[rtu_sc2sun_eci_unit_tmp] = xtmp;
     }
   } else {
     rtb_Product1[0] = 0.0;
@@ -1599,140 +1638,115 @@ void target_generation_lib(void)
     memcpy(&rtb_x_opt_t[0], &rtDW.ResettableDelay_DSTATE[0], 10U * sizeof(real_T));
   }
 
-  /* End of MATLAB Function: '<S319>/soar_INTERP' */
+  /* End of MATLAB Function: '<S422>/soar_INTERP' */
 
-  /* Outputs for IfAction SubSystem: '<S281>/If Warning//Error' incorporates:
-   *  ActionPort: '<S305>/if'
+  /* Outputs for IfAction SubSystem: '<S384>/If Warning//Error' incorporates:
+   *  ActionPort: '<S408>/if'
    */
-  /* If: '<S281>/If1' */
+  /* If: '<S384>/If1' */
   IfWarningError(rtb_C_cmd, 2.0, 1.0E-12);
 
-  /* End of Outputs for SubSystem: '<S281>/If Warning//Error' */
+  /* End of Outputs for SubSystem: '<S384>/If Warning//Error' */
 
-  /* Sum: '<S276>/Sum' incorporates:
-   *  Constant: '<S276>/soar_mode'
+  /* Logic: '<S381>/AND' incorporates:
+   *  Abs: '<S381>/Abs'
+   *  Constant: '<S429>/Constant'
+   *  Constant: '<S430>/Constant'
+   *  RelationalOperator: '<S429>/Compare'
+   *  RelationalOperator: '<S430>/Compare'
    */
-  rtb_Sum_g = (uint8_T)(8 - rtDW.gnc_mode_b);
-
-  /* Switch: '<S276>/Switch' */
-  rtb_Sum_m = (rtb_Sum_g != 0);
+  rtb_AND = ((rtu_gnc_mode == 8) && (fabs(rty_soar_telemetry_a[16]) < 0.1));
 
   /* RateTransition: '<S10>/Rate Transition6' incorporates:
-   *  Switch: '<S276>/Switch'
+   *  Switch: '<S381>/Switch'
    */
-  rtDW.RateTransition6[0] = rtb_Switch_pv[0];
+  rty_quat_cmd[0] = rtb_Switch_k[0];
 
-  /* Switch: '<S276>/Switch' */
-  if (!rtb_Sum_m) {
+  /* Switch: '<S381>/Switch' */
+  if (rtb_AND) {
     /* RateTransition: '<S10>/Rate Transition6' */
-    rtDW.RateTransition6[0] = rtb_x_opt_t[0];
+    rty_quat_cmd[0] = rtb_x_opt_t[0];
   }
 
   /* RateTransition: '<S10>/Rate Transition6' incorporates:
-   *  Switch: '<S276>/Switch'
+   *  Switch: '<S381>/Switch'
    */
-  rtDW.RateTransition6[1] = rtb_Switch_pv[1];
+  rty_quat_cmd[1] = rtb_Switch_k[1];
 
-  /* Switch: '<S276>/Switch' */
-  if (!rtb_Sum_m) {
+  /* Switch: '<S381>/Switch' */
+  if (rtb_AND) {
     /* RateTransition: '<S10>/Rate Transition6' */
-    rtDW.RateTransition6[1] = rtb_x_opt_t[1];
+    rty_quat_cmd[1] = rtb_x_opt_t[1];
   }
 
   /* RateTransition: '<S10>/Rate Transition6' incorporates:
-   *  Switch: '<S276>/Switch'
+   *  Switch: '<S381>/Switch'
    */
-  rtDW.RateTransition6[2] = rtb_Switch_pv[2];
+  rty_quat_cmd[2] = rtb_Switch_k[2];
 
-  /* Switch: '<S276>/Switch' */
-  if (!rtb_Sum_m) {
+  /* Switch: '<S381>/Switch' */
+  if (rtb_AND) {
     /* RateTransition: '<S10>/Rate Transition6' */
-    rtDW.RateTransition6[2] = rtb_x_opt_t[2];
+    rty_quat_cmd[2] = rtb_x_opt_t[2];
   }
 
   /* RateTransition: '<S10>/Rate Transition6' incorporates:
-   *  Switch: '<S276>/Switch'
+   *  Switch: '<S381>/Switch'
    */
-  rtDW.RateTransition6[3] = rtb_Switch_pv[3];
+  rty_quat_cmd[3] = rtb_Switch_k[3];
 
-  /* Switch: '<S276>/Switch' */
-  if (!rtb_Sum_m) {
+  /* Switch: '<S381>/Switch' incorporates:
+   *  Switch: '<S381>/Switch1'
+   *  Switch: '<S381>/Switch2'
+   */
+  if (rtb_AND) {
     /* RateTransition: '<S10>/Rate Transition6' */
-    rtDW.RateTransition6[3] = rtb_x_opt_t[3];
-  }
+    rty_quat_cmd[3] = rtb_x_opt_t[3];
+    rty_body_rates_cmd[0] = rtb_x_opt_t[4];
+    rty_torque_body_ff[0] = rtb_Product1[0];
+    rty_body_rates_cmd[1] = rtb_x_opt_t[5];
+    rty_torque_body_ff[1] = rtb_Product1[1];
+    rty_body_rates_cmd[2] = rtb_x_opt_t[6];
+    rty_torque_body_ff[2] = rtb_Product1[2];
 
-  /* Switch: '<S276>/Switch1' incorporates:
-   *  Switch: '<S276>/Switch2'
-   */
-  if (rtb_Sum_g != 0) {
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[0] = 0.0;
-
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[0] = 0.0;
-
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[1] = 0.0;
-
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[1] = 0.0;
-
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[2] = 0.0;
-
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[2] = 0.0;
+    /* Switch: '<S381>/Switch3' incorporates:
+     *  Constant: '<S381>/Constant2'
+     */
+    *rty_target_gen_flag = 8U;
   } else {
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[0] = rtb_x_opt_t[4];
+    rty_body_rates_cmd[0] = 0.0;
+    rty_torque_body_ff[0] = 0.0;
+    rty_body_rates_cmd[1] = 0.0;
+    rty_torque_body_ff[1] = 0.0;
+    rty_body_rates_cmd[2] = 0.0;
+    rty_torque_body_ff[2] = 0.0;
 
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[0] = rtb_Product1[0];
-
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[1] = rtb_x_opt_t[5];
-
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[1] = rtb_Product1[1];
-
-    /* RateTransition: '<S10>/Rate Transition2' */
-    rtDW.RateTransition2_h[2] = rtb_x_opt_t[6];
-
-    /* RateTransition: '<S10>/Rate Transition5' */
-    rtDW.RateTransition5[2] = rtb_Product1[2];
+    /* Switch: '<S381>/Switch3' */
+    *rty_target_gen_flag = rtb_flag;
   }
 
-  /* End of Switch: '<S276>/Switch1' */
-
-  /* S-Function (sdspcount2): '<S277>/Counter' */
+  /* S-Function (sdspcount2): '<S379>/Counter' */
   if (MWDSP_EPH_R_B(rtb_FixPtRelationalOperator, &rtDW.Counter_ClkEphState) !=
       0U) {
     rtDW.Counter_Count++;
   }
 
-  rtb_soar_count = rtDW.Counter_Count;
+  *rty_soar_telemetry_c = rtDW.Counter_Count;
 
-  /* End of S-Function (sdspcount2): '<S277>/Counter' */
+  /* End of S-Function (sdspcount2): '<S379>/Counter' */
 
-  /* RateTransition: '<S277>/Rate Transition1' */
-  rtDW.soar_count = rtb_soar_count;
-  rtDW.final_time_s = rtDW.s;
-
-  /* RateTransition: '<S10>/Rate Transition8' */
-  rtDW.RateTransition8 = rtb_flag;
-
-  /* Update for UnitDelay: '<S318>/Delay Input1'
+  /* Update for UnitDelay: '<S421>/Delay Input1'
    *
-   * Block description for '<S318>/Delay Input1':
+   * Block description for '<S421>/Delay Input1':
    *
    *  Store in Global RAM
    */
-  rtDW.DelayInput1_DSTATE = rtb_Compare_g;
+  rtDW.DelayInput1_DSTATE = rtb_Compare_ll;
 
-  /* Update for UnitDelay: '<S319>/Unit Delay' */
-  rtDW.UnitDelay_DSTATE = diff;
+  /* Update for UnitDelay: '<S422>/Unit Delay' */
+  rtDW.UnitDelay_DSTATE_a = diff;
 
-  /* Update for Delay: '<S319>/Resettable Delay' */
+  /* Update for Delay: '<S422>/Resettable Delay' */
   rtDW.icLoad = 0U;
   memcpy(&rtDW.ResettableDelay_DSTATE[0], &rtb_x_opt_t[0], 10U * sizeof(real_T));
 }

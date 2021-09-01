@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.319
+ * Model version                  : 1.354
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Feb 17 22:43:08 2021
+ * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -60,7 +60,6 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
 
   /* RateTransition: '<S1>/Rate Transition' incorporates:
    *  Inport: '<Root>/telecommands'
-   *  RateTransition: '<S1>/Rate Transition4'
    */
   if (rtM->Timing.RateInteraction.TID0_1 == 1) {
     rtDW.MET_utc_s = rtU.telecommands.MET_utc_s;
@@ -69,13 +68,20 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
      *  Inport: '<Root>/sensor_meas'
      *  Inport: '<Root>/telecommands'
      */
-    rtDW.RateTransition5_i = rtU.sensor_meas.sun_meas_valid;
+    rtDW.RateTransition5 = rtU.sensor_meas.sun_meas_valid;
 
     /* RateTransition: '<S2>/Rate Transition2' incorporates:
      *  Inport: '<Root>/sensor_meas'
      */
     rtDW.RateTransition2[0] = rtU.sensor_meas.sun_meas_ss_deg[0];
     rtDW.RateTransition2[1] = rtU.sensor_meas.sun_meas_ss_deg[1];
+
+    /* RateTransition: '<S2>/Rate Transition6' incorporates:
+     *  Inport: '<Root>/sensor_meas'
+     */
+    rtDW.RateTransition6_b[0] = rtU.sensor_meas.mag_meas_valid[0];
+    rtDW.RateTransition6_b[1] = rtU.sensor_meas.mag_meas_valid[1];
+    rtDW.RateTransition6_b[2] = rtU.sensor_meas.mag_meas_valid[2];
     memcpy(&rtDW.orbit_tle[0], &rtU.telecommands.orbit_tle[0], 9U * sizeof
            (real_T));
 
@@ -83,43 +89,20 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
      *  Inport: '<Root>/sensor_meas'
      *  Inport: '<Root>/telecommands'
      */
-    memcpy(&rtDW.RateTransition3[0], &rtU.sensor_meas.mag_body_T[0], 9U * sizeof
+    memcpy(&rtDW.RateTransition3[0], &rtU.sensor_meas.mag_mag_uT[0], 9U * sizeof
            (real_T));
 
     /* RateTransition: '<S2>/Rate Transition4' incorporates:
      *  Inport: '<Root>/sensor_meas'
      */
-    memcpy(&rtDW.RateTransition4[0], &rtU.sensor_meas.gyro_body_radps[0], 9U *
+    memcpy(&rtDW.RateTransition4[0], &rtU.sensor_meas.gyro_gyro_radps[0], 9U *
            sizeof(real_T));
-
-    /* RateTransition: '<S2>/Rate Transition6' incorporates:
-     *  Inport: '<Root>/sensor_meas'
-     */
-    rtDW.RateTransition6_b[0] = rtU.sensor_meas.mag_meas_valid[0];
 
     /* RateTransition: '<S2>/Rate Transition7' incorporates:
      *  Inport: '<Root>/sensor_meas'
      */
     rtDW.RateTransition7[0] = rtU.sensor_meas.gyro_meas_valid[0];
-
-    /* RateTransition: '<S2>/Rate Transition6' incorporates:
-     *  Inport: '<Root>/sensor_meas'
-     */
-    rtDW.RateTransition6_b[1] = rtU.sensor_meas.mag_meas_valid[1];
-
-    /* RateTransition: '<S2>/Rate Transition7' incorporates:
-     *  Inport: '<Root>/sensor_meas'
-     */
     rtDW.RateTransition7[1] = rtU.sensor_meas.gyro_meas_valid[1];
-
-    /* RateTransition: '<S2>/Rate Transition6' incorporates:
-     *  Inport: '<Root>/sensor_meas'
-     */
-    rtDW.RateTransition6_b[2] = rtU.sensor_meas.mag_meas_valid[2];
-
-    /* RateTransition: '<S2>/Rate Transition7' incorporates:
-     *  Inport: '<Root>/sensor_meas'
-     */
     rtDW.RateTransition7[2] = rtU.sensor_meas.gyro_meas_valid[2];
     rtDW.triad_override = rtU.telecommands.triad_override;
     rtDW.MET_soar_utc_s = rtU.telecommands.MET_soar_utc_s;
@@ -128,10 +111,10 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
      *  Inport: '<Root>/act_meas'
      *  Inport: '<Root>/telecommands'
      */
-    rtDW.RateTransition1[0] = rtU.actuator_meas_l.rwa_rpm[0];
-    rtDW.RateTransition1[1] = rtU.actuator_meas_l.rwa_rpm[1];
-    rtDW.RateTransition1[2] = rtU.actuator_meas_l.rwa_rpm[2];
-    rtDW.RateTransition1[3] = rtU.actuator_meas_l.rwa_rpm[3];
+    rtDW.RateTransition1[0] = rtU.actuator_meas_n.rwa_rpm[0];
+    rtDW.RateTransition1[1] = rtU.actuator_meas_n.rwa_rpm[1];
+    rtDW.RateTransition1[2] = rtU.actuator_meas_n.rwa_rpm[2];
+    rtDW.RateTransition1[3] = rtU.actuator_meas_n.rwa_rpm[3];
     rtDW.target_latlonalt[0] = rtU.telecommands.target_latlonalt[0];
     rtDW.target_latlonalt[1] = rtU.telecommands.target_latlonalt[1];
     rtDW.target_latlonalt[2] = rtU.telecommands.target_latlonalt[2];
@@ -140,55 +123,41 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
     rtDW.quat_soar_cmd[2] = rtU.telecommands.quat_soar_cmd[2];
     rtDW.quat_soar_cmd[3] = rtU.telecommands.quat_soar_cmd[3];
 
-    /* RateTransition: '<S2>/Rate Transition1' incorporates:
-     *  Inport: '<Root>/sensor_meas'
+    /* RateTransition: '<S1>/Rate Transition4' incorporates:
      *  Inport: '<Root>/telecommands'
      */
-    for (i = 0; i < 6; i++) {
-      rtDW.telecom[i] = rtU.telecommands.telecom[i];
-      rtDW.RateTransition1_h[i] = rtU.sensor_meas.photodiodes_A[i];
-    }
-
-    /* End of RateTransition: '<S2>/Rate Transition1' */
-
-    /* RateTransition: '<S4>/Rate Transition2' incorporates:
-     *  Inport: '<Root>/act_meas'
-     */
-    rtDW.RateTransition2_l[0] = rtU.actuator_meas_l.rwa_valid[0];
-
-    /* RateTransition: '<S1>/Rate Transition3' */
-    rtDW.rwa_cmd_rpm[0] = rtDW.RateTransition3_1_Buffer0[0];
-
-    /* RateTransition: '<S4>/Rate Transition2' incorporates:
-     *  Inport: '<Root>/act_meas'
-     */
-    rtDW.RateTransition2_l[1] = rtU.actuator_meas_l.rwa_valid[1];
-
-    /* RateTransition: '<S1>/Rate Transition3' */
-    rtDW.rwa_cmd_rpm[1] = rtDW.RateTransition3_1_Buffer0[1];
-
-    /* RateTransition: '<S4>/Rate Transition2' incorporates:
-     *  Inport: '<Root>/act_meas'
-     */
-    rtDW.RateTransition2_l[2] = rtU.actuator_meas_l.rwa_valid[2];
-
-    /* RateTransition: '<S1>/Rate Transition3' */
-    rtDW.rwa_cmd_rpm[2] = rtDW.RateTransition3_1_Buffer0[2];
-
-    /* RateTransition: '<S4>/Rate Transition2' incorporates:
-     *  Inport: '<Root>/act_meas'
-     */
-    rtDW.RateTransition2_l[3] = rtU.actuator_meas_l.rwa_valid[3];
-
-    /* RateTransition: '<S1>/Rate Transition3' */
-    rtDW.rwa_cmd_rpm[3] = rtDW.RateTransition3_1_Buffer0[3];
-    rtDW.mtq_cmd_Am2[0] = rtDW.RateTransition3_2_Buffer0[0];
-    rtDW.mtq_cmd_Am2[1] = rtDW.RateTransition3_2_Buffer0[1];
-    rtDW.mtq_cmd_Am2[2] = rtDW.RateTransition3_2_Buffer0[2];
     rtDW.gnc_mode = rtDW.RateTransition4_1_Buffer0;
+
+    /* RateTransition: '<S4>/Rate Transition2' incorporates:
+     *  Inport: '<Root>/act_meas'
+     */
+    rtDW.RateTransition2_l[0] = rtU.actuator_meas_n.rwa_valid[0];
+
+    /* RateTransition: '<S1>/Rate Transition4' */
     rtDW.sc_quat[0] = rtDW.RateTransition4_2_Buffer0[0];
+
+    /* RateTransition: '<S4>/Rate Transition2' incorporates:
+     *  Inport: '<Root>/act_meas'
+     */
+    rtDW.RateTransition2_l[1] = rtU.actuator_meas_n.rwa_valid[1];
+
+    /* RateTransition: '<S1>/Rate Transition4' */
     rtDW.sc_quat[1] = rtDW.RateTransition4_2_Buffer0[1];
+
+    /* RateTransition: '<S4>/Rate Transition2' incorporates:
+     *  Inport: '<Root>/act_meas'
+     */
+    rtDW.RateTransition2_l[2] = rtU.actuator_meas_n.rwa_valid[2];
+
+    /* RateTransition: '<S1>/Rate Transition4' */
     rtDW.sc_quat[2] = rtDW.RateTransition4_2_Buffer0[2];
+
+    /* RateTransition: '<S4>/Rate Transition2' incorporates:
+     *  Inport: '<Root>/act_meas'
+     */
+    rtDW.RateTransition2_l[3] = rtU.actuator_meas_n.rwa_valid[3];
+
+    /* RateTransition: '<S1>/Rate Transition4' */
     rtDW.sc_quat[3] = rtDW.RateTransition4_2_Buffer0[3];
     rtDW.sc_body_rates_radps[0] = rtDW.RateTransition4_3_Buffer0[0];
     rtDW.sc_body_rates_radps[1] = rtDW.RateTransition4_3_Buffer0[1];
@@ -201,9 +170,21 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
     rtDW.cmd_body_rates_radps[1] = rtDW.RateTransition4_5_Buffer0[1];
     rtDW.cmd_body_rates_radps[2] = rtDW.RateTransition4_5_Buffer0[2];
     for (i = 0; i < 6; i++) {
+      rtDW.telecom[i] = rtU.telecommands.telecom[i];
+
+      /* RateTransition: '<S2>/Rate Transition1' incorporates:
+       *  Inport: '<Root>/sensor_meas'
+       *  Inport: '<Root>/telecommands'
+       */
+      rtDW.RateTransition1_h[i] = rtU.sensor_meas.photodiodes_uA[i];
+
+      /* RateTransition: '<S1>/Rate Transition4' */
       rtDW.mekf_3sigma_rad[i] = rtDW.RateTransition4_6_Buffer0[i];
     }
 
+    /* RateTransition: '<S1>/Rate Transition4' incorporates:
+     *  Inport: '<Root>/telecommands'
+     */
     rtDW.mekf_telem = rtDW.RateTransition4_8_Buffer0;
     rtDW.mekf_bias_radps[0] = rtDW.RateTransition4_7_Buffer0[0];
     rtDW.r_eci_m[0] = rtDW.RateTransition4_9_Buffer0[0];
@@ -219,21 +200,11 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
     rtDW.target_gen_flag = rtDW.RateTransition4_15_Buffer0;
     rtDW.elev_gs_rad = rtDW.RateTransition4_16_Buffer0;
     rtDW.elev_targ_rad = rtDW.RateTransition4_17_Buffer0;
-    rtDW.soar_telemetry_d = rtDW.RateTransition4_18_Buffer0;
+    rtDW.ss_valid = rtDW.RateTransition4_18_Buffer0;
+    rtDW.soar_telemetry_d = rtDW.RateTransition4_19_Buffer0;
   }
 
   /* End of RateTransition: '<S1>/Rate Transition' */
-
-  /* BusCreator: '<Root>/BusConversion_InsertedFor_fsw_out_at_inport_0' incorporates:
-   *  Outport: '<Root>/fsw_out'
-   */
-  rtY.fsw_out_n.rwa_cmd_rpm[0] = rtDW.rwa_cmd_rpm[0];
-  rtY.fsw_out_n.rwa_cmd_rpm[1] = rtDW.rwa_cmd_rpm[1];
-  rtY.fsw_out_n.rwa_cmd_rpm[2] = rtDW.rwa_cmd_rpm[2];
-  rtY.fsw_out_n.rwa_cmd_rpm[3] = rtDW.rwa_cmd_rpm[3];
-  rtY.fsw_out_n.mtq_cmd_Am2[0] = rtDW.mtq_cmd_Am2[0];
-  rtY.fsw_out_n.mtq_cmd_Am2[1] = rtDW.mtq_cmd_Am2[1];
-  rtY.fsw_out_n.mtq_cmd_Am2[2] = rtDW.mtq_cmd_Am2[2];
 
   /* BusCreator: '<Root>/BusConversion_InsertedFor_fsw_telem_at_inport_0' incorporates:
    *  Outport: '<Root>/fsw_telem'
@@ -272,6 +243,7 @@ void FSW_Lib_step0(void)               /* Sample time: [0.0125s, 0.0s] */
   rtY.fsw_telem.target_gen_flag = rtDW.target_gen_flag;
   rtY.fsw_telem.elev_gs_rad = rtDW.elev_gs_rad;
   rtY.fsw_telem.elev_targ_rad = rtDW.elev_targ_rad;
+  rtY.fsw_telem.ss_valid = rtDW.ss_valid;
   rtY.fsw_telem.soar_telemetry = rtDW.soar_telemetry_d;
 
   /* End of BusCreator: '<Root>/BusConversion_InsertedFor_fsw_telem_at_inport_0' */
@@ -390,41 +362,49 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
     0.0, 0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     -0.1 };
 
-  real_T x[6];
+  boolean_T light;
   int32_T iidx[6];
-  static const real_T I_thresh_A[6] = { 1.2310454417957317, 1.2310454417957317,
-    1.5389520412066509, 1.5389520412066509, 0.69714701753415664, 0.0 };
-
   static const int8_T normals[18] = { 1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0,
     1, 0, 0, -1 };
 
+  real_T rtb_Gain[3];
   real_T rtb_M2KM[3];
-  real_T rtb_Subtract_f[3];
+  real_T rtb_AU2KM[3];
   real_T rtb_MathFunction[3];
-  real_T rtb_Switch_dq[4];
-  real_T rtb_MatrixMultiply[3];
-  int8_T s247_iter;
-  real_T rtb_MathFunction1_i[9];
-  real_T rtb_Reshape3[3];
-  boolean_T rtb_Compare_e;
-  real_T rtb_MathFunction1_m[9];
+  real_T rtb_Multiply[4];
+  real_T rtb_Divide_dr[3];
+  int8_T s349_iter;
+  real_T rtb_NED2ECEF[9];
+  real_T rtb_Switch2[3];
+  real_T rtb_nT2T[3];
+  real_T rtb_ss_2_body[3];
+  real_T rtb_MathFunction1_a[9];
   real_T rtb_MathFunction_b[9];
-  real_T rtb_DiscreteTimeIntegrator[4];
-  uint8_T rtb_Merge_i;
+  boolean_T rtb_Compare_b;
+  uint8_T rtb_gnc_mode;
+  uint8_T rtb_Merge;
+  real_T rtb_Sqrt;
+  real_T rtb_Switch_l[4];
+  real_T rtb_Elementproduct[6];
+  uint8_T rtb_FixPtSum1;
+  real_T rtb_bias_merge[3];
+  uint8_T rtb_Merge_j;
   uint8_T rtb_flag;
-  boolean_T rtb_Compare_j5;
+  boolean_T rtb_Compare_m;
+  uint8_T rtb_Switch3;
   real_T rtb_YMDHMS_UTC[6];
   real_T rtb_pos_teme_km[3];
+  real_T rtb_Sum[3];
   real_T rtb_mod_to_gcrf[9];
-  real_T Gain_tmp[9];
-  real_T rtb_M2KM_0[9];
-  real_T rtb_M2KM_1[9];
-  real_T rtb_M2KM_2[9];
-  real_T Gain_tmp_0[3];
-  real_T rtb_mod_to_gcrf_0[3];
-  real_T rtb_MathFunction1_fo[9];
+  real_T RateTransition6[4];
+  real_T tod_to_mod_tmp[3];
+  real_T rtb_Gain_h_tmp[9];
+  real_T tmp[9];
+  real_T rtb_Gain_h[9];
+  real_T rtb_Gain_h_0[9];
+  real_T rtb_Gain_h_1[9];
   int32_T i;
-  int32_T rtb_Compare_h;
+  int32_T lowAlt_0;
   real_T epsb_1980_tmp;
   int32_T rtb_mod_to_gcrf_tmp;
   real_T C_1_tmp;
@@ -440,7 +420,14 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   int32_T P_tmp_1;
   int32_T P_tmp_2;
 
-  /* MATLAB Function: '<S173>/MATLAB Function3' */
+  /* Update for RateTransition: '<S1>/Rate Transition4' incorporates:
+   *  Sum: '<S275>/Sum'
+   */
+  rtDW.RateTransition4_16_Buffer0 = rtDW.MET_utc_s;
+
+  /* MATLAB Function: '<S275>/MATLAB Function3' incorporates:
+   *  Sum: '<S275>/Sum'
+   */
   jseconds2ymdhms_ModKEhLD(rtDW.MET_utc_s, &rtb_YMDHMS_UTC[0], &rtb_YMDHMS_UTC[1],
     &rtb_YMDHMS_UTC[2], &rtb_YMDHMS_UTC[3], &rtb_YMDHMS_UTC[4], &rtb_YMDHMS_UTC
     [5], &eqe_1980, &tsince_JD);
@@ -449,8 +436,8 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   jseconds2ymdhms_ModKEhLD((rtDW.MET_utc_s + 37.0) + 32.184, &epsb_1980, &M_moon,
     &M_sun, &O_moon, &dpsi_1980, &u_moon, &eqe_1980, &D_sun);
 
-  /* MATLAB Function: '<S261>/MATLAB Function' incorporates:
-   *  MATLAB Function: '<S173>/MATLAB Function3'
+  /* MATLAB Function: '<S363>/MATLAB Function' incorporates:
+   *  MATLAB Function: '<S275>/MATLAB Function3'
    */
   n_o = eqe_1980 * eqe_1980;
   epsb_1980_tmp = rt_powd_snf(eqe_1980, 3.0);
@@ -484,68 +471,68 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   eqe_1980 = -(((2004.3109 * eqe_1980 - n_o * 0.42665) - 0.041833 *
                 epsb_1980_tmp) * 4.84813681109536E-6);
   deps_1980 = cos(D_sun);
-  rtb_MathFunction1_fo[0] = deps_1980;
+  tmp[0] = deps_1980;
   D_sun = sin(D_sun);
-  rtb_MathFunction1_fo[3] = D_sun;
-  rtb_MathFunction1_fo[6] = 0.0;
-  rtb_MathFunction1_fo[1] = -D_sun;
-  rtb_MathFunction1_fo[4] = deps_1980;
-  rtb_MathFunction1_fo[7] = 0.0;
+  tmp[3] = D_sun;
+  tmp[6] = 0.0;
+  tmp[1] = -D_sun;
+  tmp[4] = deps_1980;
+  tmp[7] = 0.0;
   deps_1980 = cos(eqe_1980);
   rtb_mod_to_gcrf[0] = deps_1980;
   rtb_mod_to_gcrf[3] = 0.0;
   D_sun = sin(eqe_1980);
   rtb_mod_to_gcrf[6] = -D_sun;
-  rtb_M2KM[0] = 1.0;
-  rtb_MathFunction1_fo[2] = 0.0;
+  rtb_Gain[0] = 1.0;
+  tmp[2] = 0.0;
   rtb_mod_to_gcrf[1] = 0.0;
-  rtb_MatrixMultiply[0] = 0.0;
-  rtb_M2KM[1] = 0.0;
-  rtb_MathFunction1_fo[5] = 0.0;
+  tod_to_mod_tmp[0] = 0.0;
+  rtb_Gain[1] = 0.0;
+  tmp[5] = 0.0;
   rtb_mod_to_gcrf[4] = 1.0;
-  rtb_MatrixMultiply[1] = 0.0;
-  rtb_M2KM[2] = 0.0;
-  rtb_MathFunction1_fo[8] = 1.0;
+  tod_to_mod_tmp[1] = 0.0;
+  rtb_Gain[2] = 0.0;
+  tmp[8] = 1.0;
   rtb_mod_to_gcrf[7] = 0.0;
-  rtb_MatrixMultiply[2] = 1.0;
+  tod_to_mod_tmp[2] = 1.0;
   rtb_mod_to_gcrf[2] = D_sun;
   rtb_mod_to_gcrf[5] = 0.0;
   rtb_mod_to_gcrf[8] = deps_1980;
   deps_1980 = cos(u_moon);
-  rtb_M2KM_1[0] = deps_1980;
+  rtb_Gain_h_0[0] = deps_1980;
   D_sun = sin(u_moon);
-  rtb_M2KM_1[3] = D_sun;
-  rtb_M2KM_1[6] = 0.0;
-  rtb_M2KM_1[1] = -D_sun;
-  rtb_M2KM_1[4] = deps_1980;
-  rtb_M2KM_1[7] = 0.0;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
+  rtb_Gain_h_0[3] = D_sun;
+  rtb_Gain_h_0[6] = 0.0;
+  rtb_Gain_h_0[1] = -D_sun;
+  rtb_Gain_h_0[4] = deps_1980;
+  rtb_Gain_h_0[7] = 0.0;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
     for (i = 0; i < 3; i++) {
-      rtb_mod_to_gcrf_tmp = rtb_Compare_h + 3 * i;
-      rtb_M2KM_0[rtb_mod_to_gcrf_tmp] = 0.0;
-      iter = 3 * i + rtb_Compare_h;
-      rtb_M2KM_0[rtb_mod_to_gcrf_tmp] = rtb_M2KM_0[iter] + rtb_mod_to_gcrf[3 * i]
-        * rtb_MathFunction1_fo[rtb_Compare_h];
-      rtb_M2KM_0[rtb_mod_to_gcrf_tmp] = rtb_mod_to_gcrf[3 * i + 1] *
-        rtb_MathFunction1_fo[rtb_Compare_h + 3] + rtb_M2KM_0[iter];
-      rtb_M2KM_0[rtb_mod_to_gcrf_tmp] = rtb_mod_to_gcrf[3 * i + 2] *
-        rtb_MathFunction1_fo[rtb_Compare_h + 6] + rtb_M2KM_0[iter];
+      rtb_mod_to_gcrf_tmp = lowAlt_0 + 3 * i;
+      rtb_Gain_h[rtb_mod_to_gcrf_tmp] = 0.0;
+      iter = 3 * i + lowAlt_0;
+      rtb_Gain_h[rtb_mod_to_gcrf_tmp] = rtb_Gain_h[iter] + rtb_mod_to_gcrf[3 * i]
+        * tmp[lowAlt_0];
+      rtb_Gain_h[rtb_mod_to_gcrf_tmp] = rtb_mod_to_gcrf[3 * i + 1] *
+        tmp[lowAlt_0 + 3] + rtb_Gain_h[iter];
+      rtb_Gain_h[rtb_mod_to_gcrf_tmp] = rtb_mod_to_gcrf[3 * i + 2] *
+        tmp[lowAlt_0 + 6] + rtb_Gain_h[iter];
     }
 
-    rtb_M2KM_1[2 + 3 * rtb_Compare_h] = rtb_MatrixMultiply[rtb_Compare_h];
+    rtb_Gain_h_0[2 + 3 * lowAlt_0] = tod_to_mod_tmp[lowAlt_0];
   }
 
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
     for (i = 0; i < 3; i++) {
-      iter = i + 3 * rtb_Compare_h;
+      iter = i + 3 * lowAlt_0;
       rtb_mod_to_gcrf[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * rtb_Compare_h + i;
-      rtb_mod_to_gcrf[iter] = rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] + rtb_M2KM_1
-        [3 * rtb_Compare_h] * rtb_M2KM_0[i];
-      rtb_mod_to_gcrf[iter] = rtb_M2KM_1[3 * rtb_Compare_h + 1] * rtb_M2KM_0[i +
-        3] + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
-      rtb_mod_to_gcrf[iter] = rtb_M2KM_1[3 * rtb_Compare_h + 2] * rtb_M2KM_0[i +
-        6] + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
+      rtb_mod_to_gcrf_tmp = 3 * lowAlt_0 + i;
+      rtb_mod_to_gcrf[iter] = rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] +
+        rtb_Gain_h_0[3 * lowAlt_0] * rtb_Gain_h[i];
+      rtb_mod_to_gcrf[iter] = rtb_Gain_h_0[3 * lowAlt_0 + 1] * rtb_Gain_h[i + 3]
+        + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
+      rtb_mod_to_gcrf[iter] = rtb_Gain_h_0[3 * lowAlt_0 + 2] * rtb_Gain_h[i + 6]
+        + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
     }
   }
 
@@ -554,16 +541,16 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   dpsi_1980 = ((3.1644001848128662E+9 * eps + 67310.54841) + eps * eps *
                0.093104) - 6.2E-6 * rt_powd_snf(eps, 3.0);
   if (dpsi_1980 < 0.0) {
-    D_sun = -1.0;
+    O_moon = -1.0;
   } else if (dpsi_1980 > 0.0) {
-    D_sun = 1.0;
+    O_moon = 1.0;
   } else if (dpsi_1980 == 0.0) {
-    D_sun = 0.0;
+    O_moon = 0.0;
   } else {
-    D_sun = (rtNaN);
+    O_moon = (rtNaN);
   }
 
-  O_moon = D_sun * 86400.0;
+  O_moon *= 86400.0;
   D_sun = dpsi_1980;
   if ((!rtIsInf(dpsi_1980)) && (!rtIsNaN(dpsi_1980)) && (!rtIsNaN(O_moon))) {
     if (dpsi_1980 == 0.0) {
@@ -606,10 +593,10 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
 
   O_moon = -(0.017453292519943295 * O_moon + eqe_1980);
 
-  /* MATLAB Function: '<S171>/MATLAB Function' incorporates:
-   *  Constant: '<S171>/JD_J2000'
-   *  MATLAB Function: '<S173>/MATLAB Function3'
-   *  Sum: '<S171>/Sum'
+  /* MATLAB Function: '<S273>/MATLAB Function' incorporates:
+   *  Constant: '<S273>/JD_J2000'
+   *  MATLAB Function: '<S275>/MATLAB Function3'
+   *  Sum: '<S273>/Sum'
    */
   D_sun = 1.88027916E-9;
   u_moon = 1.01222928;
@@ -877,96 +864,95 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
     }
   }
 
-  /* End of MATLAB Function: '<S171>/MATLAB Function' */
+  /* End of MATLAB Function: '<S273>/MATLAB Function' */
 
-  /* MATLAB Function: '<S261>/MATLAB Function' */
-  rtb_M2KM_0[1] = 0.0;
+  /* MATLAB Function: '<S363>/MATLAB Function' */
+  rtb_Gain_h[1] = 0.0;
   dpsi_1980 = cos(-epsb_1980);
-  rtb_M2KM_0[4] = dpsi_1980;
+  rtb_Gain_h[4] = dpsi_1980;
   epsb_1980 = sin(-epsb_1980);
-  rtb_M2KM_0[7] = epsb_1980;
-  rtb_M2KM_0[2] = 0.0;
-  rtb_M2KM_0[5] = -epsb_1980;
-  rtb_M2KM_0[8] = dpsi_1980;
+  rtb_Gain_h[7] = epsb_1980;
+  rtb_Gain_h[2] = 0.0;
+  rtb_Gain_h[5] = -epsb_1980;
+  rtb_Gain_h[8] = dpsi_1980;
   deps_1980 = cos(M_sun);
-  rtb_MathFunction1_fo[0] = deps_1980;
+  tmp[0] = deps_1980;
   D_sun = sin(M_sun);
-  rtb_MathFunction1_fo[3] = D_sun;
-  rtb_MathFunction1_fo[6] = 0.0;
-  rtb_MathFunction1_fo[1] = -D_sun;
-  rtb_MathFunction1_fo[4] = deps_1980;
-  rtb_MathFunction1_fo[7] = 0.0;
-  rtb_M2KM_0[0] = 1.0;
-  rtb_MathFunction1_fo[2] = 0.0;
-  rtb_M2KM_0[3] = 0.0;
-  rtb_MathFunction1_fo[5] = 0.0;
-  rtb_M2KM_0[6] = 0.0;
-  rtb_MathFunction1_fo[8] = 1.0;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
+  tmp[3] = D_sun;
+  tmp[6] = 0.0;
+  tmp[1] = -D_sun;
+  tmp[4] = deps_1980;
+  tmp[7] = 0.0;
+  rtb_Gain_h[0] = 1.0;
+  tmp[2] = 0.0;
+  rtb_Gain_h[3] = 0.0;
+  tmp[5] = 0.0;
+  rtb_Gain_h[6] = 0.0;
+  tmp[8] = 1.0;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
     for (i = 0; i < 3; i++) {
-      iter = rtb_Compare_h + 3 * i;
-      rtb_M2KM_1[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * i + rtb_Compare_h;
-      rtb_M2KM_1[iter] = rtb_M2KM_1[rtb_mod_to_gcrf_tmp] + rtb_MathFunction1_fo
-        [3 * i] * rtb_M2KM_0[rtb_Compare_h];
-      rtb_M2KM_1[iter] = rtb_MathFunction1_fo[3 * i + 1] *
-        rtb_M2KM_0[rtb_Compare_h + 3] + rtb_M2KM_1[rtb_mod_to_gcrf_tmp];
-      rtb_M2KM_1[iter] = rtb_MathFunction1_fo[3 * i + 2] *
-        rtb_M2KM_0[rtb_Compare_h + 6] + rtb_M2KM_1[rtb_mod_to_gcrf_tmp];
+      iter = lowAlt_0 + 3 * i;
+      rtb_Gain_h_0[iter] = 0.0;
+      rtb_mod_to_gcrf_tmp = 3 * i + lowAlt_0;
+      rtb_Gain_h_0[iter] = rtb_Gain_h_0[rtb_mod_to_gcrf_tmp] + tmp[3 * i] *
+        rtb_Gain_h[lowAlt_0];
+      rtb_Gain_h_0[iter] = tmp[3 * i + 1] * rtb_Gain_h[lowAlt_0 + 3] +
+        rtb_Gain_h_0[rtb_mod_to_gcrf_tmp];
+      rtb_Gain_h_0[iter] = tmp[3 * i + 2] * rtb_Gain_h[lowAlt_0 + 6] +
+        rtb_Gain_h_0[rtb_mod_to_gcrf_tmp];
     }
 
-    rtb_M2KM_2[3 * rtb_Compare_h] = rtb_M2KM[rtb_Compare_h];
+    rtb_Gain_h_1[3 * lowAlt_0] = rtb_Gain[lowAlt_0];
   }
 
-  rtb_M2KM_2[1] = 0.0;
+  rtb_Gain_h_1[1] = 0.0;
   dpsi_1980 = cos(M_moon);
-  rtb_M2KM_2[4] = dpsi_1980;
+  rtb_Gain_h_1[4] = dpsi_1980;
   epsb_1980 = sin(M_moon);
-  rtb_M2KM_2[7] = epsb_1980;
-  rtb_M2KM_2[2] = 0.0;
-  rtb_M2KM_2[5] = -epsb_1980;
-  rtb_M2KM_2[8] = dpsi_1980;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
+  rtb_Gain_h_1[7] = epsb_1980;
+  rtb_Gain_h_1[2] = 0.0;
+  rtb_Gain_h_1[5] = -epsb_1980;
+  rtb_Gain_h_1[8] = dpsi_1980;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
     for (i = 0; i < 3; i++) {
-      iter = i + 3 * rtb_Compare_h;
-      rtb_M2KM_0[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * rtb_Compare_h + i;
-      rtb_M2KM_0[iter] = rtb_M2KM_0[rtb_mod_to_gcrf_tmp] + rtb_M2KM_2[3 *
-        rtb_Compare_h] * rtb_M2KM_1[i];
-      rtb_M2KM_0[iter] = rtb_M2KM_2[3 * rtb_Compare_h + 1] * rtb_M2KM_1[i + 3] +
-        rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
-      rtb_M2KM_0[iter] = rtb_M2KM_2[3 * rtb_Compare_h + 2] * rtb_M2KM_1[i + 6] +
-        rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
+      iter = i + 3 * lowAlt_0;
+      rtb_Gain_h[iter] = 0.0;
+      rtb_mod_to_gcrf_tmp = 3 * lowAlt_0 + i;
+      rtb_Gain_h[iter] = rtb_Gain_h[rtb_mod_to_gcrf_tmp] + rtb_Gain_h_1[3 *
+        lowAlt_0] * rtb_Gain_h_0[i];
+      rtb_Gain_h[iter] = rtb_Gain_h_1[3 * lowAlt_0 + 1] * rtb_Gain_h_0[i + 3] +
+        rtb_Gain_h[rtb_mod_to_gcrf_tmp];
+      rtb_Gain_h[iter] = rtb_Gain_h_1[3 * lowAlt_0 + 2] * rtb_Gain_h_0[i + 6] +
+        rtb_Gain_h[rtb_mod_to_gcrf_tmp];
     }
   }
 
   deps_1980 = cos(-eqe_1980);
-  rtb_MathFunction1_fo[0] = deps_1980;
+  tmp[0] = deps_1980;
   D_sun = sin(-eqe_1980);
-  rtb_MathFunction1_fo[3] = D_sun;
-  rtb_MathFunction1_fo[6] = 0.0;
-  rtb_MathFunction1_fo[1] = -D_sun;
-  rtb_MathFunction1_fo[4] = deps_1980;
-  rtb_MathFunction1_fo[7] = 0.0;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
+  tmp[3] = D_sun;
+  tmp[6] = 0.0;
+  tmp[1] = -D_sun;
+  tmp[4] = deps_1980;
+  tmp[7] = 0.0;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
     for (i = 0; i < 3; i++) {
-      iter = rtb_Compare_h + 3 * i;
-      Gain_tmp[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * i + rtb_Compare_h;
-      Gain_tmp[iter] = Gain_tmp[rtb_mod_to_gcrf_tmp] + rtb_M2KM_0[3 * i] *
-        rtb_mod_to_gcrf[rtb_Compare_h];
-      Gain_tmp[iter] = rtb_M2KM_0[3 * i + 1] * rtb_mod_to_gcrf[rtb_Compare_h + 3]
-        + Gain_tmp[rtb_mod_to_gcrf_tmp];
-      Gain_tmp[iter] = rtb_M2KM_0[3 * i + 2] * rtb_mod_to_gcrf[rtb_Compare_h + 6]
-        + Gain_tmp[rtb_mod_to_gcrf_tmp];
+      iter = lowAlt_0 + 3 * i;
+      rtb_Gain_h_tmp[iter] = 0.0;
+      rtb_mod_to_gcrf_tmp = 3 * i + lowAlt_0;
+      rtb_Gain_h_tmp[iter] = rtb_Gain_h_tmp[rtb_mod_to_gcrf_tmp] + rtb_Gain_h[3 *
+        i] * rtb_mod_to_gcrf[lowAlt_0];
+      rtb_Gain_h_tmp[iter] = rtb_Gain_h[3 * i + 1] * rtb_mod_to_gcrf[lowAlt_0 +
+        3] + rtb_Gain_h_tmp[rtb_mod_to_gcrf_tmp];
+      rtb_Gain_h_tmp[iter] = rtb_Gain_h[3 * i + 2] * rtb_mod_to_gcrf[lowAlt_0 +
+        6] + rtb_Gain_h_tmp[rtb_mod_to_gcrf_tmp];
     }
 
-    rtb_MathFunction1_fo[2 + 3 * rtb_Compare_h] =
-      rtb_MatrixMultiply[rtb_Compare_h];
+    tmp[2 + 3 * lowAlt_0] = tod_to_mod_tmp[lowAlt_0];
   }
 
-  /* MATLAB Function: '<S172>/MATLAB Function' incorporates:
-   *  MATLAB Function: '<S173>/MATLAB Function3'
+  /* MATLAB Function: '<S274>/MATLAB Function' incorporates:
+   *  MATLAB Function: '<S275>/MATLAB Function3'
    */
   M_moon = mod_49nNZZ0V((35999.05034 * eps + 357.5277233) * 0.017453292519943295);
   epsb_1980 = (mod_49nNZZ0V((36000.77 * eps + 280.46) * 0.017453292519943295) +
@@ -980,82 +966,69 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   epsb_1980 = cos(eps) * M_moon * D_sun;
   eps = sin(eps) * M_moon * D_sun;
   for (i = 0; i < 3; i++) {
-    /* Product: '<S171>/Product' */
-    Gain_tmp_0[i] = 0.0;
-    for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-      /* MATLAB Function: '<S261>/MATLAB Function' incorporates:
-       *  Product: '<S171>/Product'
+    /* Product: '<S273>/Product' */
+    rtb_bias_merge[i] = 0.0;
+    for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+      /* MATLAB Function: '<S363>/MATLAB Function' incorporates:
+       *  Product: '<S273>/Product'
        */
-      iter = i + 3 * rtb_Compare_h;
-      rtb_M2KM_0[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * rtb_Compare_h + i;
-      rtb_M2KM_0[iter] = rtb_M2KM_0[rtb_mod_to_gcrf_tmp] + rtb_MathFunction1_fo
-        [3 * rtb_Compare_h] * Gain_tmp[i];
-      rtb_M2KM_0[iter] = rtb_MathFunction1_fo[3 * rtb_Compare_h + 1] *
-        Gain_tmp[i + 3] + rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
-      rtb_M2KM_0[iter] = rtb_MathFunction1_fo[3 * rtb_Compare_h + 2] *
-        Gain_tmp[i + 6] + rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
+      iter = i + 3 * lowAlt_0;
+      rtb_Gain_h[iter] = 0.0;
+      rtb_mod_to_gcrf_tmp = 3 * lowAlt_0 + i;
+      rtb_Gain_h[iter] = rtb_Gain_h[rtb_mod_to_gcrf_tmp] + tmp[3 * lowAlt_0] *
+        rtb_Gain_h_tmp[i];
+      rtb_Gain_h[iter] = tmp[3 * lowAlt_0 + 1] * rtb_Gain_h_tmp[i + 3] +
+        rtb_Gain_h[rtb_mod_to_gcrf_tmp];
+      rtb_Gain_h[iter] = tmp[3 * lowAlt_0 + 2] * rtb_Gain_h_tmp[i + 6] +
+        rtb_Gain_h[rtb_mod_to_gcrf_tmp];
 
-      /* Product: '<S171>/Product' */
-      Gain_tmp_0[i] += rtb_M2KM_0[rtb_mod_to_gcrf_tmp] *
-        rtb_pos_teme_km[rtb_Compare_h];
+      /* Product: '<S273>/Product' */
+      rtb_bias_merge[i] += rtb_Gain_h[rtb_mod_to_gcrf_tmp] *
+        rtb_pos_teme_km[lowAlt_0];
     }
 
-    /* Gain: '<S171>/Gain' */
-    rtDW.Gain[i] = 1000.0 * Gain_tmp_0[i];
+    /* Gain: '<S273>/Gain' */
+    M_moon = 1000.0 * rtb_bias_merge[i];
 
     /* Gain: '<S6>/M2KM' */
-    rtb_M2KM[i] = 0.001 * rtDW.Gain[i];
+    rtb_M2KM[i] = 0.001 * M_moon;
 
-    /* Product: '<S172>/Product' */
-    rtb_mod_to_gcrf_0[i] = rtb_mod_to_gcrf[i + 6] * eps + (rtb_mod_to_gcrf[i + 3]
-      * epsb_1980 + rtb_mod_to_gcrf[i] * M_sun);
+    /* Gain: '<S274>/AU2KM' incorporates:
+     *  Product: '<S274>/Product'
+     */
+    rtb_AU2KM[i] = 1.49598073E+8 * (rtb_mod_to_gcrf[i + 6] * eps +
+      (rtb_mod_to_gcrf[i + 3] * epsb_1980 + rtb_mod_to_gcrf[i] * M_sun));
+
+    /* Gain: '<S273>/Gain' */
+    rtb_Gain[i] = M_moon;
   }
 
-  /* Gain: '<S172>/AU2KM' */
-  epsb_1980_tmp = 1.49598073E+8 * rtb_mod_to_gcrf_0[0];
+  /* Sum: '<S274>/Subtract' */
+  eps = rtb_AU2KM[0] - rtb_M2KM[0];
 
-  /* Sum: '<S172>/Subtract' */
-  eps = epsb_1980_tmp - rtb_M2KM[0];
-
-  /* Math: '<S257>/Math Function' */
+  /* Math: '<S359>/Math Function' */
   rtb_MathFunction[0] = eps * eps;
 
-  /* Gain: '<S172>/AU2KM' */
-  rtb_pos_teme_km[0] = epsb_1980_tmp;
+  /* Sum: '<S274>/Subtract' */
+  rtb_pos_teme_km[0] = eps;
+  eps = rtb_AU2KM[1] - rtb_M2KM[1];
 
-  /* Sum: '<S172>/Subtract' */
-  rtb_Subtract_f[0] = eps;
-
-  /* Gain: '<S172>/AU2KM' */
-  epsb_1980_tmp = 1.49598073E+8 * rtb_mod_to_gcrf_0[1];
-
-  /* Sum: '<S172>/Subtract' */
-  eps = epsb_1980_tmp - rtb_M2KM[1];
-
-  /* Math: '<S257>/Math Function' */
+  /* Math: '<S359>/Math Function' */
   rtb_MathFunction[1] = eps * eps;
 
-  /* Gain: '<S172>/AU2KM' */
-  rtb_pos_teme_km[1] = epsb_1980_tmp;
+  /* Sum: '<S274>/Subtract' */
+  rtb_pos_teme_km[1] = eps;
+  eps = rtb_AU2KM[2] - rtb_M2KM[2];
 
-  /* Sum: '<S172>/Subtract' */
-  rtb_Subtract_f[1] = eps;
+  /* Math: '<S359>/Math Function' */
+  rtb_MathFunction[2] = eps * eps;
 
-  /* Gain: '<S172>/AU2KM' */
-  epsb_1980_tmp = 1.49598073E+8 * rtb_mod_to_gcrf_0[2];
+  /* Sum: '<S359>/Sum of Elements' */
+  api = (rtb_MathFunction[0] + rtb_MathFunction[1]) + rtb_MathFunction[2];
 
-  /* Sum: '<S172>/Subtract' */
-  eps = epsb_1980_tmp - rtb_M2KM[2];
-
-  /* Sum: '<S257>/Sum of Elements' incorporates:
-   *  Math: '<S257>/Math Function'
-   */
-  api = (rtb_MathFunction[0] + rtb_MathFunction[1]) + eps * eps;
-
-  /* Math: '<S257>/Math Function1'
+  /* Math: '<S359>/Math Function1'
    *
-   * About '<S257>/Math Function1':
+   * About '<S359>/Math Function1':
    *  Operator: sqrt
    */
   if (api < 0.0) {
@@ -1064,203 +1037,268 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
     api = sqrt(api);
   }
 
-  /* End of Math: '<S257>/Math Function1' */
+  /* End of Math: '<S359>/Math Function1' */
 
-  /* Switch: '<S257>/Switch' incorporates:
-   *  Constant: '<S257>/Constant'
-   *  Product: '<S257>/Product'
+  /* Switch: '<S359>/Switch' incorporates:
+   *  Constant: '<S359>/Constant'
+   *  Product: '<S359>/Product'
    */
   if (api > 0.0) {
-    rtb_Switch_dq[0] = rtb_Subtract_f[0];
-    rtb_Switch_dq[1] = rtb_Subtract_f[1];
-    rtb_Switch_dq[2] = eps;
-    rtb_Switch_dq[3] = api;
+    rtb_Multiply[0] = rtb_pos_teme_km[0];
+    rtb_Multiply[1] = rtb_pos_teme_km[1];
+    rtb_Multiply[2] = eps;
+    rtb_Multiply[3] = api;
   } else {
-    rtb_Switch_dq[0] = rtb_Subtract_f[0] * 0.0;
-    rtb_Switch_dq[1] = rtb_Subtract_f[1] * 0.0;
-    rtb_Switch_dq[2] = eps * 0.0;
-    rtb_Switch_dq[3] = 1.0;
+    rtb_Multiply[0] = rtb_pos_teme_km[0] * 0.0;
+    rtb_Multiply[1] = rtb_pos_teme_km[1] * 0.0;
+    rtb_Multiply[2] = eps * 0.0;
+    rtb_Multiply[3] = 1.0;
   }
 
-  /* End of Switch: '<S257>/Switch' */
+  /* End of Switch: '<S359>/Switch' */
 
-  /* Reshape: '<S2>/Reshape4' */
-  rtDW.Reshape4 = rtDW.RateTransition5_i;
+  /* Product: '<S359>/Divide' */
+  rtb_Divide_dr[0] = rtb_Multiply[0] / rtb_Multiply[3];
+  rtb_Divide_dr[1] = rtb_Multiply[1] / rtb_Multiply[3];
+  rtb_Divide_dr[2] = rtb_Multiply[2] / rtb_Multiply[3];
 
-  /* MATLAB Function: '<S261>/MATLAB Function' */
+  /* If: '<S108>/If' */
+  if (rtDW.RateTransition5) {
+    /* Outputs for IfAction SubSystem: '<S108>/sunSensorIsValid' incorporates:
+     *  ActionPort: '<S111>/Action Port'
+     */
+    /* Abs: '<S111>/Abs' */
+    eps = fabs(rtDW.RateTransition2[0]);
+
+    /* Relay: '<S111>/Relay' */
+    if (eps >= 60.0) {
+      rtDW.Relay_Mode[0] = true;
+    } else {
+      if (eps <= 10.0) {
+        rtDW.Relay_Mode[0] = false;
+      }
+    }
+
+    /* Abs: '<S111>/Abs' */
+    eps = fabs(rtDW.RateTransition2[1]);
+
+    /* Relay: '<S111>/Relay' */
+    if (eps >= 60.0) {
+      rtDW.Relay_Mode[1] = true;
+    } else {
+      if (eps <= 10.0) {
+        rtDW.Relay_Mode[1] = false;
+      }
+    }
+
+    /* Sum: '<S111>/Sum' incorporates:
+     *  Constant: '<S112>/Lower Limit'
+     *  Constant: '<S112>/Upper Limit'
+     *  Constant: '<S113>/Lower Limit'
+     *  Constant: '<S113>/Upper Limit'
+     *  Logic: '<S111>/AND'
+     *  Logic: '<S111>/AND1'
+     *  Logic: '<S112>/AND'
+     *  Logic: '<S113>/AND'
+     *  RelationalOperator: '<S112>/Lower Test'
+     *  RelationalOperator: '<S112>/Upper Test'
+     *  RelationalOperator: '<S113>/Lower Test'
+     *  RelationalOperator: '<S113>/Upper Test'
+     *  Relay: '<S111>/Relay'
+     */
+    rtb_Merge = (uint8_T)((uint32_T)((-60.0 <= rtDW.RateTransition2[0]) &&
+      (rtDW.RateTransition2[0] <= 60.0) && ((-60.0 <= rtDW.RateTransition2[1]) &&
+      (rtDW.RateTransition2[1] <= 60.0))) + ((!rtDW.Relay_Mode[0]) &&
+      (!rtDW.Relay_Mode[1])));
+
+    /* End of Outputs for SubSystem: '<S108>/sunSensorIsValid' */
+  } else {
+    /* Outputs for IfAction SubSystem: '<S108>/sunSensorIsNotValid' incorporates:
+     *  ActionPort: '<S110>/Action Port'
+     */
+    /* SignalConversion: '<S110>/OutportBuffer_InsertedFor_ss_valid_false_at_inport_0' incorporates:
+     *  Constant: '<S110>/Constant'
+     */
+    rtb_Merge = 0U;
+
+    /* End of Outputs for SubSystem: '<S108>/sunSensorIsNotValid' */
+  }
+
+  /* End of If: '<S108>/If' */
+
+  /* MATLAB Function: '<S363>/MATLAB Function' incorporates:
+   *  Product: '<S272>/MatrixMultiply'
+   */
   deps_1980 = cos(O_moon);
-  rtb_MathFunction1_fo[0] = deps_1980;
+  tmp[0] = deps_1980;
   D_sun = sin(O_moon);
-  rtb_MathFunction1_fo[3] = D_sun;
-  rtb_MathFunction1_fo[6] = 0.0;
-  rtb_MathFunction1_fo[1] = -D_sun;
-  rtb_MathFunction1_fo[4] = deps_1980;
-  rtb_MathFunction1_fo[7] = 0.0;
-  for (i = 0; i < 3; i++) {
-    /* Product: '<S257>/Divide' */
-    rtDW.w_err_radps[i] = rtb_Switch_dq[i] / rtb_Switch_dq[3];
+  tmp[3] = D_sun;
+  tmp[6] = 0.0;
+  tmp[1] = -D_sun;
+  tmp[4] = deps_1980;
+  tmp[7] = 0.0;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    tmp[2 + 3 * lowAlt_0] = tod_to_mod_tmp[lowAlt_0];
 
-    /* MATLAB Function: '<S261>/MATLAB Function' */
-    rtb_MathFunction1_fo[2 + 3 * i] = rtb_MatrixMultiply[i];
-
-    /* Product: '<S170>/MatrixMultiply' */
-    rtb_MatrixMultiply[i] = 0.0;
-    for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-      /* Math: '<S173>/Transpose' incorporates:
-       *  MATLAB Function: '<S261>/MATLAB Function'
-       *  Product: '<S170>/MatrixMultiply'
+    /* Product: '<S272>/MatrixMultiply' incorporates:
+     *  Product: '<S271>/Product3'
+     */
+    tod_to_mod_tmp[lowAlt_0] = 0.0;
+    for (i = 0; i < 3; i++) {
+      /* Math: '<S275>/Transpose' incorporates:
+       *  Product: '<S272>/MatrixMultiply'
        */
-      iter = i + 3 * rtb_Compare_h;
+      iter = lowAlt_0 + 3 * i;
       rtb_mod_to_gcrf[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * rtb_Compare_h + i;
-      rtb_mod_to_gcrf[iter] = rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] +
-        rtb_MathFunction1_fo[3 * i] * Gain_tmp[rtb_Compare_h];
-      rtb_mod_to_gcrf[iter] = rtb_MathFunction1_fo[3 * i + 1] *
-        Gain_tmp[rtb_Compare_h + 3] + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
-      rtb_mod_to_gcrf[iter] = rtb_MathFunction1_fo[3 * i + 2] *
-        Gain_tmp[rtb_Compare_h + 6] + rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
-
-      /* Product: '<S170>/MatrixMultiply' */
-      rtb_MatrixMultiply[i] += rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] *
-        rtDW.Gain[rtb_Compare_h];
+      rtb_mod_to_gcrf_tmp = 3 * i + lowAlt_0;
+      rtb_mod_to_gcrf[iter] = rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] + tmp[3 *
+        lowAlt_0] * rtb_Gain_h_tmp[i];
+      rtb_mod_to_gcrf[iter] = tmp[3 * lowAlt_0 + 1] * rtb_Gain_h_tmp[i + 3] +
+        rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
+      rtb_mod_to_gcrf[iter] = tmp[3 * lowAlt_0 + 2] * rtb_Gain_h_tmp[i + 6] +
+        rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp];
+      tod_to_mod_tmp[lowAlt_0] += rtb_mod_to_gcrf[rtb_mod_to_gcrf_tmp] *
+        rtb_Gain[i];
     }
   }
 
-  /* Sqrt: '<S245>/sqrt' incorporates:
-   *  Product: '<S245>/Product2'
-   *  Product: '<S245>/Product3'
-   *  Sum: '<S245>/Sum2'
+  /* Sqrt: '<S347>/sqrt' incorporates:
+   *  Product: '<S272>/MatrixMultiply'
+   *  Product: '<S347>/Product2'
+   *  Product: '<S347>/Product3'
+   *  Sum: '<S347>/Sum2'
    */
-  epsb_1980 = sqrt(rtb_MatrixMultiply[0] * rtb_MatrixMultiply[0] +
-                   rtb_MatrixMultiply[1] * rtb_MatrixMultiply[1]);
+  epsb_1980 = sqrt(tod_to_mod_tmp[0] * tod_to_mod_tmp[0] + tod_to_mod_tmp[1] *
+                   tod_to_mod_tmp[1]);
 
-  /* Outputs for Iterator SubSystem: '<S230>/While Iterator Subsystem' incorporates:
-   *  WhileIterator: '<S247>/While Iterator'
+  /* Outputs for Iterator SubSystem: '<S332>/While Iterator Subsystem' incorporates:
+   *  WhileIterator: '<S349>/While Iterator'
    */
-  s247_iter = 1;
+  s349_iter = 1;
   do {
     api = rtDW.Memory_PreviousInput;
-    if (s247_iter <= 0) {
-      api = rt_atan2d_snf(rtb_MatrixMultiply[2], 0.99664718933525254 * epsb_1980);
+    if (s349_iter <= 0) {
+      api = rt_atan2d_snf(tod_to_mod_tmp[2], 0.99664718933525254 * epsb_1980);
     }
 
     eps = sin(api);
     M_sun = cos(api);
     eps *= 42841.31151331366 * eps * eps;
-    eps += rtb_MatrixMultiply[2];
+    eps += tod_to_mod_tmp[2];
     M_moon = rt_atan2d_snf(eps, epsb_1980 - M_sun * M_sun * M_sun *
       0.00669437999014133 * 6.378137E+6);
     M_sun = sin(M_moon);
     D_sun = cos(M_moon);
     eps = rt_atan2d_snf(0.99664718933525254 * M_sun, D_sun);
     rtDW.Memory_PreviousInput = eps;
-    s247_iter++;
-  } while ((api != eps) && (s247_iter <= 5));
+    s349_iter++;
+  } while ((api != eps) && (s349_iter <= 5));
 
-  /* End of Outputs for SubSystem: '<S230>/While Iterator Subsystem' */
+  /* End of Outputs for SubSystem: '<S332>/While Iterator Subsystem' */
 
-  /* UnitConversion: '<S244>/Unit Conversion' incorporates:
-   *  Trigonometry: '<S230>/Trigonometric Function2'
+  /* UnitConversion: '<S346>/Unit Conversion' incorporates:
+   *  Product: '<S272>/MatrixMultiply'
+   *  Trigonometry: '<S332>/Trigonometric Function2'
    */
   /* Unit Conversion - from: rad to: deg
      Expression: output = (57.2958*input) + (0) */
   M_moon *= 57.295779513082323;
-  eqe_1980 = 57.295779513082323 * rt_atan2d_snf(rtb_MatrixMultiply[1],
-    rtb_MatrixMultiply[0]);
+  dpsi_1980 = 57.295779513082323 * rt_atan2d_snf(tod_to_mod_tmp[1],
+    tod_to_mod_tmp[0]);
 
-  /* UnitConversion: '<S242>/Unit Conversion' */
+  /* UnitConversion: '<S344>/Unit Conversion' */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
-  deps_1980 = 0.017453292519943295 * M_moon;
+  eps = 0.017453292519943295 * M_moon;
 
-  /* Trigonometry: '<S229>/sincos' */
-  eps = cos(deps_1980);
+  /* Trigonometry: '<S331>/sincos' */
+  eqe_1980 = cos(eps);
 
-  /* UnitConversion: '<S242>/Unit Conversion' incorporates:
-   *  Trigonometry: '<S229>/sincos'
+  /* UnitConversion: '<S344>/Unit Conversion' incorporates:
+   *  Trigonometry: '<S331>/sincos'
    */
-  dpsi_1980 = sin(deps_1980);
-  deps_1980 = 0.017453292519943295 * eqe_1980;
+  O_moon = sin(eps);
+  eps = 0.017453292519943295 * dpsi_1980;
 
-  /* Trigonometry: '<S229>/sincos' */
-  O_moon = cos(deps_1980);
-  deps_1980 = sin(deps_1980);
+  /* Trigonometry: '<S331>/sincos' */
+  deps_1980 = cos(eps);
+  eps = sin(eps);
 
-  /* UnaryMinus: '<S233>/Unary Minus' incorporates:
-   *  Product: '<S233>/u(1)*u(4)'
+  /* UnaryMinus: '<S335>/Unary Minus' incorporates:
+   *  Product: '<S335>/u(1)*u(4)'
    */
-  rtb_MathFunction1_i[0] = -(dpsi_1980 * O_moon);
+  rtb_NED2ECEF[0] = -(O_moon * deps_1980);
 
-  /* UnaryMinus: '<S236>/Unary Minus' */
-  rtb_MathFunction1_i[1] = -deps_1980;
+  /* UnaryMinus: '<S338>/Unary Minus' */
+  rtb_NED2ECEF[1] = -eps;
 
-  /* UnaryMinus: '<S239>/Unary Minus' incorporates:
-   *  Product: '<S239>/u(3)*u(4)'
+  /* UnaryMinus: '<S341>/Unary Minus' incorporates:
+   *  Product: '<S341>/u(3)*u(4)'
    */
-  rtb_MathFunction1_i[2] = -(eps * O_moon);
+  rtb_NED2ECEF[2] = -(eqe_1980 * deps_1980);
 
-  /* UnaryMinus: '<S234>/Unary Minus' incorporates:
-   *  Product: '<S234>/u(1)*u(2)'
+  /* UnaryMinus: '<S336>/Unary Minus' incorporates:
+   *  Product: '<S336>/u(1)*u(2)'
    */
-  rtb_MathFunction1_i[3] = -(dpsi_1980 * deps_1980);
+  rtb_NED2ECEF[3] = -(O_moon * eps);
 
-  /* SignalConversion: '<S243>/ConcatBufferAtVector ConcatenateIn5' */
-  rtb_MathFunction1_i[4] = O_moon;
+  /* SignalConversion: '<S345>/ConcatBufferAtVector ConcatenateIn5' */
+  rtb_NED2ECEF[4] = deps_1980;
 
-  /* UnaryMinus: '<S240>/Unary Minus' incorporates:
-   *  Product: '<S240>/u(2)*u(3)'
+  /* UnaryMinus: '<S342>/Unary Minus' incorporates:
+   *  Product: '<S342>/u(2)*u(3)'
    */
-  rtb_MathFunction1_i[5] = -(deps_1980 * eps);
+  rtb_NED2ECEF[5] = -(eps * eqe_1980);
 
-  /* SignalConversion: '<S243>/ConcatBufferAtVector ConcatenateIn7' */
-  rtb_MathFunction1_i[6] = eps;
+  /* SignalConversion: '<S345>/ConcatBufferAtVector ConcatenateIn7' */
+  rtb_NED2ECEF[6] = eqe_1980;
 
-  /* SignalConversion: '<S243>/ConcatBufferAtVector ConcatenateIn8' incorporates:
-   *  Constant: '<S238>/Constant'
+  /* SignalConversion: '<S345>/ConcatBufferAtVector ConcatenateIn8' incorporates:
+   *  Constant: '<S340>/Constant'
    */
-  rtb_MathFunction1_i[7] = 0.0;
+  rtb_NED2ECEF[7] = 0.0;
 
-  /* UnaryMinus: '<S241>/Unary Minus' */
-  rtb_MathFunction1_i[8] = -dpsi_1980;
+  /* UnaryMinus: '<S343>/Unary Minus' */
+  rtb_NED2ECEF[8] = -O_moon;
 
-  /* Math: '<S170>/Transpose' */
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    rtb_MathFunction1_fo[3 * rtb_Compare_h] = rtb_MathFunction1_i[rtb_Compare_h];
-    rtb_MathFunction1_fo[1 + 3 * rtb_Compare_h] =
-      rtb_MathFunction1_i[rtb_Compare_h + 3];
-    rtb_MathFunction1_fo[2 + 3 * rtb_Compare_h] =
-      rtb_MathFunction1_i[rtb_Compare_h + 6];
+  /* Math: '<S272>/Transpose' */
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    rtb_Gain_h_tmp[3 * lowAlt_0] = rtb_NED2ECEF[lowAlt_0];
+    rtb_Gain_h_tmp[1 + 3 * lowAlt_0] = rtb_NED2ECEF[lowAlt_0 + 3];
+    rtb_Gain_h_tmp[2 + 3 * lowAlt_0] = rtb_NED2ECEF[lowAlt_0 + 6];
   }
 
-  memcpy(&rtb_MathFunction1_i[0], &rtb_MathFunction1_fo[0], 9U * sizeof(real_T));
+  memcpy(&rtb_NED2ECEF[0], &rtb_Gain_h_tmp[0], 9U * sizeof(real_T));
 
-  /* End of Math: '<S170>/Transpose' */
+  /* End of Math: '<S272>/Transpose' */
 
-  /* Product: '<S246>/Product2' */
+  /* Product: '<S348>/Product2' */
   api = M_sun * 0.00669437999014133;
 
-  /* Product: '<S246>/Product3' incorporates:
-   *  Constant: '<S246>/Constant1'
-   *  Constant: '<S246>/f'
-   *  Product: '<S246>/Product1'
-   *  Sqrt: '<S246>/sqrt'
-   *  Sum: '<S246>/Sum'
+  /* Product: '<S348>/Product3' incorporates:
+   *  Constant: '<S348>/Constant1'
+   *  Constant: '<S348>/f'
+   *  Product: '<S348>/Product1'
+   *  Sqrt: '<S348>/sqrt'
+   *  Sum: '<S348>/Sum'
    */
   eps = 6.378137E+6 / sqrt(1.0 - api * M_sun);
 
-  /* Product: '<S246>/Product4' */
+  /* Product: '<S348>/Product4' */
   api *= eps;
 
-  /* Sum: '<S246>/Sum2' */
-  api += rtb_MatrixMultiply[2];
+  /* Sum: '<S348>/Sum2' incorporates:
+   *  Product: '<S272>/MatrixMultiply'
+   */
+  api += tod_to_mod_tmp[2];
 
-  /* Sum: '<S246>/Sum3' incorporates:
-   *  Product: '<S246>/Product5'
-   *  Product: '<S246>/Product6'
+  /* Sum: '<S348>/Sum3' incorporates:
+   *  Product: '<S348>/Product5'
+   *  Product: '<S348>/Product6'
    */
   epsb_1980 = (M_sun * api - eps) + D_sun * epsb_1980;
 
-  /* MATLAB Function: '<S170>/MATLAB Function' */
+  /* MATLAB Function: '<S272>/MATLAB Function' */
   if ((!rtIsInf(rtb_YMDHMS_UTC[0])) && (!rtIsNaN(rtb_YMDHMS_UTC[0]))) {
     if (rtb_YMDHMS_UTC[0] == 0.0) {
       D_sun = 0.0;
@@ -1321,11 +1359,11 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   api = (((rtb_YMDHMS_UTC[3] / 24.0 + eps) + rtb_YMDHMS_UTC[4] / 1440.0) +
          rtb_YMDHMS_UTC[5] / 86400.0) / api + rtb_YMDHMS_UTC[0];
 
-  /* End of MATLAB Function: '<S170>/MATLAB Function' */
+  /* End of MATLAB Function: '<S272>/MATLAB Function' */
 
-  /* MATLAB Function: '<S232>/MATLAB Function' */
+  /* MATLAB Function: '<S334>/MATLAB Function' */
   eps = 0.017453292519943295 * M_moon;
-  M_moon = 0.017453292519943295 * eqe_1980;
+  M_moon = 0.017453292519943295 * dpsi_1980;
   dpsi_1980 = sin(eps);
   memset(&sp[0], 0, 13U * sizeof(real_T));
   memset(&cp[0], 0, 13U * sizeof(real_T));
@@ -1333,11 +1371,11 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   cp[0] = 1.0;
   cp[1] = cos(M_moon);
   iter = 3;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 11; rtb_Compare_h++) {
-    iter = 3 + rtb_Compare_h;
-    M_sun = cp[rtb_Compare_h + 1];
-    sp[rtb_Compare_h + 2] = M_sun * sp[1] + sp[rtb_Compare_h + 1] * cp[1];
-    cp[rtb_Compare_h + 2] = M_sun * cp[1] - sp[rtb_Compare_h + 1] * sp[1];
+  for (lowAlt_0 = 0; lowAlt_0 < 11; lowAlt_0++) {
+    iter = 3 + lowAlt_0;
+    M_sun = cp[lowAlt_0 + 1];
+    sp[lowAlt_0 + 2] = M_sun * sp[1] + sp[lowAlt_0 + 1] * cp[1];
+    cp[lowAlt_0 + 2] = M_sun * cp[1] - sp[lowAlt_0 + 1] * sp[1];
   }
 
   M_sun = 6.378137E+6 / sqrt(1.0 - dpsi_1980 * dpsi_1980 * 0.0066943799901413165);
@@ -1355,9 +1393,9 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
   P_0[0] = 1.0;
   P_0[1] = dpsi_1980;
   P_0[15] = -tsince_JD;
-  rtb_Compare_h = 2;
+  lowAlt_0 = 2;
   for (i = 0; i < 12; i++) {
-    rtb_Compare_h = 2 + i;
+    lowAlt_0 = 2 + i;
     P_0[i + 2] = (((2.0 + (real_T)i) * 2.0 - 1.0) * dpsi_1980 * P_0[i + 1] -
                   ((2.0 + (real_T)i) - 1.0) * P_0[i]) * (1.0 / (2.0 + (real_T)i));
     iter = 1;
@@ -1400,160 +1438,163 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
     }
   }
 
-  n_o = rtb_Compare_h - iter;
+  n_o = lowAlt_0 - iter;
   factorial_DisWLItj(&n_o);
-  dpsi_1980 = rtb_Compare_h + iter;
+  dpsi_1980 = lowAlt_0 + iter;
   factorial_DisWLItj(&dpsi_1980);
-  P_0[rtb_Compare_h + 14 * iter] *= sqrt(2.0 * n_o / dpsi_1980) * rt_powd_snf
-    (-1.0, (real_T)iter);
+  P_0[lowAlt_0 + 14 * iter] *= sqrt(2.0 * n_o / dpsi_1980) * rt_powd_snf(-1.0,
+    (real_T)iter);
   dpsi_1980 = 0.0;
   tsince_JD = 0.0;
   u_moon = 0.0;
   for (iter = 0; iter < 12; iter++) {
     M_sun *= M_moon;
-    for (rtb_Compare_h = 0; rtb_Compare_h <= iter + 1; rtb_Compare_h++) {
-      i = 12 * rtb_Compare_h + iter;
+    for (lowAlt_0 = 0; lowAlt_0 <= iter + 1; lowAlt_0++) {
+      i = 12 * lowAlt_0 + iter;
       D_sun = dg[i] * (api - 2015.0) + g[i];
       deps_1980 = dh[i] * (api - 2015.0) + h[i];
-      i = 14 * rtb_Compare_h + iter;
+      i = 14 * lowAlt_0 + iter;
       n_o = P_0[i + 1];
-      M_o = D_sun * cp[rtb_Compare_h] + deps_1980 * sp[rtb_Compare_h];
+      epsb_1980_tmp = D_sun * cp[lowAlt_0] + deps_1980 * sp[lowAlt_0];
       dpsi_1980 -= (((1.0 + (real_T)iter) + 1.0) * eqe_1980 * n_o - sqrt((iter +
-        2) * (iter + 2) - rtb_Compare_h * rtb_Compare_h) * O_moon * P_0[i + 2]) *
-        (M_o * M_sun);
-      tsince_JD += (D_sun * sp[rtb_Compare_h] - deps_1980 * cp[rtb_Compare_h]) *
-        (M_sun * (real_T)rtb_Compare_h) * n_o;
-      u_moon -= ((1.0 + (real_T)iter) + 1.0) * M_sun * M_o * n_o;
+        2) * (iter + 2) - lowAlt_0 * lowAlt_0) * O_moon * P_0[i + 2]) *
+        (epsb_1980_tmp * M_sun);
+      tsince_JD += (D_sun * sp[lowAlt_0] - deps_1980 * cp[lowAlt_0]) * (M_sun *
+        (real_T)lowAlt_0) * n_o;
+      u_moon -= ((1.0 + (real_T)iter) + 1.0) * M_sun * epsb_1980_tmp * n_o;
     }
   }
 
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    /* Math: '<S170>/Transpose1' incorporates:
-     *  Math: '<S169>/Math Function1'
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    /* Math: '<S272>/Transpose1' incorporates:
+     *  Math: '<S271>/Transpose'
      */
-    Gain_tmp[3 * rtb_Compare_h] = rtb_mod_to_gcrf[rtb_Compare_h];
-    Gain_tmp[1 + 3 * rtb_Compare_h] = rtb_mod_to_gcrf[rtb_Compare_h + 3];
-    Gain_tmp[2 + 3 * rtb_Compare_h] = rtb_mod_to_gcrf[rtb_Compare_h + 6];
+    rtb_Gain_h_tmp[3 * lowAlt_0] = rtb_mod_to_gcrf[lowAlt_0];
+    rtb_Gain_h_tmp[1 + 3 * lowAlt_0] = rtb_mod_to_gcrf[lowAlt_0 + 3];
+    rtb_Gain_h_tmp[2 + 3 * lowAlt_0] = rtb_mod_to_gcrf[lowAlt_0 + 6];
   }
 
-  /* MATLAB Function: '<S232>/MATLAB Function' */
+  /* MATLAB Function: '<S334>/MATLAB Function' */
   n_o = epsb_1980 - eps;
-  M_o = sin(n_o);
+  epsb_1980_tmp = sin(n_o);
   n_o = cos(n_o);
-  rtb_MatrixMultiply[0] = n_o * dpsi_1980 - M_o * u_moon;
-  rtb_MatrixMultiply[1] = O_moon * tsince_JD;
-  rtb_MatrixMultiply[2] = M_o * dpsi_1980 + n_o * u_moon;
+  rtb_MathFunction[0] = n_o * dpsi_1980 - epsb_1980_tmp * u_moon;
+  rtb_MathFunction[1] = O_moon * tsince_JD;
+  rtb_MathFunction[2] = epsb_1980_tmp * dpsi_1980 + n_o * u_moon;
 
-  /* Trigonometry: '<S12>/Tan1' incorporates:
-   *  Gain: '<S12>/deg2rad'
+  /* Trigonometry: '<S107>/Tan1' incorporates:
+   *  Gain: '<S107>/deg2rad'
    */
   eps = tan(0.017453292519943295 * rtDW.RateTransition2[0]);
 
-  /* Trigonometry: '<S12>/Tan' incorporates:
-   *  Gain: '<S12>/deg2rad'
+  /* Trigonometry: '<S107>/Tan' incorporates:
+   *  Gain: '<S107>/deg2rad'
    */
   M_sun = tan(0.017453292519943295 * rtDW.RateTransition2[1]);
 
-  /* Sqrt: '<S14>/Sqrt' incorporates:
-   *  Constant: '<S14>/Constant'
-   *  Math: '<S14>/Math Function'
-   *  Math: '<S14>/Math Function1'
-   *  Math: '<S14>/Math Function2'
-   *  Sum: '<S14>/Sum'
+  /* Math: '<S109>/Math Function' incorporates:
+   *  Constant: '<S109>/Constant'
+   *  Math: '<S109>/Square'
+   *  Math: '<S109>/Square1'
+   *  Sqrt: '<S109>/Sqrt'
+   *  Sum: '<S109>/Sum'
    *
-   * About '<S14>/Math Function2':
+   * About '<S109>/Math Function':
    *  Operator: reciprocal
    */
-  api = sqrt(1.0 / ((eps * eps + 1.0) + M_sun * M_sun));
+  api = 1.0 / sqrt((eps * eps + 1.0) + M_sun * M_sun);
 
-  /* SignalConversion: '<S12>/TmpSignal ConversionAtss_2_bodyInport2' incorporates:
-   *  Product: '<S12>/Matrix Multiply'
-   *  Product: '<S12>/Matrix Multiply1'
+  /* SignalConversion: '<S107>/TmpSignal ConversionAtss_2_bodyInport2' incorporates:
+   *  Product: '<S107>/Matrix Multiply'
+   *  Product: '<S107>/Matrix Multiply1'
    */
-  rtb_Subtract_f[0] = eps * api;
-  rtb_Subtract_f[1] = api * M_sun;
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    /* Product: '<S170>/Matrix Multiply1' */
-    Gain_tmp_0[rtb_Compare_h] = 0.0;
+  rtb_Switch2[0] = eps * api;
+  rtb_Switch2[1] = api * M_sun;
+  rtb_Switch2[2] = api;
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    /* Product: '<S272>/Matrix Multiply1' */
+    rtb_bias_merge[lowAlt_0] = 0.0;
     for (i = 0; i < 3; i++) {
-      /* Product: '<S170>/Matrix Multiply' incorporates:
-       *  Math: '<S170>/Transpose1'
-       *  Product: '<S170>/Matrix Multiply1'
+      /* Product: '<S272>/Matrix Multiply' incorporates:
+       *  Math: '<S272>/Transpose1'
+       *  Product: '<S272>/Matrix Multiply1'
        */
-      iter = rtb_Compare_h + 3 * i;
-      rtb_M2KM_0[iter] = 0.0;
-      rtb_mod_to_gcrf_tmp = 3 * i + rtb_Compare_h;
-      rtb_M2KM_0[iter] = rtb_M2KM_0[rtb_mod_to_gcrf_tmp] + rtb_MathFunction1_i[3
-        * i] * Gain_tmp[rtb_Compare_h];
-      rtb_M2KM_0[iter] = rtb_MathFunction1_i[3 * i + 1] * Gain_tmp[rtb_Compare_h
-        + 3] + rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
-      rtb_M2KM_0[iter] = rtb_MathFunction1_i[3 * i + 2] * Gain_tmp[rtb_Compare_h
-        + 6] + rtb_M2KM_0[rtb_mod_to_gcrf_tmp];
+      iter = lowAlt_0 + 3 * i;
+      rtb_Gain_h[iter] = 0.0;
+      rtb_mod_to_gcrf_tmp = 3 * i + lowAlt_0;
+      rtb_Gain_h[iter] = rtb_Gain_h[rtb_mod_to_gcrf_tmp] + rtb_NED2ECEF[3 * i] *
+        rtb_Gain_h_tmp[lowAlt_0];
+      rtb_Gain_h[iter] = rtb_NED2ECEF[3 * i + 1] * rtb_Gain_h_tmp[lowAlt_0 + 3]
+        + rtb_Gain_h[rtb_mod_to_gcrf_tmp];
+      rtb_Gain_h[iter] = rtb_NED2ECEF[3 * i + 2] * rtb_Gain_h_tmp[lowAlt_0 + 6]
+        + rtb_Gain_h[rtb_mod_to_gcrf_tmp];
 
-      /* Product: '<S170>/Matrix Multiply1' */
-      Gain_tmp_0[rtb_Compare_h] += rtb_M2KM_0[rtb_mod_to_gcrf_tmp] *
-        rtb_MatrixMultiply[i];
+      /* Product: '<S272>/Matrix Multiply1' */
+      rtb_bias_merge[lowAlt_0] += rtb_Gain_h[rtb_mod_to_gcrf_tmp] *
+        rtb_MathFunction[i];
     }
 
-    /* Gain: '<S170>/nT2T' */
-    rtb_MathFunction[rtb_Compare_h] = 1.0E-9 * Gain_tmp_0[rtb_Compare_h];
+    /* Gain: '<S272>/nT2T' */
+    rtb_nT2T[lowAlt_0] = 1.0E-9 * rtb_bias_merge[lowAlt_0];
 
-    /* Product: '<S12>/ss_2_body' incorporates:
-     *  Constant: '<S12>/Constant1'
-     *  SignalConversion: '<S12>/TmpSignal ConversionAtss_2_bodyInport2'
+    /* Product: '<S107>/ss_2_body' incorporates:
+     *  Constant: '<S107>/Constant1'
+     *  SignalConversion: '<S107>/TmpSignal ConversionAtss_2_bodyInport2'
      */
-    rtDW.ss_2_body[rtb_Compare_h] = 0.0;
-    rtDW.ss_2_body[rtb_Compare_h] += rtCP_Constant1_Value_h[rtb_Compare_h] *
-      rtb_Subtract_f[0];
-    rtDW.ss_2_body[rtb_Compare_h] += rtCP_Constant1_Value_h[rtb_Compare_h + 3] *
-      rtb_Subtract_f[1];
-    rtDW.ss_2_body[rtb_Compare_h] += rtCP_Constant1_Value_h[rtb_Compare_h + 6] *
-      api;
+    rtb_ss_2_body[lowAlt_0] = rtCP_Constant1_Value_f[lowAlt_0 + 6] * api +
+      (rtCP_Constant1_Value_f[lowAlt_0 + 3] * rtb_Switch2[1] +
+       rtCP_Constant1_Value_f[lowAlt_0] * rtb_Switch2[0]);
   }
 
-  /* Reshape: '<S2>/Reshape3' incorporates:
-   *  S-Function (sdspperm2): '<S2>/Variable Selector1'
-   */
-  rtb_Reshape3[0] = rtDW.RateTransition3[0];
-  rtb_Reshape3[1] = rtDW.RateTransition3[1];
-  rtb_Reshape3[2] = rtDW.RateTransition3[2];
+  /* Outputs for Atomic SubSystem: '<S2>/maggyroProcessing_lib' */
+  maggyroProcessing_lib(rtDW.RateTransition3, rtDW.RateTransition6_b,
+                        rtb_Switch2, &rtDW.Merge1_f,
+                        &rtDW.maggyroProcessing_lib_e, 0.21629296228661718,
+                        rtCP_pooled2, 130.0, 1.0E-6);
 
-  /* S-Function (sdspperm2): '<S2>/Variable Selector' */
-  rtb_Subtract_f[0] = rtDW.RateTransition4[0];
-  rtb_Subtract_f[1] = rtDW.RateTransition4[1];
-  rtb_Subtract_f[2] = rtDW.RateTransition4[2];
+  /* End of Outputs for SubSystem: '<S2>/maggyroProcessing_lib' */
+
+  /* Switch: '<S11>/Switch' incorporates:
+   *  Constant: '<S18>/Constant'
+   *  RelationalOperator: '<S18>/Compare'
+   *  UnitDelay: '<S11>/Unit Delay'
+   *  UnitDelay: '<S19>/Output'
+   */
+  if (rtDW.Output_DSTATE > 5) {
+    rtb_pos_teme_km[0] = rtb_Switch2[0];
+    rtb_pos_teme_km[1] = rtb_Switch2[1];
+    rtb_pos_teme_km[2] = rtb_Switch2[2];
+  } else {
+    rtb_pos_teme_km[0] = rtDW.UnitDelay_DSTATE[0];
+    rtb_pos_teme_km[1] = rtDW.UnitDelay_DSTATE[1];
+    rtb_pos_teme_km[2] = rtDW.UnitDelay_DSTATE[2];
+  }
+
+  /* End of Switch: '<S11>/Switch' */
+
+  /* Outputs for Atomic SubSystem: '<S2>/maggyroProcessing_lib1' */
+  maggyroProcessing_lib1(rtDW.RateTransition4, rtDW.RateTransition7, rtb_Switch2,
+    &rtDW.Merge1_j, &rtDW.maggyroProcessing_lib1_e, 0.02, rtCP_pooled2, 4.3633,
+    1.0);
+
+  /* End of Outputs for SubSystem: '<S2>/maggyroProcessing_lib1' */
 
   /* Outputs for Atomic SubSystem: '<S1>/MEKF_lib' */
-  /* Reshape: '<S2>/Reshape2' incorporates:
-   *  S-Function (sdspperm2): '<S2>/Variable Selector2'
-   *  S-Function (sdspperm2): '<S2>/Variable Selector3'
-   */
-  MEKF_lib(rtDW.w_err_radps, rtb_MathFunction, rtDW.ss_2_body, rtb_Reshape3,
-           rtb_Subtract_f, rtDW.Reshape4, rtDW.RateTransition6_b[0],
-           rtDW.RateTransition7[0], rtDW.triad_override, rtDW.qmerge, rtDW.Sum,
-           rtb_YMDHMS_UTC, rtb_MatrixMultiply, &rtb_Merge_i, &rtDW.MEKF_lib_g);
+  MEKF_lib(rtb_Divide_dr, rtb_nT2T, rtb_ss_2_body, rtb_pos_teme_km, rtb_Switch2,
+           rtb_Merge, rtDW.Merge1_f, rtDW.Merge1_j, rtDW.triad_override,
+           rtDW.q_p_merge, rtb_MathFunction, rtb_YMDHMS_UTC, rtb_bias_merge,
+           &rtb_Merge_j, &rtDW.MEKF_lib_g);
 
   /* End of Outputs for SubSystem: '<S1>/MEKF_lib' */
 
-  /* Product: '<S169>/Product3' incorporates:
-   *  Math: '<S169>/Math Function1'
-   */
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    rtb_MathFunction[rtb_Compare_h] = Gain_tmp[rtb_Compare_h + 6] * rtDW.Gain[2]
-      + (Gain_tmp[rtb_Compare_h + 3] * rtDW.Gain[1] + Gain_tmp[rtb_Compare_h] *
-         rtDW.Gain[0]);
-  }
-
-  /* End of Product: '<S169>/Product3' */
-
-  /* Switch: '<S213>/Switch' incorporates:
-   *  Abs: '<S213>/Abs'
-   *  Bias: '<S213>/Bias'
-   *  Bias: '<S213>/Bias1'
-   *  Constant: '<S213>/Constant2'
-   *  Constant: '<S214>/Constant'
-   *  Math: '<S213>/Math Function1'
-   *  RelationalOperator: '<S214>/Compare'
+  /* Switch: '<S315>/Switch' incorporates:
+   *  Abs: '<S315>/Abs'
+   *  Bias: '<S315>/Bias'
+   *  Bias: '<S315>/Bias1'
+   *  Constant: '<S315>/Constant2'
+   *  Constant: '<S316>/Constant'
+   *  Math: '<S315>/Math Function1'
+   *  RelationalOperator: '<S316>/Compare'
    */
   if (fabs(rtDW.target_latlonalt[0]) > 180.0) {
     eps = rt_modd_snf(rtDW.target_latlonalt[0] + 180.0, 360.0) + -180.0;
@@ -1561,27 +1602,27 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
     eps = rtDW.target_latlonalt[0];
   }
 
-  /* End of Switch: '<S213>/Switch' */
+  /* End of Switch: '<S315>/Switch' */
 
-  /* Abs: '<S210>/Abs1' */
+  /* Abs: '<S312>/Abs1' */
   api = fabs(eps);
 
-  /* RelationalOperator: '<S212>/Compare' incorporates:
-   *  Constant: '<S212>/Constant'
+  /* RelationalOperator: '<S314>/Compare' incorporates:
+   *  Constant: '<S314>/Constant'
    */
-  rtb_Compare_e = (api > 90.0);
+  lowAlt = (api > 90.0);
 
-  /* Switch: '<S210>/Switch' incorporates:
-   *  Bias: '<S210>/Bias'
-   *  Bias: '<S210>/Bias1'
-   *  Constant: '<S180>/Constant'
-   *  Constant: '<S180>/Constant1'
-   *  Gain: '<S210>/Gain'
-   *  Product: '<S210>/Divide1'
-   *  Switch: '<S180>/Switch1'
+  /* Switch: '<S312>/Switch' incorporates:
+   *  Bias: '<S312>/Bias'
+   *  Bias: '<S312>/Bias1'
+   *  Constant: '<S282>/Constant'
+   *  Constant: '<S282>/Constant1'
+   *  Gain: '<S312>/Gain'
+   *  Product: '<S312>/Divide1'
+   *  Switch: '<S282>/Switch1'
    */
-  if (rtb_Compare_e) {
-    /* Signum: '<S210>/Sign1' */
+  if (lowAlt) {
+    /* Signum: '<S312>/Sign1' */
     if (eps < 0.0) {
       eps = -1.0;
     } else if (eps > 0.0) {
@@ -1592,38 +1633,38 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
       eps = (rtNaN);
     }
 
-    /* End of Signum: '<S210>/Sign1' */
+    /* End of Signum: '<S312>/Sign1' */
     eps *= -(api + -90.0) + 90.0;
-    rtb_Compare_h = 180;
+    lowAlt_0 = 180;
   } else {
-    rtb_Compare_h = 0;
+    lowAlt_0 = 0;
   }
 
-  /* End of Switch: '<S210>/Switch' */
+  /* End of Switch: '<S312>/Switch' */
 
-  /* UnitConversion: '<S204>/Unit Conversion' */
+  /* UnitConversion: '<S306>/Unit Conversion' */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
   M_sun = 0.017453292519943295 * eps;
 
-  /* Product: '<S179>/Product3' incorporates:
-   *  Constant: '<S174>/Constant2'
-   *  Trigonometry: '<S179>/sincos1'
+  /* Product: '<S281>/Product3' incorporates:
+   *  Constant: '<S276>/Constant2'
+   *  Trigonometry: '<S281>/sincos1'
    */
-  dpsi_1980 = 0.0 * sin(M_sun);
-  D_sun = 0.0 * cos(M_sun);
+  O_moon = 0.0 * sin(M_sun);
+  dpsi_1980 = 0.0 * cos(M_sun);
 
-  /* Trigonometry: '<S179>/Trigonometric Function2' incorporates:
-   *  Constant: '<S179>/f'
-   *  Product: '<S179>/Product2'
-   *  Trigonometry: '<S179>/Trigonometric Function1'
+  /* Trigonometry: '<S281>/Trigonometric Function2' incorporates:
+   *  Constant: '<S281>/f'
+   *  Product: '<S281>/Product2'
+   *  Trigonometry: '<S281>/Trigonometric Function1'
    */
   api = rt_atan2d_snf(tan(M_sun) * 0.99664718933525254 * 0.99664718933525254,
                       1.0);
 
-  /* Trigonometry: '<S208>/Trigonometric Function' incorporates:
-   *  UnitConversion: '<S205>/Unit Conversion'
-   *  UnitConversion: '<S209>/Unit Conversion'
+  /* Trigonometry: '<S310>/Trigonometric Function' incorporates:
+   *  UnitConversion: '<S307>/Unit Conversion'
+   *  UnitConversion: '<S311>/Unit Conversion'
    */
   /* Unit Conversion - from: rad to: deg
      Expression: output = (57.2958*input) + (0) */
@@ -1631,626 +1672,790 @@ void FSW_Lib_step1(void)               /* Sample time: [0.25s, 0.0s] */
      Expression: output = (0.0174533*input) + (0) */
   M_sun = sin(57.295779513082323 * api * 0.017453292519943295);
 
-  /* Sqrt: '<S208>/sqrt' incorporates:
-   *  Constant: '<S208>/Constant'
-   *  Constant: '<S208>/Re'
-   *  Product: '<S208>/Product2'
-   *  Product: '<S208>/Product3'
-   *  Sum: '<S208>/Sum2'
+  /* Sqrt: '<S310>/sqrt' incorporates:
+   *  Constant: '<S310>/Constant'
+   *  Constant: '<S310>/Re'
+   *  Product: '<S310>/Product2'
+   *  Product: '<S310>/Product3'
+   *  Sum: '<S310>/Sum2'
    */
   M_sun = sqrt(4.0680631590769E+13 / (M_sun * M_sun * 0.006739496742276474 + 1.0));
 
-  /* Trigonometry: '<S179>/sincos' */
+  /* Trigonometry: '<S281>/sincos' */
   epsb_1980 = cos(api);
   api = sin(api);
 
-  /* Sum: '<S179>/Sum1' incorporates:
-   *  Product: '<S179>/Product1'
+  /* Sum: '<S281>/Sum1' incorporates:
+   *  Product: '<S281>/Product1'
    */
-  dpsi_1980 += M_sun * api;
+  O_moon += M_sun * api;
 
-  /* UnitConversion: '<S206>/Unit Conversion' incorporates:
-   *  Product: '<S179>/Product1'
-   *  Sum: '<S179>/Sum1'
-   *  Trigonometry: '<S179>/Trigonometric Function3'
-   *  Trigonometry: '<S179>/sincos'
+  /* UnitConversion: '<S308>/Unit Conversion' incorporates:
+   *  Product: '<S281>/Product1'
+   *  Sum: '<S281>/Sum1'
+   *  Trigonometry: '<S281>/Trigonometric Function3'
+   *  Trigonometry: '<S281>/sincos'
    */
   /* Unit Conversion - from: rad to: deg
      Expression: output = (57.2958*input) + (0) */
-  api = rt_atan2d_snf(dpsi_1980, M_sun * epsb_1980 + D_sun) * 57.295779513082323;
+  api = rt_atan2d_snf(O_moon, M_sun * epsb_1980 + dpsi_1980) *
+    57.295779513082323;
 
-  /* Sum: '<S180>/Sum' */
-  M_sun = (real_T)rtb_Compare_h + rtDW.target_latlonalt[1];
+  /* Sum: '<S282>/Sum' */
+  M_sun = (real_T)lowAlt_0 + rtDW.target_latlonalt[1];
 
-  /* Switch: '<S211>/Switch' incorporates:
-   *  Abs: '<S211>/Abs'
-   *  Bias: '<S211>/Bias'
-   *  Bias: '<S211>/Bias1'
-   *  Constant: '<S211>/Constant2'
-   *  Constant: '<S215>/Constant'
-   *  Math: '<S211>/Math Function1'
-   *  RelationalOperator: '<S215>/Compare'
+  /* Switch: '<S313>/Switch' incorporates:
+   *  Abs: '<S313>/Abs'
+   *  Bias: '<S313>/Bias'
+   *  Bias: '<S313>/Bias1'
+   *  Constant: '<S313>/Constant2'
+   *  Constant: '<S317>/Constant'
+   *  Math: '<S313>/Math Function1'
+   *  RelationalOperator: '<S317>/Compare'
    */
   if (fabs(M_sun) > 180.0) {
     M_sun = rt_modd_snf(M_sun + 180.0, 360.0) + -180.0;
   }
 
-  /* End of Switch: '<S211>/Switch' */
+  /* End of Switch: '<S313>/Switch' */
 
-  /* UnitConversion: '<S202>/Unit Conversion' */
+  /* UnitConversion: '<S304>/Unit Conversion' */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
-  dpsi_1980 = 0.017453292519943295 * api;
-  D_sun = 0.017453292519943295 * M_sun;
+  O_moon = 0.017453292519943295 * api;
+  dpsi_1980 = 0.017453292519943295 * M_sun;
 
-  /* Trigonometry: '<S178>/sincos' */
-  M_moon = cos(dpsi_1980);
+  /* Trigonometry: '<S280>/sincos' */
+  M_moon = cos(O_moon);
+  O_moon = sin(O_moon);
+  epsb_1980 = cos(dpsi_1980);
   dpsi_1980 = sin(dpsi_1980);
-  epsb_1980 = cos(D_sun);
-  D_sun = sin(D_sun);
 
-  /* UnaryMinus: '<S193>/Unary Minus' incorporates:
-   *  Product: '<S193>/u(1)*u(4)'
-   *  Trigonometry: '<S178>/sincos'
+  /* UnaryMinus: '<S295>/Unary Minus' incorporates:
+   *  Product: '<S295>/u(1)*u(4)'
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[0] = -(dpsi_1980 * epsb_1980);
+  rtb_MathFunction1_a[0] = -(O_moon * epsb_1980);
 
-  /* UnaryMinus: '<S196>/Unary Minus' incorporates:
-   *  Trigonometry: '<S178>/sincos'
+  /* UnaryMinus: '<S298>/Unary Minus' incorporates:
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[1] = -D_sun;
+  rtb_MathFunction1_a[1] = -dpsi_1980;
 
-  /* UnaryMinus: '<S199>/Unary Minus' incorporates:
-   *  Product: '<S199>/u(3)*u(4)'
-   *  Trigonometry: '<S178>/sincos'
+  /* UnaryMinus: '<S301>/Unary Minus' incorporates:
+   *  Product: '<S301>/u(3)*u(4)'
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[2] = -(M_moon * epsb_1980);
+  rtb_MathFunction1_a[2] = -(M_moon * epsb_1980);
 
-  /* UnaryMinus: '<S194>/Unary Minus' incorporates:
-   *  Product: '<S194>/u(1)*u(2)'
-   *  Trigonometry: '<S178>/sincos'
+  /* UnaryMinus: '<S296>/Unary Minus' incorporates:
+   *  Product: '<S296>/u(1)*u(2)'
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[3] = -(dpsi_1980 * D_sun);
+  rtb_MathFunction1_a[3] = -(O_moon * dpsi_1980);
 
-  /* SignalConversion: '<S203>/ConcatBufferAtVector ConcatenateIn5' incorporates:
-   *  Trigonometry: '<S178>/sincos'
+  /* SignalConversion: '<S305>/ConcatBufferAtVector ConcatenateIn5' incorporates:
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[4] = epsb_1980;
+  rtb_MathFunction1_a[4] = epsb_1980;
 
-  /* UnaryMinus: '<S200>/Unary Minus' incorporates:
-   *  Product: '<S200>/u(2)*u(3)'
-   *  Trigonometry: '<S178>/sincos'
+  /* UnaryMinus: '<S302>/Unary Minus' incorporates:
+   *  Product: '<S302>/u(2)*u(3)'
+   *  Trigonometry: '<S280>/sincos'
    */
-  rtb_MathFunction1_m[5] = -(D_sun * M_moon);
+  rtb_MathFunction1_a[5] = -(dpsi_1980 * M_moon);
 
-  /* SignalConversion: '<S203>/ConcatBufferAtVector ConcatenateIn7' */
-  rtb_MathFunction1_m[6] = M_moon;
+  /* SignalConversion: '<S305>/ConcatBufferAtVector ConcatenateIn7' */
+  rtb_MathFunction1_a[6] = M_moon;
 
-  /* SignalConversion: '<S203>/ConcatBufferAtVector ConcatenateIn8' incorporates:
-   *  Constant: '<S198>/Constant'
+  /* SignalConversion: '<S305>/ConcatBufferAtVector ConcatenateIn8' incorporates:
+   *  Constant: '<S300>/Constant'
    */
-  rtb_MathFunction1_m[7] = 0.0;
+  rtb_MathFunction1_a[7] = 0.0;
 
-  /* UnaryMinus: '<S201>/Unary Minus' */
-  rtb_MathFunction1_m[8] = -dpsi_1980;
+  /* UnaryMinus: '<S303>/Unary Minus' */
+  rtb_MathFunction1_a[8] = -O_moon;
 
-  /* Math: '<S174>/Math Function1' */
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    rtb_MathFunction1_i[3 * rtb_Compare_h] = rtb_MathFunction1_m[rtb_Compare_h];
-    rtb_MathFunction1_i[1 + 3 * rtb_Compare_h] =
-      rtb_MathFunction1_m[rtb_Compare_h + 3];
-    rtb_MathFunction1_i[2 + 3 * rtb_Compare_h] =
-      rtb_MathFunction1_m[rtb_Compare_h + 6];
+  /* Math: '<S276>/Math Function1' */
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    rtb_NED2ECEF[3 * lowAlt_0] = rtb_MathFunction1_a[lowAlt_0];
+    rtb_NED2ECEF[1 + 3 * lowAlt_0] = rtb_MathFunction1_a[lowAlt_0 + 3];
+    rtb_NED2ECEF[2 + 3 * lowAlt_0] = rtb_MathFunction1_a[lowAlt_0 + 6];
   }
 
-  memcpy(&rtb_MathFunction1_m[0], &rtb_MathFunction1_i[0], 9U * sizeof(real_T));
+  memcpy(&rtb_MathFunction1_a[0], &rtb_NED2ECEF[0], 9U * sizeof(real_T));
 
-  /* End of Math: '<S174>/Math Function1' */
+  /* End of Math: '<S276>/Math Function1' */
 
-  /* UnitConversion: '<S216>/Unit Conversion' */
+  /* UnitConversion: '<S318>/Unit Conversion' */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
   api *= 0.017453292519943295;
 
-  /* Trigonometry: '<S181>/Trigonometric Function' */
+  /* Trigonometry: '<S283>/Trigonometric Function' */
   api = sin(api);
 
-  /* UnitConversion: '<S191>/Unit Conversion' */
+  /* UnitConversion: '<S293>/Unit Conversion' */
   /* Unit Conversion - from: deg to: rad
      Expression: output = (0.0174533*input) + (0) */
-  dpsi_1980 = 0.017453292519943295 * eps;
-  D_sun = 0.017453292519943295 * M_sun;
+  O_moon = 0.017453292519943295 * eps;
+  dpsi_1980 = 0.017453292519943295 * M_sun;
 
-  /* Trigonometry: '<S177>/sincos' */
-  eps = cos(dpsi_1980);
-  dpsi_1980 = sin(dpsi_1980);
-  O_moon = cos(D_sun);
-  deps_1980 = sin(D_sun);
+  /* Trigonometry: '<S279>/sincos' */
+  eqe_1980 = cos(O_moon);
+  O_moon = sin(O_moon);
+  deps_1980 = cos(dpsi_1980);
+  eps = sin(dpsi_1980);
 
-  /* UnaryMinus: '<S182>/Unary Minus' incorporates:
-   *  Product: '<S182>/u(1)*u(4)'
-   *  Trigonometry: '<S177>/sincos'
+  /* UnaryMinus: '<S284>/Unary Minus' incorporates:
+   *  Product: '<S284>/u(1)*u(4)'
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[0] = -(dpsi_1980 * O_moon);
+  rtb_MathFunction_b[0] = -(O_moon * deps_1980);
 
-  /* UnaryMinus: '<S185>/Unary Minus' incorporates:
-   *  Trigonometry: '<S177>/sincos'
+  /* UnaryMinus: '<S287>/Unary Minus' incorporates:
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[1] = -deps_1980;
+  rtb_MathFunction_b[1] = -eps;
 
-  /* UnaryMinus: '<S188>/Unary Minus' incorporates:
-   *  Product: '<S188>/u(3)*u(4)'
-   *  Trigonometry: '<S177>/sincos'
+  /* UnaryMinus: '<S290>/Unary Minus' incorporates:
+   *  Product: '<S290>/u(3)*u(4)'
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[2] = -(eps * O_moon);
+  rtb_MathFunction_b[2] = -(eqe_1980 * deps_1980);
 
-  /* UnaryMinus: '<S183>/Unary Minus' incorporates:
-   *  Product: '<S183>/u(1)*u(2)'
-   *  Trigonometry: '<S177>/sincos'
+  /* UnaryMinus: '<S285>/Unary Minus' incorporates:
+   *  Product: '<S285>/u(1)*u(2)'
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[3] = -(dpsi_1980 * deps_1980);
+  rtb_MathFunction_b[3] = -(O_moon * eps);
 
-  /* SignalConversion: '<S192>/ConcatBufferAtVector ConcatenateIn5' incorporates:
-   *  Trigonometry: '<S177>/sincos'
+  /* SignalConversion: '<S294>/ConcatBufferAtVector ConcatenateIn5' incorporates:
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[4] = O_moon;
+  rtb_MathFunction_b[4] = deps_1980;
 
-  /* UnaryMinus: '<S189>/Unary Minus' incorporates:
-   *  Product: '<S189>/u(2)*u(3)'
-   *  Trigonometry: '<S177>/sincos'
+  /* UnaryMinus: '<S291>/Unary Minus' incorporates:
+   *  Product: '<S291>/u(2)*u(3)'
+   *  Trigonometry: '<S279>/sincos'
    */
-  rtb_MathFunction_b[5] = -(deps_1980 * eps);
+  rtb_MathFunction_b[5] = -(eps * eqe_1980);
 
-  /* SignalConversion: '<S192>/ConcatBufferAtVector ConcatenateIn7' */
-  rtb_MathFunction_b[6] = eps;
+  /* SignalConversion: '<S294>/ConcatBufferAtVector ConcatenateIn7' */
+  rtb_MathFunction_b[6] = eqe_1980;
 
-  /* SignalConversion: '<S192>/ConcatBufferAtVector ConcatenateIn8' incorporates:
-   *  Constant: '<S187>/Constant'
+  /* SignalConversion: '<S294>/ConcatBufferAtVector ConcatenateIn8' incorporates:
+   *  Constant: '<S289>/Constant'
    */
   rtb_MathFunction_b[7] = 0.0;
 
-  /* UnaryMinus: '<S190>/Unary Minus' */
-  rtb_MathFunction_b[8] = -dpsi_1980;
+  /* UnaryMinus: '<S292>/Unary Minus' */
+  rtb_MathFunction_b[8] = -O_moon;
 
-  /* Math: '<S174>/Math Function' */
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    rtb_MathFunction1_i[3 * rtb_Compare_h] = rtb_MathFunction_b[rtb_Compare_h];
-    rtb_MathFunction1_i[1 + 3 * rtb_Compare_h] =
-      rtb_MathFunction_b[rtb_Compare_h + 3];
-    rtb_MathFunction1_i[2 + 3 * rtb_Compare_h] =
-      rtb_MathFunction_b[rtb_Compare_h + 6];
+  /* Math: '<S276>/Math Function' */
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    rtb_NED2ECEF[3 * lowAlt_0] = rtb_MathFunction_b[lowAlt_0];
+    rtb_NED2ECEF[1 + 3 * lowAlt_0] = rtb_MathFunction_b[lowAlt_0 + 3];
+    rtb_NED2ECEF[2 + 3 * lowAlt_0] = rtb_MathFunction_b[lowAlt_0 + 6];
   }
 
-  memcpy(&rtb_MathFunction_b[0], &rtb_MathFunction1_i[0], 9U * sizeof(real_T));
+  memcpy(&rtb_MathFunction_b[0], &rtb_NED2ECEF[0], 9U * sizeof(real_T));
 
-  /* End of Math: '<S174>/Math Function' */
+  /* End of Math: '<S276>/Math Function' */
 
-  /* SignalConversion: '<S174>/TmpSignal ConversionAtProductInport2' incorporates:
-   *  Constant: '<S174>/Constant1'
-   *  UnaryMinus: '<S174>/Unary Minus1'
+  /* SignalConversion: '<S276>/TmpSignal ConversionAtProductInport2' incorporates:
+   *  Constant: '<S276>/Constant1'
+   *  UnaryMinus: '<S276>/Unary Minus1'
    */
-  rtb_Subtract_f[0] = 0.0;
-  rtb_Subtract_f[1] = 0.0;
-  rtb_Subtract_f[2] = -rtDW.target_latlonalt[2];
+  rtb_Switch2[0] = 0.0;
+  rtb_Switch2[1] = 0.0;
+  rtb_Switch2[2] = -rtDW.target_latlonalt[2];
 
-  /* Sqrt: '<S181>/sqrt' incorporates:
-   *  Constant: '<S181>/Constant'
-   *  Constant: '<S181>/Re'
-   *  Product: '<S181>/Product2'
-   *  Product: '<S181>/Product3'
-   *  Sum: '<S181>/Sum2'
+  /* Sqrt: '<S283>/sqrt' incorporates:
+   *  Constant: '<S283>/Constant'
+   *  Constant: '<S283>/Re'
+   *  Product: '<S283>/Product2'
+   *  Product: '<S283>/Product3'
+   *  Sum: '<S283>/Sum2'
    */
   deps_1980 = sqrt(4.0680631590769E+13 / (api * api * 0.006739496742276474 + 1.0));
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    /* Sum: '<S174>/Sum' incorporates:
-     *  Product: '<S174>/Product'
-     *  Product: '<S174>/Product1'
-     *  Sqrt: '<S181>/sqrt'
-     *  UnaryMinus: '<S174>/Unary Minus'
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    /* Sum: '<S276>/Sum' incorporates:
+     *  Product: '<S276>/Product'
+     *  Product: '<S276>/Product1'
+     *  Sqrt: '<S283>/sqrt'
+     *  UnaryMinus: '<S276>/Unary Minus'
      */
-    rtb_Reshape3[rtb_Compare_h] = (rtb_MathFunction1_m[rtb_Compare_h + 6] *
-      -deps_1980 + (rtb_MathFunction1_m[rtb_Compare_h + 3] * 0.0 +
-                    rtb_MathFunction1_m[rtb_Compare_h] * 0.0)) +
-      (rtb_MathFunction_b[rtb_Compare_h + 6] * rtb_Subtract_f[2] +
-       (rtb_MathFunction_b[rtb_Compare_h + 3] * 0.0 +
-        rtb_MathFunction_b[rtb_Compare_h] * 0.0));
+    rtb_Sum[lowAlt_0] = (rtb_MathFunction1_a[lowAlt_0 + 6] * -deps_1980 +
+                         (rtb_MathFunction1_a[lowAlt_0 + 3] * 0.0 +
+                          rtb_MathFunction1_a[lowAlt_0] * 0.0)) +
+      (rtb_MathFunction_b[lowAlt_0 + 6] * rtb_Switch2[2] +
+       (rtb_MathFunction_b[lowAlt_0 + 3] * 0.0 + rtb_MathFunction_b[lowAlt_0] *
+        0.0));
   }
 
-  /* Outputs for Atomic SubSystem: '<S169>/target_groundpass_lib1' */
-  target_groundpass_lib1(rtb_MathFunction, rtb_Reshape3, rtDW.target_latlonalt[0],
-    rtDW.target_latlonalt[1], &rtb_Compare_e, &api, rtb_Subtract_f);
+  /* Outputs for Atomic SubSystem: '<S271>/target_groundpass_lib1' */
+  target_groundpass_lib1(tod_to_mod_tmp, rtb_Sum, rtDW.target_latlonalt[0],
+    rtDW.target_latlonalt[1], &lowAlt, &api, rtb_Switch2);
 
-  /* End of Outputs for SubSystem: '<S169>/target_groundpass_lib1' */
+  /* End of Outputs for SubSystem: '<S271>/target_groundpass_lib1' */
 
-  /* MATLAB Function: '<S258>/MATLAB Function' */
-  lowAlt = false;
+  /* MATLAB Function: '<S360>/MATLAB Function' */
+  light = false;
   epsb_1980 = norm_2e9Xj4lM(rtb_M2KM);
-  eps = rtb_pos_teme_km[0] * 1.49598073E+8;
+  eps = rtb_AU2KM[0] * 1.49598073E+8;
   dpsi_1980 = rtb_M2KM[0] * eps;
-  rtb_pos_teme_km[0] = eps;
-  eps = rtb_pos_teme_km[1] * 1.49598073E+8;
+  rtb_AU2KM[0] = eps;
+  eps = rtb_AU2KM[1] * 1.49598073E+8;
   dpsi_1980 += rtb_M2KM[1] * eps;
-  rtb_pos_teme_km[1] = eps;
-  eps = epsb_1980_tmp * 1.49598073E+8;
+  rtb_AU2KM[1] = eps;
+  eps = rtb_AU2KM[2] * 1.49598073E+8;
   n_o = rtb_M2KM[2] * eps;
   dpsi_1980 += n_o;
-  rtb_pos_teme_km[2] = eps;
-  deps_1980 = norm_2e9Xj4lM(rtb_pos_teme_km);
-  M_sun = (rtb_M2KM[0] * rtb_pos_teme_km[0] + rtb_M2KM[1] * rtb_pos_teme_km[1])
-    + n_o;
+  rtb_AU2KM[2] = eps;
+  deps_1980 = norm_2e9Xj4lM(rtb_AU2KM);
+  M_sun = (rtb_M2KM[0] * rtb_AU2KM[0] + rtb_M2KM[1] * rtb_AU2KM[1]) + n_o;
   eps = (epsb_1980 * epsb_1980 - dpsi_1980) / ((epsb_1980 * epsb_1980 +
     deps_1980 * deps_1980) - M_sun * 2.0);
   if ((eps < 0.0) || (eps > 1.0)) {
-    lowAlt = true;
+    light = true;
   }
 
   if (M_sun * eps + (1.0 - eps) * (epsb_1980 * epsb_1980) >=
       4.0680631590768993E+7) {
-    lowAlt = true;
+    light = true;
   }
 
-  lowAlt = !lowAlt;
+  light = !light;
 
-  /* End of MATLAB Function: '<S258>/MATLAB Function' */
+  /* End of MATLAB Function: '<S360>/MATLAB Function' */
 
   /* Outputs for Atomic SubSystem: '<S1>/mode_select_lib' */
-  mode_select_lib(rtDW.telecom, lowAlt, rtDW.Reshape4, rtb_Compare_e, rtDW.Sum,
-                  rtDW.MET_utc_s, rtDW.MET_soar_utc_s, rtDW.RateTransition1,
-                  &rtDW.gnc_mode_b, &rtDW.mode_select_lib_k);
+  /* Sum: '<S275>/Sum' */
+  rtb_gnc_mode = mode_select_lib(rtDW.telecom, light, rtb_Merge, lowAlt,
+    rtb_MathFunction, rtDW.MET_utc_s, rtDW.MET_soar_utc_s, rtDW.RateTransition1,
+    &rtDW.mode_select_lib_k);
 
   /* End of Outputs for SubSystem: '<S1>/mode_select_lib' */
 
-  /* Product: '<S169>/Product1' */
-  for (rtb_Compare_h = 0; rtb_Compare_h < 3; rtb_Compare_h++) {
-    rtDW.Product1[rtb_Compare_h] = 0.0;
-    rtDW.Product1[rtb_Compare_h] += rtb_mod_to_gcrf[rtb_Compare_h] *
-      rtb_Subtract_f[0];
-    rtDW.Product1[rtb_Compare_h] += rtb_mod_to_gcrf[rtb_Compare_h + 3] *
-      rtb_Subtract_f[1];
-    rtDW.Product1[rtb_Compare_h] += rtb_mod_to_gcrf[rtb_Compare_h + 6] *
-      rtb_Subtract_f[2];
+  /* Product: '<S271>/Product1' incorporates:
+   *  Math: '<S271>/Transpose'
+   */
+  for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+    rtb_AU2KM[lowAlt_0] = rtb_Gain_h_tmp[lowAlt_0 + 6] * rtb_Switch2[2] +
+      (rtb_Gain_h_tmp[lowAlt_0 + 3] * rtb_Switch2[1] + rtb_Gain_h_tmp[lowAlt_0] *
+       rtb_Switch2[0]);
   }
 
-  /* End of Product: '<S169>/Product1' */
+  /* End of Product: '<S271>/Product1' */
 
   /* Outputs for Atomic SubSystem: '<S1>/target_generation_lib' */
-  target_generation_lib();
+  /* Update for RateTransition: '<S1>/Rate Transition4' incorporates:
+   *  Sum: '<S275>/Sum'
+   */
+  target_generation_lib(rtb_gnc_mode, rtb_Divide_dr, rtb_AU2KM, rtb_Gain,
+                        rtDW.q_p_merge, rtb_MathFunction, rtDW.RateTransition1,
+                        rtDW.quat_soar_cmd, rtDW.MET_soar_utc_s, rtDW.MET_utc_s,
+                        RateTransition6, rtb_M2KM, rtb_Switch2, &rtb_Switch3,
+                        rtDW.X_f, rtDW.U, &rtDW.s, rtDW.exitcode,
+                        &rtDW.RateTransition4_19_Buffer0.soar_count);
 
   /* End of Outputs for SubSystem: '<S1>/target_generation_lib' */
 
+  /* MATLAB Function: '<S14>/MATLAB Function' */
+  rtb_Divide_dr[0] = 0.0;
+  rtb_Divide_dr[1] = 0.0;
+  rtb_Divide_dr[2] = 0.0;
+  for (iter = 0; iter < 6; iter++) {
+    if (rtDW.RateTransition1_h[iter] > 99.760095101689075) {
+      rtb_Divide_dr[0] += (real_T)normals[3 * iter];
+      rtb_Divide_dr[1] += (real_T)normals[3 * iter + 1];
+      rtb_Divide_dr[2] += (real_T)normals[3 * iter + 2];
+    }
+  }
+
+  rtb_Sum[0] = rtb_Divide_dr[0];
+  rtb_Sum[1] = rtb_Divide_dr[1] - -1.0;
+  rtb_Sum[2] = rtb_Divide_dr[2];
+  if (norm_2e9Xj4lM(rtb_Sum) < 1.0E-8) {
+    for (i = 0; i < 6; i++) {
+      rtb_Elementproduct[i] = rtDW.RateTransition1_h[i];
+    }
+
+    sort_E8F8dFL3(rtb_Elementproduct, iidx);
+    rtb_Divide_dr[0] += (real_T)normals[(iidx[4] - 1) * 3];
+    rtb_Divide_dr[1] += (real_T)normals[(iidx[4] - 1) * 3 + 1];
+    rtb_Divide_dr[2] += (real_T)normals[(iidx[4] - 1) * 3 + 2];
+  }
+
+  deps_1980 = norm_2e9Xj4lM(rtb_Divide_dr);
+  if (deps_1980 < 1.0) {
+    rtb_Divide_dr[0] = 0.0;
+    rtb_Divide_dr[1] = 0.0;
+    rtb_Divide_dr[2] = -1.0;
+  } else {
+    rtb_Divide_dr[0] /= deps_1980;
+    rtb_Divide_dr[1] /= deps_1980;
+    rtb_Divide_dr[2] /= deps_1980;
+  }
+
+  /* End of MATLAB Function: '<S14>/MATLAB Function' */
+
+  /* Sum: '<S5>/Sum1' */
+  rtb_AU2KM[0] = rtb_M2KM[0] - rtb_MathFunction[0];
+  rtb_AU2KM[1] = rtb_M2KM[1] - rtb_MathFunction[1];
+  rtb_AU2KM[2] = rtb_M2KM[2] - rtb_MathFunction[2];
+
   /* Outputs for Atomic SubSystem: '<S5>/quat_err_lib' */
-  quat_err_lib(rtDW.RateTransition6, rtDW.qmerge, rtb_DiscreteTimeIntegrator);
+  quat_err_lib(RateTransition6, rtDW.q_p_merge, rtb_Multiply);
 
   /* End of Outputs for SubSystem: '<S5>/quat_err_lib' */
 
-  /* MATLAB Function: '<S11>/MATLAB Function' */
-  rtDW.sun_body_unit[0] = 0.0;
-  rtDW.sun_body_unit[1] = 0.0;
-  rtDW.sun_body_unit[2] = 0.0;
-  for (iter = 0; iter < 6; iter++) {
-    if (rtDW.RateTransition1_h[iter] > I_thresh_A[iter]) {
-      rtDW.sun_body_unit[0] += (real_T)normals[3 * iter];
-      rtDW.sun_body_unit[1] += (real_T)normals[3 * iter + 1];
-      rtDW.sun_body_unit[2] += (real_T)normals[3 * iter + 2];
-    }
-  }
-
-  rtb_pos_teme_km[0] = rtDW.sun_body_unit[0];
-  rtb_pos_teme_km[1] = rtDW.sun_body_unit[1] - -1.0;
-  rtb_pos_teme_km[2] = rtDW.sun_body_unit[2];
-  if (norm_2e9Xj4lM(rtb_pos_teme_km) < 1.0E-8) {
-    for (i = 0; i < 6; i++) {
-      x[i] = rtDW.RateTransition1_h[i];
-    }
-
-    sort_E8F8dFL3(x, iidx);
-    rtDW.sun_body_unit[0] += (real_T)normals[(iidx[4] - 1) * 3];
-    rtDW.sun_body_unit[1] += (real_T)normals[(iidx[4] - 1) * 3 + 1];
-    rtDW.sun_body_unit[2] += (real_T)normals[(iidx[4] - 1) * 3 + 2];
-  }
-
-  deps_1980 = norm_2e9Xj4lM(rtDW.sun_body_unit);
-  if (deps_1980 < 1.0) {
-    rtDW.sun_body_unit[0] = 0.0;
-    rtDW.sun_body_unit[1] = 0.0;
-    rtDW.sun_body_unit[2] = -1.0;
-  } else {
-    rtDW.sun_body_unit[0] /= deps_1980;
-    rtDW.sun_body_unit[1] /= deps_1980;
-    rtDW.sun_body_unit[2] /= deps_1980;
-  }
-
-  /* End of MATLAB Function: '<S11>/MATLAB Function' */
-
-  /* Sum: '<S5>/Sum1' */
-  rtDW.w_err_radps[0] = rtDW.RateTransition2_h[0] - rtDW.Sum[0];
-  rtDW.w_err_radps[1] = rtDW.RateTransition2_h[1] - rtDW.Sum[1];
-  rtDW.w_err_radps[2] = rtDW.RateTransition2_h[2] - rtDW.Sum[2];
-
-  /* SwitchCase: '<S123>/Switch Case' */
-  switch (rtDW.gnc_mode_b) {
+  /* SwitchCase: '<S226>/Switch Case' incorporates:
+   *  Gain: '<S241>/Gain'
+   *  Product: '<S241>/Matrix Multiply8'
+   */
+  switch (rtb_gnc_mode) {
    case 0:
    case 1:
    case 2:
-    /* Outputs for IfAction SubSystem: '<S123>/case_null_control' incorporates:
-     *  ActionPort: '<S130>/Action Port'
+   case 4:
+    /* Outputs for IfAction SubSystem: '<S226>/case_null_control' incorporates:
+     *  ActionPort: '<S233>/Action Port'
      */
-    /* SignalConversion: '<S130>/OutportBufferFornull_MTQ_cmd_Am2' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_MTQ_cmd_Am2' */
     rtDW.Merge1[0] = 0.0;
 
-    /* SignalConversion: '<S130>/OutportBufferFornull_RWA_cmd_Nm' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_RWA_cmd_Nm' */
     rtDW.Merge[0] = 0.0;
 
-    /* SignalConversion: '<S130>/OutportBufferFornull_MTQ_cmd_Am2' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_MTQ_cmd_Am2' */
     rtDW.Merge1[1] = 0.0;
 
-    /* SignalConversion: '<S130>/OutportBufferFornull_RWA_cmd_Nm' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_RWA_cmd_Nm' */
     rtDW.Merge[1] = 0.0;
 
-    /* SignalConversion: '<S130>/OutportBufferFornull_MTQ_cmd_Am2' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_MTQ_cmd_Am2' */
     rtDW.Merge1[2] = 0.0;
 
-    /* SignalConversion: '<S130>/OutportBufferFornull_RWA_cmd_Nm' */
+    /* SignalConversion: '<S233>/OutportBufferFornull_RWA_cmd_Nm' */
     rtDW.Merge[2] = 0.0;
 
-    /* End of Outputs for SubSystem: '<S123>/case_null_control' */
+    /* End of Outputs for SubSystem: '<S226>/case_null_control' */
     break;
 
    case 3:
-    /* Outputs for IfAction SubSystem: '<S123>/case_asm' incorporates:
-     *  ActionPort: '<S128>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S226>/case_asm' incorporates:
+     *  ActionPort: '<S231>/Action Port'
      */
-    /* SignalConversion: '<S128>/OutportBuffer_InsertedFor_asm_MTQ_cmd_Am2_at_inport_0' */
+    /* SignalConversion: '<S231>/OutportBuffer_InsertedFor_asm_MTQ_cmd_Am2_at_inport_0' */
     rtDW.Merge1[0] = 0.0;
     rtDW.Merge1[1] = 0.0;
     rtDW.Merge1[2] = 0.0;
 
-    /* Outputs for Atomic SubSystem: '<S128>/asmController_lib' */
-    asmController_lib();
+    /* Outputs for Atomic SubSystem: '<S231>/asmController_lib' */
+    asmController_lib(rtb_AU2KM, rtDW.Merge);
 
-    /* End of Outputs for SubSystem: '<S128>/asmController_lib' */
-    /* End of Outputs for SubSystem: '<S123>/case_asm' */
-    break;
-
-   case 4:
-    /* Outputs for IfAction SubSystem: '<S123>/case_desat' incorporates:
-     *  ActionPort: '<S129>/Action Port'
-     */
-    /* SignalConversion: '<S129>/OutportBufferFordesat_MTQ_cmd_Am2' */
-    rtDW.Merge1[0] = rtConstB.null_control_lib_g.null_control_input[0];
-
-    /* SignalConversion: '<S129>/OutportBufferFordesat_RWA_cmd_Nm' */
-    rtDW.Merge[0] = rtConstB.null_control_lib_g.null_control_input[0];
-
-    /* SignalConversion: '<S129>/OutportBufferFordesat_MTQ_cmd_Am2' */
-    rtDW.Merge1[1] = rtConstB.null_control_lib_g.null_control_input[1];
-
-    /* SignalConversion: '<S129>/OutportBufferFordesat_RWA_cmd_Nm' */
-    rtDW.Merge[1] = rtConstB.null_control_lib_g.null_control_input[1];
-
-    /* SignalConversion: '<S129>/OutportBufferFordesat_MTQ_cmd_Am2' */
-    rtDW.Merge1[2] = rtConstB.null_control_lib_g.null_control_input[2];
-
-    /* SignalConversion: '<S129>/OutportBufferFordesat_RWA_cmd_Nm' */
-    rtDW.Merge[2] = rtConstB.null_control_lib_g.null_control_input[2];
-
-    /* End of Outputs for SubSystem: '<S123>/case_desat' */
+    /* End of Outputs for SubSystem: '<S231>/asmController_lib' */
+    /* End of Outputs for SubSystem: '<S226>/case_asm' */
     break;
 
    case 5:
-    /* Outputs for IfAction SubSystem: '<S123>/case_sunseek' incorporates:
-     *  ActionPort: '<S132>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S226>/case_sunseek' incorporates:
+     *  ActionPort: '<S235>/Action Port'
      */
-    /* SignalConversion: '<S132>/OutportBuffer_InsertedFor_sunseek_MTQ_cmd_Am2_at_inport_0' */
+    /* SignalConversion: '<S235>/OutportBuffer_InsertedFor_sunseek_MTQ_cmd_Am2_at_inport_0' */
     rtDW.Merge1[0] = 0.0;
     rtDW.Merge1[1] = 0.0;
     rtDW.Merge1[2] = 0.0;
 
-    /* Outputs for Atomic SubSystem: '<S132>/sunSeek_lib' */
-    sunSeek_lib();
+    /* Outputs for Atomic SubSystem: '<S235>/sunSeek_lib' */
+    sunSeek_lib(rtb_Merge, rtb_Divide_dr, rtb_ss_2_body, rtb_AU2KM, rtDW.Merge);
 
-    /* End of Outputs for SubSystem: '<S132>/sunSeek_lib' */
-    /* End of Outputs for SubSystem: '<S123>/case_sunseek' */
+    /* End of Outputs for SubSystem: '<S235>/sunSeek_lib' */
+    /* End of Outputs for SubSystem: '<S226>/case_sunseek' */
     break;
 
    case 6:
+    /* Outputs for IfAction SubSystem: '<S226>/case_desaturation' incorporates:
+     *  ActionPort: '<S232>/Action Port'
+     */
+    /* Sum: '<S239>/Sum of Elements' incorporates:
+     *  Math: '<S239>/Math Function'
+     */
+    rtb_Sqrt = rtb_nT2T[0] * rtb_nT2T[0];
+    rtb_Sqrt += rtb_nT2T[1] * rtb_nT2T[1];
+    rtb_Sqrt += rtb_nT2T[2] * rtb_nT2T[2];
+
+    /* Math: '<S239>/Math Function1'
+     *
+     * About '<S239>/Math Function1':
+     *  Operator: sqrt
+     */
+    if (rtb_Sqrt < 0.0) {
+      rtb_Sqrt = -sqrt(fabs(rtb_Sqrt));
+    } else {
+      rtb_Sqrt = sqrt(rtb_Sqrt);
+    }
+
+    /* End of Math: '<S239>/Math Function1' */
+
+    /* Switch: '<S239>/Switch' incorporates:
+     *  Constant: '<S239>/Constant'
+     *  Product: '<S239>/Product'
+     */
+    if (rtb_Sqrt > 0.0) {
+      rtb_Switch_l[0] = rtb_nT2T[0];
+      rtb_Switch_l[1] = rtb_nT2T[1];
+      rtb_Switch_l[2] = rtb_nT2T[2];
+      rtb_Switch_l[3] = rtb_Sqrt;
+    } else {
+      rtb_Switch_l[0] = rtb_nT2T[0] * 0.0;
+      rtb_Switch_l[1] = rtb_nT2T[1] * 0.0;
+      rtb_Switch_l[2] = rtb_nT2T[2] * 0.0;
+      rtb_Switch_l[3] = 1.0;
+    }
+
+    /* End of Switch: '<S239>/Switch' */
+
+    /* Product: '<S239>/Divide' */
+    rtb_Divide_dr[0] = rtb_Switch_l[0] / rtb_Switch_l[3];
+    rtb_Divide_dr[1] = rtb_Switch_l[1] / rtb_Switch_l[3];
+    rtb_Divide_dr[2] = rtb_Switch_l[2] / rtb_Switch_l[3];
+
+    /* Product: '<S240>/Matrix Multiply1' incorporates:
+     *  Constant: '<S240>/A_wheel2body '
+     *  Gain: '<S240>/RPM2RPS'
+     */
+    for (lowAlt_0 = 0; lowAlt_0 < 4; lowAlt_0++) {
+      deps_1980 = rtConstB.CreateDiagonalMatrix[lowAlt_0 + 12] *
+        (0.10471975511965977 * rtDW.RateTransition1[3]) +
+        (rtConstB.CreateDiagonalMatrix[lowAlt_0 + 8] * (0.10471975511965977 *
+          rtDW.RateTransition1[2]) + (rtConstB.CreateDiagonalMatrix[lowAlt_0 + 4]
+          * (0.10471975511965977 * rtDW.RateTransition1[1]) +
+          0.10471975511965977 * rtDW.RateTransition1[0] *
+          rtConstB.CreateDiagonalMatrix[lowAlt_0]));
+      rtb_Switch_l[lowAlt_0] = deps_1980;
+    }
+
+    for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+      deps_1980 = rtCP_A_wheel2body_Value[lowAlt_0 + 9] * rtb_Switch_l[3] +
+        (rtCP_A_wheel2body_Value[lowAlt_0 + 6] * rtb_Switch_l[2] +
+         (rtCP_A_wheel2body_Value[lowAlt_0 + 3] * rtb_Switch_l[1] +
+          rtCP_A_wheel2body_Value[lowAlt_0] * rtb_Switch_l[0]));
+
+      /* Sum: '<S240>/Subtract1' incorporates:
+       *  Constant: '<S240>/A_wheel2body '
+       *  Constant: '<S240>/scParams.J '
+       *  Product: '<S240>/Matrix Multiply'
+       */
+      rtb_ss_2_body[lowAlt_0] = ((rtCP_scParamsJ_Value[lowAlt_0 + 3] *
+        rtb_AU2KM[1] + rtCP_scParamsJ_Value[lowAlt_0] * rtb_AU2KM[0]) +
+        rtCP_scParamsJ_Value[lowAlt_0 + 6] * rtb_AU2KM[2]) + (deps_1980 -
+        rtConstB.h_w_nom_body_Nms[lowAlt_0]);
+    }
+
+    /* End of Product: '<S240>/Matrix Multiply1' */
+
+    /* Outputs for Atomic SubSystem: '<S238>/twonorm' */
+    rtb_Sqrt = twonorm(rtb_nT2T);
+
+    /* End of Outputs for SubSystem: '<S238>/twonorm' */
+
+    /* Sum: '<S244>/Add3' incorporates:
+     *  Product: '<S244>/Element product'
+     */
+    eps = rtb_ss_2_body[1] * rtb_Divide_dr[2] - rtb_ss_2_body[2] *
+      rtb_Divide_dr[1];
+    epsb_1980 = rtb_ss_2_body[2] * rtb_Divide_dr[0] - rtb_ss_2_body[0] *
+      rtb_Divide_dr[2];
+    M_sun = rtb_ss_2_body[0] * rtb_Divide_dr[1] - rtb_ss_2_body[1] *
+      rtb_Divide_dr[0];
+    for (lowAlt_0 = 0; lowAlt_0 < 3; lowAlt_0++) {
+      /* Sum: '<S241>/Subtract2' incorporates:
+       *  Product: '<S241>/Matrix Multiply7'
+       */
+      tmp[lowAlt_0] = rtConstB.IdentityMatrix[lowAlt_0] - rtb_Divide_dr[lowAlt_0]
+        * rtb_Divide_dr[0];
+      tmp[lowAlt_0 + 3] = rtConstB.IdentityMatrix[lowAlt_0 + 3] -
+        rtb_Divide_dr[lowAlt_0] * rtb_Divide_dr[1];
+      tmp[lowAlt_0 + 6] = rtConstB.IdentityMatrix[lowAlt_0 + 6] -
+        rtb_Divide_dr[lowAlt_0] * rtb_Divide_dr[2];
+
+      /* Product: '<S242>/Divide' incorporates:
+       *  Gain: '<S242>/Gain3'
+       */
+      rtDW.Merge1[lowAlt_0] = ((rtCP_Gain3_Gain_k[lowAlt_0 + 3] * epsb_1980 +
+        rtCP_Gain3_Gain_k[lowAlt_0] * eps) + rtCP_Gain3_Gain_k[lowAlt_0 + 6] *
+        M_sun) / rtb_Sqrt;
+      rtb_Sum[lowAlt_0] = tmp[lowAlt_0 + 6] * rtb_ss_2_body[2] + (tmp[lowAlt_0 +
+        3] * rtb_ss_2_body[1] + tmp[lowAlt_0] * rtb_ss_2_body[0]);
+    }
+
+    for (i = 0; i < 3; i++) {
+      eps = rtCP_Gain_Gain_dj[i + 6] * rtb_Sum[2] + (rtCP_Gain_Gain_dj[i + 3] *
+        rtb_Sum[1] + rtCP_Gain_Gain_dj[i] * rtb_Sum[0]);
+
+      /* Gain: '<S241>/Gain1' incorporates:
+       *  Gain: '<S241>/Gain'
+       */
+      rtb_nT2T[i] = -eps;
+      rtb_ss_2_body[i] = eps;
+    }
+
+    /* Outputs for Atomic SubSystem: '<S232>/PD_Controller_Lib' */
+    PD_Controller_Lib(rtb_Multiply, rtb_AU2KM, rtb_ss_2_body);
+
+    /* End of Outputs for SubSystem: '<S232>/PD_Controller_Lib' */
+
+    /* Sum: '<S232>/Sum' incorporates:
+     *  Gain: '<S241>/Gain'
+     *  Product: '<S241>/Matrix Multiply8'
+     */
+    rtDW.Merge[0] = rtb_ss_2_body[0] + rtb_nT2T[0];
+    rtDW.Merge[1] = rtb_ss_2_body[1] + rtb_nT2T[1];
+    rtDW.Merge[2] = rtb_ss_2_body[2] + rtb_nT2T[2];
+
+    /* End of Outputs for SubSystem: '<S226>/case_desaturation' */
+    break;
+
    case 7:
    case 8:
-    /* Outputs for IfAction SubSystem: '<S123>/case_reorientation' incorporates:
-     *  ActionPort: '<S131>/Action Port'
+    /* Outputs for IfAction SubSystem: '<S226>/case_reorientation' incorporates:
+     *  ActionPort: '<S234>/Action Port'
      */
-    /* SignalConversion: '<S131>/OutportBuffer_InsertedFor_tracking_MTQ_cmd_Am2_at_inport_0' */
+    /* SignalConversion: '<S234>/OutportBuffer_InsertedFor_tracking_MTQ_cmd_Am2_at_inport_0' */
     rtDW.Merge1[0] = 0.0;
     rtDW.Merge1[1] = 0.0;
     rtDW.Merge1[2] = 0.0;
 
-    /* Outputs for Atomic SubSystem: '<S131>/PD_Controller_Lib' */
-    PD_Controller_Lib(rtb_DiscreteTimeIntegrator, rtDW.w_err_radps, rtDW.Merge);
+    /* Outputs for Atomic SubSystem: '<S234>/PD_Controller_Lib' */
+    PD_Controller_Lib(rtb_Multiply, rtb_AU2KM, rtDW.Merge);
 
-    /* End of Outputs for SubSystem: '<S131>/PD_Controller_Lib' */
-    /* End of Outputs for SubSystem: '<S123>/case_reorientation' */
+    /* End of Outputs for SubSystem: '<S234>/PD_Controller_Lib' */
+    /* End of Outputs for SubSystem: '<S226>/case_reorientation' */
     break;
   }
 
-  /* End of SwitchCase: '<S123>/Switch Case' */
+  /* End of SwitchCase: '<S226>/Switch Case' */
 
   /* Sum: '<S5>/Sum' */
-  rtb_M2KM[0] = rtDW.Merge[0] + rtDW.RateTransition5[0];
-  rtb_M2KM[1] = rtDW.Merge[1] + rtDW.RateTransition5[1];
-  rtb_M2KM[2] = rtDW.Merge[2] + rtDW.RateTransition5[2];
+  rtb_Switch2[0] += rtDW.Merge[0];
+  rtb_Switch2[1] += rtDW.Merge[1];
+  rtb_Switch2[2] += rtDW.Merge[2];
 
   /* Outputs for Atomic SubSystem: '<S5>/rwa_allocation_lib' */
-  rwa_allocation_lib(rtb_M2KM, rtDW.RateTransition1, rtDW.RateTransition2_l,
-                     rtb_Switch_dq, &rtDW.rwa_allocation_lib_o);
+  rwa_allocation_lib(rtb_Switch2, rtDW.RateTransition1, rtDW.RateTransition2_l,
+                     rtb_Switch_l, &rtDW.rwa_allocation_lib_o);
 
   /* End of Outputs for SubSystem: '<S5>/rwa_allocation_lib' */
 
-  /* Outputs for Atomic SubSystem: '<S169>/target_groundpass_lib' */
-  /* Constant: '<S169>/Constant' */
-  target_groundpass_lib(rtb_MathFunction, rtCP_Constant_Value_jp,
-                        &rtb_Compare_j5, &eps, rtb_M2KM,
+  /* Outputs for Atomic SubSystem: '<S271>/target_groundpass_lib' */
+  /* Update for RateTransition: '<S1>/Rate Transition4' incorporates:
+   *  Constant: '<S271>/Constant'
+   */
+  target_groundpass_lib(tod_to_mod_tmp, rtCP_Constant_Value_jp, &rtb_Compare_m,
+                        &rtDW.RateTransition4_16_Buffer0, rtb_Switch2,
                         &rtConstB.target_groundpass_lib_i);
 
-  /* End of Outputs for SubSystem: '<S169>/target_groundpass_lib' */
+  /* End of Outputs for SubSystem: '<S271>/target_groundpass_lib' */
 
-  /* Gain: '<S127>/radps_2_rpm' incorporates:
-   *  DiscreteIntegrator: '<S127>/Discrete-Time Integrator'
-   *  Product: '<S127>/Product'
+  /* RelationalOperator: '<S17>/Compare' incorporates:
+   *  Constant: '<S17>/Constant'
+   *  UnitDelay: '<S19>/Output'
    */
-  epsb_1980 = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[0] *
+  rtb_Compare_b = (rtDW.Output_DSTATE <= 4);
+
+  /* Gain: '<S230>/radps_2_rpm' incorporates:
+   *  DiscreteIntegrator: '<S230>/Discrete-Time Integrator'
+   *  Product: '<S230>/Product'
+   */
+  eps = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[0] *
     9.5492965855137211;
 
-  /* Update for DiscreteIntegrator: '<S127>/Discrete-Time Integrator' */
-  rtDW.DiscreteTimeIntegrator_DSTATE[0] += 0.25 * rtb_Switch_dq[0];
-
-  /* Saturate: '<S127>/Saturation' */
-  if (epsb_1980 > 6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[0] = 6500.0;
-  } else if (epsb_1980 < -6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[0] = -6500.0;
+  /* Saturate: '<S230>/Saturation' */
+  if (eps > 6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[0] = 6500.0;
+  } else if (eps < -6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[0] = -6500.0;
   } else {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[0] = epsb_1980;
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[0] = eps;
   }
 
-  /* Gain: '<S127>/radps_2_rpm' incorporates:
-   *  DiscreteIntegrator: '<S127>/Discrete-Time Integrator'
-   *  Product: '<S127>/Product'
+  /* Gain: '<S230>/radps_2_rpm' incorporates:
+   *  DiscreteIntegrator: '<S230>/Discrete-Time Integrator'
+   *  Product: '<S230>/Product'
    */
-  epsb_1980 = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[1] *
+  eps = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[1] *
     9.5492965855137211;
 
-  /* Update for DiscreteIntegrator: '<S127>/Discrete-Time Integrator' */
-  rtDW.DiscreteTimeIntegrator_DSTATE[1] += 0.25 * rtb_Switch_dq[1];
-
-  /* Saturate: '<S127>/Saturation' */
-  if (epsb_1980 > 6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[1] = 6500.0;
-  } else if (epsb_1980 < -6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[1] = -6500.0;
+  /* Saturate: '<S230>/Saturation' */
+  if (eps > 6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[1] = 6500.0;
+  } else if (eps < -6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[1] = -6500.0;
   } else {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[1] = epsb_1980;
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[1] = eps;
   }
 
-  /* Gain: '<S127>/radps_2_rpm' incorporates:
-   *  DiscreteIntegrator: '<S127>/Discrete-Time Integrator'
-   *  Product: '<S127>/Product'
+  /* Gain: '<S230>/radps_2_rpm' incorporates:
+   *  DiscreteIntegrator: '<S230>/Discrete-Time Integrator'
+   *  Product: '<S230>/Product'
    */
-  epsb_1980 = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[2] *
+  eps = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[2] *
     9.5492965855137211;
 
-  /* Update for DiscreteIntegrator: '<S127>/Discrete-Time Integrator' */
-  rtDW.DiscreteTimeIntegrator_DSTATE[2] += 0.25 * rtb_Switch_dq[2];
-
-  /* Saturate: '<S127>/Saturation' */
-  if (epsb_1980 > 6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[2] = 6500.0;
-  } else if (epsb_1980 < -6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[2] = -6500.0;
+  /* Saturate: '<S230>/Saturation' */
+  if (eps > 6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[2] = 6500.0;
+  } else if (eps < -6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[2] = -6500.0;
   } else {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[2] = epsb_1980;
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[2] = eps;
   }
 
-  /* Gain: '<S127>/radps_2_rpm' incorporates:
-   *  DiscreteIntegrator: '<S127>/Discrete-Time Integrator'
-   *  Product: '<S127>/Product'
+  /* Gain: '<S230>/radps_2_rpm' incorporates:
+   *  DiscreteIntegrator: '<S230>/Discrete-Time Integrator'
+   *  Product: '<S230>/Product'
    */
-  epsb_1980 = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[3] *
+  eps = 33868.4549210865 * rtDW.DiscreteTimeIntegrator_DSTATE[3] *
     9.5492965855137211;
 
-  /* Update for DiscreteIntegrator: '<S127>/Discrete-Time Integrator' */
-  rtDW.DiscreteTimeIntegrator_DSTATE[3] += 0.25 * rtb_Switch_dq[3];
-
-  /* Saturate: '<S127>/Saturation' */
-  if (epsb_1980 > 6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[3] = 6500.0;
-  } else if (epsb_1980 < -6500.0) {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[3] = -6500.0;
+  /* Saturate: '<S230>/Saturation' */
+  if (eps > 6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[3] = 6500.0;
+  } else if (eps < -6500.0) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[3] = -6500.0;
   } else {
-    /* Update for RateTransition: '<S1>/Rate Transition3' */
-    rtDW.RateTransition3_1_Buffer0[3] = epsb_1980;
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.rwa_cmd_rpm[3] = eps;
   }
 
-  /* Update for RateTransition: '<S1>/Rate Transition3' */
-  rtDW.RateTransition3_2_Buffer0[0] = rtDW.Merge1[0];
-  rtDW.RateTransition3_2_Buffer0[1] = rtDW.Merge1[1];
-  rtDW.RateTransition3_2_Buffer0[2] = rtDW.Merge1[2];
+  /* Saturate: '<S227>/Saturation' */
+  if (rtb_Multiply[0] > 1.0) {
+    eps = 1.0;
+  } else if (rtb_Multiply[0] < -1.0) {
+    eps = -1.0;
+  } else {
+    eps = rtb_Multiply[0];
+  }
 
-  /* Update for RateTransition: '<S1>/Rate Transition4' */
-  rtDW.RateTransition4_1_Buffer0 = rtDW.gnc_mode_b;
-  rtDW.RateTransition4_2_Buffer0[0] = rtDW.qmerge[0];
-  rtDW.RateTransition4_2_Buffer0[1] = rtDW.qmerge[1];
-  rtDW.RateTransition4_2_Buffer0[2] = rtDW.qmerge[2];
-  rtDW.RateTransition4_2_Buffer0[3] = rtDW.qmerge[3];
-  rtDW.RateTransition4_3_Buffer0[0] = rtDW.Sum[0];
-  rtDW.RateTransition4_3_Buffer0[1] = rtDW.Sum[1];
-  rtDW.RateTransition4_3_Buffer0[2] = rtDW.Sum[2];
-  rtDW.RateTransition4_4_Buffer0[0] = rtDW.RateTransition6[0];
-  rtDW.RateTransition4_4_Buffer0[1] = rtDW.RateTransition6[1];
-  rtDW.RateTransition4_4_Buffer0[2] = rtDW.RateTransition6[2];
-  rtDW.RateTransition4_4_Buffer0[3] = rtDW.RateTransition6[3];
-  rtDW.RateTransition4_5_Buffer0[0] = rtDW.RateTransition2_h[0];
-  rtDW.RateTransition4_5_Buffer0[1] = rtDW.RateTransition2_h[1];
-  rtDW.RateTransition4_5_Buffer0[2] = rtDW.RateTransition2_h[2];
+  /* End of Saturate: '<S227>/Saturation' */
+
+  /* Abs: '<S227>/Abs' incorporates:
+   *  Gain: '<S227>/Gain'
+   *  Gain: '<S227>/RAD2DEG'
+   *  Trigonometry: '<S227>/Acos'
+   */
+  rtb_Sqrt = fabs(2.0 * acos(eps) * 57.295779513082323);
+
+  /* Sum: '<S20>/FixPt Sum1' incorporates:
+   *  Constant: '<S20>/FixPt Constant'
+   *  UnitDelay: '<S19>/Output'
+   */
+  rtb_FixPtSum1 = (uint8_T)(rtDW.Output_DSTATE + 1U);
+
+  /* Switch: '<S21>/FixPt Switch' */
+  if (rtb_FixPtSum1 > 10) {
+    /* Update for UnitDelay: '<S19>/Output' incorporates:
+     *  Constant: '<S21>/Constant'
+     */
+    rtDW.Output_DSTATE = 0U;
+  } else {
+    /* Update for UnitDelay: '<S19>/Output' */
+    rtDW.Output_DSTATE = rtb_FixPtSum1;
+  }
+
+  /* End of Switch: '<S21>/FixPt Switch' */
+
+  /* Switch: '<S225>/Switch' */
+  if (rtb_Compare_b) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.mtq_cmd_Am2[0] = rtDW.Merge1[0];
+    rtY.fsw_out_g.mtq_cmd_Am2[1] = rtDW.Merge1[1];
+  } else {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.mtq_cmd_Am2[0] = 0.0;
+    rtY.fsw_out_g.mtq_cmd_Am2[1] = 0.0;
+  }
+
+  /* Update for UnitDelay: '<S11>/Unit Delay' */
+  rtDW.UnitDelay_DSTATE[0] = rtb_pos_teme_km[0];
+  rtDW.UnitDelay_DSTATE[1] = rtb_pos_teme_km[1];
+
+  /* Switch: '<S225>/Switch' */
+  if (rtb_Compare_b) {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.mtq_cmd_Am2[2] = rtDW.Merge1[2];
+  } else {
+    /* Outport: '<Root>/fsw_out' */
+    rtY.fsw_out_g.mtq_cmd_Am2[2] = 0.0;
+  }
+
+  /* Update for UnitDelay: '<S11>/Unit Delay' */
+  rtDW.UnitDelay_DSTATE[2] = rtb_pos_teme_km[2];
+
+  /* Update for DiscreteIntegrator: '<S230>/Discrete-Time Integrator' */
+  rtDW.DiscreteTimeIntegrator_DSTATE[0] += 0.25 * rtb_Switch_l[0];
+  rtDW.DiscreteTimeIntegrator_DSTATE[1] += 0.25 * rtb_Switch_l[1];
+  rtDW.DiscreteTimeIntegrator_DSTATE[2] += 0.25 * rtb_Switch_l[2];
+  rtDW.DiscreteTimeIntegrator_DSTATE[3] += 0.25 * rtb_Switch_l[3];
+
+  /* Update for RateTransition: '<S1>/Rate Transition4' incorporates:
+   *  BusCreator: '<S1>/BusConversion_InsertedFor_Bus Assignment1_at_inport_19'
+   */
+  rtDW.RateTransition4_1_Buffer0 = rtb_gnc_mode;
+  rtDW.RateTransition4_2_Buffer0[0] = rtDW.q_p_merge[0];
+  rtDW.RateTransition4_2_Buffer0[1] = rtDW.q_p_merge[1];
+  rtDW.RateTransition4_2_Buffer0[2] = rtDW.q_p_merge[2];
+  rtDW.RateTransition4_2_Buffer0[3] = rtDW.q_p_merge[3];
+  rtDW.RateTransition4_3_Buffer0[0] = rtb_MathFunction[0];
+  rtDW.RateTransition4_3_Buffer0[1] = rtb_MathFunction[1];
+  rtDW.RateTransition4_3_Buffer0[2] = rtb_MathFunction[2];
+  rtDW.RateTransition4_4_Buffer0[0] = RateTransition6[0];
+  rtDW.RateTransition4_4_Buffer0[1] = RateTransition6[1];
+  rtDW.RateTransition4_4_Buffer0[2] = RateTransition6[2];
+  rtDW.RateTransition4_4_Buffer0[3] = RateTransition6[3];
+  rtDW.RateTransition4_5_Buffer0[0] = rtb_M2KM[0];
+  rtDW.RateTransition4_5_Buffer0[1] = rtb_M2KM[1];
+  rtDW.RateTransition4_5_Buffer0[2] = rtb_M2KM[2];
   for (i = 0; i < 6; i++) {
     rtDW.RateTransition4_6_Buffer0[i] = rtb_YMDHMS_UTC[i];
   }
 
-  rtDW.RateTransition4_7_Buffer0[0] = rtb_MatrixMultiply[0];
-  rtDW.RateTransition4_7_Buffer0[1] = rtb_MatrixMultiply[1];
-  rtDW.RateTransition4_7_Buffer0[2] = rtb_MatrixMultiply[2];
-  rtDW.RateTransition4_8_Buffer0 = rtb_Merge_i;
-  rtDW.RateTransition4_9_Buffer0[0] = rtDW.Gain[0];
-  rtDW.RateTransition4_9_Buffer0[1] = rtDW.Gain[1];
-  rtDW.RateTransition4_9_Buffer0[2] = rtDW.Gain[2];
-
-  /* Saturate: '<S124>/Saturation' */
-  if (rtb_DiscreteTimeIntegrator[0] > 1.0) {
-    epsb_1980 = 1.0;
-  } else if (rtb_DiscreteTimeIntegrator[0] < -1.0) {
-    epsb_1980 = -1.0;
-  } else {
-    epsb_1980 = rtb_DiscreteTimeIntegrator[0];
-  }
-
-  /* End of Saturate: '<S124>/Saturation' */
-
-  /* Update for RateTransition: '<S1>/Rate Transition4' incorporates:
-   *  Abs: '<S124>/Abs'
-   *  BusCreator: '<S1>/BusConversion_InsertedFor_Bus Assignment1_at_inport_18'
-   *  Gain: '<S124>/Gain'
-   *  Gain: '<S124>/RAD2DEG'
-   *  Trigonometry: '<S124>/Acos'
-   */
-  rtDW.RateTransition4_10_Buffer0 = fabs(2.0 * acos(epsb_1980) *
-    57.295779513082323);
-  rtDW.RateTransition4_11_Buffer0 = lowAlt;
+  rtDW.RateTransition4_7_Buffer0[0] = rtb_bias_merge[0];
+  rtDW.RateTransition4_7_Buffer0[1] = rtb_bias_merge[1];
+  rtDW.RateTransition4_7_Buffer0[2] = rtb_bias_merge[2];
+  rtDW.RateTransition4_8_Buffer0 = rtb_Merge_j;
+  rtDW.RateTransition4_9_Buffer0[0] = rtb_Gain[0];
+  rtDW.RateTransition4_9_Buffer0[1] = rtb_Gain[1];
+  rtDW.RateTransition4_9_Buffer0[2] = rtb_Gain[2];
+  rtDW.RateTransition4_10_Buffer0 = rtb_Sqrt;
+  rtDW.RateTransition4_11_Buffer0 = light;
   rtDW.RateTransition4_12_Buffer0 = rtb_flag;
-  rtDW.RateTransition4_13_Buffer0 = rtb_Compare_j5;
-  rtDW.RateTransition4_14_Buffer0 = rtb_Compare_e;
-  rtDW.RateTransition4_15_Buffer0 = rtDW.RateTransition8;
-  rtDW.RateTransition4_16_Buffer0 = eps;
+  rtDW.RateTransition4_13_Buffer0 = rtb_Compare_m;
+  rtDW.RateTransition4_14_Buffer0 = lowAlt;
+  rtDW.RateTransition4_15_Buffer0 = rtb_Switch3;
   rtDW.RateTransition4_17_Buffer0 = api;
-  memcpy(&rtDW.RateTransition4_18_Buffer0.opt_state[0], &rtDW.opt_state[0], 100U
-         * sizeof(real_T));
-  memcpy(&rtDW.RateTransition4_18_Buffer0.opt_ctrl_Nm[0], &rtDW.opt_ctrl_Nm[0],
-         30U * sizeof(real_T));
-  rtDW.RateTransition4_18_Buffer0.final_time_s = rtDW.final_time_s;
-  memcpy(&rtDW.RateTransition4_18_Buffer0.exitcode[0], &rtDW.exitcode[0], 17U *
+  rtDW.RateTransition4_18_Buffer0 = rtb_Merge;
+  memcpy(&rtDW.RateTransition4_19_Buffer0.opt_state[0], &rtDW.X_f[0], 100U *
          sizeof(real_T));
-  memcpy(&rtDW.RateTransition4_18_Buffer0.slv_time_s[0], &rtDW.slv_time_s[0],
-         15U * sizeof(real_T));
-  rtDW.RateTransition4_18_Buffer0.soar_count = rtDW.soar_count;
+  memcpy(&rtDW.RateTransition4_19_Buffer0.opt_ctrl_Nm[0], &rtDW.U[0], 30U *
+         sizeof(real_T));
+  rtDW.RateTransition4_19_Buffer0.final_time_s = rtDW.s;
+  memcpy(&rtDW.RateTransition4_19_Buffer0.exitcode[0], &rtDW.exitcode[0], 17U *
+         sizeof(real_T));
 }
 
 /* Model initialize function */
@@ -2267,14 +2472,29 @@ void FSW_Lib_initialize(void)
   /* End of Start for SubSystem: '<S1>/MEKF_lib' */
   rtPrevZCX.ResettableDelay_Reset_ZCE = POS_ZCSIG;
 
-  /* InitializeConditions for DiscreteIntegrator: '<S127>/Discrete-Time Integrator' */
+  /* InitializeConditions for UnitDelay: '<S11>/Unit Delay' */
+  rtDW.UnitDelay_DSTATE[0] = 0.0;
+  rtDW.UnitDelay_DSTATE[1] = 0.0;
+  rtDW.UnitDelay_DSTATE[2] = 1.0;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S230>/Discrete-Time Integrator' */
   rtDW.DiscreteTimeIntegrator_DSTATE[0] = 0.0030919554896630744;
   rtDW.DiscreteTimeIntegrator_DSTATE[1] = -0.0030919554896630744;
   rtDW.DiscreteTimeIntegrator_DSTATE[2] = 0.0030919554896630744;
   rtDW.DiscreteTimeIntegrator_DSTATE[3] = -0.0030919554896630744;
 
+  /* SystemInitialize for Atomic SubSystem: '<S2>/maggyroProcessing_lib' */
+  maggyroProcessing_lib_Init(&rtDW.maggyroProcessing_lib_e);
+
+  /* End of SystemInitialize for SubSystem: '<S2>/maggyroProcessing_lib' */
+
+  /* SystemInitialize for Atomic SubSystem: '<S2>/maggyroProcessing_lib1' */
+  maggyroProcessing_lib1_Init(&rtDW.maggyroProcessing_lib1_e);
+
+  /* End of SystemInitialize for SubSystem: '<S2>/maggyroProcessing_lib1' */
+
   /* SystemInitialize for Atomic SubSystem: '<S1>/MEKF_lib' */
-  MEKF_lib_Init(rtDW.qmerge, &rtDW.MEKF_lib_g);
+  MEKF_lib_Init(rtDW.q_p_merge, &rtDW.MEKF_lib_g);
 
   /* End of SystemInitialize for SubSystem: '<S1>/MEKF_lib' */
 

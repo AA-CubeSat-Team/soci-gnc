@@ -1,3 +1,4 @@
+%!TEX options=--shell-escape
 \documentclass[10pt]{article}
 
 % Load commands & pakcages
@@ -96,61 +97,61 @@ The components of the \code{soar\_telemetry} struct are given in Table~\ref{tab:
 The constraint boundaries have the following values, each of which are configurable parameters:
 \begin{enumerate}
 \item an angular rate limit of $\omega_{\max} = 0.1~\unit{rad/s}$,
-\item a torque limit of $\tau_{\max} = 3.2~\unit{mNm}$,
+\item a torque limit of $\tau_{\max} = 2.8~\unit{mNm}$,
 \item a final time between $t_{f,\min}=15~\unit{s}$ and $t_{f,\max}=25~\unit{s}$,
 \item the inertial sun vector remains within a $\theta_{\max}=60\unit{\dg}$ degree cone (half-angle) centered around the sun sensor boresight direction,
 \item the inertial sun vector remains outside of a $\theta_{\min}=60\unit{\dg}$ degree cone (half-angle) centered around the camera boresight direction. 
 \end{enumerate} 
-The torque limit is below what can be produced by the reaction wheels, and was selected to equal the capability of a single wheel. This provides a buffer so that the addition of feedback control will not saturate the wheels, and also means that if a single wheel were to fail, the SOAR payload will not ask for a torque that exceeds the reduced capability with no need to change the code.
+The torque limit is below what can be produced by the reaction wheels, and was selected to less than the total capability of the wheel array in any direction with a single failure. Geometrically, a sphere of radius $2.8~\unit{mNm}$ fits inside the polytope of feasible torques under any single-wheel failure. There is also a small buffer to allow for additional feedback control before saturation. This means that if a single wheel were to fail, the SOAR payload will not ask for a torque that exceeds the reduced capability with no need to change the code.
 
 \subsubsection{SOAR Operating Modes}\label{sec3:op_modes}
 There are effectively two operating modes of the SOAR payload: operational and idle. The trigger attached to the \code{gnc\_mode} shown in~\fref{fig:SOAR_inner} is the arbiter between the two modes. The output of the trigger goes high when the following conditions are met:
 \begin{enumerate}
-\item The value of \code{gnc\_mode = 33},
-\item The previous value of \code{gnc\_mode != 33}.
+\item The value of \code{gnc\_mode = 8},
+\item The previous value of \code{gnc\_mode != 8}.
 \end{enumerate}
-The SOAR payload can be commanded to its operational mode by the primary GNC mode manager by switching the value of \code{gnc\_mode} to $33$ from any other value. The conditions upon which the primary GNC operating mode is set to $33$ are provided in the \href{https://drive.google.com/open?id=1wTjmsQdXGk9jmEHy59fZAdBJJ3r1IE4LGFjHT2S5png}{main GNC ICD}. Maintaining the primary GNC mode at this value will not continuously trigger the payload due to the second clause. As a result, the primary GNC mode must be toggled back to some value that is not $33$ prior to requesting another solution. \textbf{The primary GNC flight software is assumed to be in charge of requesting a re-solve for a given maneuver.} The current design is such that triggering a re-solve internally will create an algebraic loop. A brief attempt was made to design internal re-solves into the library, but a decision was made that it would be simpler to manage this within the primary GNC mode manager. 
+The SOAR payload can be commanded to its operational mode by the primary GNC mode manager by switching the value of \code{gnc\_mode} to $8$ from any other value. The conditions upon which the primary GNC operating mode is set to $8$ are provided in the \href{https://drive.google.com/open?id=1wTjmsQdXGk9jmEHy59fZAdBJJ3r1IE4LGFjHT2S5png}{main GNC ICD}. Maintaining the primary GNC mode at this value will not continuously trigger the payload due to the second clause. As a result, the primary GNC mode must be toggled back to some value that is not $8$ prior to requesting another solution. \textbf{The primary GNC flight software is assumed to be in charge of requesting a re-solve for a given maneuver.} The current design is such that triggering a re-solve internally will create an algebraic loop. A brief attempt was made to design internal re-solves into the library, but a decision was made that it would be simpler to manage this within the primary GNC mode manager. 
 
-\subsubsection{Control Torque Allocation}\label{sec3:allocation}
+% \subsubsection{Control Torque Allocation}\label{sec3:allocation}
 
-The equations of motion used in the SOAR system are given in~\eqref{eq:eqms}. Since we are using a four-wheel system, a note is needed on what assumptions are being made about how the torques computed by SOAR should be allocated to the wheels. The SOAR payload computes the \textbf{net} torque about the spacecraft body axes that should be applied to perform the maneuver, while accounting for the \textbf{net} momentum in the wheels about the same body axes. 
+% The equations of motion used in the SOAR system are given in~\eqref{eq:eqms}. Since we are using a four-wheel system, a note is needed on what assumptions are being made about how the torques computed by SOAR should be allocated to the wheels. The SOAR payload computes the \textbf{net} torque about the spacecraft body axes that should be applied to perform the maneuver, while accounting for the \textbf{net} momentum in the wheels about the same body axes. 
 
-Let $\bm{H}\in\real^4$ be the vector whose components are the angular momenta stored in each wheel and let $\bm{T}\in\real^4$ be the vector whose components are the torques delivered by each wheel. Assuming that the net angular momentum of the wheels, $\hw$, is related to the momentum of each wheel, $\bm{H}$, according to some map $g : \real^4 \rightarrow \real^3$, we have
-\begin{equation}
-\hw = g(\bm{H}).
-\end{equation}
-It should be clear that the net torque, $\bm{\tau}$, is related to the torque given by each wheel, $\bm{T}$, according to the same relationship. 
+% Let $\bm{H}\in\real^4$ be the vector whose components are the angular momenta stored in each wheel and let $\bm{T}\in\real^4$ be the vector whose components are the torques delivered by each wheel. Assuming that the net angular momentum of the wheels, $\hw$, is related to the momentum of each wheel, $\bm{H}$, according to some map $g : \real^4 \rightarrow \real^3$, we have
+% \begin{equation}
+% \hw = g(\bm{H}).
+% \end{equation}
+% It should be clear that the net torque, $\bm{\tau}$, is related to the torque given by each wheel, $\bm{T}$, according to the same relationship. 
 
-This section sets some ground rules for how the map $g$ is chosen, and offers a possible choice. The equations of motion~\eqref{eq:eqms} should actually read 
-\begin{equation}
-\dot{\bm{x}} = \begin{bmatrix}
-\dot{\q} \\ \dhB \\ \dot{\bm{H}}
-\end{bmatrix} = \begin{bmatrix}
-\tfrac{1}{2} \q \otimes \left(\inv{J} \hB \right) \\
--g(\bm{T}) + \left( \hB + g(\bm{H}) \right)^{\times} \left( J^{-1} \hB \right) \\
-\bm{T}
-\end{bmatrix},
-\label{eq:new_eqms}
-\end{equation}
-for an \textit{eleven-dimensional} state $\bm{x} = \left[ \q\tran \ \hB\tran \ \bm{H}\tran \right]\tran$. These equations of motion come from the conservation of momentum combined with the four-wheel geometry. The equations in~\eqref{eq:new_eqms} \textit{are equivalent to} those in~\eqref{eq:eqms} if and only if
-\begin{enumerate}
-\item There exists a map $g^{\dagger} : \real^4 \rightarrow \real^3$ such that $\bm{z} = g\big( g^{\dagger}(\bm{z})\big)$ for any $\bm{z}\in\real^3$. 
-\item $\der{}{t}g(\bm{z}(t)) = g(\dot{\bm{z}}(t))$ for any $\bm{z}(t)\in\real^4$.
-\end{enumerate}
-Together these conditions should ensure that no matter what allocation scheme is used downstream of the SOAR payload, the intended behaviour will be recovered. 
+% This section sets some ground rules for how the map $g$ is chosen, and offers a possible choice. The equations of motion~\eqref{eq:eqms} should actually read 
+% \begin{equation}
+% \dot{\bm{x}} = \begin{bmatrix}
+% \dot{\q} \\ \dhB \\ \dot{\bm{H}}
+% \end{bmatrix} = \begin{bmatrix}
+% \tfrac{1}{2} \q \otimes \left(\inv{J} \hB \right) \\
+% -g(\bm{T}) + \left( \hB + g(\bm{H}) \right)^{\times} \left( J^{-1} \hB \right) \\
+% \bm{T}
+% \end{bmatrix},
+% \label{eq:new_eqms}
+% \end{equation}
+% for an \textit{eleven-dimensional} state $\bm{x} = \left[ \q\tran \ \hB\tran \ \bm{H}\tran \right]\tran$. These equations of motion come from the conservation of momentum combined with the four-wheel geometry. The equations in~\eqref{eq:new_eqms} \textit{are equivalent to} those in~\eqref{eq:eqms} if and only if
+% \begin{enumerate}
+% \item There exists a map $g^{\dagger} : \real^4 \rightarrow \real^3$ such that $\bm{z} = g\big( g^{\dagger}(\bm{z})\big)$ for any $\bm{z}\in\real^3$. 
+% \item $\der{}{t}g(\bm{z}(t)) = g(\dot{\bm{z}}(t))$ for any $\bm{z}(t)\in\real^4$.
+% \end{enumerate}
+% Together these conditions should ensure that no matter what allocation scheme is used downstream of the SOAR payload, the intended behaviour will be recovered. 
 
-\paragraph{An Example Allocation Method:} Suppose that the net momentum is related to the momentum in each wheel by
-\begin{equation}
-\hw = \begin{bmatrix}
-\cos\beta & 0 & -\cos\beta & 0 \\ 0 & \cos\beta & 0 & -\cos\beta \\ \sin\beta & \sin\beta & \sin\beta & \sin\beta
-\end{bmatrix} \bm{H} = A_w \bm{H}
-\end{equation}
-The $3\times 4$ matrix $A_w$ is singular, but following~\cite[\S 7.3.4]{Sidi1997} the pseudo-inverse can be used to write 
-\begin{equation}
-\bm{T} = A_w^{\dagger} \bm{\tau} \quad \text{and} \quad \bm{H} = A_w^{\dagger} \hw
-\end{equation}
-where $A_w^{\dagger} = A_w\tran \inv{\left(A_w A_w\tran\right)} \in \real^{4\times 3}$
-is such that $A_w A_w^{\dagger} = \eye{3}$. Thus the mapping $g(T) = A_w$ satisfies the first condition required above (existence of an ``inverse'' like function). Next, it is clear that the second condition is satisfied because the matrix $A_w$ is constant. This allocation scheme will ensure that SOAR produces the expected behaviour, which has been verified in simulation by mapping an optimal set of controls $\bm{\tau}(t)$ to $\bm{T}(t)$ for $t\in[0,\tf]$ and then integrating the equations of motion~\eqref{eq:new_eqms}. The resulting state vector matched exactly the output of SOAR.
+% \paragraph{An Example Allocation Method:} Suppose that the net momentum is related to the momentum in each wheel by
+% \begin{equation}
+% \hw = \begin{bmatrix}
+% \cos\beta & 0 & -\cos\beta & 0 \\ 0 & \cos\beta & 0 & -\cos\beta \\ \sin\beta & \sin\beta & \sin\beta & \sin\beta
+% \end{bmatrix} \bm{H} = A_w \bm{H}
+% \end{equation}
+% The $3\times 4$ matrix $A_w$ is singular, but following~\cite[\S 7.3.4]{Sidi1997} the pseudo-inverse can be used to write 
+% \begin{equation}
+% \bm{T} = A_w^{\dagger} \bm{\tau} \quad \text{and} \quad \bm{H} = A_w^{\dagger} \hw
+% \end{equation}
+% where $A_w^{\dagger} = A_w\tran \inv{\left(A_w A_w\tran\right)} \in \real^{4\times 3}$
+% is such that $A_w A_w^{\dagger} = \eye{3}$. Thus the mapping $g(T) = A_w$ satisfies the first condition required above (existence of an ``inverse'' like function). Next, it is clear that the second condition is satisfied because the matrix $A_w$ is constant. This allocation scheme will ensure that SOAR produces the expected behaviour, which has been verified in simulation by mapping an optimal set of controls $\bm{\tau}(t)$ to $\bm{T}(t)$ for $t\in[0,\tf]$ and then integrating the equations of motion~\eqref{eq:new_eqms}. The resulting state vector matched exactly the output of SOAR.
 
 \subsubsection{Building \& Autocoding}\label{sec2:build_autocode}
 
@@ -167,7 +168,7 @@ Once these files are linked, you should be able to use the Code Generation Quick
 \begin{figure}
 \centering
 \subfloat{\includegraphics[width=0.85\textwidth]{figs/autocode_include.png}} \\
-\subfloat{\includegraphics[width=0.85\textwidth]{figs/autocode_srcs.png}}
+\subfloat{\includegraphics[width=0.85\textwidth]{figs/autocode_source.png}}
 \caption{The custom code options found in Simulink's Code Generation Options.}
 \label{fig:autocode}
 \end{figure}
@@ -186,7 +187,7 @@ The SOAR payload is a software function that will be run on the main flight comp
 
 All inputs listed in~\tabref{tab:inputs_outputs} will come from the main GNC flight software. Refer to \href{https://drive.google.com/open?id=1wTjmsQdXGk9jmEHy59fZAdBJJ3r1IE4LGFjHT2S5png}{main GNC ICD}.
 
-The output \ttt{SOAR\_solution} must be saved for future downlink to the ground station. This has been included in the COM system's measurement budget, and shall be maintained by CDH immediately once it is made available by SOAR. The two remaining outputs are to be provided as the GNC guidance solution and feed forward to the feedback controller that is used during primary GNC mode $33$. 
+The output \ttt{SOAR\_solution} must be saved for future downlink to the ground station. This has been included in the COM system's measurement budget, and shall be maintained by CDH immediately once it is made available by SOAR. The two remaining outputs are to be provided as the GNC guidance solution and feed forward to the feedback controller that is used during primary GNC mode $8$. 
 
 \subsection{Thermal Interface}\label{sec2:thermal_interface}
 
@@ -255,15 +256,15 @@ Median number of iterations & $4$
 
 \begin{figure}
 \centering
-\subfloat[Initial and final angle distributions]{\includegraphics[width=0.75\textwidth]{figs/100219_dispersion_1000}}\\
-\subfloat[Final versus initial angle errors]{\includegraphics[width=0.75\textwidth]{figs/100219_mc_ic_fc_dispersion_1000}}
+\subfloat[Initial and final angle distributions]{\includegraphics[width=0.75\textwidth]{100219_dispersion_1000.pdf}}\\
+\subfloat[Final versus initial angle errors]{\includegraphics[width=0.75\textwidth]{100219_mc_ic_fc_dispersion_1000.pdf}}
 \caption{Closed loop results from 1000 randomized unit tests of SOAR. All final errors are within the required $3.5\dg$ control error bound.}
 \label{fig:mc_results_errs}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{figs/100219_mc_state_1000}
+\includegraphics[width=0.8\textwidth]{100219_mc_state_1000.pdf}
 \caption{Closed loop results from 1000 randomized unit tests of SOAR. Dashed red lines indicate constraint boundaries.}
 \label{fig:mc_results_state}
 \end{figure}
