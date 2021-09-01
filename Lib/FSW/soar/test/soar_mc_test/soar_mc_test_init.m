@@ -7,7 +7,7 @@
 set(0,'defaulttextinterpreter','latex','defaultAxesFontSize',12)
 
 % Monte Carlo parameters
-seed    = 5;
+seed    = 2;
 rng(seed)                           % for repeatability of random ICs
 N_mc    = 10;                       % number of monte carlo trials
 var_ang = 90;                       % variance of Euler angle error at init
