@@ -19,7 +19,8 @@ function [fswParams,simParams] = allocator_init(fswParams,simParams)
 rwa_sim     = simParams.actuators.rwa;
 Jw          = rwa_sim.inertia;
 RPM2RPS     = fswParams.constants.convert.RPM2RPS;
-targ_rpm    = [ 1000; -1000; 1000; -1000 ];
+targ_rpm    = [ 970; -990; 1010; -1030 ];
+%targ_rpm    = [ 1000; -1000; 1000; -1000 ];
 nullvec     = [1;-1;1;-1];
 
 alloc = struct;

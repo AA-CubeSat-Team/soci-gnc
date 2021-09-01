@@ -65,11 +65,14 @@ R = [(sun_sensor_std^2 )*eye(3),zeros(3,3);zeros(3,3),((mag_sens_std.^2)).*eye(3
 estimation.Rchol = chol(R,'lower');
 
 %% TRIAD Data %%
-estimation.triad_parallel_tol_deg = 1e-5;
+estimation.triad_parallel_tol_deg = 1;
 estimation.triad_cycles           = 10;
 
 % Triad Smoother Parameter
 estimation.slerp_parameter        = 0.5;
+
+%% Bias max value
+estimation.bias_max = 0.01745;
 
 %% Add to main struct %%
 fswParams.estimation = estimation;
