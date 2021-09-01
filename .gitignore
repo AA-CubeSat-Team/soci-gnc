@@ -1,4 +1,10 @@
 # Simulink
+<<<<<<< HEAD
+*.slx.autosave
+
+# Matlab
+*.m~
+=======
 *.slxc
 *.slx.r2016a
 *.slx.r2016b
@@ -17,6 +23,7 @@
 
 # Other
 *.xml
+<<<<<<< HEAD
 *tr
 *scv
 *.mexw64
@@ -43,3 +50,6 @@
 *.fls
 *.out
 *.synctex.gz
+=======
+>>>>>>> dev
+>>>>>>> origin/master
