@@ -3,6 +3,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e59133d (added gitignore)
 # Simulink
 <<<<<<< HEAD
 *.slx.autosave
@@ -62,6 +65,7 @@ Src/sfun_ecos.c
 =======
 Src/sfun_ecos.mexw64
 >>>>>>> 2b2a1df (added gitignore)
+<<<<<<< HEAD
 =======
 Src/sfun_ecos.mexw64
 >>>>>>> 2b2a1df (added gitignore)
@@ -74,3 +78,5 @@ Src/sfun_ecos.mexw64
 =======
 Src/sfun_ecos.mexw64
 >>>>>>> bddb04c (added gitignore for the millionth time)
+=======
+>>>>>>> e59133d (added gitignore)
