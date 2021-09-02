@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Simulink
 <<<<<<< HEAD
 *.slx.autosave
@@ -54,6 +55,9 @@
 =======
 >>>>>>> dev
 >>>>>>> origin/master
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> 2b2a1df (added gitignore)
 =======
 Src/sfun_ecos.mexw64
 >>>>>>> 2b2a1df (added gitignore)
