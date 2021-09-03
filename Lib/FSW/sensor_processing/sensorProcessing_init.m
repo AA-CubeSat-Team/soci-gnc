@@ -1,4 +1,4 @@
-function [fswParams,simParams] = sensorProcessing_init(fswParams,simParams)
+gitfunction [fswParams,simParams] = sensorProcessing_init(fswParams,simParams)
 %sensorProcessing_init
 %
 % Initialization of the sensor processing library parameters. 
@@ -139,8 +139,7 @@ sensors.time_offset = 0; % seconds
 
 %% Add sensors struct to the main structs
 fswParams.sensors = sensors;
-end
-
+e
 
 
 
