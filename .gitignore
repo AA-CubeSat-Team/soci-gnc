@@ -29,6 +29,7 @@
 *.mexw64
 *.mexmaci64
 *.DS_Store
+Src/sfun_ecos.c
 
 # Autocoded build stuff
 *.o
