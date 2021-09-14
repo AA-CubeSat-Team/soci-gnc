@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e59133d (added gitignore)
+=======
+>>>>>>> d0535d4cc34d0fc2bc80d816230aa6b9ed036a9c
 # Simulink
 <<<<<<< HEAD
 *.slx.autosave
@@ -29,6 +42,7 @@
 *.mexw64
 *.mexmaci64
 *.DS_Store
+Src/sfun_ecos.c
 
 # Autocoded build stuff
 *.o
@@ -53,3 +67,35 @@
 =======
 >>>>>>> dev
 >>>>>>> origin/master
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> 2b2a1df (added gitignore)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d0535d4cc34d0fc2bc80d816230aa6b9ed036a9c
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> 2b2a1df (added gitignore)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> bddb04c (added gitignore for the millionth time)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> 2b2a1df (added gitignore)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> bddb04c (added gitignore for the millionth time)
+=======
+<<<<<<< HEAD
+>>>>>>> e59133d (added gitignore)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> 2b2a1df (added gitignore)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> bddb04c (added gitignore for the millionth time)
+=======
+Src/sfun_ecos.mexw64
+>>>>>>> bddb04c2c32bcbf409cc41f0b2a91b9bdca2c740
+>>>>>>> d0535d4cc34d0fc2bc80d816230aa6b9ed036a9c
