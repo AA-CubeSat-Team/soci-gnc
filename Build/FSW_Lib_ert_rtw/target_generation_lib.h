@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -34,9 +34,9 @@
 
 /* Child system includes */
 #include "quat_rectify_lib.h"
-#include "rt_sys_MEKF_lib_36.h"
-#include "rt_sys_MEKF_lib_40.h"
-#include "rt_sys_MEKF_lib_47.h"
+#include "rt_sys_MEKF_lib_37.h"
+#include "rt_sys_MEKF_lib_41.h"
+#include "rt_sys_MEKF_lib_48.h"
 #include "rtGetNaN.h"
 #include "rt_nonfinite.h"
 
@@ -48,8 +48,8 @@ extern void target_generation_lib(uint8_T rtu_gnc_mode, const real_T
   rtu_quat_soar_cmd[4], real_T rtu_MET_epoch, real_T rtu_MET_utc_s, real_T
   rty_quat_cmd[4], real_T rty_body_rates_cmd[3], real_T rty_torque_body_ff[3],
   uint8_T *rty_target_gen_flag, real_T rty_soar_telemetry[100], real_T
-  rty_soar_telemetry_f[30], real_T *rty_soar_telemetry_g, real_T
-  rty_soar_telemetry_a[17], uint32_T *rty_soar_telemetry_c);
+  rty_soar_telemetry_i[30], real_T *rty_soar_telemetry_d, real_T
+  rty_soar_telemetry_im[17], uint32_T *rty_soar_telemetry_h);
 
 #endif                                 /* RTW_HEADER_target_generation_lib_h_ */
 

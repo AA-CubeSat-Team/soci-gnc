@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -38,14 +38,14 @@
 
 /* Block signals and states (default storage) for system '<S5>/rwa_allocation_lib' */
 typedef struct {
-  real_T DiscreteTimeIntegrator_DSTATE[3];/* '<S258>/Discrete-Time Integrator' */
-  real_T Product_DWORK4[9];            /* '<S267>/Product' */
-  void* Assertion_slioAccessor;        /* '<S267>/Assertion' */
+  real_T DiscreteTimeIntegrator_DSTATE[3];/* '<S275>/Discrete-Time Integrator' */
+  real_T Product_DWORK4[9];            /* '<S284>/Product' */
+  void* Assertion_slioAccessor;        /* '<S284>/Assertion' */
 } DW_rwa_allocation_lib;
 
 extern void rwa_allocation_lib(const real_T rtu_torque_body_Nm[3], const real_T
-  rtu_rwa_rpm[4], const boolean_T rtu_rwa_valid[4], real_T rty_torque_wheel_Nm[4],
-  DW_rwa_allocation_lib *localDW);
+  rtu_rwa_radps[4], const boolean_T rtu_rwa_valid[4], real_T
+  rty_torque_wheel_Nm[4], DW_rwa_allocation_lib *localDW);
 
 #endif                                 /* RTW_HEADER_rwa_allocation_lib_h_ */
 

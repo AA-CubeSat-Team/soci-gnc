@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -24,26 +24,44 @@
 
 /* Invariant block signals (default storage) */
 const ConstB rtConstB = {
-  { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 },/* '<S241>/Identity Matrix' */
+  1.0,                                 /* '<S230>/Switch' */
+
+  { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 },/* '<S251>/Identity Matrix' */
 
   { 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5, 0.0,
-    0.0, 0.0, 0.0, 2.9526E-5 },        /* '<S240>/Create Diagonal Matrix' */
+    0.0, 0.0, 0.0, 2.9526E-5 },        /* '<S250>/Create Diagonal Matrix' */
 
-  { 0.0056923200697875532, -0.0056923200697875532, 0.0 },/* '<S240>/Matrix Multiply4' */
+  { -0.00011384640139575119, 0.00011384640139575162, -4.832493030858644E-5 },/* '<S250>/Matrix Multiply4' */
 
-  /* Start of '<S271>/target_groundpass_lib' */
+  { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 },/* '<S243>/Identity Matrix' */
+
+  { 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5, 0.0,
+    0.0, 0.0, 0.0, 2.9526E-5 },        /* '<S242>/Create Diagonal Matrix' */
+
+  { -0.00011384640139575119, 0.00011384640139575162, -4.832493030858644E-5 },/* '<S242>/Matrix Multiply4' */
+
+  /* Start of '<S1>/mode_select_lib' */
+  {
+    { 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5, 0.0, 0.0, 0.0, 0.0, 2.9526E-5,
+      0.0, 0.0, 0.0, 0.0, 2.9526E-5 }  /* '<S382>/Create Diagonal Matrix' */
+  }
+  ,
+
+  /* End of '<S1>/mode_select_lib' */
+
+  /* Start of '<S288>/target_groundpass_lib' */
   {
     { -0.39497937598550986, 0.845231988038406, -0.35996413563401142,
       -0.624718338364105, -0.53439955688290364, -0.56933655364375457,
-      -0.67358614167579844, 0.0, 0.73910872660408433 }/* '<S324>/Vector Concatenate' */
+      -0.67358614167579844, 0.0, 0.73910872660408433 }/* '<S341>/Vector Concatenate' */
   }
-  /* End of '<S271>/target_groundpass_lib' */
+  /* End of '<S288>/target_groundpass_lib' */
 };
 
 /* Constant parameters (default storage) */
 const ConstP rtConstP = {
   /* Expression: fswParams.allocator
-   * Referenced by: '<S261>/Constant'
+   * Referenced by: '<S278>/Constant'
    */
   {
     { 0.92050485345244037, 0.0, 0.39073112848927377, 0.0, 0.92050485345244037,
@@ -57,8 +75,8 @@ const ConstP rtConstP = {
     6500.0,
     6U,
 
-    { 0.0030919554896630744, -0.0030919554896630744, 0.0030919554896630744,
-      -0.0030919554896630744 },
+    { 0.0029991968249731822, -0.0030610359347664436, 0.0031228750445597051,
+      -0.003184714154352967 },
     0.01,
 
     { 1.0, -1.0, 1.0, -1.0 },

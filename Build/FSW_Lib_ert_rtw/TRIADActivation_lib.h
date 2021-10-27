@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -32,7 +32,7 @@
 
 /* Block signals and states (default storage) for system '<S3>/TRIADActivation_lib' */
 typedef struct {
-  boolean_T Delay_DSTATE[10];          /* '<S157>/Delay' */
+  boolean_T Delay_DSTATE[10];          /* '<S159>/Delay' */
 } DW_TRIADActivation_lib;
 
 extern void TRIADActivation_lib_Init(DW_TRIADActivation_lib *localDW);

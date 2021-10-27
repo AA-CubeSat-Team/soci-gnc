@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -27,113 +27,113 @@
 
 /*
  * Output and update for atomic system:
- *    '<S131>/CrossProdMatrix_lib'
- *    '<S131>/CrossProdMatrix_lib1'
+ *    '<S132>/CrossProdMatrix_lib'
+ *    '<S132>/CrossProdMatrix_lib1'
  */
-void CrossProdMatrix_lib(real_T rtu_vector, real_T rtu_vector_p, real_T
-  rtu_vector_j, real_T rty_skew_mat[9])
+void CrossProdMatrix_lib(real_T rtu_vector, real_T rtu_vector_h, real_T
+  rtu_vector_o, real_T rty_skew_mat[9])
 {
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn1' incorporates:
-   *  Constant: '<S137>/null'
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn1' incorporates:
+   *  Constant: '<S138>/null'
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[0] = 0.0;
 
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn2' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn2' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[1] = rtu_vector;
 
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn5' incorporates:
-   *  Constant: '<S137>/null'
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn5' incorporates:
+   *  Constant: '<S138>/null'
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[4] = 0.0;
 
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn6' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn6' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
-  rty_skew_mat[5] = rtu_vector_p;
+  rty_skew_mat[5] = rtu_vector_h;
 
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn7' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn7' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
-  rty_skew_mat[6] = rtu_vector_j;
+  rty_skew_mat[6] = rtu_vector_o;
 
-  /* SignalConversion: '<S139>/ConcatBufferAtVector ConcatenateIn9' incorporates:
-   *  Constant: '<S137>/null'
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S140>/ConcatBufferAtVector ConcatenateIn9' incorporates:
+   *  Constant: '<S138>/null'
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[8] = 0.0;
 
-  /* Gain: '<S137>/Gain' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S138>/Gain' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
-  rty_skew_mat[2] = -rtu_vector_j;
+  rty_skew_mat[2] = -rtu_vector_o;
 
-  /* Gain: '<S137>/Gain3' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S138>/Gain3' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[3] = -rtu_vector;
 
-  /* Gain: '<S137>/Gain1' incorporates:
-   *  Reshape: '<S139>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S138>/Gain1' incorporates:
+   *  Reshape: '<S140>/Reshape (9) to [3x3] column-major'
    */
-  rty_skew_mat[7] = -rtu_vector_p;
+  rty_skew_mat[7] = -rtu_vector_h;
 }
 
 /*
  * Output and update for atomic system:
- *    '<S123>/CrossProdMatrix_lib'
- *    '<S123>/CrossProdMatrix_lib1'
+ *    '<S124>/CrossProdMatrix_lib'
+ *    '<S124>/CrossProdMatrix_lib1'
  */
-void CrossProdMatrix_lib_d(const real_T rtu_vector[3], real_T rty_skew_mat[9])
+void CrossProdMatrix_lib_m(const real_T rtu_vector[3], real_T rty_skew_mat[9])
 {
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn1' incorporates:
-   *  Constant: '<S159>/null'
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn1' incorporates:
+   *  Constant: '<S161>/null'
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[0] = 0.0;
 
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn2' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn2' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[1] = rtu_vector[2];
 
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn5' incorporates:
-   *  Constant: '<S159>/null'
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn5' incorporates:
+   *  Constant: '<S161>/null'
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[4] = 0.0;
 
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn6' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn6' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[5] = rtu_vector[0];
 
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn7' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn7' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[6] = rtu_vector[1];
 
-  /* SignalConversion: '<S166>/ConcatBufferAtVector ConcatenateIn9' incorporates:
-   *  Constant: '<S159>/null'
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* SignalConversion: '<S168>/ConcatBufferAtVector ConcatenateIn9' incorporates:
+   *  Constant: '<S161>/null'
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[8] = 0.0;
 
-  /* Gain: '<S159>/Gain' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S161>/Gain' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[2] = -rtu_vector[1];
 
-  /* Gain: '<S159>/Gain3' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S161>/Gain3' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[3] = -rtu_vector[2];
 
-  /* Gain: '<S159>/Gain1' incorporates:
-   *  Reshape: '<S166>/Reshape (9) to [3x3] column-major'
+  /* Gain: '<S161>/Gain1' incorporates:
+   *  Reshape: '<S168>/Reshape (9) to [3x3] column-major'
    */
   rty_skew_mat[7] = -rtu_vector[0];
 }

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -50,25 +50,15 @@ real_T twonorm(const real_T rtu_vec[3])
 
 /*
  * Output and update for atomic system:
- *    '<S277>/twonorm'
- *    '<S278>/twonorm'
+ *    '<S294>/twonorm'
+ *    '<S295>/twonorm'
  */
-real_T twonorm_h(const real_T rtu_vec[2])
+real_T twonorm_f(const real_T rtu_vec[2])
 {
-  /* Sqrt: '<S323>/Sqrt' incorporates:
-   *  DotProduct: '<S323>/Dot Product'
+  /* Sqrt: '<S340>/Sqrt' incorporates:
+   *  DotProduct: '<S340>/Dot Product'
    */
   return sqrt(rtu_vec[0] * rtu_vec[0] + rtu_vec[1] * rtu_vec[1]);
-}
-
-/* Output and update for atomic system: '<S365>/twonorm' */
-real_T twonorm_o(const real_T rtu_vec[4])
-{
-  /* Sqrt: '<S370>/Sqrt' incorporates:
-   *  DotProduct: '<S370>/Dot Product'
-   */
-  return sqrt(((rtu_vec[0] * rtu_vec[0] + rtu_vec[1] * rtu_vec[1]) + rtu_vec[2] *
-               rtu_vec[2]) + rtu_vec[3] * rtu_vec[3]);
 }
 
 /*

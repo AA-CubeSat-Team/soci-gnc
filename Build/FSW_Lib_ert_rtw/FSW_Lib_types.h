@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -27,7 +27,7 @@
 #define DEFINED_TYPEDEF_FOR_sensor_bus_
 
 typedef struct {
-  real_T photodiodes_uA[6];
+  real_T photodiodes_uA[5];
   real_T mag_mag_uT[9];
   boolean_T mag_meas_valid[3];
   real_T sun_meas_ss_deg[2];
@@ -92,7 +92,7 @@ typedef struct {
 
 typedef struct {
   real_T rwa_cmd_rpm[4];
-  real_T mtq_cmd_Am2[3];
+  real_T mtq_cmd_Am2[5];
 } fsw_out;
 
 #endif
@@ -340,8 +340,8 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_kLZdejOynGZWI6kIKfN9eB_
-#define DEFINED_TYPEDEF_FOR_struct_kLZdejOynGZWI6kIKfN9eB_
+#ifndef DEFINED_TYPEDEF_FOR_struct_1d2yLpcXIEmznanXEUSVdG_
+#define DEFINED_TYPEDEF_FOR_struct_1d2yLpcXIEmznanXEUSVdG_
 
 typedef struct {
   struct_sjGR4uJoghqpNi58kA44jH ic;
@@ -352,7 +352,8 @@ typedef struct {
   real_T triad_parallel_tol_deg;
   real_T triad_cycles;
   real_T slerp_parameter;
-} struct_kLZdejOynGZWI6kIKfN9eB;
+  real_T bias_max;
+} struct_1d2yLpcXIEmznanXEUSVdG;
 
 #endif
 
@@ -371,25 +372,23 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_hx0U0gkXPDexOeaCkvdAhE_
-#define DEFINED_TYPEDEF_FOR_struct_hx0U0gkXPDexOeaCkvdAhE_
+#ifndef DEFINED_TYPEDEF_FOR_struct_0BTTf8ytoovWMG04k485fG_
+#define DEFINED_TYPEDEF_FOR_struct_0BTTf8ytoovWMG04k485fG_
 
 typedef struct {
   uint8_T gnc_mode_ic;
   real_T body_rate_threshold_max;
   real_T body_rate_threshold_min;
-  real_T RWA_RPM_threshold_max_inf;
-  real_T RWA_RPM_threshold_min_inf;
-  real_T RWA_RPM_threshold_max_2norm;
-  real_T RWA_RPM_threshold_min_2norm;
+  real_T h_max;
+  real_T h_min;
   real_T orbital_period_s;
   real_T desat_timer_buffer_s;
-} struct_hx0U0gkXPDexOeaCkvdAhE;
+} struct_0BTTf8ytoovWMG04k485fG;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_5GL5RdvpONewJN4gDe1hAB_
-#define DEFINED_TYPEDEF_FOR_struct_5GL5RdvpONewJN4gDe1hAB_
+#ifndef DEFINED_TYPEDEF_FOR_struct_Fxs15VniWr6vzefGObgabH_
+#define DEFINED_TYPEDEF_FOR_struct_Fxs15VniWr6vzefGObgabH_
 
 typedef struct {
   real_T sample_time_s;
@@ -399,10 +398,10 @@ typedef struct {
   struct_NCcOMvCWlps7sCVHML6Az sensors;
   struct_ygRvE79kyQHuDo9YHub4pE controllers;
   struct_ALaTLbFFdrOQfrpiCzt8RC desatcontrollerParams;
-  struct_kLZdejOynGZWI6kIKfN9eB estimation;
+  struct_1d2yLpcXIEmznanXEUSVdG estimation;
   struct_uvZZXEmcGmqC8NnG7wMTaF ground_targs[2];
-  struct_hx0U0gkXPDexOeaCkvdAhE mode_select;
-} struct_5GL5RdvpONewJN4gDe1hAB;
+  struct_0BTTf8ytoovWMG04k485fG mode_select;
+} struct_Fxs15VniWr6vzefGObgabH;
 
 #endif
 
@@ -518,8 +517,8 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_5aFhqg3TClW2Srid1ddWkC_
-#define DEFINED_TYPEDEF_FOR_struct_5aFhqg3TClW2Srid1ddWkC_
+#ifndef DEFINED_TYPEDEF_FOR_struct_Gf3s5hEjTA9ZSpiBcpBY8B_
+#define DEFINED_TYPEDEF_FOR_struct_Gf3s5hEjTA9ZSpiBcpBY8B_
 
 typedef struct {
   real_T normals[15];
@@ -534,19 +533,19 @@ typedef struct {
   real_T dipole_to_power[3];
   real_T noise;
   real_T variance;
-  real_T seed[3];
-} struct_5aFhqg3TClW2Srid1ddWkC;
+  real_T seed[5];
+} struct_Gf3s5hEjTA9ZSpiBcpBY8B;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_STJWXKDSLcFpk2Piq0wdm_
-#define DEFINED_TYPEDEF_FOR_struct_STJWXKDSLcFpk2Piq0wdm_
+#ifndef DEFINED_TYPEDEF_FOR_struct_jkRrmLpPW9kZwNixmayRsB_
+#define DEFINED_TYPEDEF_FOR_struct_jkRrmLpPW9kZwNixmayRsB_
 
 typedef struct {
   real_T sample_time_s;
   struct_UuJXqXb00ns8Mq33CIqEgF rwa;
-  struct_5aFhqg3TClW2Srid1ddWkC mtq;
-} struct_STJWXKDSLcFpk2Piq0wdm;
+  struct_Gf3s5hEjTA9ZSpiBcpBY8B mtq;
+} struct_jkRrmLpPW9kZwNixmayRsB;
 
 #endif
 
@@ -645,8 +644,27 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_qBzSdtcOILZKAWZMviEJZH_
-#define DEFINED_TYPEDEF_FOR_struct_qBzSdtcOILZKAWZMviEJZH_
+#ifndef DEFINED_TYPEDEF_FOR_struct_ucFtiOnWkIw6wEJIZyncnD_
+#define DEFINED_TYPEDEF_FOR_struct_ucFtiOnWkIw6wEJIZyncnD_
+
+typedef struct {
+  real_T radio_tx_W;
+  real_T radio_rx_W;
+  real_T cdh_W;
+  real_T img_active_W;
+  real_T img_idle_W;
+  real_T sensors_w;
+  real_T eps_system_W;
+  real_T sp_eff;
+  real_T eff;
+  real_T batt_capacity;
+  real_T init_dod;
+} struct_ucFtiOnWkIw6wEJIZyncnD;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_struct_8XGv1kQV9vs4SVMcdRefJC_
+#define DEFINED_TYPEDEF_FOR_struct_8XGv1kQV9vs4SVMcdRefJC_
 
 typedef struct {
   struct_mXHmnFZbCKtZPydMLAMkZ opts;
@@ -657,13 +675,51 @@ typedef struct {
   struct_apbxn7DeDmDM4RVkXhXRyD initialConditions;
   real_T orbit_tle[9];
   struct_UeVLhi9OFruBZjlrfb864 solarPressure;
-  struct_STJWXKDSLcFpk2Piq0wdm actuators;
+  struct_jkRrmLpPW9kZwNixmayRsB actuators;
   struct_TWBC1APWq7re2OKy9fLYQH sensors;
-} struct_qBzSdtcOILZKAWZMviEJZH;
+  struct_ucFtiOnWkIw6wEJIZyncnD power;
+} struct_8XGv1kQV9vs4SVMcdRefJC;
 
 #endif
 
-/* Custom Type definition for MATLAB Function: '<S423>/SOLVE' */
+#ifndef typedef_dsp_private_SlidingWindowAverag
+#define typedef_dsp_private_SlidingWindowAverag
+
+typedef struct {
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  real_T pCumSum;
+  real_T pCumSumRev[9];
+  real_T pCumRevIndex;
+} dsp_private_SlidingWindowAverag;
+
+#endif                                 /*typedef_dsp_private_SlidingWindowAverag*/
+
+#ifndef typedef_cell_wrap
+#define typedef_cell_wrap
+
+typedef struct {
+  uint32_T f1[8];
+} cell_wrap;
+
+#endif                                 /*typedef_cell_wrap*/
+
+#ifndef typedef_dsp_simulink_MovingAverage
+#define typedef_dsp_simulink_MovingAverage
+
+typedef struct {
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  boolean_T TunablePropsChanged;
+  cell_wrap inputVarSize;
+  dsp_private_SlidingWindowAverag *pStatistic;
+  int32_T NumChannels;
+} dsp_simulink_MovingAverage;
+
+#endif                                 /*typedef_dsp_simulink_MovingAverage*/
+
+/* Custom Type definition for MATLAB Function: '<S438>/SOLVE' */
 #ifndef struct_tag_spK1YOgs4pY8UFC2YcSXAaD
 #define struct_tag_spK1YOgs4pY8UFC2YcSXAaD
 
@@ -724,7 +780,7 @@ typedef struct tag_sMmiHugone66OG2OjltJFsG sMmiHugone66OG2OjltJFsG;
 
 #endif                                 /*typedef_sMmiHugone66OG2OjltJFsG*/
 
-/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
+/* Custom Type definition for MATLAB Function: '<S292>/MATLAB Function3' */
 #ifndef struct_tag_sdlGDp4tlGndSwspcAWkcJF
 #define struct_tag_sdlGDp4tlGndSwspcAWkcJF
 
@@ -796,30 +852,28 @@ typedef struct tag_sGQM4myGiYiBxOQ9ywaOf1B sGQM4myGiYiBxOQ9ywaOf1B;
 
 #endif                                 /*typedef_sGQM4myGiYiBxOQ9ywaOf1B*/
 
-#ifndef struct_tag_sZcxJKWLgD1dFbRZRCJVkmD
-#define struct_tag_sZcxJKWLgD1dFbRZRCJVkmD
+#ifndef struct_tag_sMyvFY1T9gMoUuyl91POjEH
+#define struct_tag_sMyvFY1T9gMoUuyl91POjEH
 
-struct tag_sZcxJKWLgD1dFbRZRCJVkmD
+struct tag_sMyvFY1T9gMoUuyl91POjEH
 {
   uint8_T gnc_mode_ic;
   real_T body_rate_threshold_max;
   real_T body_rate_threshold_min;
-  real_T RWA_RPM_threshold_max_inf;
-  real_T RWA_RPM_threshold_min_inf;
-  real_T RWA_RPM_threshold_max_2norm;
-  real_T RWA_RPM_threshold_min_2norm;
+  real_T h_max;
+  real_T h_min;
   real_T orbital_period_s;
   real_T desat_timer_buffer_s;
 };
 
-#endif                                 /*struct_tag_sZcxJKWLgD1dFbRZRCJVkmD*/
+#endif                                 /*struct_tag_sMyvFY1T9gMoUuyl91POjEH*/
 
-#ifndef typedef_sZcxJKWLgD1dFbRZRCJVkmD
-#define typedef_sZcxJKWLgD1dFbRZRCJVkmD
+#ifndef typedef_sMyvFY1T9gMoUuyl91POjEH
+#define typedef_sMyvFY1T9gMoUuyl91POjEH
 
-typedef struct tag_sZcxJKWLgD1dFbRZRCJVkmD sZcxJKWLgD1dFbRZRCJVkmD;
+typedef struct tag_sMyvFY1T9gMoUuyl91POjEH sMyvFY1T9gMoUuyl91POjEH;
 
-#endif                                 /*typedef_sZcxJKWLgD1dFbRZRCJVkmD*/
+#endif                                 /*typedef_sMyvFY1T9gMoUuyl91POjEH*/
 
 #ifndef struct_tag_spGKsvEVm7uA89hv31XX4LH
 #define struct_tag_spGKsvEVm7uA89hv31XX4LH
@@ -839,7 +893,7 @@ typedef struct tag_spGKsvEVm7uA89hv31XX4LH spGKsvEVm7uA89hv31XX4LH;
 
 #endif                                 /*typedef_spGKsvEVm7uA89hv31XX4LH*/
 
-/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
+/* Custom Type definition for MATLAB Function: '<S292>/MATLAB Function3' */
 #ifndef struct_tag_sNSv6TMNL0MdS2T7gRyN8lD
 #define struct_tag_sNSv6TMNL0MdS2T7gRyN8lD
 
@@ -1022,6 +1076,33 @@ struct tag_sDucowpxqlB5DUe8ejlJ74G
 typedef struct tag_sDucowpxqlB5DUe8ejlJ74G sDucowpxqlB5DUe8ejlJ74G;
 
 #endif                                 /*typedef_sDucowpxqlB5DUe8ejlJ74G*/
+
+#ifndef struct_tag_s4xbvtSY5L582vzuVYrHppD
+#define struct_tag_s4xbvtSY5L582vzuVYrHppD
+
+struct tag_s4xbvtSY5L582vzuVYrHppD
+{
+  real_T radio_tx_W;
+  real_T radio_rx_W;
+  real_T cdh_W;
+  real_T img_active_W;
+  real_T img_idle_W;
+  real_T sensors_w;
+  real_T eps_system_W;
+  real_T sp_eff;
+  real_T eff;
+  real_T batt_capacity;
+  real_T init_dod;
+};
+
+#endif                                 /*struct_tag_s4xbvtSY5L582vzuVYrHppD*/
+
+#ifndef typedef_s4xbvtSY5L582vzuVYrHppD
+#define typedef_s4xbvtSY5L582vzuVYrHppD
+
+typedef struct tag_s4xbvtSY5L582vzuVYrHppD s4xbvtSY5L582vzuVYrHppD;
+
+#endif                                 /*typedef_s4xbvtSY5L582vzuVYrHppD*/
 
 #ifndef struct_tag_sIIsAqBdfUcnX36HXXlqwpE
 #define struct_tag_sIIsAqBdfUcnX36HXXlqwpE
@@ -1251,10 +1332,10 @@ typedef struct tag_sNa8bVLO2Wc0cuWeHZ2pbKD sNa8bVLO2Wc0cuWeHZ2pbKD;
 
 #endif                                 /*typedef_sNa8bVLO2Wc0cuWeHZ2pbKD*/
 
-#ifndef struct_tag_srfrrefaN8YeKJgvQkZR6zG
-#define struct_tag_srfrrefaN8YeKJgvQkZR6zG
+#ifndef struct_tag_sikv9YhSpzXCzf5OgcSOFTG
+#define struct_tag_sikv9YhSpzXCzf5OgcSOFTG
 
-struct tag_srfrrefaN8YeKJgvQkZR6zG
+struct tag_sikv9YhSpzXCzf5OgcSOFTG
 {
   sNa8bVLO2Wc0cuWeHZ2pbKD ic;
   real_T dt;
@@ -1264,16 +1345,17 @@ struct tag_srfrrefaN8YeKJgvQkZR6zG
   real_T triad_parallel_tol_deg;
   real_T triad_cycles;
   real_T slerp_parameter;
+  real_T bias_max;
 };
 
-#endif                                 /*struct_tag_srfrrefaN8YeKJgvQkZR6zG*/
+#endif                                 /*struct_tag_sikv9YhSpzXCzf5OgcSOFTG*/
 
-#ifndef typedef_srfrrefaN8YeKJgvQkZR6zG
-#define typedef_srfrrefaN8YeKJgvQkZR6zG
+#ifndef typedef_sikv9YhSpzXCzf5OgcSOFTG
+#define typedef_sikv9YhSpzXCzf5OgcSOFTG
 
-typedef struct tag_srfrrefaN8YeKJgvQkZR6zG srfrrefaN8YeKJgvQkZR6zG;
+typedef struct tag_sikv9YhSpzXCzf5OgcSOFTG sikv9YhSpzXCzf5OgcSOFTG;
 
-#endif                                 /*typedef_srfrrefaN8YeKJgvQkZR6zG*/
+#endif                                 /*typedef_sikv9YhSpzXCzf5OgcSOFTG*/
 
 #ifndef struct_tag_s4UGWrK5T4vXCYuUQmez9lD
 #define struct_tag_s4UGWrK5T4vXCYuUQmez9lD
@@ -1318,10 +1400,10 @@ typedef struct tag_sJCxfmxS8gBOONUZjbjUd9E sJCxfmxS8gBOONUZjbjUd9E;
 
 #endif                                 /*typedef_sJCxfmxS8gBOONUZjbjUd9E*/
 
-#ifndef struct_tag_skGChLhlCP1MSDD78rsjENE
-#define struct_tag_skGChLhlCP1MSDD78rsjENE
+#ifndef struct_tag_sz7FCAqQYh967353PHZG01
+#define struct_tag_sz7FCAqQYh967353PHZG01
 
-struct tag_skGChLhlCP1MSDD78rsjENE
+struct tag_sz7FCAqQYh967353PHZG01
 {
   real_T sample_time_s;
   sdmXjJoaSt2nVqqVAdgX7hG constants;
@@ -1330,21 +1412,21 @@ struct tag_skGChLhlCP1MSDD78rsjENE
   sj6pP1GMgfHL5A3aVWCfeW sensors;
   spwiWNa4Y4GztNUaU109sHG controllers;
   scJKliufQEEtVzpQP9TDynD desatcontrollerParams;
-  srfrrefaN8YeKJgvQkZR6zG estimation;
+  sikv9YhSpzXCzf5OgcSOFTG estimation;
   s4UGWrK5T4vXCYuUQmez9lD ground_targs[2];
-  sZcxJKWLgD1dFbRZRCJVkmD mode_select;
+  sMyvFY1T9gMoUuyl91POjEH mode_select;
 };
 
-#endif                                 /*struct_tag_skGChLhlCP1MSDD78rsjENE*/
+#endif                                 /*struct_tag_sz7FCAqQYh967353PHZG01*/
 
-#ifndef typedef_skGChLhlCP1MSDD78rsjENE
-#define typedef_skGChLhlCP1MSDD78rsjENE
+#ifndef typedef_sz7FCAqQYh967353PHZG01
+#define typedef_sz7FCAqQYh967353PHZG01
 
-typedef struct tag_skGChLhlCP1MSDD78rsjENE skGChLhlCP1MSDD78rsjENE;
+typedef struct tag_sz7FCAqQYh967353PHZG01 sz7FCAqQYh967353PHZG01;
 
-#endif                                 /*typedef_skGChLhlCP1MSDD78rsjENE*/
+#endif                                 /*typedef_sz7FCAqQYh967353PHZG01*/
 
-/* Custom Type definition for MATLAB Function: '<S275>/MATLAB Function3' */
+/* Custom Type definition for MATLAB Function: '<S292>/MATLAB Function3' */
 #ifndef struct_tag_sOnLmDaoKki9WcDzElHkUHH
 #define struct_tag_sOnLmDaoKki9WcDzElHkUHH
 
@@ -1407,10 +1489,10 @@ typedef struct tag_sEKz4fwTXocCehpmdvpMWBE sEKz4fwTXocCehpmdvpMWBE;
 
 #endif                                 /*typedef_sEKz4fwTXocCehpmdvpMWBE*/
 
-#ifndef struct_tag_s38jRCRF5ppY5pD7idgzrAE
-#define struct_tag_s38jRCRF5ppY5pD7idgzrAE
+#ifndef struct_tag_stFPoKBzrDXUBYsfr24jlXG
+#define struct_tag_stFPoKBzrDXUBYsfr24jlXG
 
-struct tag_s38jRCRF5ppY5pD7idgzrAE
+struct tag_stFPoKBzrDXUBYsfr24jlXG
 {
   real_T normals[15];
   real_T n_coils[3];
@@ -1424,36 +1506,36 @@ struct tag_s38jRCRF5ppY5pD7idgzrAE
   real_T dipole_to_power[3];
   real_T noise;
   real_T variance;
-  real_T seed[3];
+  real_T seed[5];
 };
 
-#endif                                 /*struct_tag_s38jRCRF5ppY5pD7idgzrAE*/
+#endif                                 /*struct_tag_stFPoKBzrDXUBYsfr24jlXG*/
 
-#ifndef typedef_s38jRCRF5ppY5pD7idgzrAE
-#define typedef_s38jRCRF5ppY5pD7idgzrAE
+#ifndef typedef_stFPoKBzrDXUBYsfr24jlXG
+#define typedef_stFPoKBzrDXUBYsfr24jlXG
 
-typedef struct tag_s38jRCRF5ppY5pD7idgzrAE s38jRCRF5ppY5pD7idgzrAE;
+typedef struct tag_stFPoKBzrDXUBYsfr24jlXG stFPoKBzrDXUBYsfr24jlXG;
 
-#endif                                 /*typedef_s38jRCRF5ppY5pD7idgzrAE*/
+#endif                                 /*typedef_stFPoKBzrDXUBYsfr24jlXG*/
 
-#ifndef struct_tag_s6jBSbfCvEiWdJOI06rDacG
-#define struct_tag_s6jBSbfCvEiWdJOI06rDacG
+#ifndef struct_tag_ssQyMWDenM00TdmyM0Zn0iH
+#define struct_tag_ssQyMWDenM00TdmyM0Zn0iH
 
-struct tag_s6jBSbfCvEiWdJOI06rDacG
+struct tag_ssQyMWDenM00TdmyM0Zn0iH
 {
   real_T sample_time_s;
   sEKz4fwTXocCehpmdvpMWBE rwa;
-  s38jRCRF5ppY5pD7idgzrAE mtq;
+  stFPoKBzrDXUBYsfr24jlXG mtq;
 };
 
-#endif                                 /*struct_tag_s6jBSbfCvEiWdJOI06rDacG*/
+#endif                                 /*struct_tag_ssQyMWDenM00TdmyM0Zn0iH*/
 
-#ifndef typedef_s6jBSbfCvEiWdJOI06rDacG
-#define typedef_s6jBSbfCvEiWdJOI06rDacG
+#ifndef typedef_ssQyMWDenM00TdmyM0Zn0iH
+#define typedef_ssQyMWDenM00TdmyM0Zn0iH
 
-typedef struct tag_s6jBSbfCvEiWdJOI06rDacG s6jBSbfCvEiWdJOI06rDacG;
+typedef struct tag_ssQyMWDenM00TdmyM0Zn0iH ssQyMWDenM00TdmyM0Zn0iH;
 
-#endif                                 /*typedef_s6jBSbfCvEiWdJOI06rDacG*/
+#endif                                 /*typedef_ssQyMWDenM00TdmyM0Zn0iH*/
 
 #ifndef struct_tag_seQMgXRlOAkdlwxpz3kjSk
 #define struct_tag_seQMgXRlOAkdlwxpz3kjSk
@@ -1570,10 +1652,10 @@ typedef struct tag_spY15XNUI8Fubs56G6MzOQD spY15XNUI8Fubs56G6MzOQD;
 
 #endif                                 /*typedef_spY15XNUI8Fubs56G6MzOQD*/
 
-#ifndef struct_tag_snCEoEJPgxB2gRBqAufQ1yD
-#define struct_tag_snCEoEJPgxB2gRBqAufQ1yD
+#ifndef struct_tag_sHw966t9yoYYn7HDTq3imYB
+#define struct_tag_sHw966t9yoYYn7HDTq3imYB
 
-struct tag_snCEoEJPgxB2gRBqAufQ1yD
+struct tag_sHw966t9yoYYn7HDTq3imYB
 {
   s5tYIlxQip0ggvIGvthlXkD opts;
   real_T sample_time_s;
@@ -1583,18 +1665,19 @@ struct tag_snCEoEJPgxB2gRBqAufQ1yD
   sOnLmDaoKki9WcDzElHkUHH initialConditions;
   real_T orbit_tle[9];
   sB337z0fL6GYO7sKWdgRIbD solarPressure;
-  s6jBSbfCvEiWdJOI06rDacG actuators;
+  ssQyMWDenM00TdmyM0Zn0iH actuators;
   spY15XNUI8Fubs56G6MzOQD sensors;
+  s4xbvtSY5L582vzuVYrHppD power;
 };
 
-#endif                                 /*struct_tag_snCEoEJPgxB2gRBqAufQ1yD*/
+#endif                                 /*struct_tag_sHw966t9yoYYn7HDTq3imYB*/
 
-#ifndef typedef_snCEoEJPgxB2gRBqAufQ1yD
-#define typedef_snCEoEJPgxB2gRBqAufQ1yD
+#ifndef typedef_sHw966t9yoYYn7HDTq3imYB
+#define typedef_sHw966t9yoYYn7HDTq3imYB
 
-typedef struct tag_snCEoEJPgxB2gRBqAufQ1yD snCEoEJPgxB2gRBqAufQ1yD;
+typedef struct tag_sHw966t9yoYYn7HDTq3imYB sHw966t9yoYYn7HDTq3imYB;
 
-#endif                                 /*typedef_snCEoEJPgxB2gRBqAufQ1yD*/
+#endif                                 /*typedef_sHw966t9yoYYn7HDTq3imYB*/
 
 /* Forward declaration for rtModel */
 typedef struct tag_RTM RT_MODEL;
