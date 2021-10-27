@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'FSW_Lib'.
  *
- * Model version                  : 1.354
+ * Model version                  : 1.374
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Thu Jul 22 19:14:53 2021
+ * C/C++ source code generated on : Tue Oct 26 16:29:45 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: NXP->Cortex-M4
@@ -32,8 +32,7 @@
 #include "FSW_Lib_types.h"
 
 extern real_T twonorm(const real_T rtu_vec[3]);
-extern real_T twonorm_h(const real_T rtu_vec[2]);
-extern real_T twonorm_o(const real_T rtu_vec[4]);
+extern real_T twonorm_f(const real_T rtu_vec[2]);
 
 #endif                                 /* RTW_HEADER_twonorm_h_ */
 
