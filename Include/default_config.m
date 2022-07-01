@@ -1,4 +1,4 @@
-function [fswParams,simParams] = default_config()
+function [fswParams,simParams] = default_config(tle_filenamme)
 %DEFAULT_CONFIG
 %
 % Sets some of the basic parameters for the sim. This function creates the
@@ -8,6 +8,7 @@ function [fswParams,simParams] = default_config()
 %
 % T. P. Reynolds
 
+% Open the main sim.
 open('Main_Sim.slx')
 
 % main structs
@@ -15,11 +16,13 @@ fswParams = struct;
 simParams = struct;
 
 % simlation options
+simParams.opts.configure_for_flatsat = false;
 simParams.opts.SP_ON   = 1;
 simParams.opts.GG_ON   = 1;
 simParams.opts.ATMO_ON = 1;
 simParams.opts.sensor_noise = 1;
 simParams.opts.actuator_model = 0;
+simParams.opts.tle_filename = tle_filenamme;
 
 % FSW Parameters 
 fswParams.sample_time_s = 1/4;     % flight software sample rate

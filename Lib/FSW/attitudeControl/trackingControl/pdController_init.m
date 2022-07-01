@@ -8,7 +8,7 @@ function [fswParams,simParams] = pdController_init(fswParams,simParams)
 
 tracking = struct;
 
-load('../Include/pdController.mat','pdController');
+load(which('pdController.mat'), 'pdController');
 
 tracking.Kd = pdController.Kd;
 tracking.Kp = pdController.Kp;

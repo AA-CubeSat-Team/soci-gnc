@@ -1,1 +1,8 @@
-Src/sfun_ecos.mexw64
+*.asv
+*.slxc
+*.m~
+
+slprj/
+*.mexw64
+*.tlc
+Lib/FSW/soar/build/sfun_ecos.c
